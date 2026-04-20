@@ -13,6 +13,7 @@ const blog = defineCollection({
       pubDate: z.coerce.date(),
       updatedDate: z.coerce.date().optional(),
       heroImage: image().optional(),
+      tags: z.array(z.string()).optional(),
     }),
 });
 
@@ -38,79 +39,129 @@ const portfolio = defineCollection({
 });
 
 const landingHero = defineCollection({
-  loader: glob({ pattern: "hero.md", base: "src/content/landing" }),
+  loader: glob({ pattern: "hero.md", base: "./src/content/landing" }),
   schema: z.object({
     eyebrow: z.string(),
     headline: z.string(),
+    accent: z.string(),
     description: z.string(),
-    cta1Text: z.string(),
-    cta1Link: z.string(),
-    cta2Text: z.string(),
-    cta2Link: z.string(),
-  }),
-});
-
-const landingWhatWeOffer = defineCollection({
-  loader: glob({ pattern: "what-we-offer.md", base: "src/content/landing" }),
-  schema: z.object({
-    eyebrow: z.string(),
-    headline: z.string(),
-  }),
-});
-
-const landingPortfolio = defineCollection({
-  loader: glob({ pattern: "portfolio.md", base: "src/content/landing" }),
-  schema: z.object({
-    eyebrow: z.string(),
-    headline: z.string(),
-  }),
-});
-
-const landingComparison = defineCollection({
-  loader: glob({ pattern: "comparison.md", base: "src/content/landing" }),
-  schema: z.object({
-    eyebrow: z.string(),
-    headline: z.string(),
-    description: z.string(),
-    rows: z.array(
+    primaryCtaText: z.string(),
+    primaryCtaLink: z.string(),
+    secondaryCtaText: z.string(),
+    secondaryCtaLink: z.string(),
+    collageCards: z.array(
       z.object({
-        feature: z.string(),
-        diy: z.string(),
-        ours: z.string(),
-      })
-    ),
-  }),
-});
-
-const landingPricing = defineCollection({
-  loader: glob({ pattern: "pricing.md", base: "src/content/landing" }),
-  schema: z.object({
-    eyebrow: z.string(),
-    headline: z.string(),
-    plans: z.array(
-      z.object({
-        variant: z.string(),
         title: z.string(),
-        price: z.string(),
-        priceNote: z.string(),
-        features: z.array(
-          z.object({
-            text: z.string(),
-            included: z.boolean().default(true),
-          })
-        ),
+        body: z.string().optional(),
+        kind: z.enum(["blank", "ring", "database", "bar"]),
       })
-    ),
+    ).length(4),
   }),
 });
 
-const landingCTA = defineCollection({
-  loader: glob({ pattern: "cta.md", base: "src/content/landing" }),
+const landingSocialProof = defineCollection({
+  loader: glob({ pattern: "social-proof.md", base: "./src/content/landing" }),
   schema: z.object({
     eyebrow: z.string(),
     headline: z.string(),
+    description: z.string(),
+    testimonials: z.array(
+      z.object({
+        quote: z.string(),
+        initials: z.string(),
+        name: z.string(),
+        role: z.string(),
+        accent: z.enum(["green", "orange"]),
+      })
+    ).length(6),
+  }),
+});
+
+const landingModularFeature = defineCollection({
+  loader: glob({ pattern: "modular-feature.md", base: "./src/content/landing" }),
+  schema: z.object({
+    eyebrow: z.string(),
+    headline: z.string(),
+    description: z.string(),
+    bullets: z.array(z.string()),
+  }),
+});
+
+const landingValuePillars = defineCollection({
+  loader: glob({ pattern: "value-pillars.md", base: "./src/content/landing" }),
+  schema: z.object({
+    items: z.array(
+      z.object({
+        eyebrow: z.string(),
+        headline: z.string(),
+        description: z.string(),
+        icon: z.enum(["shield", "ban", "cloud", "maple"]),
+        tone: z.enum(["default", "canadian"]).default("default"),
+        chips: z.array(z.string()),
+      })
+    ).length(4),
+  }),
+});
+
+const landingBeyondCalorie = defineCollection({
+  loader: glob({ pattern: "beyond-calorie.md", base: "./src/content/landing" }),
+  schema: z.object({
+    headline: z.string(),
+    description: z.string(),
+    nutrients: z.array(z.string()).length(4),
+    statLabel: z.string(),
+    progressBars: z.array(
+      z.object({
+        label: z.string(),
+        percentage: z.number().int().min(0).max(100),
+        fill: z.enum(["primary", "accent"]),
+      })
+    ).length(2),
+    statMetricLabel: z.string(),
+    statValue: z.string(),
+  }),
+});
+
+const landingSignupCta = defineCollection({
+  loader: glob({ pattern: "signup-cta.md", base: "./src/content/landing" }),
+  schema: z.object({
+    headline: z.string(),
+    description: z.string(),
+    inputPlaceholder: z.string(),
     buttonText: z.string(),
-    buttonLink: z.string(),
+    note: z.string(),
+  }),
+});
+
+const landingFooter = defineCollection({
+  loader: glob({ pattern: "footer.md", base: "./src/content/landing" }),
+  schema: z.object({
+    tagline: z.string(),
+    links: z.array(
+      z.object({
+        label: z.string(),
+        href: z.string(),
+      })
+    ).length(3),
+  }),
+});
+
+const landingBlogMasthead = defineCollection({
+  loader: glob({ pattern: "blog-masthead.md", base: "./src/content/landing" }),
+  schema: z.object({
+    eyebrow: z.string(),
+    headlinePrefix: z.string(),
+    headlineAccent: z.string(),
+    lede: z.string(),
+  }),
+});
+
+const landingBlogNow = defineCollection({
+  loader: glob({ pattern: "blog-now.md", base: "./src/content/landing" }),
+  schema: z.object({
+    headline: z.string(),
+    body: z.string(),
+    items: z.array(z.string()),
   }),
 });
 
@@ -119,9 +170,12 @@ export const collections = {
   services,
   portfolio,
   landingHero,
-  landingWhatWeOffer,
-  landingPortfolio,
-  landingComparison,
-  landingPricing,
-  landingCTA,
+  landingSocialProof,
+  landingModularFeature,
+  landingValuePillars,
+  landingBeyondCalorie,
+  landingSignupCta,
+  landingFooter,
+  landingBlogMasthead,
+  landingBlogNow,
 };
