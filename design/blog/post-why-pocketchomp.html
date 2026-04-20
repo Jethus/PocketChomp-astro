@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Why I'm building PocketChomp — PocketChomp Blog</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Geist:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="blog.css">
+</head>
+<body>
+
+<nav class="top">
+  <div class="wrap row">
+    <a href="../Landing Page v2.html" class="logo">
+      <span class="pocket">Pocket</span>
+      <span class="chomp">Ch<span class="o"></span>mp</span>
+    </a>
+    <div class="right">
+      <a class="nav-link" href="index.html">Blog</a>
+      <a href="../Landing Page v2.html#signup" class="btn primary" style="padding:10px 18px;font-size:14px">Join the beta →</a>
+    </div>
+  </div>
+</nav>
+
+<header class="article-head">
+  <div class="wrap-narrow">
+    <a href="index.html" class="backlink">← All posts</a>
+    <div class="meta-row">
+      <span class="post-tag philosophy">Philosophy</span>
+      <span class="post-tag devlog">Devlog · 01</span>
+      <span>16 APR 2026</span>
+      <span>·</span>
+      <span>6 min read</span>
+    </div>
+    <h1>Why I'm building PocketChomp.</h1>
+    <p class="subtitle">Another macro tracker? Really? Yes — because the ones I tried either gated the scanner behind a subscription, didn't exist on Android, or treated my food log like an asset on their balance sheet.</p>
+    <div class="author-row">
+      <div class="author-avatar">JT</div>
+      <div>
+        <div class="author-name">Jethus</div>
+        <div class="author-handle">@jethus · solo founder</div>
+      </div>
+      <div class="share-row">
+        <button class="share-btn" title="Copy link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        </button>
+        <button class="share-btn" title="Share">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M16 6l-4-4-4 4M12 2v13"/></svg>
+        </button>
+        <button class="share-btn" title="Bookmark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<article class="prose">
+
+  <div class="toc">
+    <h4>In this post</h4>
+    <ol>
+      <li><a href="#the-frustration">The frustration that started it</a></li>
+      <li><a href="#what-i-want">What I actually want from a tracker</a></li>
+      <li><a href="#four-pillars">The four pillars I kept coming back to</a></li>
+      <li><a href="#why-now">Why now, and why me</a></li>
+      <li><a href="#what-next">What you can expect from this blog</a></li>
+    </ol>
+  </div>
+
+  <p>I had three apps installed. One wanted $79.99 a year to use its barcode scanner. One didn't exist on Android, so I couldn't actually recommend it to anyone I know. One showed me an ad for a protein powder I'd already rejected three times, in the middle of logging an apple.</p>
+
+  <p>Closed all three. Opened a text file. Started typing what I wanted instead.</p>
+
+  <h2 id="the-frustration">The frustration that started it</h2>
+
+  <p>I'm not a nutritionist. I'm a software person who likes cooking and thinks a lot about what goes into my body. For two years I tried to be a "serious tracker" — weighing food, logging every snack, reviewing my macros weekly. I learned a lot. But I also learned that the apps available in Canada in 2025 were, almost without exception, <strong>built to extract something from me</strong>: money, attention, or data.</p>
+
+  <p>The pattern looks like this:</p>
+
+  <ul>
+    <li>Free tier is functional enough to hook you. Paid tier is where the <em>good</em> search / scanner / AI lives.</li>
+    <li>Login required on first launch. No "just let me try it" mode.</li>
+    <li>The nutrition database skews American. Canadian packaged foods are missing or wrong.</li>
+    <li>Metric is an afterthought. Imperial defaults everywhere.</li>
+    <li>If it's iOS-only, it's iOS-only for a reason — and that reason is usually <em>we bet on one platform and it's not yours</em>.</li>
+  </ul>
+
+  <div class="callout warn">
+    <div class="icon">!</div>
+    <p><strong>The thing that finally broke me:</strong> one app wouldn't let me <em>export</em> my own logged data without a subscription. Three years of meals, locked behind a paywall. That's the moment I decided to build my own.</p>
+  </div>
+
+  <h2 id="what-i-want">What I actually want from a tracker</h2>
+
+  <p>I sat down and wrote a list. It's boring. That's the point.</p>
+
+  <ol>
+    <li>Open the app. Log a meal. Close the app. No account required to begin.</li>
+    <li>Voice, barcode, photo, text, OCR, quick-add. I should be able to log how it finds me.</li>
+    <li>Metric by default. Canadian food database priorities. French coming.</li>
+    <li>Works offline. Syncs only if I ask it to.</li>
+    <li>Micronutrients if I want them. Hidden if I don't.</li>
+    <li>My data, exportable at any time, in a format I can actually open (CSV, JSON).</li>
+    <li>One flat price. Not "Pro", "Pro+", "Premium" and "Ultra".</li>
+    <li>On my phone. Both of them. iOS <em>and</em> Android.</li>
+  </ol>
+
+  <p>None of this is novel. It's the absence of it, together, in one product, that's the opening.</p>
+
+  <div class="pullquote">
+    "Your body, your rules" is a marketing line. "Your data, your device" is an architecture decision.
+  </div>
+
+  <h2 id="four-pillars">The four pillars I kept coming back to</h2>
+
+  <p>I pinned these on the wall on day one. Every feature gets tested against them before it ships.</p>
+
+  <h3>1. Privacy is the foundation, not the marketing</h3>
+  <p>Local-first storage. No third-party analytics SDKs — not even the "helpful" ones. The default answer to "should we collect X?" is <strong>no</strong>, and the bar to override that default is <em>a feature that literally cannot work without it</em>.</p>
+
+  <h3>2. Respect for people</h3>
+  <p>No ads. Not on the free tier. Not anywhere. Not ever. We sell software — we don't sell you. And no dark-pattern upsells crowding the dashboard while you're trying to figure out dinner.</p>
+
+  <h3>3. Control</h3>
+  <p>Your data lives on your device. You decide if and when it syncs. You can export everything in one tap. You can delete everything in two. The product should feel like a tool you own, not a service you rent.</p>
+
+  <h3>4. Proudly Canadian (and cross-platform)</h3>
+  <p>Built in Toronto. Priced in CAD. Metric first. Android and iOS from day one — because "iOS exclusive" in 2026 mostly means "we couldn't be bothered with half our potential users."</p>
+
+  <h2 id="why-now">Why now, and why me</h2>
+
+  <p>Two things changed in the last 18 months that made this feasible for a solo dev:</p>
+
+  <ol>
+    <li><strong>On-device inference got cheap enough</strong> to portion food photos without a subscription-funded GPU farm. Gemini Flash + a well-scoped prompt does 95% of what I need at a cost I can absorb.</li>
+    <li><strong>Expo + Supabase + SQLite</strong> collapsed the iOS/Android/cloud triangle into something one person can actually maintain. I'm not writing two apps. I'm writing one.</li>
+  </ol>
+
+  <p>I'm the ideal first user: frustrated enough to build it, patient enough to use it daily while it's rough, opinionated enough to <em>not</em> add every feature every beta tester asks for. If you're the kind of person who reads software blogs and nods along, you're probably my second or third user.</p>
+
+  <pre><code><span class="c">// The stack, for the curious</span>
+<span class="k">const</span> stack = {
+  client: <span class="s">'Expo / React Native'</span>,
+  storage: <span class="s">'SQLite (local-first)'</span>,
+  sync: <span class="s">'Supabase (opt-in)'</span>,
+  ai: <span class="s">'Gemini Flash'</span>,
+  db: <span class="s">'Open Food Facts + CA-curated'</span>,
+  price: <span class="n">39.99</span>, <span class="c">// CAD / year. No tiers.</span>
+};</code></pre>
+
+  <h2 id="what-next">What you can expect from this blog</h2>
+
+  <p>I'm writing in public because the alternative — shipping a quiet little app into the same market the big players already own — doesn't work. Building in public is marketing <em>and</em> accountability, at the price of being occasionally embarrassing.</p>
+
+  <p>Three kinds of posts:</p>
+
+  <ul>
+    <li><strong>ADRs (Architecture Decision Records).</strong> Why I chose a thing. The tradeoffs. The things I almost chose instead.</li>
+    <li><strong>Prompt anatomy + PRPs (Prompt-Response-Refine).</strong> The actual prompts, the actual failures, the actual fixes. Vibe-coding with receipts.</li>
+    <li><strong>Debug stories.</strong> When something breaks in a beautiful, instructive way, I'll write it up.</li>
+  </ul>
+
+  <p>Occasionally I'll write something philosophical. This is one of those. Next week: the ADR for local-first. After that: why the Gemini prompt for photo logging has three few-shot examples, not five, not one.</p>
+
+  <hr>
+
+  <p><em>If this resonates — if you also have three abandoned trackers on your phone — I'd love to have you in the beta. It's free. There's no account required to try it. You can export everything you log. You can delete it all with two taps. That's the deal.</em></p>
+
+  <div class="newsletter">
+    <h3>Field notes in your inbox.</h3>
+    <p>One post per build. No spam, no tracking pixels, no "engagement optimization". You can unsubscribe in one tap and I'll delete your email within 30 days.</p>
+    <form class="newsletter-form" onsubmit="event.preventDefault();this.querySelector('input').value='';this.querySelector('button').textContent='✓ Subscribed'">
+      <input type="email" required placeholder="you@example.com">
+      <button class="btn primary" type="submit" style="padding:10px 18px;font-size:13px">Subscribe</button>
+    </form>
+  </div>
+
+  <nav class="postnav">
+    <a href="#" class="prev">
+      <span class="dir">← Older post</span>
+      <span class="ptitle">Nothing yet — this is the first.</span>
+    </a>
+    <a href="#" class="next">
+      <span class="dir">Newer post →</span>
+      <span class="ptitle">ADR-003: Why local-first beats cloud sync</span>
+    </a>
+  </nav>
+
+</article>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-inner">
+      <div class="logo">
+        <span class="pocket">Pocket</span>
+        <span class="chomp">Ch<span class="o"></span>mp</span>
+      </div>
+      <div class="foot-links">
+        <a href="../Landing Page v2.html">Home</a>
+        <a href="index.html">Blog</a>
+        <a href="../Landing Page v2.html#signup">Join the beta</a>
+        <a href="mailto:hello@pocketchomp.ca">hello@pocketchomp.ca</a>
+      </div>
+    </div>
+    <div class="copy">
+      <div>© 2026 PocketChomp · Made in Toronto, ON</div>
+      <div>RSS · Atom · Open web forever</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

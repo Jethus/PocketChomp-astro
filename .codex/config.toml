@@ -1,0 +1,19 @@
+[mcp_servers.nativewind-docs]
+enabled = false
+
+[mcp_servers.react-native-docs]
+enabled = false
+
+[mcp_servers.supabase-cloud]
+enabled = false
+
+[mcp_servers.pocketchomp-local-supabase]
+enabled = false
+
+[mcp_servers.astro-docs]
+command = "npx.cmd"
+args = ["-y", "mcp-remote", "https://mcp.docs.astro.build/mcp"]
+
+[mcp_servers.context7]
+command = "npx"
+args = ["-y", "@upstash/context7-mcp"]

@@ -1,6 +1,6 @@
 Source: https://github.com/tailwindlabs/tailwindcss.com
-Commit: cfceee1e8b8b64187ff5e3c0bc41c11c9b80f2fd
-Commit-Date: 2026-03-09 08:22:11 +0100
+Commit: 50a55bdc1cdb2c66ad49bbb842059dbf2746bdf9
+Commit-Date: 2026-04-14 11:59:08 +0200
 Docs-Path: src/docs
 Index-Path: src/app/(docs)/docs/index.tsx
-Snapshot-Date: 2026-03-11
+Snapshot-Date: 2026-04-20

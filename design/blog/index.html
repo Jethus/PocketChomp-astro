@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Blog — PocketChomp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Geist:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="blog.css">
+</head>
+<body>
+
+<nav class="top">
+  <div class="wrap row">
+    <a href="../Landing Page v2.html" class="logo">
+      <span class="pocket">Pocket</span>
+      <span class="chomp">Ch<span class="o"></span>mp</span>
+    </a>
+    <div class="right">
+      <a class="nav-link active" href="index.html">Blog</a>
+      <a href="../Landing Page v2.html#signup" class="btn primary" style="padding:10px 18px;font-size:14px">Join the beta →</a>
+    </div>
+  </div>
+</nav>
+
+<header class="blog-masthead">
+  <div class="wrap-narrow">
+    <div class="eyebrow">Building in public · since April 2026</div>
+    <h1 class="display">Field&nbsp;notes from <span class="accent">a tiny app.</span></h1>
+    <p class="lede">Architecture decisions, prompt anatomy, PRPs, debug stories, and the occasional philosophical detour. One person. Two platforms. Whatever honesty survives shipping.</p>
+  </div>
+</header>
+
+<div class="wrap-narrow">
+  <div class="filter-strip">
+    <button class="chip active">All<span class="count">03</span></button>
+    <button class="chip">Devlog<span class="count">01</span></button>
+    <button class="chip">ADR<span class="count">01</span></button>
+    <button class="chip">Prompting<span class="count">01</span></button>
+    <button class="chip">Debugging<span class="count">00</span></button>
+    <button class="chip">Philosophy<span class="count">01</span></button>
+  </div>
+
+  <div class="post-list">
+
+    <a href="post-why-pocketchomp.html" class="post-row">
+      <div class="post-date">
+        <span class="day">16</span>
+        APR · 2026
+      </div>
+      <div class="post-body">
+        <h2>Why I'm building PocketChomp.</h2>
+        <p class="excerpt">Another macro tracker, really? Yes — because the ones I tried either subscription-gated the scanner, didn't exist on Android, or treated my food log like an asset on their balance sheet. This is the frustrated-user origin story, written before the app even ships.</p>
+        <div class="post-meta">
+          <span class="post-tag philosophy">Philosophy</span>
+          <span class="post-tag devlog">Devlog · 01</span>
+          <span class="read-time">⏱ 6 min read</span>
+        </div>
+      </div>
+      <div class="post-arrow">→</div>
+    </a>
+
+    <a href="#" class="post-row">
+      <div class="post-date">
+        <span class="day">12</span>
+        APR · 2026
+      </div>
+      <div class="post-body">
+        <h2>ADR-003: Why&nbsp;local-first beats cloud sync by default.</h2>
+        <p class="excerpt">Expo SQLite, WatermelonDB, or roll-your-own? A decision record for why PocketChomp stores everything on-device and treats cloud sync as opt-in infrastructure. Includes the tradeoff table I almost didn't write, and the one edge case that nearly broke my resolve.</p>
+        <div class="post-meta">
+          <span class="post-tag adr">ADR</span>
+          <span class="post-tag devlog">Architecture</span>
+          <span class="read-time">⏱ 11 min read</span>
+        </div>
+      </div>
+      <div class="post-arrow">→</div>
+    </a>
+
+    <a href="#" class="post-row">
+      <div class="post-date">
+        <span class="day">06</span>
+        APR · 2026
+      </div>
+      <div class="post-body">
+        <h2>Prompt anatomy: getting Gemini Flash to actually portion a plate.</h2>
+        <p class="excerpt">Food photo → structured nutrition is harder than a demo makes it look. Here's the exact prompt scaffold I've iterated on, the three shots I feed it, why the output is JSON-schema-constrained, and the retry strategy when the model hallucinates a side of quinoa that isn't there.</p>
+        <div class="post-meta">
+          <span class="post-tag prompt">Prompting</span>
+          <span class="post-tag devlog">PRP</span>
+          <span class="read-time">⏱ 9 min read</span>
+        </div>
+      </div>
+      <div class="post-arrow">→</div>
+    </a>
+
+  </div>
+
+  <div class="now-card">
+    <div class="pill ghost" style="margin-bottom:14px"><span class="dot" style="background:var(--orange)"></span>What I'm on this week</div>
+    <h3>Closed beta, round one.</h3>
+    <p>Shipping private TestFlight + internal Play builds to the first 50. Writing the onboarding wizard. Fighting with the food database importer. Drinking too much coffee. Below: what's open right now.</p>
+    <ul>
+      <li>Onboarding wizard (TestFlight #4)</li>
+      <li>Gemini prompt v7</li>
+      <li>Food DB → SQLite schema</li>
+      <li>iCloud sync adapter</li>
+      <li>Barcode UX polish</li>
+      <li>PRP for voice logging</li>
+    </ul>
+  </div>
+</div>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-inner">
+      <div class="logo">
+        <span class="pocket">Pocket</span>
+        <span class="chomp">Ch<span class="o"></span>mp</span>
+      </div>
+      <div class="foot-links">
+        <a href="../Landing Page v2.html">Home</a>
+        <a href="index.html">Blog</a>
+        <a href="../Landing Page v2.html#signup">Join the beta</a>
+        <a href="mailto:hello@pocketchomp.ca">hello@pocketchomp.ca</a>
+      </div>
+    </div>
+    <div class="copy">
+      <div>© 2026 PocketChomp · Made in Toronto, ON</div>
+      <div>RSS · Atom · Open web forever</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

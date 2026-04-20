@@ -1,7 +1,7 @@
 # CLAUDE.md
 
-This file is the agent workflow harness for `C:\repos\PocketChomp-astro`.
-`AGENTS.md` should point to this file so there is one source of truth.
+This file is the agent workflow harness for `C:\repos\PocketChomp-site`.
+`AGENTS.md` is the short entry point for this file and the `.agents` rules.
 
 ## Purpose
 
@@ -112,12 +112,12 @@ Do not swap this for Tailwind Typography defaults or fixed pixel font sizing.
 
 ### Fonts
 
-Astro's local font provider is configured for:
+Brand typography for this project is:
 
-- `Lato` for headings
-- `Noto Sans` for body copy
+- `Montserrat Black` for titles and headings
+- `Geist` for body copy
 
-Keep these decisions aligned across layout, tokens, and component styling unless the brand direction is intentionally being changed.
+If the implementation still references older fonts, treat that as lagging code rather than the desired design direction. Do not introduce any new conflicting font choices, and keep future typography work aligned with this brand decision across layout, tokens, and component styling.
 
 ## Astro Features In Use
 
@@ -148,7 +148,7 @@ These are exploratory mockups, not production templates. Agents should extract u
 
 But production implementation should still:
 
-- use the repo's existing font system unless branding is explicitly changed
+- use the project typography direction of `Montserrat Black` for headings and `Geist` for body copy
 - stay within the OKLCH token system
 - keep content editable through Markdown collections
 - fit Astro component boundaries already used in the repo

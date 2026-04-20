@@ -1,12 +1,12 @@
-<!doctype html>
-<html lang="en">
-<head>
+<!DOCTYPE html><html lang="en" data-cc-id="cc-10"><head>
+
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>PocketChomp — Track your macros, not your data.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Geist:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&amp;family=Geist:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#0d0e0d;
@@ -114,9 +114,10 @@
 
   /* ============ 6 WAYS TO LOG ============ */
   .ways{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:linear-gradient(180deg,#101210,#0d0e0d)}
-  .ways-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:0}
-  .way{padding:28px 20px;border-right:1px solid var(--line);position:relative;transition:background .2s}
-  .way:last-child{border-right:0}
+  .ways-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+  .way{padding:28px 24px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);position:relative;transition:background .2s}
+  .way:nth-child(3n){border-right:0}
+  .way:nth-child(n+4){border-bottom:0}
   .way:hover{background:rgba(232,96,31,.04)}
   .way-num{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--orange);letter-spacing:.1em;margin-bottom:18px}
   .way-icon{width:38px;height:38px;margin-bottom:16px;color:var(--ink)}
@@ -211,7 +212,7 @@
 
   /* ============ FOOTER ============ */
   footer{background:var(--bg-2);border-top:1px solid var(--line);padding:48px 0 32px;margin-top:40px}
-  .foot-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:40px}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px}
   .foot-col h5{font-family:'Geist',sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-mute);margin:0 0 14px;font-weight:700}
   .foot-col ul{list-style:none;margin:0;padding:0}
   .foot-col li{padding:6px 0;font-size:14px;color:var(--ink-dim)}
@@ -232,30 +233,25 @@
   }
 </style>
 </head>
-<body>
+<body style="cursor: crosshair;" data-cc-id="cc-27">
 
 <!-- ============ NAV ============ -->
-<nav class="top">
-  <div class="wrap row">
+<nav class="top" data-cc-id="cc-26">
+  <div class="wrap row" data-cc-id="cc-13">
     <div class="logo">
       <span class="pocket">Pocket</span>
       <span class="chomp">Ch<span class="o"></span>mp</span>
     </div>
-    <div class="links">
-      <a href="#how">How it works</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#feedback">Feedback</a>
-    </div>
-    <a href="#signup" class="btn primary" style="padding:10px 18px;font-size:14px">Join the beta →</a>
+    <a href="#signup" class="btn primary" style="padding:10px 18px;font-size:14px" data-cc-id="cc-73">Join the beta →</a>
   </div>
 </nav>
 
 <!-- ============ HERO ============ -->
-<header class="hero">
-  <div class="wrap hero-grid">
-    <div>
-      <div class="eyebrow">Private beta · iOS &amp; Android</div>
-      <h1 class="display hero-title">Track your macros,<br><span class="accent">not&nbsp;your&nbsp;data.</span></h1>
+<header class="hero" data-cc-id="cc-7">
+  <div class="wrap hero-grid" data-cc-id="cc-8">
+    <div data-cc-id="cc-11">
+      <div class="eyebrow" data-cc-id="cc-12">Private beta · iOS &amp; Android</div>
+      <h1 class="display hero-title" data-cc-id="cc-9">Track your macros,<br><span class="accent">not&nbsp;your&nbsp;data.</span></h1>
       <p class="hero-lede">The local-first nutrition tracker built for Canadians. Your macros, micros, and food logs stay on your phone — until <em>you</em> decide otherwise. No subscription required to start.</p>
       <div class="hero-cta-row">
         <a href="#signup" class="btn primary">Join the beta</a>
@@ -263,15 +259,15 @@
       </div>
       <div class="hero-meta">
         <span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"></path></svg>
           Works offline
         </span>
         <span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"></path></svg>
           No account required
         </span>
         <span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"></path></svg>
           iOS &amp; Android
         </span>
       </div>
@@ -295,7 +291,7 @@
         </div>
       </div>
       <div class="card c3" style="padding:10px 14px;display:flex;align-items:center;gap:8px">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#e8601f" stroke-width="2.5"><path d="M4 4h16v4H4zM4 16h16v4H4zM8 8v8M16 8v8"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#e8601f" stroke-width="2.5"><path d="M4 4h16v4H4zM4 16h16v4H4zM8 8v8M16 8v8"></path></svg>
         <span style="font-size:11px;font-weight:700;letter-spacing:.08em">BARCODE</span>
       </div>
 
@@ -310,8 +306,8 @@
         <div style="display:flex;align-items:center;gap:8px;margin-top:auto">
           <div class="ring">
             <svg viewBox="0 0 44 44">
-              <circle cx="22" cy="22" r="18" stroke="rgba(232,240,234,.15)" stroke-width="5" fill="none"/>
-              <circle cx="22" cy="22" r="18" stroke="#e8601f" stroke-width="5" fill="none" stroke-dasharray="113" stroke-dashoffset="28" stroke-linecap="round"/>
+              <circle cx="22" cy="22" r="18" stroke="rgba(232,240,234,.15)" stroke-width="5" fill="none"></circle>
+              <circle cx="22" cy="22" r="18" stroke="#e8601f" stroke-width="5" fill="none" stroke-dasharray="113" stroke-dashoffset="28" stroke-linecap="round"></circle>
             </svg>
             <div class="ring-inner">75%</div>
           </div>
@@ -346,73 +342,59 @@
 </header>
 
 <!-- ============ 6 WAYS TO LOG ============ -->
-<section id="how" class="ways" style="padding:0">
-  <div class="wrap" style="padding-top:72px;padding-bottom:24px">
-    <div class="section-head" style="margin-bottom:40px;text-align:left">
-      <span class="pill ghost"><span class="dot" style="background:var(--orange)"></span>Six ways to log</span>
-      <h2 class="display" style="font-size:clamp(36px,4.5vw,56px)">Log food however it finds you.</h2>
-      <p>No single logging method works for every moment. Hand full? Voice log. At the grocery store? Scan. Eating something weird? Snap a photo.</p>
+<section id="how" class="ways" style="padding:0" data-cc-id="cc-6">
+  <div class="wrap" style="padding-top:72px;padding-bottom:24px" data-cc-id="cc-14">
+    <div class="section-head" style="margin-bottom:40px;text-align:left;margin-left:0">
+      <span class="pill ghost" data-cc-id="cc-15"><span class="dot" style="background:var(--orange)"></span>Six ways to log</span>
+      <h2 class="display" style="font-size:clamp(36px,4.5vw,56px);text-align:left">Log food however it finds you.</h2>
+      <p style="text-align:left">No single logging method works for every moment. Hand full? Voice log. At the grocery store? Scan. Eating something weird? Snap a photo.</p>
     </div>
   </div>
-  <div class="wrap" style="padding:0 32px 40px">
-    <div class="ways-grid" style="border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;background:var(--card)">
-      <div class="way">
-        <div class="way-num">01</div>
-        <div class="way-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div>
+  <div class="wrap" style="padding:0 32px 40px" data-cc-id="cc-5">
+    <div class="ways-grid" style="border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;background:var(--card)" data-cc-id="cc-17">
+      <div class="way" data-cc-id="cc-1">
+        <div class="way-num" data-cc-id="cc-2">01</div>
+        <div class="way-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-cc-id="cc-3"><circle cx="11" cy="11" r="7" data-cc-id="cc-4"></circle><path d="m21 21-4.3-4.3"></path></svg></div>
         <h4>Text search</h4>
         <p>Full-text + your personal history ranks what you eat most.</p>
       </div>
-      <div class="way">
-        <div class="way-num">02</div>
-        <div class="way-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5v14M7 5v14M11 5v14M15 5v14M19 5v14"/></svg></div>
-        <h4>Barcode</h4>
+      <div class="way" data-cc-id="cc-18">
+        <div class="way-num" data-cc-id="cc-19">02</div>
+        <div class="way-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-cc-id="cc-20"><path d="M3 5v14M7 5v14M11 5v14M15 5v14M19 5v14"></path></svg></div>
+        <h4 data-cc-id="cc-21">Barcode</h4>
         <p>Scan any packaged food and log it in one tap.</p>
       </div>
-      <div class="way">
-        <div class="way-num">03</div>
-        <div class="way-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="4"/><path d="M8 6l2-3h4l2 3"/></svg></div>
-        <h4>AI photo</h4>
-        <p>Gemini Flash identifies the plate and portions it for you.</p>
+      <div class="way" data-cc-id="cc-22">
+        <div class="way-num" data-cc-id="cc-30">03</div>
+        <div class="way-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="14" rx="2"></rect><circle cx="12" cy="13" r="4"></circle><path d="M8 6l2-3h4l2 3"></path></svg></div>
+        <h4 data-cc-id="cc-23">AI photo</h4>
+        <p data-cc-id="cc-25" style="">Our AI identifies the plate and portions it for you.</p>
       </div>
-      <div class="way">
+      <div class="way" data-cc-id="cc-16">
         <div class="way-num">04</div>
-        <div class="way-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></div>
-        <h4>Voice</h4>
-        <p>"Two scrambled eggs and toast." Done.</p>
+        <div class="way-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-cc-id="cc-35"><rect x="9" y="3" width="6" height="12" rx="3" data-cc-id="cc-34"></rect><path d="M5 11a7 7 0 0 0 14 0M12 18v3"></path></svg></div>
+        <h4 data-cc-id="cc-33">Voice</h4>
+        <p style="" data-cc-id="cc-28">"Two scrambled eggs and toast." Done.</p>
       </div>
-      <div class="way">
-        <div class="way-num">05</div>
-        <div class="way-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 10h8M8 14h5"/></svg></div>
+      <div class="way" data-cc-id="cc-31">
+        <div class="way-num" data-cc-id="cc-32">05</div>
+        <div class="way-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"></rect><path d="M8 10h8M8 14h5"></path></svg></div>
         <h4>OCR label</h4>
         <p>Point at the nutrition label, we parse every line.</p>
       </div>
-      <div class="way">
+      <div class="way" data-cc-id="cc-24">
         <div class="way-num">06</div>
-        <div class="way-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div>
+        <div class="way-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg></div>
         <h4>Quick add</h4>
-        <p>Just calories and macros. No item required.</p>
+        <p style="" data-cc-id="cc-29">Just calories and macros. No item required.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ TESTIMONIALS ============ -->
-<section id="feedback" style="padding:88px 0 72px">
-  <div class="wrap">
-    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:32px;flex-wrap:wrap;gap:20px">
-      <div>
-        <span class="pill green"><span class="dot"></span>Early beta feedback</span>
-        <h2 class="display" style="font-size:clamp(40px,5vw,64px);margin:16px 0 8px">What beta testers are saying.</h2>
-        <p style="color:var(--ink-dim);max-width:56ch;margin:0">Quotes from the first 200 beta users. Founding members get lifetime Pro.</p>
-      </div>
-      <div style="display:flex;gap:10px">
-        <button class="btn ghost" style="padding:10px 16px" onclick="document.querySelector('.testi-track').scrollBy({left:-400,behavior:'smooth'})">←</button>
-        <button class="btn ghost" style="padding:10px 16px" onclick="document.querySelector('.testi-track').scrollBy({left:400,behavior:'smooth'})">→</button>
-      </div>
-    </div>
-  </div>
-  <div class="testi-strip">
-    <div class="testi-track" style="overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none">
+<!-- ============ TESTIMONIALS (removed until real feedback available) ============ -->
+<!-- <section id="feedback" style="padding:88px 0 72px;display:none">
+  <div class="testi-track">
       <div class="testi" style="scroll-snap-align:start">
         <div class="stars">★★★★★</div>
         <p>"I've used MyFitnessPal for 6 years. PocketChomp's voice logging is the first thing that made me actually switch. Also, not having to create an account to try it? Unheard of."</p>
@@ -445,31 +427,21 @@
           <div><div class="who-name">Marcus K.</div><div class="who-role">Beta tester · Montréal</div></div>
         </div>
       </div>
-      <div class="testi" style="scroll-snap-align:start">
-        <div class="stars">★★★★★</div>
-        <p>"Being able to fully customize my dashboard is the dream. I took off everything I don't care about, left just the bars I do. Less shame, more signal."</p>
-        <div class="who">
-          <div class="avatar g">JB</div>
-          <div><div class="who-name">Jess B.</div><div class="who-role">Beta tester · Halifax</div></div>
-        </div>
-      </div>
     </div>
-  </div>
-</section>
+</section> -->
 
 <!-- ============ FULLY MODULAR ============ -->
-<section style="padding:0 0 96px">
+<section style="padding:0 0 96px" data-cc-id="cc-71">
   <div class="wrap">
-    <div class="modular">
-      <div class="modular-img">
+    <div class="modular" data-cc-id="cc-72">
+      <div class="modular-img" data-cc-id="cc-37">
         <div class="modular-phone">
-          <img src="assets/wizard-strategy.png" alt="Strategy customization screen" loading="lazy">
+          <img src="assets/wizard-strategy.png" alt="Strategy customization screen" loading="lazy" data-cc-id="cc-36">
         </div>
       </div>
-      <div class="modular-copy">
-        <span class="pill orange"><span class="dot"></span>Fully modular</span>
-        <h3 style="margin-top:18px">Your body, your&nbsp;rules.</h3>
-        <p>Your body is unique. Track what you want. Ignore what you don't. Switch goals, archetypes, and dashboard blocks whenever you like — no upsell, no hidden tier.</p>
+      <div class="modular-copy" data-cc-id="cc-41">
+        <h3 style="margin-top:0" data-cc-id="cc-39">Your body, your&nbsp;rules.</h3>
+        <p data-cc-id="cc-40">Your body is unique. Track what you want. Ignore what you don't. Switch goals, archetypes, and dashboard blocks whenever you like — no upsell, no hidden tier.</p>
         <ul class="modular-list">
           <li>Choose macros or micros</li>
           <li>Hide calories entirely</li>
@@ -484,44 +456,44 @@
 </section>
 
 <!-- ============ 4 CARDS (kept, Canadian gets a twist) ============ -->
-<section style="padding:0 0 40px">
-  <div class="wrap">
-    <div class="feature-grid" style="margin-top:0">
-      <div class="fcard">
+<section style="padding:0 0 40px" data-cc-id="cc-54">
+  <div class="wrap" data-cc-id="cc-55">
+    <div class="feature-grid" style="margin-top:0" data-cc-id="cc-44">
+      <div class="fcard" data-cc-id="cc-38">
         <span class="pill green"><span class="dot"></span>Transparency</span>
-        <h3>Privacy is our foundation.</h3>
-        <p>A local-first architecture. Everything you log lives on your device unless you explicitly turn on cloud sync. No third-party analytics. No data brokers.</p>
-        <div class="fcard-tags">
-          <span class="tag ok">✓ No analytics</span>
-          <span class="tag ok">✓ No ad SDKs</span>
-          <span class="tag">Open roadmap</span>
+        <h3 data-cc-id="cc-51">Privacy is our foundation.</h3>
+        <p data-cc-id="cc-50">A local-first architecture. Everything you log lives on your device unless you explicitly turn on cloud sync. No third-party analytics. No data brokers.</p>
+        <div class="fcard-tags" data-cc-id="cc-49">
+          <span class="tag ok" data-cc-id="cc-69">✓ No analytics</span>
+          <span class="tag ok" data-cc-id="cc-68" style=""><br></span>
+          <span class="tag" data-cc-id="cc-70">Open roadmap</span>
         </div>
       </div>
-      <div class="fcard">
-        <span class="pill green"><span class="dot"></span>Respect for people</span>
-        <h3>No ads. Ever.</h3>
-        <p>We sell software. Not you. The entire app is ad-free on every tier — including the free one. No upsell modals crowding your dashboard.</p>
-        <div class="fcard-tags">
+      <div class="fcard" data-cc-id="cc-42">
+        <span class="pill green" data-cc-id="cc-43"><span class="dot"></span>Respect for people</span>
+        <h3 data-cc-id="cc-52">No ads. Ever.</h3>
+        <p data-cc-id="cc-60">We sell software. Not you. The entire app is ad-free on every tier — including the free one. No upsell modals crowding your dashboard.</p>
+        <div class="fcard-tags" data-cc-id="cc-53">
           <span class="tag">Ad-free free tier</span>
-          <span class="tag">No push nags</span>
-          <span class="tag">No email spam</span>
+          <span class="tag" data-cc-id="cc-61">No push nags</span>
+          <span class="tag" data-cc-id="cc-59">No email spam</span>
         </div>
       </div>
-      <div class="fcard">
-        <span class="pill green"><span class="dot"></span>Control</span>
-        <h3>Choose where your data lives.</h3>
-        <p>Stay local forever, or sync to our encrypted Supabase backend. Flip between them anytime. Export everything as JSON or CSV in one tap.</p>
-        <div class="fcard-tags">
-          <span class="tag ok">✓ Local SQLite</span>
-          <span class="tag">Opt-in cloud</span>
-          <span class="tag">One-tap export</span>
+      <div class="fcard" data-cc-id="cc-45">
+        <span class="pill green" data-cc-id="cc-48"><span class="dot"></span>Control</span>
+        <h3 data-cc-id="cc-47">Choose where your data lives.</h3>
+        <p data-cc-id="cc-46">Stay local forever, or sync to our encrypted Supabase backend. Flip between them anytime. Export everything as JSON or CSV in one tap.</p>
+        <div class="fcard-tags" data-cc-id="cc-64">
+          <span class="tag ok" data-cc-id="cc-65">✓ Local SQLite</span>
+          <span class="tag" data-cc-id="cc-66">Opt-in cloud</span>
+          <span class="tag" data-cc-id="cc-67">One-tap export</span>
         </div>
       </div>
-      <div class="fcard canada">
-        <svg class="maple" viewBox="0 0 32 32" fill="currentColor"><path d="M16 2l1.5 5 4-2-1.5 5 5 .5-3.5 3 5 2.5-5.5 1 2 5-5-2.5-1 5.5-1.5-5-4 2 1.5-5-5-.5 3.5-3-5-2.5 5.5-1-2-5 5 2.5z"/></svg>
+      <div class="fcard canada" data-cc-id="cc-56">
+        <svg class="maple" viewBox="0 0 100 100" fill="currentColor" aria-label="Maple leaf"><path d="M50 8 L44 28 L30 22 L34 36 L20 34 L28 48 L14 50 L28 58 L22 70 L36 66 L38 76 L48 70 L46 92 L54 92 L52 70 L62 76 L64 66 L78 70 L72 58 L86 50 L72 48 L80 34 L66 36 L70 22 L56 28 Z"/></svg>
         <span class="pill orange"><span class="dot"></span>Made in Canada</span>
-        <h3>Proudly Canadian.</h3>
-        <p>Built in Toronto. Canadian food database priorities. Metric first. French on the way. And yes — we're on Android too (unlike the incumbents).</p>
+        <h3 data-cc-id="cc-62">Proudly Canadian.</h3>
+        <p data-cc-id="cc-63">Built in Toronto. Canadian food database priorities. Metric first. French on the way. And yes — we're on Android too (unlike the incumbents).</p>
         <div class="fcard-tags">
           <span class="tag">Canadian pricing (CAD)</span>
           <span class="tag">Metric by default</span>
@@ -532,8 +504,8 @@
   </div>
 </section>
 
-<!-- ============ PRICING ============ -->
-<section id="pricing">
+<!-- ============ PRICING (removed — beta/signup only, no pricing yet) ============ -->
+<section id="pricing" style="display:none">
   <div class="wrap pricing-shell">
     <div class="section-head">
       <span class="pill orange"><span class="dot"></span>Founding-member pricing</span>
@@ -547,11 +519,11 @@
         <div class="price" style="color:var(--ink)">$49<small>.99/yr</small></div>
         <p class="price-sub">iOS only. US-centric database. Subscription required to scan.</p>
         <ul class="compare-list">
-          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>AI photo logging</li>
-          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="#7a7a72" stroke-width="2.5"><path d="M6 6l12 12M18 6L6 18"/></svg>Android app</li>
-          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="#7a7a72" stroke-width="2.5"><path d="M6 6l12 12M18 6L6 18"/></svg>Local-first option</li>
-          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="#7a7a72" stroke-width="2.5"><path d="M6 6l12 12M18 6L6 18"/></svg>Guest mode</li>
-          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="#7a7a72" stroke-width="2.5"><path d="M6 6l12 12M18 6L6 18"/></svg>Canadian-priced</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"></path></svg>AI photo logging</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="#7a7a72" stroke-width="2.5"><path d="M6 6l12 12M18 6L6 18"></path></svg>Android app</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="#7a7a72" stroke-width="2.5"><path d="M6 6l12 12M18 6L6 18"></path></svg>Local-first option</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="#7a7a72" stroke-width="2.5"><path d="M6 6l12 12M18 6L6 18"></path></svg>Guest mode</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="#7a7a72" stroke-width="2.5"><path d="M6 6l12 12M18 6L6 18"></path></svg>Canadian-priced</li>
         </ul>
       </div>
       <div class="col us">
@@ -561,11 +533,11 @@
         <div class="price">$39<small>.99/yr</small></div>
         <p class="price-sub">Or $4.99/month. CAD. All features. iOS + Android. Founding members locked in for life.</p>
         <ul class="compare-list">
-          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>AI photo, voice, OCR &amp; barcode</li>
-          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>iOS <em>and</em> Android</li>
-          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Local-first, always</li>
-          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Guest mode — full features, no account</li>
-          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Full macro + micronutrient depth</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"></path></svg>AI photo, voice, OCR &amp; barcode</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"></path></svg>iOS <em>and</em> Android</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"></path></svg>Local-first, always</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"></path></svg>Guest mode — full features, no account</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"></path></svg>Full macro + micronutrient depth</li>
         </ul>
       </div>
     </div>
@@ -578,8 +550,7 @@
   <div class="wrap">
     <div class="beyond">
       <div>
-        <span class="pill" style="background:var(--orange-ink);color:var(--orange)"><span class="dot"></span>Beyond the calorie</span>
-        <h3 style="margin-top:18px">Depth without<br>the overwhelm.</h3>
+        <h3 style="margin-top:0">Beyond the calorie.</h3>
         <p>Your body is unique. Track what you want and ignore what you don't. See your protein today, or go deep on lipid profile, amino acids, and 30+ micronutrients. We store every nutrient the database has — you choose what shows up.</p>
         <div class="nut-grid">
           <div class="nut"><span class="dot"></span>Protein</div>
@@ -598,11 +569,11 @@
           <img src="assets/wizard-review.png" alt="Review screen showing daily macros" loading="lazy">
         </div>
         <div class="beyond-chip c1">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v6l3 2"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v6l3 2"></path></svg>
           180mg caffeine
         </div>
         <div class="beyond-chip c2">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v20M5 9l7-7 7 7"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v20M5 9l7-7 7 7"></path></svg>
           126g protein
         </div>
       </div>
@@ -620,7 +591,7 @@
     </div>
     <div>
       <form class="email-form" onsubmit="event.preventDefault();this.querySelector('input').value='';alert('Thanks — you\\'re on the list.')">
-        <input type="email" required placeholder="you@example.com">
+        <input type="email" required="" placeholder="you@example.com">
         <button class="btn primary" type="submit">Join the beta</button>
       </form>
       <div class="email-note">
@@ -653,21 +624,11 @@
         </ul>
       </div>
       <div class="foot-col">
-        <h5>Product</h5>
+        <h5>More</h5>
         <ul>
-          <li><a href="#how">How it works</a></li>
-          <li><a href="#pricing">Pricing</a></li>
           <li><a href="#signup">Join the beta</a></li>
-          <li><a href="#">Roadmap</a></li>
-        </ul>
-      </div>
-      <div class="foot-col">
-        <h5>Company</h5>
-        <ul>
-          <li><a href="#">Privacy policy</a></li>
-          <li><a href="#">Terms</a></li>
-          <li><a href="#">Press</a></li>
-          <li><a href="#"><span class="__cf_email__" data-cfemail="bdd5d8d1d1d2fdcdd2ded6d8c9ded5d2d0cd93dedc">[email&#160;protected]</span></a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="/cdn-cgi/l/email-protection#bfd7dad3d3d0ffcfd0dcd4dacbdcd7d0d2cf91dcde"><span class="__cf_email__" data-cfemail="98f0fdf4f4f7d8e8f7fbf3fdecfbf0f7f5e8b6fbf9">[email&#160;protected]</span></a></li>
         </ul>
       </div>
     </div>
@@ -678,13 +639,8 @@
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js" defer></script><script>
-  document.querySelector('.testi-track').style.cssText += ';-ms-overflow-style:none;';
-  // hide scrollbar
-  const s = document.createElement('style');
-  s.innerHTML = '.testi-track::-webkit-scrollbar{display:none}';
-  document.head.appendChild(s);
-</script>
 
-</body>
-</html>
+
+
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body></html>

@@ -11,8 +11,8 @@
 
 @theme {
   /* Font families */
-  --font-heading: var(--font-lato), "Roboto", sans-serif;
-  --font-body: var(--font-noto-sans), "Roboto", sans-serif;
+  --font-heading: var(--font-montserrat), "Arial Black", "Arial", sans-serif;
+  --font-body: var(--font-geist), "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 
   /* ── Brand palette — oklch ─────────────────────────────────
      Primary  = logo green (#53c87d)
@@ -171,7 +171,7 @@
   h5,
   h6 {
     font-family: var(--font-heading);
-    font-weight: 700;
+    font-weight: 900;
     line-height: 1.15;
     letter-spacing: -0.02em;
   }

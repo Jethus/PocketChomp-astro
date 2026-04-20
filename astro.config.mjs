@@ -11,23 +11,29 @@ export default defineConfig({
   fonts: [
     {
       provider: fontProviders.local(),
-      name: "Lato",
-      cssVariable: "--font-lato",
+      name: "Montserrat",
+      cssVariable: "--font-montserrat",
       options: {
         variants: [
-          { weight: 700, style: "normal", src: ["./src/fonts/lato-v24-latin-700.woff2"] },
-          { weight: 900, style: "normal", src: ["./src/fonts/lato-v24-latin-900.woff2"] },
+          {
+            weight: "100 900",
+            style: "normal",
+            src: ["./node_modules/@fontsource-variable/montserrat/files/montserrat-latin-wght-normal.woff2"],
+          },
         ],
       },
     },
     {
       provider: fontProviders.local(),
-      name: "Noto Sans",
-      cssVariable: "--font-noto-sans",
+      name: "Geist",
+      cssVariable: "--font-geist",
       options: {
         variants: [
-          { weight: 400, style: "normal", src: ["./src/fonts/noto-sans-v39-latin-regular.woff2"] },
-          { weight: 500, style: "normal", src: ["./src/fonts/noto-sans-v39-latin-500.woff2"] },
+          {
+            weight: "100 900",
+            style: "normal",
+            src: ["./node_modules/geist/dist/fonts/geist-sans/Geist-Variable.woff2"],
+          },
         ],
       },
     },
