@@ -1,5 +1,5 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
@@ -7,40 +7,287 @@ import Footer from "../../components/Footer.astro";
 const posts = (await getCollection("blog")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
+
+const masthead = await getEntry("landingBlogMasthead", "blog-masthead");
+const nowCard = await getEntry("landingBlogNow", "blog-now");
+
+if (!masthead || !nowCard) {
+  throw new Error("Missing blog content collection entries");
+}
+
+const { eyebrow, headlinePrefix, headlineAccent, lede } = masthead.data;
+const { headline: nowHeadline, body: nowBody, items: nowItems } = nowCard.data;
+
+// Collect unique tags across all posts, preserving insertion order
+const allTags: string[] = [];
+for (const post of posts) {
+  for (const tag of post.data.tags ?? []) {
+    if (!allTags.includes(tag)) allTags.push(tag);
+  }
+}
+
+// Tag pill styles — unknown tags fall back to neutral
+const tagStyles: Record<string, string> = {
+  Devlog: "border-border text-foreground bg-surface",
+  ADR: "border-accent/40 text-accent bg-accent/8",
+  Prompting: "border-primary/40 text-primary bg-primary/10",
+  Debugging: "border-yellow-400/30 text-yellow-300 bg-yellow-400/6",
+  Philosophy: "border-primary/35 text-primary-foreground/80 bg-primary/15",
+};
+const tagNeutral = "border-border text-muted-foreground bg-surface";
+
+function tagClass(tag: string): string {
+  return `inline-flex items-center rounded-full border px-2.5 py-0.5 font-heading text-[0.62rem] font-black uppercase tracking-[0.08em] ${tagStyles[tag] ?? tagNeutral}`;
+}
+
+// Read time helper (word count / 200, minimum 1)
+function readTime(body: string): string {
+  const words = body.trim().split(/\s+/).length;
+  return `${Math.max(1, Math.ceil(words / 200))} min read`;
+}
 ---
 
-<BaseLayout
-  title="Blog"
-  description="Architecture decisions, prompt anatomy, PRPs, debug stories, and the occasional philosophical detour. Building PocketChomp in public."
->
+<BaseLayout title="Blog" description={lede}>
   <Header />
   <main>
-    <section class="border-b-3 border-ink bg-surface">
-      <div class="mx-auto max-w-7xl px-6 py-20 md:py-28">
-        <p class="mb-2 font-display font-bold uppercase tracking-[0.2em] text-accent fs-xs">
-          Insights
+
+    <!-- Masthead -->
+    <section class="border-b border-border">
+      <div class="mx-auto max-w-3xl px-6 py-16 md:py-24">
+        <p class="masthead-eyebrow mb-6 text-[0.7rem] font-heading font-black uppercase tracking-[0.18em] text-muted-foreground">
+          {eyebrow}
         </p>
-        <h1 class="font-display font-black">Our Blog</h1>
+        <h1 class="font-heading font-black uppercase leading-[0.93] tracking-tight">
+          {headlinePrefix}&nbsp;<span class="text-accent">{headlineAccent}</span>
+        </h1>
+        <p class="mt-6 max-w-[60ch] text-base leading-relaxed text-muted-foreground">
+          {lede}
+        </p>
       </div>
     </section>
 
-    <section class="border-b-3 border-ink bg-primary-light">
-      <div class="mx-auto max-w-7xl px-6 py-20 md:py-28">
-        {posts.length === 0 ? (
-          <p class="text-center text-ink/60">No posts yet. Check back soon.</p>
-        ) : (
-          <div class="space-y-8">
-            {posts.map((post) => (
-              <div class="border-b border-ink pb-8">
-                <h2 class="font-display font-black mb-2">{post.data.title}</h2>
-                <p class="text-ink/80 mb-4">{post.data.description}</p>
-                <a href={`/blog/${post.id}`} class="text-accent hover:underline">Read more</a>
-              </div>
-            ))}
+    <!-- Filter strip + post list -->
+    <section class="border-b border-border">
+      <div class="mx-auto max-w-3xl px-6">
+
+        <!-- Filter chips -->
+        <div class="filter-strip flex flex-wrap gap-2 border-b border-border py-6">
+          <button
+            class="chip active"
+            data-filter="all"
+          >
+            All<span class="chip-count">{String(posts.length).padStart(2, "0")}</span>
+          </button>
+          {allTags.map((tag) => {
+            const count = posts.filter(p => p.data.tags?.includes(tag)).length;
+            return (
+              <button class="chip" data-filter={tag}>
+                {tag}<span class="chip-count">{String(count).padStart(2, "0")}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        <!-- Post rows -->
+        <div class="post-list py-4">
+          {posts.map((post) => {
+            const day = post.data.pubDate.toLocaleDateString("en-CA", { day: "2-digit" });
+            const monthYear = post.data.pubDate.toLocaleDateString("en-CA", { month: "short", year: "numeric" }).toUpperCase();
+            const rt = readTime(post.body ?? "");
+            const tags = post.data.tags ?? [];
+            return (
+              <a
+                href={`/blog/${post.id}`}
+                class="post-row group"
+                data-tags={tags.join(",")}
+              >
+                <div class="post-date">
+                  <span class="post-day">{day}</span>
+                  <span class="font-mono text-[0.7rem] text-muted-foreground">{monthYear}</span>
+                </div>
+
+                <div class="min-w-0 flex-1">
+                  <h2 class="post-title">{post.data.title}</h2>
+                  <p class="mt-2 line-clamp-2 max-w-[62ch] text-sm leading-relaxed text-muted-foreground">
+                    {post.data.description}
+                  </p>
+                  <div class="mt-3 flex flex-wrap items-center gap-3">
+                    {tags.map(tag => (
+                      <span class={tagClass(tag)}>{tag}</span>
+                    ))}
+                    <span class="font-mono text-[0.68rem] text-muted-foreground">{rt}</span>
+                  </div>
+                </div>
+
+                <div class="post-arrow font-mono text-xl text-muted-foreground transition-all duration-200 group-hover:translate-x-1 group-hover:text-accent">
+                  →
+                </div>
+              </a>
+            );
+          })}
+        </div>
+
+        <!-- Now card -->
+        <div class="mb-16 mt-2 rounded-[1.25rem] border border-border bg-surface p-8">
+          <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1.5 text-[0.65rem] font-heading font-black uppercase tracking-[0.1em] text-muted-foreground">
+            <span class="h-1.5 w-1.5 rounded-full bg-accent"></span>
+            What I'm on this week
           </div>
-        )}
+          <h3 class="font-heading text-base font-black uppercase tracking-tight">{nowHeadline}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-muted-foreground">{nowBody}</p>
+          <ul class="mt-4 grid grid-cols-2 gap-x-6 gap-y-2">
+            {nowItems.map(item => (
+              <li class="flex items-baseline gap-2 text-[0.78rem] text-muted-foreground">
+                <span class="text-[0.6rem] text-accent">▸</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
       </div>
     </section>
+
   </main>
   <Footer />
 </BaseLayout>
+
+<style>
+  .masthead-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .masthead-eyebrow::before {
+    content: "";
+    display: block;
+    width: 1.75rem;
+    height: 1px;
+    background: var(--color-accent);
+    flex-shrink: 0;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.375rem 0.875rem;
+    border-radius: 9999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    background: transparent;
+    border: 1px solid var(--color-border);
+    color: var(--color-muted-foreground);
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s;
+  }
+  .chip:hover {
+    color: var(--color-foreground);
+    border-color: var(--color-muted-foreground);
+  }
+  .chip.active {
+    background: var(--color-foreground);
+    color: var(--color-background);
+    border-color: var(--color-foreground);
+  }
+  .chip-count {
+    opacity: 0.5;
+    margin-left: 0.25rem;
+    font-family: monospace;
+    font-size: 0.65rem;
+  }
+
+  .post-row {
+    display: grid;
+    grid-template-columns: 7rem 1fr auto;
+    gap: 2rem;
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--color-border);
+    align-items: start;
+    text-decoration: none;
+    color: inherit;
+    padding-left: 0;
+    transition: padding-left 0.2s ease;
+  }
+  .post-row:hover {
+    padding-left: 0.75rem;
+  }
+
+  .post-date {
+    display: flex;
+    flex-direction: column;
+    padding-top: 0.25rem;
+  }
+  .post-day {
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: 2rem;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+    color: var(--color-foreground);
+  }
+
+  .post-title {
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    line-height: 0.98;
+    margin: 0;
+    color: var(--color-foreground);
+    transition: color 0.2s;
+    overflow-wrap: break-word;
+  }
+  .post-row:hover .post-title {
+    color: var(--color-accent);
+  }
+
+  @media (max-width: 640px) {
+    .post-row {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+    .post-row:hover {
+      padding-left: 0;
+    }
+    .post-date {
+      flex-direction: row;
+      align-items: baseline;
+      gap: 0.5rem;
+      padding-top: 0;
+    }
+    .post-day {
+      font-size: 1.25rem;
+      margin-bottom: 0;
+    }
+    .post-arrow {
+      display: none;
+    }
+  }
+</style>
+
+<script is:inline>
+  const chips = document.querySelectorAll('.chip');
+  const rows = document.querySelectorAll('.post-row');
+
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      chips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+
+      const filter = chip.dataset.filter;
+      rows.forEach(row => {
+        if (filter === 'all') {
+          row.style.display = '';
+        } else {
+          const tags = (row.dataset.tags || '').split(',');
+          row.style.display = tags.includes(filter) ? '' : 'none';
+        }
+      });
+    });
+  });
+</script>
