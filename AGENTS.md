@@ -1,0 +1,1 @@
+C:/repos/PocketChomp-astro/CLAUDE.md
