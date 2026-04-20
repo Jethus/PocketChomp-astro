@@ -1,0 +1,28 @@
+---
+interface Props {
+  placeholder: string;
+  buttonText: string;
+}
+
+const { placeholder, buttonText } = Astro.props;
+---
+
+<form id="signup" action="/contact" method="get" class="w-full">
+  <label class="sr-only" for="signup-email">Email address</label>
+  <input type="hidden" name="source" value="pocketchomp-beta" />
+  <div class="flex w-full rounded-full border border-accent bg-surface p-1 shadow-[var(--shadow-elevated)]">
+    <input
+      id="signup-email"
+      type="email"
+      name="email"
+      placeholder={placeholder}
+      class="min-w-0 flex-1 bg-transparent px-5 text-base text-foreground placeholder:text-muted-foreground focus:outline-none"
+    />
+    <button
+      type="submit"
+      class="inline-flex h-12 shrink-0 cursor-pointer items-center justify-center rounded-full border border-transparent bg-accent px-5 font-heading text-[0.72rem] font-black uppercase tracking-[0.12em] text-accent-foreground transition duration-200 ease-out hover:bg-accent/90 sm:px-6"
+    >
+      {buttonText}
+    </button>
+  </div>
+</form>

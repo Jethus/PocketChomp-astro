@@ -1,0 +1,64 @@
+---
+import { getEntry } from "astro:content";
+import SectionShell from "./ui/SectionShell.astro";
+import EyebrowPill from "./ui/EyebrowPill.astro";
+import TestimonialCard from "./ui/TestimonialCard.astro";
+
+const socialProofEntry = await getEntry("landingSocialProof", "social-proof");
+
+if (!socialProofEntry) {
+  throw new Error("Could not find PocketChomp social proof content");
+}
+
+const { eyebrow, headline, description, testimonials } = socialProofEntry.data;
+const marqueeTestimonials = [...testimonials, ...testimonials];
+---
+
+<SectionShell class="pb-0">
+  <div class="space-y-5">
+    <EyebrowPill>{eyebrow}</EyebrowPill>
+    <div class="space-y-4">
+      <h2 class="max-w-[11ch] text-4xl uppercase leading-[0.92] text-foreground sm:text-5xl md:text-6xl">
+        {headline}
+      </h2>
+      <p class="max-w-2xl text-lg leading-relaxed text-muted-foreground">
+        {description}
+      </p>
+    </div>
+  </div>
+</SectionShell>
+
+<div class="testimonial-marquee mt-10">
+  <div class="testimonial-marquee__track">
+    {marqueeTestimonials.map((testimonial, index) => <TestimonialCard {...testimonial} key={`${testimonial.initials}-${index}`} />)}
+  </div>
+</div>
+
+<style>
+  .testimonial-marquee {
+    overflow: hidden;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    padding-bottom: 5rem;
+  }
+
+  .testimonial-marquee__track {
+    display: flex;
+    gap: 1rem;
+    width: max-content;
+    animation: testimonial-marquee 42s linear infinite;
+  }
+
+  .testimonial-marquee:hover .testimonial-marquee__track {
+    animation-play-state: paused;
+  }
+
+  @keyframes testimonial-marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(calc(-50% - 0.5rem));
+    }
+  }
+</style>

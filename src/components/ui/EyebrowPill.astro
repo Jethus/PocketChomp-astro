@@ -1,0 +1,17 @@
+---
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  class?: string;
+}
+
+const { class: className = "", ...rest } = Astro.props as Props;
+---
+
+<span
+  {...rest}
+  class:list={[
+    "inline-flex items-center rounded-full border border-transparent bg-primary px-3 py-1.5 font-heading text-[0.66rem] font-black uppercase tracking-[0.08em] text-primary-foreground shadow-[var(--shadow-elevated)]",
+    className,
+  ]}
+>
+  <slot />
+</span>

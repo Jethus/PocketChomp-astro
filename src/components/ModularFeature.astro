@@ -1,0 +1,113 @@
+---
+import { getEntry } from "astro:content";
+import SectionShell from "./ui/SectionShell.astro";
+import modularShot from "../assets/png/modular-app-shot.png";
+import androidFrameDark from "../assets/png/android-frame-dark.png";
+import androidFrameLight from "../assets/png/android-frame-light.png";
+
+const featureEntry = await getEntry("landingModularFeature", "modular-feature");
+
+if (!featureEntry) {
+  throw new Error("Could not find PocketChomp modular feature content");
+}
+
+const { eyebrow, headline, description, bullets } = featureEntry.data;
+---
+
+<SectionShell
+  id="modular"
+  class="pt-6"
+  innerClass="overflow-hidden rounded-[2.5rem] bg-primary px-6 py-10 shadow-[var(--shadow-elevated-lg)] md:px-10 md:py-14 lg:grid lg:grid-cols-[minmax(14rem,20rem)_minmax(0,1fr)] lg:items-start lg:gap-14"
+>
+  <div class="relative mx-auto w-full max-w-[14.5rem] lg:max-w-[16.5rem]">
+    <img src={androidFrameLight.src} alt="" class="modular-frame modular-frame--light" aria-hidden="true" />
+    <img src={androidFrameDark.src} alt="" class="modular-frame modular-frame--dark" aria-hidden="true" />
+    <img
+      src={modularShot.src}
+      alt="PocketChomp dashboard preview"
+      class="modular-screen"
+    />
+    <img src={androidFrameLight.src} alt="" class="modular-frame-top modular-frame-top--light" aria-hidden="true" />
+    <img src={androidFrameDark.src} alt="" class="modular-frame-top modular-frame-top--dark" aria-hidden="true" />
+  </div>
+
+  <div class="mt-10 lg:mt-0">
+    <p class="font-heading text-[0.68rem] font-black uppercase tracking-[0.22em] text-white/60">
+      {eyebrow}
+    </p>
+    <h2 class="mt-3 max-w-[10ch] text-5xl uppercase leading-[0.9] text-white md:text-6xl lg:text-7xl">
+      {headline}
+    </h2>
+    <p class="mt-6 max-w-2xl text-lg leading-relaxed text-white/82">
+      {description}
+    </p>
+
+    <ul class="mt-8 grid gap-4 sm:grid-cols-2">
+      {
+        bullets.map((bullet) => (
+          <li class="rounded-xl border border-white/15 bg-black/10 px-5 py-4 text-base font-medium leading-relaxed text-white">
+            {bullet}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</SectionShell>
+
+<style>
+  /* In-flow spacer frame — invisible, just sets container height */
+  .modular-frame {
+    display: block;
+    width: 100%;
+    height: auto;
+    visibility: hidden;
+  }
+
+  /* Light mode spacer: dark frame sets height, light frame hidden */
+  .modular-frame--light {
+    display: none;
+  }
+
+  .modular-screen {
+    position: absolute;
+    inset: 3.4% 5.7% 3.3% 5.7%;
+    width: 88.6%;
+    height: 93.3%;
+    border-radius: 2.4rem;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  /* Visible frame rendered on top of screen */
+  .modular-frame-top {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+  }
+
+  /* Light mode: show dark frame on top */
+  .modular-frame-top--light {
+    display: none;
+  }
+
+  /* Dark mode: show light (silver) frame on top, hide dark overlay */
+  :global(html[data-theme="dark"]) .modular-frame-top--light {
+    display: block;
+  }
+
+  :global(html[data-theme="dark"]) .modular-frame-top--dark {
+    display: none;
+  }
+
+  /* Spacer: dark mode uses light frame for height reference */
+  :global(html[data-theme="dark"]) .modular-frame--dark {
+    display: none;
+  }
+
+  :global(html[data-theme="dark"]) .modular-frame--light {
+    display: block;
+  }
+</style>

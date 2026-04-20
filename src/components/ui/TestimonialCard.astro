@@ -1,0 +1,32 @@
+---
+interface Props {
+  quote: string;
+  initials: string;
+  name: string;
+  role: string;
+  accent: "green" | "orange";
+}
+
+const { quote, initials, name, role, accent } = Astro.props;
+const accentClass = accent === "orange"
+  ? "bg-accent text-accent-foreground"
+  : "bg-primary text-primary-foreground";
+---
+
+<article class="flex min-w-[18rem] flex-1 flex-col justify-between rounded-[2rem] border border-border bg-surface p-6 shadow-[var(--shadow-elevated)] sm:min-w-[21rem] sm:max-w-[21rem]">
+  <p class="text-[1.02rem] leading-relaxed text-foreground">{quote}</p>
+
+  <div class="mt-8 flex items-center gap-4">
+    <span class:list={[
+      "inline-flex h-14 w-14 items-center justify-center rounded-full font-heading text-xl font-black uppercase",
+      accentClass,
+    ]}>
+      {initials}
+    </span>
+
+    <div>
+      <p class="text-base font-semibold tracking-[0.01em] text-foreground">{name}</p>
+      <p class="text-sm text-muted-foreground/80">{role}</p>
+    </div>
+  </div>
+</article>

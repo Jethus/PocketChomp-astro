@@ -1,41 +1,65 @@
-/* ============================================================
-   global.css — Single source of truth for all styling
-   Tailwind CSS v4 · Pixelboost Starter Template
-   ============================================================ */
-
 @import "tailwindcss";
 
-/* ————————————————————————————————————————————————————————————
-   @theme — Design tokens → Tailwind utility classes
-   ———————————————————————————————————————————————————————————— */
+@font-face {
+  font-display: swap;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/montserrat-v31-latin-regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  src: url('/fonts/montserrat-v31-latin-700.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 900;
+  src: url('/fonts/montserrat-v31-latin-900.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/geist-v4-latin-regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 700;
+  src: url('/fonts/geist-v4-latin-700.woff2') format('woff2');
+}
 
 @theme {
-  /* Font families */
-  --font-heading: var(--font-montserrat), "Arial Black", "Arial", sans-serif;
-  --font-body: var(--font-geist), "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-heading: 'Montserrat', sans-serif;
+  --font-display: var(--font-heading);
+  --font-body: 'Geist', "Segoe UI", "Helvetica Neue", sans-serif;
 
-  /* ── Brand palette — oklch ─────────────────────────────────
-     Primary  = logo green (#53c87d)
-     Ink      = deep charcoal with cool undertone (authority)
-     Surface  = warm white (approachable, not sterile)
-     ──────────────────────────────────────────────────────── */
-  --color-primary: oklch(0.72 0.17 155);
-  --color-primary-light: oklch(0.95 0.04 155);
-  --color-primary-dark: oklch(0.25 0.06 155);
-  --color-accent: oklch(0.8 0.15 80);
-  --color-ink: oklch(0.2 0.02 250);
-  --color-surface: oklch(0.985 0.003 100);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-strong: var(--surface-strong);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-light: var(--primary-soft);
+  --color-primary-dark: var(--primary-strong);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-ink: var(--foreground);
 
-  /* Border radius */
-  --radius-brutal: 12px;
-  --radius-pill: 9999px;
-
-  /* Shadows — offset drop shadows for neo-brutal cards */
-  --shadow-brutal: 4px 4px 0px 0px oklch(0.2 0.02 250);
-  --shadow-brutal-lg: 6px 6px 0px 0px oklch(0.2 0.02 250);
-  --shadow-brutal-hover: 2px 2px 0px 0px oklch(0.2 0.02 250);
-
-  /* Animations */
   --animate-fade-in: fade-in 0.5s ease-out;
   --animate-slide-up: slide-up 0.6s ease-out;
 
@@ -60,16 +84,60 @@
   }
 }
 
-/* ————————————————————————————————————————————————————————————
-   Fluid Type Scale
-   Source: https://fluid-type.tolin.ski/
-   Min: 14px @ 320vw  →  Max: 20px @ 1500vw
-   Ratio: 1.25 → 1.333 (Major Third → Perfect Fourth)
-   ———————————————————————————————————————————————————————————— */
-
 @layer base {
-  /* Define the formula globally so any element dynamically computes it with its local --fl */
-  *, ::before, ::after {
+  :root {
+    color-scheme: light;
+    --background: oklch(0.9741 0.0034 145.55);
+    --foreground: oklch(0.2311 0.0059 156.74);
+    --surface: oklch(1 0 89.88);
+    --surface-strong: oklch(0.957 0.0038 145.55);
+    --border: oklch(0.905 0.005 145.55);
+    --muted: oklch(0.957 0.0038 145.55);
+    --muted-foreground: oklch(0.478 0.01 156.74);
+    --primary: oklch(0.5064 0.0714 164);
+    --primary-foreground: oklch(0.9741 0.0034 145.55);
+    --primary-soft: oklch(0.928 0.02 164);
+    --primary-strong: oklch(0.43 0.062 164);
+    --accent: oklch(67.064% 0.22127 37.627);
+    --accent-foreground: oklch(0.1912 0.0076 145.27);
+
+    --radius-card: 1rem;
+    --radius-pill: 9999px;
+
+    --shadow-elevated: 0 18px 38px -28px rgb(18 21 18 / 0.18);
+    --shadow-elevated-lg: 0 24px 54px -32px rgb(18 21 18 / 0.22);
+    --shadow-elevated-hover: 0 12px 28px -22px rgb(18 21 18 / 0.16);
+
+    --shadow-brutal: var(--shadow-elevated);
+    --shadow-brutal-lg: var(--shadow-elevated-lg);
+    --shadow-brutal-hover: var(--shadow-elevated-hover);
+    --radius-brutal: var(--radius-card);
+  }
+
+  html[data-theme="dark"] {
+    color-scheme: dark;
+    --background: oklch(0.1912 0.0076 145.27);
+    --foreground: oklch(0.965 0.004 145.55);
+    --surface: oklch(0.2311 0.0059 156.74);
+    --surface-strong: oklch(0.265 0.0065 156.74);
+    --border: oklch(0.305 0.008 156.74);
+    --muted: oklch(0.265 0.0065 156.74);
+    --muted-foreground: oklch(0.77 0.007 145.55);
+    --primary: oklch(0.5064 0.0714 164);
+    --primary-foreground: oklch(0.965 0.004 145.55);
+    --primary-soft: oklch(0.34 0.038 164);
+    --primary-strong: oklch(0.58 0.078 164);
+    --accent: oklch(67.064% 0.22127 37.627);
+    --accent-foreground: oklch(0.1912 0.0076 145.27);
+
+    --shadow-elevated: 0 18px 38px -28px rgb(0 0 0 / 0.48);
+    --shadow-elevated-lg: 0 24px 54px -32px rgb(0 0 0 / 0.56);
+    --shadow-elevated-hover: 0 12px 28px -22px rgb(0 0 0 / 0.42);
+  }
+
+  *,
+  ::before,
+  ::after {
     --fl: 0;
     --font-size-min: 14;
     --font-size-max: 22;
@@ -96,70 +164,69 @@
     );
   }
 
-  /* Automatically applying the fluid font-size to base text elements */
-  body, h1, h2, h3, h4, h5, h6, p, li, textarea, input, select, button, th, td {
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  li,
+  textarea,
+  input,
+  select,
+  button,
+  th,
+  td {
     font-size: var(--fluid-type);
   }
 
-  /* This makes containers, with container queries use a cqi unit instead of vi */
   .fluid-text-container {
     container-type: inline-size;
     --variable-unit: 100cqi;
   }
+
   h1,
   .h1 {
     --fl: 5;
   }
+
   h2,
   .h2 {
     --fl: 4;
   }
+
   h3,
   .h3 {
     --fl: 3;
   }
+
   h4,
   .h4 {
     --fl: 2;
   }
+
   h5,
   .h5 {
     --fl: 1;
   }
+
   h6,
   .h6 {
     --fl: 0;
   }
+
   p,
   li,
   body {
     --fl: 0;
   }
-}
 
-/* ————————————————————————————————————————————————————————————
-   Fluid size utilities — use as classes alongside Tailwind
-   We use @utility so Tailwind automatically generates responsive variants (like md:fs-xl).
-   Each utility also sets font-size so it works on any tag (span, strong, div, etc).
-   ———————————————————————————————————————————————————————————— */
-
-@utility fs-xs   { --fl: -1; font-size: var(--fluid-type); }
-@utility fs-base { --fl: 0;  font-size: var(--fluid-type); }
-@utility fs-s    { --fl: 1;  font-size: var(--fluid-type); }
-@utility fs-m    { --fl: 2;  font-size: var(--fluid-type); }
-@utility fs-l    { --fl: 3;  font-size: var(--fluid-type); }
-@utility fs-xl   { --fl: 4;  font-size: var(--fluid-type); }
-@utility fs-xxl  { --fl: 5;  font-size: var(--fluid-type); }
-@utility fs-xxxl { --fl: 6;  font-size: var(--fluid-type); }
-
-/* ————————————————————————————————————————————————————————————
-   @layer base — Global element defaults
-   ———————————————————————————————————————————————————————————— */
-
-@layer base {
   body {
     font-family: var(--font-body);
-    color: var(--color-ink);
+    background-color: var(--background);
+    color: var(--foreground);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -173,16 +240,59 @@
     font-family: var(--font-heading);
     font-weight: 900;
     line-height: 1.15;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.005em;
+    font-feature-settings: "ss01" 1;
+    text-rendering: geometricPrecision;
+    -webkit-font-smoothing: auto;
+    -moz-osx-font-smoothing: auto;
   }
 
   a {
-    text-decoration: none;
     color: inherit;
+    text-decoration: none;
   }
 }
 
-/* Base utility for hiding elements */
+@utility fs-xs {
+  --fl: -1;
+  font-size: var(--fluid-type);
+}
+
+@utility fs-base {
+  --fl: 0;
+  font-size: var(--fluid-type);
+}
+
+@utility fs-s {
+  --fl: 1;
+  font-size: var(--fluid-type);
+}
+
+@utility fs-m {
+  --fl: 2;
+  font-size: var(--fluid-type);
+}
+
+@utility fs-l {
+  --fl: 3;
+  font-size: var(--fluid-type);
+}
+
+@utility fs-xl {
+  --fl: 4;
+  font-size: var(--fluid-type);
+}
+
+@utility fs-xxl {
+  --fl: 5;
+  font-size: var(--fluid-type);
+}
+
+@utility fs-xxxl {
+  --fl: 6;
+  font-size: var(--fluid-type);
+}
+
 [hidden] {
   display: none !important;
 }

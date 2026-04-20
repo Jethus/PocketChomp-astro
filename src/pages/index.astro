@@ -2,23 +2,25 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Hero from "../components/Hero.astro";
-import Features from "../components/Features.astro";
-import Portfolio from "../components/Portfolio.astro";
-import Comparison from "../components/Comparison.astro";
-import Pricing from "../components/Pricing.astro";
+import SocialProof from "../components/SocialProof.astro";
+import ModularFeature from "../components/ModularFeature.astro";
+import ValuePillars from "../components/ValuePillars.astro";
+import BeyondCalorie from "../components/BeyondCalorie.astro";
 import ClosingCTA from "../components/ClosingCTA.astro";
 import Footer from "../components/Footer.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+
+const PAGE_TITLE = "PocketChomp";
+const PAGE_DESCRIPTION = "PocketChomp is a local-first nutrition tracker for Canadians with private logging, a Canadian database, and a no-ads experience.";
 ---
 
-<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+<BaseLayout title={PAGE_TITLE} description={PAGE_DESCRIPTION}>
   <Header />
   <main>
     <Hero />
-    <Features />
-    <Portfolio />
-    <Comparison />
-    <Pricing />
+    <SocialProof />
+    <ModularFeature />
+    <ValuePillars />
+    <BeyondCalorie />
     <ClosingCTA />
   </main>
   <Footer />

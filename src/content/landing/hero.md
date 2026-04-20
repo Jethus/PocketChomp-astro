@@ -1,12 +1,23 @@
 ---
-eyebrow: Web Design & Development
-headline: Transform your business with professional <span>web design</span>
-description: >
-  Increase leads and outpace competitors with a custom, lightning-fast website. 
-  Zero initial fees, zero page builders—just superior results and hands-free 
-  management starting at $200/mo.
-cta1Text: Get in touch
-cta1Link: /contact
-cta2Text: See our work
-cta2Link: "#portfolio"
+eyebrow: ""
+headline: Track your macros,
+accent: not your data.
+description: The local-first nutrition tracker built for Canadians. Free barcode scanning, a hyper-accurate Canadian database, zero gamification and zero ads.
+primaryCtaText: Join the beta
+primaryCtaLink: "#signup"
+secondaryCtaText: See how it works
+secondaryCtaLink: "#modular"
+collageCards:
+  - title: Local logging
+    body: private by default
+    kind: blank
+  - title: Track your food
+    body: fast, no clutter
+    kind: blank
+  - title: PocketChomp
+    body: macro tracker
+    kind: ring
+  - title: Canadian database
+    body: Locally sourced product data
+    kind: database
 ---

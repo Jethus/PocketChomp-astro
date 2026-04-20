@@ -1,0 +1,62 @@
+---
+interface Props extends astroHTML.JSX.ButtonHTMLAttributes {
+  class?: string;
+}
+
+const { class: className = "", ...rest } = Astro.props as Props;
+---
+
+<button
+  type="button"
+  data-theme-toggle
+  aria-pressed="false"
+  aria-label="Toggle theme"
+  {...rest}
+  class:list={[
+    "inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-border bg-surface text-foreground shadow-sm transition duration-200 ease-out hover:-translate-y-0.5 hover:bg-muted/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+    className,
+  ]}
+>
+  <span aria-hidden="true" class="relative flex h-5 w-5 items-center justify-center">
+    <svg
+      data-theme-toggle-icon="sun"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="1.8"
+      class="h-5 w-5"
+    >
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 2v2.5M12 19.5V22M4.93 4.93l1.77 1.77M17.3 17.3l1.77 1.77M2 12h2.5M19.5 12H22M4.93 19.07l1.77-1.77M17.3 6.7l1.77-1.77" />
+    </svg>
+    <svg
+      data-theme-toggle-icon="moon"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="1.8"
+      class="hidden h-5 w-5"
+    >
+      <path d="M20.5 15.2A8.5 8.5 0 0 1 8.8 3.5a8 8 0 1 0 11.7 11.7Z" />
+    </svg>
+  </span>
+  <span class="sr-only" data-theme-toggle-label>Toggle theme</span>
+</button>
+
+<script>
+  import { bindThemeToggleButtons, syncThemeToggleButtons } from "./theme";
+
+  const init = () => {
+    bindThemeToggleButtons();
+    syncThemeToggleButtons();
+  };
+
+  document.addEventListener("astro:page-load", init);
+  document.addEventListener("astro:after-swap", init);
+
+  init();
+</script>

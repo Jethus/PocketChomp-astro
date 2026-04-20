@@ -1,102 +1,38 @@
 ---
-import { SITE_TITLE } from "../consts";
 import Button from "./ui/Button.astro";
-import logoBlack from "../assets/svgs/logo-black.svg";
+import ThemeToggle from "./ui/ThemeToggle.astro";
+import logoLight from "../assets/svgs/logo-light.svg";
+import logoDark from "../assets/svgs/logo-dark.svg";
 ---
 
-<header
-  class="sticky top-0 z-50 border-b-3 border-ink bg-surface"
-  id="site-header"
->
-  <nav
-    class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4"
-    aria-label="Main navigation"
-  >
-    <a href="/" class="flex items-center gap-2 font-display font-bold fs-s">
-      <img src={logoBlack.src} alt={SITE_TITLE} class="h-16 w-auto" />
+<header class="sticky top-0 z-50 border-b border-border bg-background/85 backdrop-blur-xl">
+  <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4">
+    <a href="/" aria-label="PocketChomp home" class="inline-flex items-center">
+      <span class="logo-light">
+        <img src={logoLight.src} alt="PocketChomp" class="h-12 w-auto sm:h-14" />
+      </span>
+      <span class="logo-dark">
+        <img src={logoDark.src} alt="PocketChomp" class="h-12 w-auto sm:h-14" />
+      </span>
     </a>
 
-    <div class="hidden items-center gap-8 font-display font-bold md:flex">
-      <a
-        href="/about"
-        class="fs-base transition-colors duration-200 hover:text-primary"
-        >About Us</a
-      >
-      <a
-        href="/services"
-        class="fs-base transition-colors duration-200 hover:text-primary"
-        >Services</a
-      >
-      <a
-        href="/blog"
-        class="fs-base transition-colors duration-200 hover:text-primary"
-        >Blog</a
-      >
-      <Button href="/contact" size="base">Contact Us</Button>
-    </div>
-
-    <button
-      id="nav-toggle"
-      class="relative flex h-8 w-10 flex-col items-center justify-center gap-1.5 md:hidden"
-      aria-label="Toggle menu"
-      aria-expanded="false"
-      aria-controls="mobile-nav"
-    >
-      <span
-        class="block h-0.5 w-full rounded bg-ink transition-all duration-300"
-        aria-hidden="true"></span>
-      <span
-        class="block h-0.5 w-full rounded bg-ink transition-all duration-300"
-        aria-hidden="true"></span>
-      <span
-        class="block h-0.5 w-full rounded bg-ink transition-all duration-300"
-        aria-hidden="true"></span>
-    </button>
-  </nav>
-
-  <div
-    id="mobile-nav"
-    class="hidden border-t-3 border-ink bg-surface md:hidden"
-  >
-    <div class="flex flex-col px-6 py-4 font-display font-bold">
-      <a
-        href="/about"
-        class="border-b border-ink/10 py-3 transition-colors duration-200 hover:text-primary"
-        >About Us</a
-      >
-      <a
-        href="/services"
-        class="border-b border-ink/10 py-3 transition-colors duration-200 hover:text-primary"
-        >Services</a
-      >
-      <a
-        href="/blog"
-        class="border-b border-ink/10 py-3 transition-colors duration-200 hover:text-primary"
-        >Blog</a
-      >
-      <Button href="/contact" class="mt-4 text-center">Contact Us</Button>
+    <div class="flex items-center gap-3">
+      <ThemeToggle />
+      <Button href="#signup" size="lg" variant="accent">Join the beta</Button>
     </div>
   </div>
 </header>
 
-<script is:inline>
-  const toggle = document.getElementById("nav-toggle");
-  const mobileMenu = document.getElementById("mobile-nav");
-  const spans = toggle.querySelectorAll("span");
+<style>
+  .logo-dark {
+    display: none;
+  }
 
-  toggle.addEventListener("click", () => {
-    const isOpen = toggle.getAttribute("aria-expanded") === "true";
-    toggle.setAttribute("aria-expanded", String(!isOpen));
-    mobileMenu.classList.toggle("hidden");
+  :global(html[data-theme="dark"]) .logo-light {
+    display: none;
+  }
 
-    if (!isOpen) {
-      spans[0].style.transform = "rotate(45deg) translate(4px, 4px)";
-      spans[1].style.opacity = "0";
-      spans[2].style.transform = "rotate(-45deg) translate(4px, -4px)";
-    } else {
-      spans[0].style.transform = "";
-      spans[1].style.opacity = "";
-      spans[2].style.transform = "";
-    }
-  });
-</script>
+  :global(html[data-theme="dark"]) .logo-dark {
+    display: inline-flex;
+  }
+</style>

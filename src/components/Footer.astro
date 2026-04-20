@@ -1,134 +1,57 @@
 ---
-import logoWhite from "../assets/svgs/logo-white.svg";
-const today = new Date();
+import { getEntry } from "astro:content";
+import logoLight from "../assets/svgs/logo-light.svg";
+import logoDark from "../assets/svgs/logo-dark.svg";
+
+const footerEntry = await getEntry("landingFooter", "footer");
+
+if (!footerEntry) {
+  throw new Error("Could not find PocketChomp footer content");
+}
+
+const { tagline, links } = footerEntry.data;
+const currentYear = new Date().getFullYear();
 ---
 
-<footer class="bg-ink text-surface">
-  <div class="mx-auto max-w-7xl px-6 py-16 md:py-20">
-    <!-- Link Grid -->
-    <div class="grid gap-12 md:grid-cols-4">
-      <div class="md:col-span-1">
-        <a href="/" class="inline-block">
-          <img src={logoWhite.src} alt="Pixelboost" class="h-16 w-auto" />
-        </a>
-        <p class="mt-4 max-w-xs leading-relaxed text-surface/60 fs-xs">
-          We're focused on delivering high-speed, secure sites equipped with the
-          insights you need to scale.
-        </p>
-      </div>
+<footer class="border-t border-border bg-surface-strong">
+  <div class="mx-auto flex max-w-7xl flex-col gap-8 px-6 py-10 md:flex-row md:items-end md:justify-between">
+    <div class="space-y-4">
+      <a href="/" aria-label="PocketChomp home" class="inline-flex items-center">
+        <span class="footer-logo-light">
+          <img src={logoLight.src} alt="PocketChomp" class="h-12 w-auto sm:h-14" />
+        </span>
+        <span class="footer-logo-dark">
+          <img src={logoDark.src} alt="PocketChomp" class="h-12 w-auto sm:h-14" />
+        </span>
+      </a>
 
-      <div>
-        <h4
-          class="mb-4 font-display font-bold uppercase tracking-widest text-accent fs-xs"
-        >
-          Services
-        </h4>
-        <ul class="space-y-2 fs-xs">
-          <li>
-            <a
-              href="/services"
-              class="text-surface/70 transition-colors duration-200 hover:text-surface"
-              >Web Development</a
-            >
-          </li>
-          <li>
-            <a
-              href="/services"
-              class="text-surface/70 transition-colors duration-200 hover:text-surface"
-              >Web Design</a
-            >
-          </li>
-          <li>
-            <a
-              href="/services"
-              class="text-surface/70 transition-colors duration-200 hover:text-surface"
-              >Branding</a
-            >
-          </li>
-          <li>
-            <a
-              href="/services"
-              class="text-surface/70 transition-colors duration-200 hover:text-surface"
-              >Print Design</a
-            >
-          </li>
-          <li>
-            <a
-              href="/services"
-              class="text-surface/70 transition-colors duration-200 hover:text-surface"
-              >SEO</a
-            >
-          </li>
-        </ul>
-      </div>
-
-      <div>
-        <h4
-          class="mb-4 font-display font-bold uppercase tracking-widest text-accent fs-xs"
-        >
-          Agency
-        </h4>
-        <ul class="space-y-2 fs-xs">
-          <li>
-            <a
-              href="/about"
-              class="text-surface/70 transition-colors duration-200 hover:text-surface"
-              >About Us</a
-            >
-          </li>
-          <li>
-            <a
-              href="/blog"
-              class="text-surface/70 transition-colors duration-200 hover:text-surface"
-              >Blog</a
-            >
-          </li>
-          <li>
-            <a
-              href="#portfolio"
-              class="text-surface/70 transition-colors duration-200 hover:text-surface"
-              >Case Studies</a
-            >
-          </li>
-          <li>
-            <a
-              href="/contact"
-              class="text-surface/70 transition-colors duration-200 hover:text-surface"
-              >Contact Us</a
-            >
-          </li>
-        </ul>
-      </div>
-
-      <div>
-        <h4
-          class="mb-4 font-display font-bold uppercase tracking-widest text-accent fs-xs"
-        >
-          Get in Touch
-        </h4>
-        <ul class="space-y-2 fs-xs">
-          <li>
-            <a
-              href="tel:+19057812464"
-              class="text-surface/70 transition-colors duration-200 hover:text-surface"
-              >(905) 781-2464</a
-            >
-          </li>
-          <li>
-            <a
-              href="mailto:hello@pixelboost.ca"
-              class="text-surface/70 transition-colors duration-200 hover:text-surface"
-              >hello@pixelboost.ca</a
-            >
-          </li>
-        </ul>
-      </div>
+      <p class="text-sm text-muted-foreground">
+        &copy; {currentYear} PocketChomp. {tagline}
+      </p>
     </div>
 
-    <div
-      class="mt-12 border-t border-surface/10 pt-6 text-center text-surface/40 fs-xs"
-    >
-      &copy; {today.getFullYear()} Pixelboost. All rights reserved.
-    </div>
+    <nav aria-label="Footer" class="flex flex-wrap gap-6 text-sm text-muted-foreground">
+      {
+        links.map((link) => (
+          <a href={link.href} class="transition hover:text-foreground">
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
   </div>
 </footer>
+
+<style>
+  .footer-logo-dark {
+    display: none;
+  }
+
+  :global(html[data-theme="dark"]) .footer-logo-light {
+    display: none;
+  }
+
+  :global(html[data-theme="dark"]) .footer-logo-dark {
+    display: inline-flex;
+  }
+</style>
