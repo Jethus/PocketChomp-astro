@@ -27,10 +27,12 @@ function readTime(body: string): string {
     <!-- Post rows -->
     <div class="mt-10 divide-y divide-border">
       {posts.map((post) => {
-        const date = post.data.pubDate.toLocaleDateString("en-CA", {
+        const d = post.data.pubDate;
+        const date = d.toLocaleDateString("en-CA", {
           month: "short",
           day: "numeric",
           year: "numeric",
+          timeZone: "UTC",
         }).toUpperCase();
         const rt = readTime(post.body ?? "");
         return (

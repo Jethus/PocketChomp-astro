@@ -25,6 +25,7 @@ const formattedDate = post.data.pubDate.toLocaleDateString("en-CA", {
   year: "numeric",
   month: "long",
   day: "numeric",
+  timeZone: "UTC",
 });
 
 const tags = post.data.tags ?? [];
