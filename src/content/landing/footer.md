@@ -1,10 +1,6 @@
 ---
 tagline: Canadian-made. User-first.
 links:
-  - label: About
-    href: /about
-  - label: Blog
+  - label: Field Notes
     href: /blog
-  - label: Contact Us
-    href: /contact
 ---
