@@ -1,6 +1,6 @@
 ---
-eyebrow: Early insights
-headline: Why they're waiting
+eyebrow: Early access
+headline: Why Canadians are signing up
 description: Real feedback from early supporters.
 testimonials:
   - quote: I've been looking for a tracker that doesn't treat my food log like ad inventory. this is it.

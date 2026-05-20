@@ -1,6 +1,6 @@
 ---
 headline: Beyond the calorie.
-description: Your body is unique. Track what matters to you whether that's caffeine, fiber, electrolytes, or specific micronutrients.
+description: Track what actually matters to you — caffeine, fiber, electrolytes, or any micronutrient you care about. Your dashboard, your metrics.
 nutrients:
   - Protein
   - Fiber
