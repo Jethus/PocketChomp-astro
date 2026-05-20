@@ -11,17 +11,13 @@ if (!pillarsEntry) {
 }
 
 const { items } = pillarsEntry.data;
-
-// Ionicons-style outlined icons
-const iconMap = {
-  shield: `<svg viewBox="0 0 512 512" fill="none" stroke="currentColor" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"><path d="M256 32L48 144v112c0 124.4 89.5 206.6 208 240 118.5-33.4 208-115.6 208-240V144L256 32z"/><polyline points="176 268 224 316 336 204"/></svg>`,
-  ban: `<svg viewBox="0 0 512 512" fill="none" stroke="currentColor" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"><circle cx="256" cy="256" r="208"/><line x1="96" y1="96" x2="416" y2="416"/></svg>`,
-  cloud: `<svg viewBox="0 0 512 512" fill="none" stroke="currentColor" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"><path d="M400 240c-8.89-89.54-71-160-160-160-79.7 0-144 61.4-157.4 138.1C41 228 16 262.3 16 304c0 53 43 96 96 96h288c53 0 96-43 96-96 0-48-33.2-88.6-80-95.3"/><polyline points="208 320 256 272 304 320"/><line x1="256" y1="272" x2="256" y2="400"/></svg>`,
-  maple: `<svg viewBox="-1953 -2031 3906 4061" fill="currentColor"><path d="m-90 2030 45-863a95 95 0 0 0-111-98l-859 151 116-320a65 65 0 0 0-20-73l-941-762 212-99a65 65 0 0 0 34-79l-186-572 542 115a65 65 0 0 0 73-38l105-247 423 454a65 65 0 0 0 111-57l-204-1052 327 189a65 65 0 0 0 91-27l332-652 332 652a65 65 0 0 0 91 27l327-189-204 1052a65 65 0 0 0 111 57l423-454 105 247a65 65 0 0 0 73 38l542-115-186 572a65 65 0 0 0 34 79l212 99-941 762a65 65 0 0 0-20 73l116 320-859-151a95 95 0 0 0-111 98l45 863z"/></svg>`,
-} as const;
 ---
 
-<SectionShell innerClass="grid gap-6 md:grid-cols-2">
+<SectionShell innerClass="space-y-10">
+  <h2 class="text-3xl leading-[0.92] text-foreground md:text-4xl lg:text-5xl">
+    Founding members get early access.
+  </h2>
+  <div class="grid gap-6 md:grid-cols-2">
   {
     items.map((item) => (
       <article class:list={[
@@ -32,9 +28,9 @@ const iconMap = {
           <div class="flex items-center gap-3">
             <EyebrowPill>{item.eyebrow}</EyebrowPill>
           </div>
-          <h2 class="mt-5 max-w-[12ch] text-4xl uppercase leading-[0.92] text-foreground md:text-5xl lg:text-6xl">
+          <h3 class="mt-5 max-w-[12ch] text-2xl leading-[1.1] text-foreground md:text-3xl lg:text-4xl">
             {item.headline}
-          </h2>
+          </h3>
           <p class="mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">
             {item.description}
           </p>
@@ -45,6 +41,7 @@ const iconMap = {
       </article>
     ))
   }
+  </div>
 </SectionShell>
 
 <style>

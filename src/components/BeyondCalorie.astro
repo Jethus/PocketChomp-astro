@@ -53,7 +53,7 @@ const getProgressWidthClass = (percentage: number) => {
   innerClass="overflow-hidden rounded-[2.5rem] bg-accent px-6 py-10 text-accent-foreground shadow-[var(--shadow-elevated-lg)] md:px-10 md:py-14 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(18rem,1fr)] lg:items-center lg:gap-14"
 >
   <div>
-    <h2 class="max-w-[8ch] text-5xl uppercase leading-[0.9] md:text-6xl lg:text-7xl">
+    <h2 class="max-w-[8ch] text-4xl leading-[0.95] md:text-5xl lg:text-6xl">
       {headline}
     </h2>
     <p class="mt-6 max-w-2xl text-lg leading-relaxed text-black/80">
@@ -63,7 +63,7 @@ const getProgressWidthClass = (percentage: number) => {
     <ul class="mt-8 grid gap-3 sm:grid-cols-2">
       {
         nutrients.map((nutrient) => (
-          <li class="rounded-[1.5rem] border border-black/18 bg-black/6 px-5 py-4 font-heading text-xl font-black uppercase">
+          <li class="rounded-full border border-black/18 bg-black/6 px-5 py-3 font-heading text-base font-black uppercase tracking-wide">
             {nutrient}
           </li>
         ))
