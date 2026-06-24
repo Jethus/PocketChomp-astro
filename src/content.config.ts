@@ -133,6 +133,21 @@ const landingSignupCta = defineCollection({
   }),
 });
 
+const landingFreePremium = defineCollection({
+  loader: glob({ pattern: "free-premium.md", base: "./src/content/landing" }),
+  schema: z.object({
+    eyebrow: z.string(),
+    headline: z.string(),
+    description: z.string(),
+    freeTitle: z.string(),
+    freeNote: z.string(),
+    freeItems: z.array(z.string()),
+    premiumTitle: z.string(),
+    premiumNote: z.string(),
+    premiumItems: z.array(z.string()),
+  }),
+});
+
 const landingFooter = defineCollection({
   loader: glob({ pattern: "footer.md", base: "./src/content/landing" }),
   schema: z.object({
@@ -142,7 +157,7 @@ const landingFooter = defineCollection({
         label: z.string(),
         href: z.string(),
       })
-    ).length(3),
+    ).min(1),
   }),
 });
 
@@ -175,6 +190,7 @@ export const collections = {
   landingValuePillars,
   landingBeyondCalorie,
   landingSignupCta,
+  landingFreePremium,
   landingFooter,
   landingBlogMasthead,
   landingBlogNow,

@@ -2,7 +2,7 @@
 eyebrow: ""
 headline: Track your macros,
 accent: not your data.
-description: PocketChomp is a free nutrition tracker built for Canada. Accurate data from real Canadian groceries, a free barcode scanner, dynamic TDEE, and no ads — ever.
+description: The calorie tracker that stays free where it counts — unlimited barcode scanning, real Canadian grocery data, full micronutrients, and no ads, no paywall creep. Ever.
 primaryCtaText: Join the beta
 primaryCtaLink: "#signup"
 secondaryCtaText: See how it works

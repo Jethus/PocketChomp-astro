@@ -5,6 +5,6 @@ description: Set goals around what you actually track. Rearrange widgets, dial i
 bullets:
   - Reorder your dashboard around your priorities
   - Track macros, micros, or custom daily focus metrics
-  - Dynamic TDEE that adjusts as your goals change
+  - Set your own calorie and macro goals, your way
   - Clean progress view — no clutter, no gamification
 ---

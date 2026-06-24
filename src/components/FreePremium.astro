@@ -1,0 +1,160 @@
+---
+import { getEntry } from "astro:content";
+import SectionShell from "./ui/SectionShell.astro";
+import EyebrowPill from "./ui/EyebrowPill.astro";
+
+const entry = await getEntry("landingFreePremium", "free-premium");
+
+if (!entry) {
+  throw new Error("Could not find PocketChomp free-premium content");
+}
+
+const {
+  eyebrow,
+  headline,
+  description,
+  freeTitle,
+  freeNote,
+  freeItems,
+  premiumTitle,
+  premiumNote,
+  premiumItems,
+} = entry.data;
+---
+
+<section id="pricing">
+  <SectionShell innerClass="space-y-10">
+    <div class="max-w-2xl space-y-4">
+      <EyebrowPill>{eyebrow}</EyebrowPill>
+      <h2 class="text-3xl leading-[1.05] text-foreground md:text-4xl lg:text-5xl">
+        {headline}
+      </h2>
+      <p class="text-lg leading-relaxed text-muted-foreground">
+        {description}
+      </p>
+    </div>
+
+    <div class="grid gap-6 lg:grid-cols-2">
+      <article class="plan-card plan-card--free">
+        <div class="plan-card__inner">
+          <h3 class="font-heading text-2xl font-black text-foreground md:text-3xl">
+            {freeTitle}
+          </h3>
+          <p class="mt-2 text-sm leading-relaxed text-muted-foreground">
+            {freeNote}
+          </p>
+          <ul class="mt-6 space-y-3">
+            {
+              freeItems.map((item) => (
+                <li class="plan-item">
+                  <span class="plan-item__check plan-item__check--free" aria-hidden="true">✓</span>
+                  <span>{item}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </article>
+
+      <article class="plan-card plan-card--premium">
+        <div class="plan-card__inner">
+          <h3 class="font-heading text-2xl font-black text-foreground md:text-3xl">
+            {premiumTitle}
+          </h3>
+          <p class="mt-2 text-sm leading-relaxed text-muted-foreground">
+            {premiumNote}
+          </p>
+          <ul class="mt-6 space-y-3">
+            {
+              premiumItems.map((item) => (
+                <li class="plan-item">
+                  <span class="plan-item__check plan-item__check--premium" aria-hidden="true">+</span>
+                  <span>{item}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </article>
+    </div>
+  </SectionShell>
+</section>
+
+<style>
+  .plan-card {
+    position: relative;
+    border-radius: 1.75rem;
+    padding: 2px;
+    background: linear-gradient(
+      145deg,
+      color-mix(in oklab, var(--border) 90%, var(--primary) 10%),
+      color-mix(in oklab, var(--border) 40%, transparent),
+      color-mix(in oklab, var(--border) 70%, var(--primary) 5%)
+    );
+    box-shadow: var(--shadow-elevated);
+  }
+
+  .plan-card--free {
+    background: linear-gradient(
+      145deg,
+      color-mix(in oklab, var(--primary) 55%, transparent),
+      color-mix(in oklab, var(--primary) 18%, transparent),
+      color-mix(in oklab, var(--border) 60%, transparent)
+    );
+  }
+
+  .plan-card__inner {
+    position: relative;
+    border-radius: calc(1.75rem - 2px);
+    background: var(--surface);
+    padding: 2rem 2rem 1.9rem;
+    height: 100%;
+  }
+
+  .plan-card--free .plan-card__inner {
+    background: color-mix(in oklab, var(--surface) 96%, var(--primary) 4%);
+  }
+
+  .plan-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    font-size: 1.0625rem;
+    line-height: 1.4;
+    color: var(--foreground);
+  }
+
+  .plan-item__check {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.4rem;
+    height: 1.4rem;
+    flex-shrink: 0;
+    border-radius: 999px;
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  .plan-item__check--free {
+    background: color-mix(in oklab, var(--primary) 18%, var(--surface));
+    border: 1px solid color-mix(in oklab, var(--primary) 32%, var(--border));
+    color: var(--primary);
+  }
+
+  .plan-item__check--premium {
+    background: color-mix(in oklab, var(--accent) 18%, var(--surface));
+    border: 1px solid color-mix(in oklab, var(--accent) 34%, var(--border));
+    color: var(--accent);
+  }
+
+  :global(html[data-theme="dark"]) .plan-card__inner {
+    background: color-mix(in oklab, var(--surface) 95%, black 5%);
+  }
+
+  :global(html[data-theme="dark"]) .plan-card--free .plan-card__inner {
+    background: color-mix(in oklab, var(--surface) 93%, var(--primary) 7%);
+  }
+</style>
