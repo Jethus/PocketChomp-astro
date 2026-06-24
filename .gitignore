@@ -5,6 +5,7 @@ dist/
 .vscode/
 
 agents/
+.claude/worktrees/
 
 # dependencies
 node_modules/
