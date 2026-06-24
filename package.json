@@ -1,5 +1,5 @@
 {
-  "name": "pixelboost-astro",
+  "name": "pocketchomp-site",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -9,16 +9,16 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.8",
-    "@astrojs/compiler-rs": "^0.1.8",
-    "@astrojs/mdx": "^5.0.3",
-    "@astrojs/react": "^5.0.3",
+    "@astrojs/check": "^0.9.9",
+    "@astrojs/compiler-rs": "^0.2.3",
+    "@astrojs/mdx": "^7.0.0",
+    "@astrojs/react": "^6.0.0",
     "@astrojs/rss": "^4.0.18",
-    "@astrojs/sitemap": "^3.7.2",
+    "@astrojs/sitemap": "^3.7.3",
     "@fontsource-variable/montserrat": "^5.2.8",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "astro": "^6.1.8",
+    "astro": "^7.0.2",
     "geist": "^1.7.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",

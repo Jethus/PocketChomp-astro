@@ -32,7 +32,7 @@ const [topLeftCard, bottomLeftCard, topRightCard, bottomRightCard] = collageCard
     innerClass="max-w-[90rem] grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-12"
   >
     <div class="pt-2">
-      <h1 class="text-5xl uppercase leading-[1.1] text-foreground sm:text-6xl md:text-7xl lg:text-[5.35rem]">
+      <h1 class="fs-xxl uppercase leading-[1.05] text-foreground">
         {headline}
         <span class="block text-accent">{accent}</span>
       </h1>
@@ -42,7 +42,7 @@ const [topLeftCard, bottomLeftCard, topRightCard, bottomRightCard] = collageCard
       </p>
 
       <div class="mt-7 flex flex-wrap gap-4">
-        <Button href={primaryCtaLink} variant="outline" size="lg" class="hero-cta hero-cta--primary">
+        <Button href={primaryCtaLink} variant="accent" size="lg" class="hero-cta">
           {primaryCtaText}
         </Button>
         <Button href={secondaryCtaLink} variant="outline" size="lg" class="hero-cta">
@@ -101,12 +101,6 @@ const [topLeftCard, bottomLeftCard, topRightCard, bottomRightCard] = collageCard
 <style>
   .hero-cta {
     min-width: 12rem;
-  }
-
-  .hero-cta--primary {
-    background: var(--accent);
-    color: var(--accent-foreground);
-    border-color: transparent;
   }
 
   /* Grid fills its column, height derived from aspect-ratio */

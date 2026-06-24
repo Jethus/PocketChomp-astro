@@ -43,8 +43,4 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
   security: { csp: true },
-  experimental: {
-    rustCompiler: true,
-    queuedRendering: { enabled: true },
-  },
 });

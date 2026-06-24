@@ -1,6 +1,6 @@
 ---
-title: "Why I'm building PocketChomp."
-description: "Another macro tracker? Really? Yes — because the ones I tried either gated the scanner behind a subscription, didn't exist on Android, or treated my food log like an asset on their balance sheet."
+title: "Everyone wants your data"
+description: "Login to this, accept our cookies, we won't sell your data, we promise"
 pubDate: "2026-04-16"
 tags: ["Philosophy", "Devlog"]
 ---
