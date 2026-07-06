@@ -2,9 +2,13 @@
 import { getEntry } from "astro:content";
 import Button from "./ui/Button.astro";
 import SectionShell from "./ui/SectionShell.astro";
-import heroShot from "../assets/png/hero-app-shot.png";
 import androidFrameDark from "../assets/png/android-frame-dark.png";
 import androidFrameLight from "../assets/png/android-frame-light.png";
+import uiDashboard from "../assets/ui/ui-dashboard.png";
+import uiCalories from "../assets/ui/ui-calories.png";
+import uiMacros from "../assets/ui/ui-macros.png";
+import uiRing from "../assets/ui/ui-ring.png";
+import uiSearchRow from "../assets/ui/ui-search-row.png";
 
 const heroEntry = await getEntry("landingHero", "hero");
 
@@ -20,10 +24,7 @@ const {
   primaryCtaLink,
   secondaryCtaText,
   secondaryCtaLink,
-  collageCards,
 } = heroEntry.data;
-
-const [topLeftCard, bottomLeftCard, topRightCard, bottomRightCard] = collageCards;
 ---
 
 <section id="hero" class="overflow-x-clip border-b border-border hero-section">
@@ -51,52 +52,68 @@ const [topLeftCard, bottomLeftCard, topRightCard, bottomRightCard] = collageCard
       </div>
     </div>
 
-    <div class="hero-grid" aria-hidden="true">
-      <article class="hero-panel hero-panel--support hero-panel--tl">
-        <span class="hero-panel__eyebrow">Private</span>
-        <p class="hero-panel__title">{topLeftCard.title}</p>
-        {topLeftCard.body && <p class="hero-panel__body">{topLeftCard.body}</p>}
+    <div class="hero-grid" aria-hidden="true" data-hero-grid>
+      <article class="hero-panel hero-panel--shot hero-panel--tl" style="--reveal-delay: 80ms">
+        <img src={uiCalories.src} alt="" class="hero-shot__img" loading="eager" />
       </article>
 
-      <article class="hero-panel hero-panel--support hero-panel--bl">
-        <p class="hero-panel__title hero-panel__title--compact">{bottomLeftCard.title}</p>
-        {bottomLeftCard.body && <p class="hero-panel__body">{bottomLeftCard.body}</p>}
+      <article class="hero-panel hero-panel--shot hero-panel--bl" style="--reveal-delay: 220ms">
+        <img src={uiMacros.src} alt="" class="hero-shot__img" loading="eager" />
       </article>
 
-      <div class="hero-panel hero-panel--phone hero-panel--center">
+      <div class="hero-panel hero-panel--phone hero-panel--center" style="--reveal-delay: 0ms">
         <img
-          src={heroShot.src}
-          alt="PocketChomp app preview inside an Android device frame"
+          src={uiDashboard.src}
+          alt="PocketChomp dashboard showing today's calories, macros and micronutrients"
           class="hero-phone__screen"
+          loading="eager"
         />
+        <span class="hero-phone__sheen"></span>
         <img src={androidFrameLight.src} alt="" class="hero-frame hero-frame--light" />
         <img src={androidFrameDark.src} alt="" class="hero-frame hero-frame--dark" />
       </div>
 
-      <article class="hero-panel hero-panel--meta hero-panel--tr">
-        <div class="hero-meta">
-          <div class="hero-meta__mark">
-            <span class="hero-meta__dot"></span>
-          </div>
-          <div>
-            <p class="hero-panel__title">{topRightCard.title}</p>
-            {topRightCard.body && <p class="hero-panel__body">{topRightCard.body}</p>}
-          </div>
-        </div>
+      <article class="hero-panel hero-panel--shot hero-panel--tr" style="--reveal-delay: 160ms">
+        <img src={uiRing.src} alt="" class="hero-shot__img hero-shot__img--contain" loading="eager" />
       </article>
 
-      <article class="hero-panel hero-panel--support hero-panel--br">
-        <p class="hero-panel__title hero-panel__title--compact">Track your food</p>
-        <p class="hero-panel__body">fast, local-first, no clutter</p>
+      <article class="hero-panel hero-panel--shot hero-panel--br" style="--reveal-delay: 300ms">
+        <img src={uiSearchRow.src} alt="" class="hero-shot__img" loading="eager" />
       </article>
 
-      <article class="hero-panel hero-panel--mini hero-panel--bc">
+      <article class="hero-panel hero-panel--mini hero-panel--bc" style="--reveal-delay: 380ms">
         <span class="hero-mini__dot"></span>
         <span class="hero-mini__label">on-device by default</span>
       </article>
     </div>
   </SectionShell>
 </section>
+
+<script>
+  // Reveal the hero collage once it scrolls into view (or immediately if
+  // already visible on load). Pure progressive enhancement — without JS the
+  // panels still render, just without the staggered entrance.
+  const grid = document.querySelector<HTMLElement>("[data-hero-grid]");
+  if (grid) {
+    const reveal = () => grid.classList.add("is-revealed");
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver(
+        (entries, obs) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              reveal();
+              obs.disconnect();
+            }
+          }
+        },
+        { threshold: 0.2 }
+      );
+      io.observe(grid);
+    } else {
+      reveal();
+    }
+  }
+</script>
 
 <style>
   .hero-cta {
@@ -121,13 +138,28 @@ const [topLeftCard, bottomLeftCard, topRightCard, bottomRightCard] = collageCard
     overflow: hidden;
   }
 
-  .hero-panel--support,
-  .hero-panel--meta {
-    padding: 1rem 0.95rem;
+  /* Frameless UI extracts fill their panel edge-to-edge */
+  .hero-panel--shot {
+    padding: 0;
+    background: #16110d;
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
   }
 
-  .hero-panel--support {
-    background: color-mix(in oklab, var(--primary) 26%, var(--surface));
+  .hero-shot__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: left center;
+    display: block;
+  }
+
+  /* The macro ring reads best fully visible, not cropped */
+  .hero-shot__img--contain {
+    object-fit: contain;
+    object-position: center;
+    padding: 0.6rem;
   }
 
   /* cols 1-3: left panels, cols 4-7: phone, cols 8-10: right panels */
@@ -209,74 +241,6 @@ const [topLeftCard, bottomLeftCard, topRightCard, bottomRightCard] = collageCard
     z-index: 1;
   }
 
-  .hero-panel__eyebrow {
-    display: inline-flex;
-    align-items: center;
-    margin-bottom: 0.7rem;
-    font-family: var(--font-heading);
-    font-size: 0.62rem;
-    font-weight: 900;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: var(--muted-foreground);
-  }
-
-  .hero-panel__title {
-    margin: 0;
-    font-family: var(--font-heading);
-    font-size: clamp(0.65rem, 1.8cqi, 1rem);
-    font-weight: 900;
-    line-height: 1;
-    text-transform: uppercase;
-    color: var(--foreground);
-  }
-
-  .hero-panel__title--compact {
-    font-size: clamp(0.6rem, 1.6cqi, 0.9rem);
-  }
-
-  .hero-panel__body {
-    margin: 0.55rem 0 0;
-    font-size: clamp(0.55rem, 1.4cqi, 0.78rem);
-    line-height: 1.4;
-    text-transform: lowercase;
-    color: var(--muted-foreground);
-  }
-
-  /* Make panels container-aware so text scales with panel size */
-  .hero-panel--tl,
-  .hero-panel--bl,
-  .hero-panel--tr,
-  .hero-panel--br {
-    container-type: inline-size;
-  }
-
-  .hero-meta {
-    display: grid;
-    align-content: space-between;
-    justify-items: start;
-    height: 100%;
-  }
-
-  .hero-meta__mark {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: clamp(2rem, 5cqi, 3.2rem);
-    height: clamp(2rem, 5cqi, 3.2rem);
-    border-radius: 999px;
-    background: color-mix(in oklab, var(--accent) 24%, var(--surface));
-    border: 1px solid color-mix(in oklab, var(--accent) 55%, transparent);
-  }
-
-  .hero-meta__dot {
-    width: clamp(0.6rem, 1.6cqi, 1rem);
-    height: clamp(0.6rem, 1.6cqi, 1rem);
-    border-radius: 999px;
-    background: var(--accent);
-    box-shadow: 0 0 0 0.32rem color-mix(in oklab, var(--accent) 22%, transparent);
-  }
-
   .hero-mini__dot {
     width: 0.45rem;
     height: 0.45rem;
@@ -293,16 +257,97 @@ const [topLeftCard, bottomLeftCard, topRightCard, bottomRightCard] = collageCard
     color: var(--muted-foreground);
   }
 
-  :global(html[data-theme="dark"]) .hero-panel:not(.hero-panel--center) {
+  :global(html[data-theme="dark"]) .hero-panel--mini {
     background: color-mix(in oklab, var(--surface) 92%, black);
   }
 
-  :global(html[data-theme="dark"]) .hero-panel--support {
-    background: color-mix(in oklab, var(--primary) 34%, var(--surface));
+  /* Shot panels keep the app's dark UI background in both themes */
+  .hero-panel--shot,
+  :global(html[data-theme="dark"]) .hero-panel--shot {
+    background: #16110d;
   }
 
   :global(html[data-theme="dark"]) .hero-panel--bc {
     background: color-mix(in oklab, var(--surface) 90%, black);
+  }
+
+  /* ---- Entrance: panels rise + fade in, staggered via --reveal-delay ---- */
+  .hero-panel {
+    opacity: 0;
+    transform: translateY(14px) scale(0.985);
+  }
+
+  [data-hero-grid].is-revealed .hero-panel {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
+      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms);
+  }
+
+  /* One-shot sheen sweeping across the phone after it reveals */
+  .hero-phone__sheen {
+    position: absolute;
+    inset: 3.5% 6% 3.5% 6%;
+    border-radius: 1.6rem;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .hero-phone__sheen::after {
+    content: "";
+    position: absolute;
+    top: -30%;
+    left: -60%;
+    width: 45%;
+    height: 160%;
+    transform: rotate(18deg) translateX(-120%);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in oklab, white 32%, transparent),
+      transparent
+    );
+  }
+
+  [data-hero-grid].is-revealed .hero-phone__sheen::after {
+    animation: hero-sheen 1.1s cubic-bezier(0.4, 0, 0.2, 1) 0.55s 1 both;
+  }
+
+  @keyframes hero-sheen {
+    from {
+      transform: rotate(18deg) translateX(-120%);
+    }
+    to {
+      transform: rotate(18deg) translateX(420%);
+    }
+  }
+
+  .hero-mini__dot {
+    animation: hero-pulse 2.4s ease-in-out infinite;
+  }
+
+  @keyframes hero-pulse {
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 color-mix(in oklab, var(--primary) 55%, transparent);
+    }
+    50% {
+      box-shadow: 0 0 0 0.32rem color-mix(in oklab, var(--primary) 0%, transparent);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-panel {
+      opacity: 1;
+      transform: none;
+    }
+    .hero-phone__sheen::after,
+    [data-hero-grid].is-revealed .hero-phone__sheen::after,
+    .hero-mini__dot {
+      animation: none;
+    }
   }
 
   /* Below lg: grid goes full width, stack is centered, cap to readable size */

@@ -1,13 +1,10 @@
-// @ts-check
 import { defineConfig, fontProviders } from "astro/config";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
-import react from "@astrojs/react";
 import tailwindcss from "@tailwindcss/vite";
 
-// https://astro.build/config
 export default defineConfig({
-  site: "https://pixelboost.ca",
+  site: "https://pocketchomp.com",
   fonts: [
     {
       provider: fontProviders.local(),
@@ -38,7 +35,10 @@ export default defineConfig({
       },
     },
   ],
-  integrations: [mdx(), sitemap(), react()],
+  integrations: [mdx(), sitemap()],
+  markdown: {
+    syntaxHighlight: false,
+  },
   vite: {
     plugins: [tailwindcss()],
   },
