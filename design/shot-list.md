@@ -14,13 +14,11 @@ Source screenshots are 1344x2992 (status bar occupies the top ~5.2% — always t
 | Hero panel TR | Hero.astro | (green info tile, no image) | — | — | final | Mockup-style "High-contrast nutrient logic" tile; copy in hero.md collageCards |
 | Hero panel BR | Hero.astro | (green info tile, no image) | — | — | final | Mockup-style "Canadian database" tile; copy in hero.md collageCards |
 | Modular feature phone | ModularFeature.astro (via PhoneFrame) | modular-app-shot.png | legacy asset | 9:19.5 | replace | Re-capture dashboard on current app build to match hero styling |
-| Pillar: no ads | ValuePillars.astro (frontmatter) | ui-plate.png | 192156 plate list | 21:9 (cover) | replace | Plate with recognizably Canadian foods, tighter crop on item rows |
-| Pillar: your choice | ValuePillars.astro (frontmatter) | ui-search-row.png | 191905 search rows | 21:9 (cover) | replace | Offline indicator visible next to search results if possible |
-| Pillar: Canadian | ValuePillars.astro (frontmatter) | ui-label-scan.png | 192035 Neilson label | 21:9 (cover) | replace | Label scan of an unmistakably Canadian product, brand name fully visible |
 | Beyond calorie panel | BeyondCalorie.astro (frontmatter) | ui-detailed.png | 191909 detailed nutrition | ~16:9 | final | Optionally re-capture with caffeine/electrolytes rows visible to match copy |
 | Phone frames | PhoneFrame.astro / Hero.astro | android-frame-light/dark.png | device frame art | — | final | — |
 
-Not pictured (text-only by design): ProofStrip, Pillar "Privacy", FreePremium,
+Not pictured (text-only by design): ProofStrip, all four value pillars (card
+images removed 2026-07-06), FreePremium,
 FieldNotesTeaser, ClosingCTA (phone removed 2026-07-06 — closes on headline + signup
 form only), SocialProof (unmounted until real users exist).
 
@@ -28,7 +26,8 @@ Generated but currently unused crops (kept in `scripts/crop-ui.mjs`, free to reu
 `ui-calories.png`, `ui-macros.png`, `ui-ring.png` (widget extracts from the original
 hero collage), `ui-addfood.png` (former closing CTA phone screen),
 `ui-screen-library.png`, `ui-screen-plate.png` (former hero TR/BR panels, replaced
-by the mockup's green info tiles).
+by the mockup's green info tiles), `ui-plate.png`, `ui-search-row.png`,
+`ui-label-scan.png` (former pillar card strips).
 
 Reserved future slots:
 - ProofStrip item 4: Play Store rating (post-launch)

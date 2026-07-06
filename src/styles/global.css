@@ -57,6 +57,7 @@
   --color-primary-light: var(--primary-soft);
   --color-primary-dark: var(--primary-strong);
   --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
   --color-accent-foreground: var(--accent-foreground);
   --color-ink: var(--foreground);
 
@@ -99,6 +100,8 @@
     --primary-soft: oklch(0.928 0.02 164);
     --primary-strong: oklch(0.43 0.062 164);
     --accent: oklch(67.064% 0.22127 37.627);
+    /* Button-grade orange: deep enough for AA contrast with white text */
+    --accent-strong: oklch(0.53 0.185 37.627);
     --accent-foreground: oklch(0.1912 0.0076 145.27);
 
     --radius-card: 1rem;
@@ -128,6 +131,7 @@
     --primary-soft: oklch(0.34 0.038 164);
     --primary-strong: oklch(0.58 0.078 164);
     --accent: oklch(67.064% 0.22127 37.627);
+    --accent-strong: oklch(0.55 0.185 37.627);
     --accent-foreground: oklch(0.1912 0.0076 145.27);
 
     --shadow-elevated: 0 18px 38px -28px rgb(0 0 0 / 0.48);
