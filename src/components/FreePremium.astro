@@ -23,7 +23,7 @@ const {
 ---
 
 <section id="pricing">
-  <SectionShell innerClass="space-y-10">
+  <SectionShell innerClass="space-y-10" data-reveal-root>
     <div class="max-w-2xl space-y-4">
       <EyebrowPill>{eyebrow}</EyebrowPill>
       <h2 class="text-3xl leading-[1.05] text-foreground md:text-4xl lg:text-5xl">
@@ -35,7 +35,7 @@ const {
     </div>
 
     <div class="grid gap-6 lg:grid-cols-2">
-      <article class="plan-card plan-card--free">
+      <article class="plan-card plan-card--free" data-reveal>
         <div class="plan-card__inner">
           <h3 class="font-heading text-2xl font-black text-foreground md:text-3xl">
             {freeTitle}
@@ -56,7 +56,7 @@ const {
         </div>
       </article>
 
-      <article class="plan-card plan-card--premium">
+      <article class="plan-card plan-card--premium" data-reveal style="--reveal-delay: 140ms">
         <div class="plan-card__inner">
           <h3 class="font-heading text-2xl font-black text-foreground md:text-3xl">
             {premiumTitle}
