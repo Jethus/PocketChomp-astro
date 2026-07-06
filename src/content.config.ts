@@ -59,6 +59,21 @@ const landingHero = defineCollection({
   }),
 });
 
+const landingProofStrip = defineCollection({
+  loader: glob({ pattern: "proof-strip.md", base: "./src/content/landing" }),
+  schema: z.object({
+    items: z
+      .array(
+        z.object({
+          value: z.string(),
+          label: z.string(),
+        })
+      )
+      .min(3)
+      .max(4),
+  }),
+});
+
 const landingSocialProof = defineCollection({
   loader: glob({ pattern: "social-proof.md", base: "./src/content/landing" }),
   schema: z.object({
@@ -185,6 +200,7 @@ export const collections = {
   services,
   portfolio,
   landingHero,
+  landingProofStrip,
   landingSocialProof,
   landingModularFeature,
   landingValuePillars,

@@ -1,0 +1,26 @@
+---
+import { getEntry } from "astro:content";
+
+const entry = await getEntry("landingProofStrip", "proof-strip");
+
+if (!entry) {
+  throw new Error("Could not find PocketChomp proof strip content");
+}
+
+const { items } = entry.data;
+---
+
+<section aria-label="PocketChomp at a glance" class="border-b border-border" data-reveal-root>
+  <div class="mx-auto grid w-full max-w-7xl grid-cols-1 gap-6 px-6 py-8 sm:grid-cols-3 md:py-10">
+    {
+      items.map((item, index) => (
+        <div class="text-center sm:text-left" data-reveal style={`--reveal-delay: ${index * 120}ms`}>
+          <p class="font-heading fs-m font-black uppercase tracking-tight text-foreground">
+            {item.value}
+          </p>
+          <p class="mt-1 text-sm leading-relaxed text-muted-foreground">{item.label}</p>
+        </div>
+      ))
+    }
+  </div>
+</section>
