@@ -10,12 +10,12 @@ if (!pillarsEntry) {
   throw new Error("Could not find PocketChomp value pillars content");
 }
 
-const { items } = pillarsEntry.data;
+const { headline, items } = pillarsEntry.data;
 ---
 
 <SectionShell innerClass="space-y-10">
   <h2 class="text-3xl leading-[0.92] text-foreground md:text-4xl lg:text-5xl">
-    Founding members get early access.
+    {headline}
   </h2>
   <div class="grid gap-6 md:grid-cols-2">
   {
@@ -37,6 +37,17 @@ const { items } = pillarsEntry.data;
           <div class="mt-6">
             <ChipList items={item.chips} tone={item.tone} />
           </div>
+          {item.image && (
+            <div class="pillar-card__media mt-7">
+              <img
+                src={item.image.src}
+                alt={item.imageAlt ?? ""}
+                width={item.image.width}
+                height={item.image.height}
+                loading="lazy"
+              />
+            </div>
+          )}
         </div>
       </article>
     ))
@@ -149,5 +160,22 @@ const { items } = pillarsEntry.data;
 
   :global(html[data-theme="dark"]) .pillar-card--canadian .pillar-card__inner {
     background: color-mix(in oklab, var(--surface) 93%, var(--accent) 7%);
+  }
+
+  /* UI extract strip — same dark app background as the hero panels */
+  .pillar-card__media {
+    border-radius: 1rem;
+    overflow: hidden;
+    background: #16110d;
+    aspect-ratio: 21 / 9;
+    border: 1px solid color-mix(in oklab, var(--border) 60%, transparent);
+  }
+
+  .pillar-card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: left top;
+    display: block;
   }
 </style>

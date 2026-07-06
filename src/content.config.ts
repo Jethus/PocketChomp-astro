@@ -104,18 +104,24 @@ const landingModularFeature = defineCollection({
 
 const landingValuePillars = defineCollection({
   loader: glob({ pattern: "value-pillars.md", base: "./src/content/landing" }),
-  schema: z.object({
-    items: z.array(
-      z.object({
-        eyebrow: z.string(),
-        headline: z.string(),
-        description: z.string(),
-        icon: z.enum(["shield", "ban", "cloud", "maple"]),
-        tone: z.enum(["default", "canadian"]).default("default"),
-        chips: z.array(z.string()),
-      })
-    ).length(4),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      headline: z.string(),
+      items: z
+        .array(
+          z.object({
+            eyebrow: z.string(),
+            headline: z.string(),
+            description: z.string(),
+            icon: z.enum(["shield", "ban", "cloud", "maple"]),
+            tone: z.enum(["default", "canadian"]).default("default"),
+            chips: z.array(z.string()),
+            image: image().optional(),
+            imageAlt: z.string().optional(),
+          })
+        )
+        .length(4),
+    }),
 });
 
 const landingBeyondCalorie = defineCollection({

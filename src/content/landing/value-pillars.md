@@ -1,4 +1,5 @@
 ---
+headline: Founding members get early access.
 items:
   - eyebrow: Privacy
     headline: Your data stays on your device.
@@ -16,6 +17,8 @@ items:
     chips:
       - 0 ads
       - No dark patterns
+    image: ../../assets/ui/ui-plate.png
+    imageAlt: A logged plate in PocketChomp with four foods totalling 880 calories — no ads anywhere
   - eyebrow: Your choice
     headline: Control where your data lives.
     description: Use the app entirely offline, or opt in to cloud sync later on your terms. Export everything in one tap, delete in two.
@@ -24,6 +27,8 @@ items:
     chips:
       - Your data
       - Your terms
+    image: ../../assets/ui/ui-search-row.png
+    imageAlt: Offline food search results in PocketChomp
   - eyebrow: Made in Toronto
     headline: Built for Canadian groceries.
     description: Grounded in Canadian products, priced in CAD, metric by default. French support coming. Android and iOS from day one.
@@ -32,4 +37,6 @@ items:
     chips:
       - Canadian products
       - CAD pricing
+    image: ../../assets/ui/ui-label-scan.png
+    imageAlt: Scanned nutrition label of Neilson Half and Half cream, a Canadian grocery product
 ---
