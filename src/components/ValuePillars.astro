@@ -20,7 +20,7 @@ const { headline, items } = pillarsEntry.data;
   <div class="grid gap-6 md:grid-cols-2">
   {
     items.map((item, index) => (
-      <article class="pillar-card" data-reveal style={`--reveal-delay: ${index * 100}ms`}>
+      <article class="pillar-card" data-reveal>
         <div class="pillar-card__inner">
           <div class="flex items-center gap-3">
             <EyebrowPill>{item.eyebrow}</EyebrowPill>
@@ -42,6 +42,17 @@ const { headline, items } = pillarsEntry.data;
 </SectionShell>
 
 <style>
+  /* Stagger in CSS — inline style attributes are blocked by the site CSP */
+  .pillar-card:nth-child(2) {
+    --reveal-delay: 100ms;
+  }
+  .pillar-card:nth-child(3) {
+    --reveal-delay: 200ms;
+  }
+  .pillar-card:nth-child(4) {
+    --reveal-delay: 300ms;
+  }
+
   /* Gradient-border card */
   .pillar-card {
     position: relative;

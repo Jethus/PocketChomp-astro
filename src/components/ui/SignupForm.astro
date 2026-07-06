@@ -10,7 +10,7 @@ const { placeholder, buttonText } = Astro.props;
 <form id="signup" action="/contact" method="get" class="w-full">
   <label class="sr-only" for="signup-email">Email address</label>
   <input type="hidden" name="source" value="pocketchomp-beta" />
-  <div class="flex w-full rounded-full border border-accent bg-surface p-1 shadow-[var(--shadow-elevated)]">
+  <div class="signup-shell flex w-full rounded-full border border-accent bg-surface p-1 shadow-[var(--shadow-elevated)]">
     <input
       id="signup-email"
       type="email"
@@ -26,3 +26,25 @@ const { placeholder, buttonText } = Astro.props;
     </button>
   </div>
 </form>
+
+<style>
+  /* Very narrow viewports: pill stacks so the input keeps a usable width
+     instead of crushing its placeholder against the button */
+  @media (max-width: 26rem) {
+    .signup-shell {
+      flex-direction: column;
+      gap: 0.4rem;
+      border-radius: 1.4rem;
+      padding: 0.4rem;
+    }
+
+    .signup-shell input {
+      min-height: 2.75rem;
+      text-align: center;
+    }
+
+    .signup-shell button {
+      width: 100%;
+    }
+  }
+</style>

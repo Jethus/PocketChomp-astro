@@ -14,7 +14,7 @@ const { items } = entry.data;
   <div class="mx-auto grid w-full max-w-7xl grid-cols-1 gap-6 px-6 py-8 sm:grid-cols-3 md:py-10">
     {
       items.map((item, index) => (
-        <div class="text-center sm:text-left" data-reveal style={`--reveal-delay: ${index * 120}ms`}>
+        <div class="proof-item text-center sm:text-left" data-reveal>
           <p class="font-heading fs-m font-black uppercase tracking-tight text-foreground">
             {item.value}
           </p>
@@ -24,3 +24,14 @@ const { items } = entry.data;
     }
   </div>
 </section>
+
+<style>
+  /* Stagger in CSS — inline style attributes are blocked by the site CSP */
+  .proof-item:nth-child(2) {
+    --reveal-delay: 120ms;
+  }
+
+  .proof-item:nth-child(3) {
+    --reveal-delay: 240ms;
+  }
+</style>

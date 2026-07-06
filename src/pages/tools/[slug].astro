@@ -156,6 +156,34 @@ const faqSchema = {
     color: var(--muted-foreground);
   }
 
+  /* Under 40rem the two-column table stacks into observation/adjustment
+     pairs — no sideways scrolling with clipped text on phones */
+  @media (max-width: 40rem) {
+    .reality-table {
+      min-width: 0;
+    }
+
+    .reality-table thead {
+      display: none;
+    }
+
+    .reality-table tr {
+      display: block;
+      padding: 0.9rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .reality-table td {
+      display: block;
+      padding: 0;
+      border-bottom: 0;
+    }
+
+    .reality-table td:last-child {
+      margin-top: 0.3rem;
+    }
+  }
+
   .cta-panel {
     border-radius: 1.6rem;
     border: 1px solid var(--border);

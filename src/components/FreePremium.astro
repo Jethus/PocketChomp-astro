@@ -56,7 +56,7 @@ const {
         </div>
       </article>
 
-      <article class="plan-card plan-card--premium" data-reveal style="--reveal-delay: 140ms">
+      <article class="plan-card plan-card--premium" data-reveal>
         <div class="plan-card__inner">
           <h3 class="font-heading text-2xl font-black text-foreground md:text-3xl">
             {premiumTitle}
@@ -92,6 +92,11 @@ const {
       color-mix(in oklab, var(--border) 70%, var(--primary) 5%)
     );
     box-shadow: var(--shadow-elevated);
+  }
+
+  /* Stagger in CSS — inline style attributes are blocked by the site CSP */
+  .plan-card--premium {
+    --reveal-delay: 140ms;
   }
 
   .plan-card--free {

@@ -23,9 +23,16 @@ const { headline, description, inputPlaceholder, buttonText, note } = ctaEntry.d
       </p>
     </div>
 
-    <div data-reveal style="--reveal-delay: 120ms">
+    <div class="cta-form" data-reveal>
       <SignupForm placeholder={inputPlaceholder} buttonText={buttonText} />
       <p class="mt-4 text-sm leading-relaxed text-muted-foreground">{note}</p>
     </div>
   </div>
 </SectionShell>
+
+<style>
+  /* Stagger in CSS — inline style attributes are blocked by the site CSP */
+  .cta-form {
+    --reveal-delay: 120ms;
+  }
+</style>
