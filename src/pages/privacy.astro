@@ -1,0 +1,91 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import SectionShell from "../components/ui/SectionShell.astro";
+
+const PAGE_TITLE = "Privacy Policy";
+const PAGE_DESCRIPTION =
+  "How PocketChomp handles your data: on-device by default, no ads, no selling of personal information.";
+
+const LAST_UPDATED = "July 6, 2026";
+---
+
+<BaseLayout title={PAGE_TITLE} description={PAGE_DESCRIPTION}>
+  <Header />
+  <main>
+    <SectionShell innerClass="max-w-3xl">
+      <h1 class="fs-xl uppercase leading-[1.05] text-foreground">Privacy Policy</h1>
+      <p class="mt-3 text-sm text-muted-foreground">Last updated: {LAST_UPDATED}</p>
+
+      <div class="privacy-prose mt-10 space-y-8 text-foreground">
+        <section>
+          <h2 class="fs-s">The short version</h2>
+          <p>
+            PocketChomp is local-first. Your food logs, goals, and progress live on your
+            device by default. We do not run ads, and we do not sell personal data to
+            anyone — advertisers, brokers, or otherwise.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="fs-s">Data in the app</h2>
+          <p>
+            Everything you log in PocketChomp — foods, meals, weights, goals, and
+            preferences — is stored on your device. Using the app does not require an
+            account.
+          </p>
+          <p>
+            If you later opt in to cloud sync, the data you choose to sync is stored so
+            it can be restored across your devices. Sync is always optional, and you can
+            export your data or delete it from within the app.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="fs-s">Data on this website</h2>
+          <p>
+            If you join the beta list, we collect your email address and use it only to
+            send PocketChomp launch and beta updates. Every email includes an
+            unsubscribe link, and unsubscribing removes you from the list.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="fs-s">What we don't do</h2>
+          <ul class="list-disc space-y-2 pl-6">
+            <li>No advertising, and no advertising trackers.</li>
+            <li>No selling, renting, or sharing of personal data.</li>
+            <li>No collection of your food logs without your explicit opt-in to sync.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="fs-s">Contact</h2>
+          <p>
+            Questions about this policy? Email
+            <a href="mailto:jdelvecchio96@gmail.com" class="text-accent underline underline-offset-4">jdelvecchio96@gmail.com</a>.
+          </p>
+        </section>
+      </div>
+    </SectionShell>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .privacy-prose p {
+    margin-top: 0.75rem;
+    line-height: 1.7;
+    color: var(--muted-foreground);
+  }
+
+  .privacy-prose li {
+    line-height: 1.7;
+    color: var(--muted-foreground);
+  }
+
+  .privacy-prose h2 {
+    color: var(--foreground);
+  }
+</style>

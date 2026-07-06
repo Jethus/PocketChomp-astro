@@ -14,10 +14,10 @@ collageCards:
   - title: No ads, ever
     body: free, always
     kind: blank
-  - title: PocketChomp
-    body: macro tracker
+  - title: High-contrast nutrient logic
+    body: built around you
     kind: ring
   - title: Canadian database
-    body: real grocery data
+    body: locally sourced
     kind: database
 ---
