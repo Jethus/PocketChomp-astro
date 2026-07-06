@@ -61,6 +61,29 @@ const crops = [
     name: "ui-addfood.png",
     box: { l: 0, t: 0.052, r: 1, b: 1 },
   },
+  // Full app screens for the hero side panels — portrait sources that
+  // match the tall panel aspect (~0.5-0.65 w/h) without mid-widget crops.
+  {
+    src: "Screenshot_20260624-192035.png",
+    name: "ui-screen-label.png",
+    box: { l: 0, t: 0.052, r: 1, b: 1 },
+  },
+  {
+    // starts below a cut-off widget so the micros card leads
+    src: "Screenshot_20260624-191848.png",
+    name: "ui-screen-library.png",
+    box: { l: 0, t: 0.09, r: 1, b: 1 },
+  },
+  {
+    src: "Screenshot_20260624-191905.png",
+    name: "ui-screen-search.png",
+    box: { l: 0, t: 0.052, r: 1, b: 1 },
+  },
+  {
+    src: "Screenshot_20260624-192156.png",
+    name: "ui-screen-plate.png",
+    box: { l: 0, t: 0.052, r: 1, b: 1 },
+  },
 ];
 
 const px = (frac, total) => Math.round(frac * total);

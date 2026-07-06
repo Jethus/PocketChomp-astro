@@ -5,10 +5,10 @@ import SectionShell from "./ui/SectionShell.astro";
 import androidFrameDark from "../assets/png/android-frame-dark.png";
 import androidFrameLight from "../assets/png/android-frame-light.png";
 import uiDashboard from "../assets/ui/ui-dashboard.png";
-import uiCalories from "../assets/ui/ui-calories.png";
-import uiMacros from "../assets/ui/ui-macros.png";
-import uiRing from "../assets/ui/ui-ring.png";
-import uiSearchRow from "../assets/ui/ui-search-row.png";
+import uiScreenLabel from "../assets/ui/ui-screen-label.png";
+import uiScreenLibrary from "../assets/ui/ui-screen-library.png";
+import uiScreenSearch from "../assets/ui/ui-screen-search.png";
+import uiScreenPlate from "../assets/ui/ui-screen-plate.png";
 
 const heroEntry = await getEntry("landingHero", "hero");
 
@@ -54,11 +54,11 @@ const {
 
     <div class="hero-grid" aria-hidden="true" data-reveal-root>
       <article class="hero-panel hero-panel--shot hero-panel--tl" data-reveal style="--reveal-delay: 80ms">
-        <img src={uiCalories.src} alt="" class="hero-shot__img" loading="eager" />
+        <img src={uiScreenLabel.src} alt="" class="hero-shot__img" loading="eager" />
       </article>
 
       <article class="hero-panel hero-panel--shot hero-panel--bl" data-reveal style="--reveal-delay: 220ms">
-        <img src={uiMacros.src} alt="" class="hero-shot__img" loading="eager" />
+        <img src={uiScreenSearch.src} alt="" class="hero-shot__img" loading="eager" />
       </article>
 
       <div class="hero-panel hero-panel--phone hero-panel--center" data-reveal style="--reveal-delay: 0ms">
@@ -74,16 +74,18 @@ const {
       </div>
 
       <article class="hero-panel hero-panel--shot hero-panel--tr" data-reveal style="--reveal-delay: 160ms">
-        <img src={uiRing.src} alt="" class="hero-shot__img hero-shot__img--contain" loading="eager" />
+        <img src={uiScreenLibrary.src} alt="" class="hero-shot__img" loading="eager" />
       </article>
 
       <article class="hero-panel hero-panel--shot hero-panel--br" data-reveal style="--reveal-delay: 300ms">
-        <img src={uiSearchRow.src} alt="" class="hero-shot__img" loading="eager" />
+        <img src={uiScreenPlate.src} alt="" class="hero-shot__img hero-shot__img--bottom" loading="eager" />
       </article>
 
       <article class="hero-panel hero-panel--mini hero-panel--bc" data-reveal style="--reveal-delay: 380ms">
-        <span class="hero-mini__dot"></span>
-        <span class="hero-mini__label">on-device by default</span>
+        <span class="hero-mini__pill">
+          <span class="hero-mini__dot"></span>
+          <span class="hero-mini__label">on-device by default</span>
+        </span>
       </article>
     </div>
   </SectionShell>
@@ -121,19 +123,19 @@ const {
     justify-content: stretch;
   }
 
+  /* Full app screens fill the portrait panels nearly edge-to-edge —
+     top-anchored so each panel opens on a complete piece of UI */
   .hero-shot__img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: left center;
+    object-position: top;
     display: block;
   }
 
-  /* The macro ring reads best fully visible, not cropped */
-  .hero-shot__img--contain {
-    object-fit: contain;
-    object-position: center;
-    padding: 0.6rem;
+  /* The plate summary lives at the bottom of its screen */
+  .hero-shot__img--bottom {
+    object-position: bottom;
   }
 
   /* cols 1-3: left panels, cols 4-7: phone, cols 8-10: right panels */
@@ -160,16 +162,28 @@ const {
     overflow: visible;
   }
 
+  /* The status pill floats in its grid cell — the cell itself is invisible */
   .hero-panel--bc {
     grid-column: 4 / span 4;
     grid-row: 6 / span 2;
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    overflow: visible;
+  }
+
+  .hero-mini__pill {
+    display: inline-flex;
+    align-items: center;
     gap: 0.45rem;
-    border-radius: 1.6rem;
-    background: color-mix(in oklab, var(--surface) 86%, transparent);
-    padding-inline: 0.85rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    box-shadow: var(--shadow-elevated);
+    padding: 0.55rem 1rem;
   }
 
   .hero-panel--tr {
@@ -231,18 +245,10 @@ const {
     color: var(--muted-foreground);
   }
 
-  :global(html[data-theme="dark"]) .hero-panel--mini {
-    background: color-mix(in oklab, var(--surface) 92%, black);
-  }
-
   /* Shot panels keep the app's dark UI background in both themes */
   .hero-panel--shot,
   :global(html[data-theme="dark"]) .hero-panel--shot {
     background: #16110d;
-  }
-
-  :global(html[data-theme="dark"]) .hero-panel--bc {
-    background: color-mix(in oklab, var(--surface) 90%, black);
   }
 
   /* One-shot sheen sweeping across the phone after it reveals */
