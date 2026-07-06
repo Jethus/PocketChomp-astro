@@ -2,6 +2,8 @@
 import { getEntry } from "astro:content";
 import SectionShell from "./ui/SectionShell.astro";
 import SignupForm from "./ui/SignupForm.astro";
+import PhoneFrame from "./ui/PhoneFrame.astro";
+import uiAddFood from "../assets/ui/ui-addfood.png";
 
 const ctaEntry = await getEntry("landingSignupCta", "signup-cta");
 
@@ -12,9 +14,16 @@ if (!ctaEntry) {
 const { headline, description, inputPlaceholder, buttonText, note } = ctaEntry.data;
 ---
 
-<SectionShell class="pb-10">
-  <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(22rem,36rem)] lg:items-center">
-    <div>
+<SectionShell class="pb-10" data-reveal-root>
+  <div class="grid items-center gap-10 lg:grid-cols-[minmax(10rem,13rem)_minmax(0,1fr)_minmax(20rem,26rem)]">
+    <PhoneFrame
+      src={uiAddFood.src}
+      alt="PocketChomp Add Food screen showing a logged banana with its calorie ring and macros"
+      class="mx-auto w-full max-w-[11rem] lg:max-w-none"
+      data-reveal
+    />
+
+    <div data-reveal style="--reveal-delay: 120ms">
       <h2 class="text-3xl leading-[1.05] text-foreground md:text-4xl lg:text-5xl">
         {headline}
       </h2>
@@ -23,7 +32,7 @@ const { headline, description, inputPlaceholder, buttonText, note } = ctaEntry.d
       </p>
     </div>
 
-    <div>
+    <div data-reveal style="--reveal-delay: 240ms">
       <SignupForm placeholder={inputPlaceholder} buttonText={buttonText} />
       <p class="mt-4 text-sm leading-relaxed text-muted-foreground">{note}</p>
     </div>
