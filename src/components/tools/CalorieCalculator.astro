@@ -1,0 +1,403 @@
+---
+interface Props {
+  mode: "tdee" | "deficit";
+}
+
+const { mode } = Astro.props;
+
+const activityOptions = [
+  { value: "sedentary", label: "Sedentary — desk job, little exercise" },
+  { value: "light", label: "Light — exercise 1–3 days/week" },
+  { value: "moderate", label: "Moderate — exercise 3–5 days/week" },
+  { value: "active", label: "Active — exercise 6–7 days/week" },
+  { value: "very_active", label: "Very active — hard training + physical job" },
+];
+
+const paceOptions = [
+  { value: "0.25", label: "Gentle — 0.25 kg (½ lb) / week" },
+  { value: "0.5", label: "Moderate — 0.5 kg (1 lb) / week" },
+  { value: "0.75", label: "Fast — 0.75 kg (1½ lb) / week" },
+  { value: "1", label: "Aggressive — 1 kg (2 lb) / week" },
+];
+
+const defaultGoal = mode === "deficit" ? "lose" : "maintain";
+---
+
+<div class="calc" data-calculator data-mode={mode}>
+  <form class="calc__form" data-calc-form>
+    <div class="calc__row">
+      <fieldset class="calc__field">
+        <legend class="calc__label">Units</legend>
+        <div class="calc__segmented" role="group">
+          <label><input type="radio" name="units" value="imperial" checked /> lbs / ft</label>
+          <label><input type="radio" name="units" value="metric" /> kg / cm</label>
+        </div>
+      </fieldset>
+
+      <fieldset class="calc__field">
+        <legend class="calc__label">Sex</legend>
+        <div class="calc__segmented" role="group">
+          <label><input type="radio" name="sex" value="female" checked /> Female</label>
+          <label><input type="radio" name="sex" value="male" /> Male</label>
+        </div>
+      </fieldset>
+
+      <div class="calc__field">
+        <label class="calc__label" for="calc-age">Age</label>
+        <input id="calc-age" name="age" type="number" inputmode="numeric" min="16" max="100" placeholder="30" />
+      </div>
+    </div>
+
+    <div class="calc__row">
+      <div class="calc__field" data-imperial>
+        <label class="calc__label" for="calc-ft">Height</label>
+        <div class="calc__pair">
+          <input id="calc-ft" name="heightFt" type="number" inputmode="numeric" min="3" max="7" placeholder="5" aria-label="feet" />
+          <span>ft</span>
+          <input name="heightIn" type="number" inputmode="numeric" min="0" max="11" placeholder="10" aria-label="inches" />
+          <span>in</span>
+        </div>
+      </div>
+      <div class="calc__field" data-metric hidden>
+        <label class="calc__label" for="calc-cm">Height (cm)</label>
+        <input id="calc-cm" name="heightCm" type="number" inputmode="numeric" min="100" max="230" placeholder="178" />
+      </div>
+
+      <div class="calc__field" data-imperial>
+        <label class="calc__label" for="calc-lbs">Weight (lbs)</label>
+        <input id="calc-lbs" name="weightLbs" type="number" inputmode="decimal" min="70" max="700" placeholder="176" />
+      </div>
+      <div class="calc__field" data-metric hidden>
+        <label class="calc__label" for="calc-kg">Weight (kg)</label>
+        <input id="calc-kg" name="weightKg" type="number" inputmode="decimal" min="35" max="320" placeholder="80" />
+      </div>
+
+      <div class="calc__field">
+        <label class="calc__label" for="calc-activity">Activity</label>
+        <select id="calc-activity" name="activity">
+          {activityOptions.map((o) => (
+            <option value={o.value} selected={o.value === "moderate"}>{o.label}</option>
+          ))}
+        </select>
+      </div>
+    </div>
+
+    <div class="calc__row">
+      <div class="calc__field">
+        <label class="calc__label" for="calc-goal">Goal</label>
+        <select id="calc-goal" name="goal">
+          <option value="lose" selected={defaultGoal === "lose"}>Lose weight</option>
+          <option value="maintain" selected={defaultGoal === "maintain"}>Maintain</option>
+          <option value="gain">Gain weight</option>
+        </select>
+      </div>
+
+      <div class="calc__field" data-pace-row hidden={defaultGoal === "maintain"}>
+        <label class="calc__label" for="calc-pace">Pace</label>
+        <select id="calc-pace" name="pace">
+          {paceOptions.map((o) => (
+            <option value={o.value} selected={o.value === "0.5"}>{o.label}</option>
+          ))}
+        </select>
+      </div>
+    </div>
+  </form>
+
+  <div class="calc__results" data-results aria-live="polite">
+    <p class="calc__placeholder" data-placeholder>
+      Fill in your details — results appear instantly. Nothing is stored or sent anywhere.
+    </p>
+
+    <div class="calc__numbers" data-numbers hidden>
+      <div class="calc__stat" data-stat="maintenance">
+        <span class="calc__stat-label">Maintenance (TDEE)</span>
+        <span class="calc__stat-value"><span data-out="maintenance">—</span> kcal/day</span>
+      </div>
+      <div class="calc__stat" data-stat="target">
+        <span class="calc__stat-label" data-out="target-label">Your target</span>
+        <span class="calc__stat-value"><span data-out="target">—</span> kcal/day</span>
+      </div>
+      <div class="calc__stat">
+        <span class="calc__stat-label">Protein</span>
+        <span class="calc__stat-value"><span data-out="protein">—</span> g/day</span>
+      </div>
+      <p class="calc__macros">
+        Suggested split: <strong><span data-out="macro-p">—</span>g protein</strong> ·
+        <strong><span data-out="macro-c">—</span>g carbs</strong> ·
+        <strong><span data-out="macro-f">—</span>g fat</strong>
+      </p>
+      <p class="calc__bmr">BMR: <span data-out="bmr">—</span> kcal/day</p>
+    </div>
+
+    <p class="calc__warning" data-warning hidden>
+      That pace puts your target below a safe floor for your stats. Pick a
+      slower pace — a deficit you can sustain beats one that burns you out.
+    </p>
+  </div>
+</div>
+
+<script>
+  import {
+    calculate,
+    feetInchesToCm,
+    lbsToKg,
+    type ActivityLevel,
+    type Goal,
+    type Sex,
+  } from "../../lib/calculator/engine";
+
+  document.querySelectorAll<HTMLElement>("[data-calculator]").forEach((root) => {
+    const form = root.querySelector<HTMLFormElement>("[data-calc-form]")!;
+    const mode = root.dataset.mode;
+    const out = (name: string) =>
+      root.querySelector<HTMLElement>(`[data-out="${name}"]`)!;
+    const numbersEl = root.querySelector<HTMLElement>("[data-numbers]")!;
+    const placeholderEl = root.querySelector<HTMLElement>("[data-placeholder]")!;
+    const warningEl = root.querySelector<HTMLElement>("[data-warning]")!;
+    const targetStat = root.querySelector<HTMLElement>('[data-stat="target"]')!;
+    const paceRow = root.querySelector<HTMLElement>("[data-pace-row]")!;
+
+    const num = (name: string): number => {
+      const el = form.elements.namedItem(name) as HTMLInputElement | null;
+      const v = parseFloat(el?.value ?? "");
+      return Number.isFinite(v) ? v : NaN;
+    };
+    const val = (name: string): string =>
+      (form.elements.namedItem(name) as RadioNodeList | HTMLSelectElement).value;
+
+    const fmt = (r: { low: number; high: number }) =>
+      `${r.low.toLocaleString()}–${r.high.toLocaleString()}`;
+
+    const render = () => {
+      const metric = val("units") === "metric";
+      root
+        .querySelectorAll<HTMLElement>("[data-imperial]")
+        .forEach((el) => (el.hidden = metric));
+      root
+        .querySelectorAll<HTMLElement>("[data-metric]")
+        .forEach((el) => (el.hidden = !metric));
+
+      const goal = val("goal") as Goal;
+      paceRow.hidden = goal === "maintain";
+
+      const age = num("age");
+      const heightCm = metric
+        ? num("heightCm")
+        : feetInchesToCm(num("heightFt"), num("heightIn") || 0);
+      const weightKg = metric ? num("weightKg") : lbsToKg(num("weightLbs"));
+
+      const valid =
+        age >= 16 && age <= 100 && heightCm >= 100 && heightCm <= 230 &&
+        weightKg >= 35 && weightKg <= 320;
+
+      placeholderEl.hidden = valid;
+      if (!valid) {
+        numbersEl.hidden = true;
+        warningEl.hidden = true;
+        return;
+      }
+
+      const result = calculate({
+        age,
+        sex: val("sex") as Sex,
+        heightCm,
+        weightKg,
+        activity: val("activity") as ActivityLevel,
+        goal,
+        paceKgPerWeek: goal === "maintain" ? 0 : parseFloat(val("pace")),
+      });
+
+      out("maintenance").textContent = fmt(result.maintenance);
+      out("target").textContent = fmt(result.target);
+      out("target-label").textContent =
+        goal === "lose" ? "Deficit target" : goal === "gain" ? "Surplus target" : "Your target";
+      out("protein").textContent = fmt(result.proteinG);
+      out("macro-p").textContent = String(result.macros.proteinG);
+      out("macro-c").textContent = String(result.macros.carbsG);
+      out("macro-f").textContent = String(result.macros.fatG);
+      out("bmr").textContent = result.bmr.toLocaleString();
+
+      const aggressive = result.warning === "aggressive_pace";
+      warningEl.hidden = !aggressive;
+      targetStat.hidden = aggressive;
+      numbersEl.hidden = false;
+
+      root.classList.toggle("calc--deficit-first", mode === "deficit");
+    };
+
+    form.addEventListener("input", render);
+    render();
+  });
+</script>
+
+<style>
+  .calc {
+    border-radius: 1.6rem;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    box-shadow: var(--shadow-elevated);
+    padding: 1.75rem;
+    display: grid;
+    gap: 1.75rem;
+  }
+
+  .calc__form {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .calc__row {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 40rem) {
+    .calc__row {
+      grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    }
+  }
+
+  .calc__field {
+    display: grid;
+    gap: 0.4rem;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+  }
+
+  .calc__label {
+    font-family: var(--font-heading);
+    font-size: 0.68rem;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+  }
+
+  .calc input[type="number"],
+  .calc select {
+    height: 2.9rem;
+    border-radius: 0.9rem;
+    border: 1px solid var(--border);
+    background: var(--background);
+    padding: 0 0.9rem;
+    font-size: 1rem;
+    color: var(--foreground);
+    width: 100%;
+  }
+
+  .calc input:focus-visible,
+  .calc select:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 1px;
+  }
+
+  .calc__pair {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .calc__pair span {
+    color: var(--muted-foreground);
+    font-size: 0.85rem;
+  }
+
+  .calc__segmented {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .calc__segmented label {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    height: 2.9rem;
+    border-radius: 0.9rem;
+    border: 1px solid var(--border);
+    background: var(--background);
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+
+  .calc__segmented label:has(input:checked) {
+    border-color: var(--primary);
+    background: color-mix(in oklab, var(--primary) 10%, var(--background));
+    font-weight: 700;
+  }
+
+  .calc__segmented input {
+    accent-color: var(--primary);
+  }
+
+  .calc__results {
+    border-radius: 1.2rem;
+    background: var(--surface-strong);
+    padding: 1.5rem;
+  }
+
+  .calc__placeholder,
+  .calc__warning {
+    margin: 0;
+    color: var(--muted-foreground);
+    line-height: 1.5;
+  }
+
+  .calc__warning {
+    color: var(--accent-strong);
+    font-weight: 700;
+  }
+
+  .calc__numbers {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .calc__stat {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .calc__stat-label {
+    font-family: var(--font-heading);
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+  }
+
+  .calc__stat-value {
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: 1.35rem;
+    color: var(--foreground);
+  }
+
+  .calc--deficit-first [data-stat="target"] {
+    order: -1;
+  }
+
+  .calc--deficit-first [data-stat="target"] .calc__stat-value {
+    color: var(--primary);
+    font-size: 1.6rem;
+  }
+
+  .calc:not(.calc--deficit-first) [data-stat="maintenance"] .calc__stat-value {
+    color: var(--primary);
+    font-size: 1.6rem;
+  }
+
+  .calc__macros,
+  .calc__bmr {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--muted-foreground);
+  }
+</style>

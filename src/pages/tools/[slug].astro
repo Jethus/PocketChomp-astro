@@ -1,0 +1,167 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import SectionShell from "../../components/ui/SectionShell.astro";
+import Accordion from "../../components/ui/Accordion.astro";
+import SignupForm from "../../components/ui/SignupForm.astro";
+import CalorieCalculator from "../../components/tools/CalorieCalculator.astro";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("tools");
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const {
+  title,
+  metaDescription,
+  h1,
+  intro,
+  mode,
+  faq,
+  realityCheck,
+  ctaHeadline,
+  ctaNote,
+  related,
+} = entry.data;
+
+const { Content } = await render(entry);
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faq.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+};
+---
+
+<BaseLayout title={title} description={metaDescription}>
+  <Header />
+  <main>
+    <SectionShell innerClass="max-w-4xl space-y-10">
+      <div>
+        <h1 class="fs-xl leading-[1.02] text-foreground">{h1}</h1>
+        <p class="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+          {intro}
+        </p>
+      </div>
+
+      <CalorieCalculator mode={mode} />
+
+      <div>
+        <h2 class="fs-m text-foreground">After 14 days of tracking</h2>
+        <p class="mt-2 max-w-2xl text-muted-foreground">
+          A calculator gets you close; your real trend gets you exact. Compare
+          your two-week result against this table:
+        </p>
+        <div class="mt-5 overflow-x-auto">
+          <table class="reality-table">
+            <thead>
+              <tr><th>What you observe</th><th>What to change</th></tr>
+            </thead>
+            <tbody>
+              {realityCheck.map((row) => (
+                <tr>
+                  <td>{row.condition}</td>
+                  <td>{row.adjustment}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="cta-panel">
+        <h2 class="fs-m text-foreground">{ctaHeadline}</h2>
+        <p class="mt-2 max-w-xl text-muted-foreground">{ctaNote}</p>
+        <div class="mt-5 max-w-xl">
+          <SignupForm placeholder="you@email.com" buttonText="Get early access" />
+        </div>
+      </div>
+
+      <article class="prose-body">
+        <Content />
+      </article>
+
+      <div>
+        <h2 class="fs-m text-foreground">Frequently asked questions</h2>
+        <div class="mt-5 space-y-4">
+          {faq.map((item) => (
+            <Accordion title={item.q}>
+              <p class="leading-relaxed text-muted-foreground">{item.a}</p>
+            </Accordion>
+          ))}
+        </div>
+      </div>
+
+      <p class="text-muted-foreground">
+        Related tool: <a class="font-bold text-primary underline" href={related.href}>{related.label}</a>
+      </p>
+    </SectionShell>
+  </main>
+  <Footer />
+
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+</BaseLayout>
+
+<style>
+  .reality-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 34rem;
+  }
+
+  .reality-table th,
+  .reality-table td {
+    text-align: left;
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.45;
+  }
+
+  .reality-table th {
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+  }
+
+  .reality-table td:first-child {
+    color: var(--foreground);
+  }
+
+  .reality-table td:last-child {
+    color: var(--muted-foreground);
+  }
+
+  .cta-panel {
+    border-radius: 1.6rem;
+    border: 1px solid var(--border);
+    background: color-mix(in oklab, var(--primary) 6%, var(--surface));
+    box-shadow: var(--shadow-elevated);
+    padding: 2rem;
+  }
+
+  .prose-body :global(h2) {
+    margin-top: 2rem;
+    font-size: 1.4rem;
+  }
+
+  .prose-body :global(p) {
+    margin-top: 0.8rem;
+    line-height: 1.65;
+    color: var(--muted-foreground);
+    max-width: 65ch;
+  }
+</style>
