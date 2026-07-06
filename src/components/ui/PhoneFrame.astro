@@ -5,17 +5,18 @@ import androidFrameLight from "../../assets/png/android-frame-light.png";
 interface Props extends astroHTML.JSX.HTMLAttributes {
   src: string;
   alt: string;
+  loading?: "eager" | "lazy";
 }
 
-const { src, alt, class: className = "", ...rest } = Astro.props as Props;
+const { src, alt, class: className = "", loading = "lazy", ...rest } = Astro.props as Props;
 ---
 
 <div {...rest} class:list={["phone-frame relative", className]}>
-  <img src={androidFrameLight.src} alt="" class="phone-frame__spacer phone-frame__spacer--light" aria-hidden="true" />
-  <img src={androidFrameDark.src} alt="" class="phone-frame__spacer phone-frame__spacer--dark" aria-hidden="true" />
-  <img src={src} alt={alt} class="phone-frame__screen" />
-  <img src={androidFrameLight.src} alt="" class="phone-frame__top phone-frame__top--light" aria-hidden="true" />
-  <img src={androidFrameDark.src} alt="" class="phone-frame__top phone-frame__top--dark" aria-hidden="true" />
+  <img src={androidFrameLight.src} alt="" class="phone-frame__spacer phone-frame__spacer--light" aria-hidden="true" loading={loading} />
+  <img src={androidFrameDark.src} alt="" class="phone-frame__spacer phone-frame__spacer--dark" aria-hidden="true" loading={loading} />
+  <img src={src} alt={alt} class="phone-frame__screen" loading={loading} />
+  <img src={androidFrameLight.src} alt="" class="phone-frame__top phone-frame__top--light" aria-hidden="true" loading={loading} />
+  <img src={androidFrameDark.src} alt="" class="phone-frame__top phone-frame__top--dark" aria-hidden="true" loading={loading} />
 </div>
 
 <style>
