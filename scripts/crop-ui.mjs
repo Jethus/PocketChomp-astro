@@ -43,6 +43,24 @@ const crops = [
     name: "ui-detailed.png",
     box: { l: 0.04, t: 0.64, r: 0.96, b: 0.9 },
   },
+  // Plate summary with logged items — clean, ad-free list UI (ValuePillars "no ads")
+  {
+    src: "Screenshot_20260624-192156.png",
+    name: "ui-plate.png",
+    box: { l: 0, t: 0.505, r: 1, b: 0.83 },
+  },
+  // Scanned Canadian grocery label: "Neilson Half & Half Cream" (ValuePillars "canadian")
+  {
+    src: "Screenshot_20260624-192035.png",
+    name: "ui-label-scan.png",
+    box: { l: 0.035, t: 0.215, r: 0.965, b: 0.53 },
+  },
+  // Full Add Food screen, status bar trimmed (ClosingCTA phone)
+  {
+    src: "Screenshot_20260624-191909.png",
+    name: "ui-addfood.png",
+    box: { l: 0, t: 0.052, r: 1, b: 1 },
+  },
 ];
 
 const px = (frac, total) => Math.round(frac * total);
