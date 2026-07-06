@@ -196,7 +196,28 @@ const landingBlogNow = defineCollection({
   }),
 });
 
+const tools = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/tools" }),
+  schema: z.object({
+    title: z.string(),
+    metaDescription: z.string(),
+    h1: z.string(),
+    intro: z.string(),
+    mode: z.enum(["tdee", "deficit"]),
+    faq: z
+      .array(z.object({ q: z.string(), a: z.string() }))
+      .min(3),
+    realityCheck: z
+      .array(z.object({ condition: z.string(), adjustment: z.string() }))
+      .min(3),
+    ctaHeadline: z.string(),
+    ctaNote: z.string(),
+    related: z.object({ label: z.string(), href: z.string() }),
+  }),
+});
+
 export const collections = {
+  tools,
   blog,
   services,
   portfolio,
