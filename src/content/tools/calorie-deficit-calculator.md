@@ -1,6 +1,7 @@
 ---
 title: Calorie Deficit Calculator — Find a Realistic Target
 metaDescription: Free calorie deficit calculator that gives you a realistic target range for weight loss — plus how to adjust it when the scale disagrees. No ads, no signup wall.
+eyebrow: How much should you eat to lose weight?
 h1: Calorie Deficit Calculator
 intro: Find a weight-loss calorie target you can actually sustain — as a realistic range, with a plan for when the scale doesn't cooperate.
 mode: deficit
@@ -25,7 +26,7 @@ realityCheck:
 ctaHeadline: A target is a guess until you test it.
 ctaNote: PocketChomp checks your target against your real weight trend — free, no ads, no account required. Get it at launch.
 related:
-  label: TDEE Calculator
+  label: Just finding your maintenance calories? Use the TDEE Calculator
   href: /tools/tdee-calculator
 ---
 

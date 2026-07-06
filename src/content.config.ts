@@ -201,6 +201,7 @@ const tools = defineCollection({
   schema: z.object({
     title: z.string(),
     metaDescription: z.string(),
+    eyebrow: z.string(),
     h1: z.string(),
     intro: z.string(),
     mode: z.enum(["tdee", "deficit"]),

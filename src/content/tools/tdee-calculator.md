@@ -1,8 +1,9 @@
 ---
 title: TDEE Calculator — Estimate Your Maintenance Calories
 metaDescription: Free TDEE calculator with honest ranges, not fake precision. Estimate your maintenance calories with Mifflin-St Jeor, then learn how to adjust after two weeks of real tracking.
+eyebrow: How many calories do you burn a day?
 h1: TDEE Calculator
-intro: Estimate how many calories you burn per day — shown as an honest range, because that's what a formula can actually tell you.
+intro: TDEE is your total daily energy expenditure — the calories you burn in a normal day. Estimate yours as an honest range, because that's what a formula can actually tell you.
 mode: tdee
 faq:
   - q: What is TDEE?
@@ -25,7 +26,7 @@ realityCheck:
 ctaHeadline: Your TDEE is a starting estimate. Test it.
 ctaNote: PocketChomp tracks your intake against your real weight trend — free, no ads, no account required. Get it at launch.
 related:
-  label: Calorie Deficit Calculator
+  label: Planning weight loss? Use the Calorie Deficit Calculator
   href: /tools/calorie-deficit-calculator
 ---
 

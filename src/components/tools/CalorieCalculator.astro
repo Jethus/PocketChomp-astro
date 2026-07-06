@@ -266,9 +266,12 @@ const defaultGoal = mode === "deficit" ? "lose" : "maintain";
     min-width: 0;
   }
 
+  /* Labels ride the fluid scale one step below body so the form
+     doesn't read as a different site than the fluid copy around it */
   .calc__label {
+    --fl: -1;
     font-family: var(--font-heading);
-    font-size: 0.68rem;
+    font-size: calc(var(--fluid-type) * 0.82);
     font-weight: 900;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -277,12 +280,11 @@ const defaultGoal = mode === "deficit" ? "lose" : "maintain";
 
   .calc input[type="number"],
   .calc select {
-    height: 2.9rem;
+    height: 3.1rem;
     border-radius: 0.9rem;
     border: 1px solid var(--border);
     background: var(--background);
     padding: 0 0.9rem;
-    font-size: 1rem;
     color: var(--foreground);
     width: 100%;
   }
@@ -365,8 +367,9 @@ const defaultGoal = mode === "deficit" ? "lose" : "maintain";
   }
 
   .calc__stat-label {
+    --fl: -1;
     font-family: var(--font-heading);
-    font-size: 0.72rem;
+    font-size: calc(var(--fluid-type) * 0.82);
     font-weight: 900;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -374,9 +377,10 @@ const defaultGoal = mode === "deficit" ? "lose" : "maintain";
   }
 
   .calc__stat-value {
+    --fl: 1;
     font-family: var(--font-heading);
     font-weight: 900;
-    font-size: 1.35rem;
+    font-size: var(--fluid-type);
     color: var(--foreground);
   }
 
@@ -385,19 +389,20 @@ const defaultGoal = mode === "deficit" ? "lose" : "maintain";
   }
 
   .calc--deficit-first [data-stat="target"] .calc__stat-value {
+    --fl: 2;
     color: var(--primary);
-    font-size: 1.6rem;
   }
 
   .calc:not(.calc--deficit-first) [data-stat="maintenance"] .calc__stat-value {
+    --fl: 2;
     color: var(--primary);
-    font-size: 1.6rem;
   }
 
   .calc__macros,
   .calc__bmr {
+    --fl: -1;
     margin: 0;
-    font-size: 0.95rem;
+    font-size: var(--fluid-type);
     color: var(--muted-foreground);
   }
 </style>

@@ -4,7 +4,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import SectionShell from "../../components/ui/SectionShell.astro";
-import Accordion from "../../components/ui/Accordion.astro";
+import EyebrowPill from "../../components/ui/EyebrowPill.astro";
 import SignupForm from "../../components/ui/SignupForm.astro";
 import CalorieCalculator from "../../components/tools/CalorieCalculator.astro";
 
@@ -20,6 +20,7 @@ const { entry } = Astro.props;
 const {
   title,
   metaDescription,
+  eyebrow,
   h1,
   intro,
   mode,
@@ -48,7 +49,8 @@ const faqSchema = {
   <main>
     <SectionShell innerClass="max-w-4xl space-y-10">
       <div>
-        <h1 class="fs-xl leading-[1.02] text-foreground">{h1}</h1>
+        <EyebrowPill>{eyebrow}</EyebrowPill>
+        <h1 class="fs-xl mt-4 leading-[1.02] text-foreground">{h1}</h1>
         <p class="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">
           {intro}
         </p>
@@ -93,17 +95,26 @@ const faqSchema = {
 
       <div>
         <h2 class="fs-m text-foreground">Frequently asked questions</h2>
-        <div class="mt-5 space-y-4">
+        <div class="faq-list mt-5">
           {faq.map((item) => (
-            <Accordion title={item.q}>
-              <p class="leading-relaxed text-muted-foreground">{item.a}</p>
-            </Accordion>
+            <details class="faq-item">
+              <summary class="faq-item__q">
+                <span>{item.q}</span>
+                <span class="faq-item__icon" aria-hidden="true">
+                  <svg viewBox="0 0 512 512" fill="none" stroke="currentColor" stroke-width="48" stroke-linecap="round">
+                    <line x1="256" y1="112" x2="256" y2="400" />
+                    <line x1="112" y1="256" x2="400" y2="256" />
+                  </svg>
+                </span>
+              </summary>
+              <p class="faq-item__a">{item.a}</p>
+            </details>
           ))}
         </div>
       </div>
 
-      <p class="text-muted-foreground">
-        Related tool: <a class="font-bold text-primary underline" href={related.href}>{related.label}</a>
+      <p class="related-link">
+        <a href={related.href}>{related.label} →</a>
       </p>
     </SectionShell>
   </main>
@@ -153,9 +164,12 @@ const faqSchema = {
     padding: 2rem;
   }
 
+  /* Markdown headings join the site's fluid scale (one step below section h2s)
+     instead of a fixed size that collapses into body text */
   .prose-body :global(h2) {
-    margin-top: 2rem;
-    font-size: 1.4rem;
+    --fl: 1;
+    font-size: var(--fluid-type);
+    margin-top: 2.25rem;
   }
 
   .prose-body :global(p) {
@@ -163,5 +177,72 @@ const faqSchema = {
     line-height: 1.65;
     color: var(--muted-foreground);
     max-width: 65ch;
+  }
+
+  .faq-list {
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .faq-item {
+    border: 1px solid var(--border);
+    border-radius: 1.2rem;
+    background: var(--surface);
+    box-shadow: var(--shadow-elevated);
+  }
+
+  .faq-item__q {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.1rem 1.4rem;
+    cursor: pointer;
+    list-style: none;
+    font-weight: 700;
+    color: var(--foreground);
+  }
+
+  .faq-item__q::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.8rem;
+    height: 1.8rem;
+    flex-shrink: 0;
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--primary) 12%, var(--surface));
+    color: var(--primary);
+    transition: transform 0.2s ease;
+  }
+
+  .faq-item__icon svg {
+    width: 0.85rem;
+    height: 0.85rem;
+  }
+
+  .faq-item[open] .faq-item__icon {
+    transform: rotate(45deg);
+  }
+
+  .faq-item__a {
+    margin: 0;
+    padding: 0 1.4rem 1.25rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    max-width: 65ch;
+  }
+
+  .related-link a {
+    font-weight: 700;
+    color: var(--primary);
+  }
+
+  .related-link a:hover {
+    text-decoration: underline;
   }
 </style>
