@@ -8,7 +8,7 @@ items:
     tone: default
     chips:
       - No sign-up required
-      - 100% on-device
+      - On-device by default
   - eyebrow: No ads
     headline: Free should feel premium.
     description: The free tier has no ads, no upsell banners, and no dark patterns. We sell software — we don't sell you.

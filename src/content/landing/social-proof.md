@@ -34,3 +34,9 @@ testimonials:
     role: Early tester | Halifax
     accent: green
 ---
+
+<!--
+  PLACEHOLDER QUOTES — not real testers. Do NOT mount SocialProof on any page
+  until these are replaced with real, attributed beta feedback. Fabricated
+  reviews would destroy trust with the exact privacy-aware audience we target.
+-->

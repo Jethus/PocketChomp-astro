@@ -43,12 +43,15 @@ const landingHero = defineCollection({
   schema: z.object({
     eyebrow: z.string(),
     headline: z.string(),
-    accent: z.string(),
+    // Rotating accent line. Last entry is the punchline — it renders
+    // statically (no-JS, reduced-motion, crawlers) and holds longest.
+    accents: z.array(z.string()).min(2),
     description: z.string(),
     primaryCtaText: z.string(),
     primaryCtaLink: z.string(),
     secondaryCtaText: z.string(),
     secondaryCtaLink: z.string(),
+    ctaNote: z.string(),
     collageCards: z.array(
       z.object({
         title: z.string(),

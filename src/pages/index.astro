@@ -6,12 +6,13 @@ import ProofStrip from "../components/ProofStrip.astro";
 import ModularFeature from "../components/ModularFeature.astro";
 import ValuePillars from "../components/ValuePillars.astro";
 import BeyondCalorie from "../components/BeyondCalorie.astro";
+import FreePremium from "../components/FreePremium.astro";
 import FieldNotesTeaser from "../components/FieldNotesTeaser.astro";
 import ClosingCTA from "../components/ClosingCTA.astro";
 import Footer from "../components/Footer.astro";
 
-const PAGE_TITLE = "PocketChomp";
-const PAGE_DESCRIPTION = "PocketChomp is a local-first nutrition tracker for Canadians with private logging, a Canadian database, and a no-ads experience.";
+const PAGE_TITLE = "Free Calorie Counter & Macro Tracker for Canadians";
+const PAGE_DESCRIPTION = "Free calorie counter and macro tracker built for Canadians. No ads, no paywall, unlimited barcode scanning — and your food log stays on your device.";
 ---
 
 <BaseLayout title={PAGE_TITLE} description={PAGE_DESCRIPTION}>
@@ -22,6 +23,7 @@ const PAGE_DESCRIPTION = "PocketChomp is a local-first nutrition tracker for Can
     <ModularFeature />
     <ValuePillars />
     <BeyondCalorie />
+    <FreePremium />
     <FieldNotesTeaser />
     <ClosingCTA />
   </main>

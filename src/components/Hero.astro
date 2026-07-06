@@ -16,12 +16,13 @@ if (!heroEntry) {
 
 const {
   headline,
-  accent,
+  accents,
   description,
   primaryCtaText,
   primaryCtaLink,
   secondaryCtaText,
   secondaryCtaLink,
+  ctaNote,
   collageCards,
 } = heroEntry.data;
 
@@ -37,7 +38,16 @@ const dbCard = collageCards.find((card) => card.kind === "database");
     <div class="pt-2">
       <h1 class="fs-xxl uppercase leading-[1.05] text-foreground">
         {headline}
-        <span class="block hero-accent">{accent}</span>
+        <span class="hero-accent-stack">
+          {accents.map((word) => (
+            <span class="hero-accent-ghost" aria-hidden="true">{word}</span>
+          ))}
+          <span
+            class="hero-accent is-punchline"
+            data-accent-rotator
+            data-words={JSON.stringify(accents)}
+          >{accents[accents.length - 1]}</span>
+        </span>
       </h1>
 
       <p class="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">
@@ -52,6 +62,10 @@ const dbCard = collageCards.find((card) => card.kind === "database");
           {secondaryCtaText}
         </Button>
       </div>
+
+      <p class="mt-4 text-sm font-medium tracking-wide text-muted-foreground">
+        {ctaNote}
+      </p>
     </div>
 
     <div class="hero-grid" aria-hidden="true" data-reveal-root>
@@ -115,6 +129,44 @@ const dbCard = collageCards.find((card) => card.kind === "database");
   </SectionShell>
 </section>
 
+<script>
+  const rotator = document.querySelector<HTMLElement>("[data-accent-rotator]");
+
+  if (rotator) {
+    const words: string[] = JSON.parse(rotator.dataset.words ?? "[]");
+
+    if (words.length > 1) {
+      const HOLD = 2200;
+      const HOLD_PUNCHLINE = 3600;
+      const SWAP = 230;
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+      let next = 0;
+
+      const show = () => {
+        const isPunchline = next === words.length - 1;
+        rotator.textContent = words[next];
+        rotator.classList.remove("is-swapping");
+        rotator.classList.toggle("is-punchline", isPunchline);
+        next = (next + 1) % words.length;
+        setTimeout(swap, isPunchline ? HOLD_PUNCHLINE : HOLD);
+      };
+
+      const swap = () => {
+        if (reduceMotion.matches) {
+          // Reduced motion: still rotate, but hard-cut — no fade/translate
+          show();
+        } else {
+          rotator.classList.add("is-swapping");
+          setTimeout(show, SWAP);
+        }
+      };
+
+      // Punchline is rendered statically, so open on its long hold
+      setTimeout(swap, HOLD_PUNCHLINE);
+    }
+  }
+</script>
+
 <style>
   .hero-cta {
     min-width: 12rem;
@@ -157,13 +209,44 @@ const dbCard = collageCards.find((card) => card.kind === "database");
     display: block;
   }
 
-  /* Headline accent follows the brand mockup: green on light, orange on dark */
+  /* All words stack in one grid cell: hidden ghosts reserve the size of
+     the longest word so swaps never shift layout */
+  .hero-accent-stack {
+    display: grid;
+  }
+
+  .hero-accent-stack > * {
+    grid-area: 1 / 1;
+  }
+
+  .hero-accent-ghost {
+    visibility: hidden;
+  }
+
+  /* Headline accent follows the brand mockup: green on light, orange on dark;
+     the punchline word flips to the opposite brand colour so it lands */
   .hero-accent {
     color: var(--primary);
+    transition:
+      opacity 0.22s ease,
+      transform 0.22s ease;
+  }
+
+  .hero-accent.is-punchline {
+    color: var(--accent);
+  }
+
+  .hero-accent.is-swapping {
+    opacity: 0;
+    transform: translateY(0.18em);
   }
 
   :global(html[data-theme="dark"]) .hero-accent {
     color: var(--accent);
+  }
+
+  :global(html[data-theme="dark"]) .hero-accent.is-punchline {
+    color: var(--primary-strong);
   }
 
   /* Forest-green info tiles from the original mockup */
