@@ -168,22 +168,32 @@
     );
   }
 
-  body,
+  /* Fluid type is for headings only. Body and UI text use a modest clamp
+     (16px -> 18px) so copy doesn't balloon on wide screens. */
   h1,
   h2,
   h3,
   h4,
   h5,
   h6,
-  p,
-  li,
+  .h1,
+  .h2,
+  .h3,
+  .h4,
+  .h5,
+  .h6 {
+    font-size: var(--fluid-type);
+  }
+
+  body {
+    font-size: clamp(1rem, 0.94rem + 0.3vw, 1.125rem);
+  }
+
   textarea,
   input,
   select,
-  button,
-  th,
-  td {
-    font-size: var(--fluid-type);
+  button {
+    font-size: inherit;
   }
 
   .fluid-text-container {
