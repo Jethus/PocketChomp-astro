@@ -6,14 +6,7 @@ nutrients:
   - Fiber
   - Caffeine
   - Electrolytes
-statLabel: Daily focus
-progressBars:
-  - label: Focus fuel
-    percentage: 75
-    fill: accent
-  - label: Alertness
-    percentage: 40
-    fill: primary
-statMetricLabel: Caffeine
-statValue: 180MG
+panelLabel: Straight from the app
+image: ../../assets/ui/ui-detailed.png
+imageAlt: PocketChomp detailed nutrition panel showing saturated fat, sugar, fibre and sodium with daily-value percentages
 ---

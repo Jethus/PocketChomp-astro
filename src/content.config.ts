@@ -120,21 +120,15 @@ const landingValuePillars = defineCollection({
 
 const landingBeyondCalorie = defineCollection({
   loader: glob({ pattern: "beyond-calorie.md", base: "./src/content/landing" }),
-  schema: z.object({
-    headline: z.string(),
-    description: z.string(),
-    nutrients: z.array(z.string()).length(4),
-    statLabel: z.string(),
-    progressBars: z.array(
-      z.object({
-        label: z.string(),
-        percentage: z.number().int().min(0).max(100),
-        fill: z.enum(["primary", "accent"]),
-      })
-    ).length(2),
-    statMetricLabel: z.string(),
-    statValue: z.string(),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      headline: z.string(),
+      description: z.string(),
+      nutrients: z.array(z.string()).length(4),
+      panelLabel: z.string(),
+      image: image(),
+      imageAlt: z.string(),
+    }),
 });
 
 const landingSignupCta = defineCollection({
