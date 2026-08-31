@@ -1,0 +1,284 @@
+---
+import { Image } from "astro:assets";
+import { getEntry } from "astro:content";
+import SectionShell from "./ui/SectionShell.astro";
+
+const railEntry = await getEntry("landingScreenRail", "screen-rail");
+
+if (!railEntry) {
+  throw new Error("Could not find PocketChomp screen-rail content");
+}
+
+const { eyebrow, headline, description, dragHint, screens } = railEntry.data;
+---
+
+<section id="screens" class="border-b border-border">
+  <SectionShell innerClass="max-w-[90rem]" data-reveal-root>
+    <div class="max-w-2xl">
+      <p class="font-heading text-xs font-black uppercase tracking-[0.18em] text-muted-foreground">
+        {eyebrow}
+      </p>
+      <h2 class="fs-xl mt-3 leading-[1.05] text-foreground">{headline}</h2>
+      <p class="mt-5 text-lg leading-relaxed text-muted-foreground">
+        {description}
+      </p>
+    </div>
+
+    <div class="mt-6 flex items-center gap-2 text-muted-foreground">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="h-4 w-4 rail-hint__icon"
+        aria-hidden="true"
+      >
+        <path d="M4 12h16" />
+        <path d="M8 8l-4 4 4 4" />
+        <path d="M16 8l4 4-4 4" />
+      </svg>
+      <span class="font-heading text-[0.6rem] font-black uppercase tracking-[0.14em]">
+        {dragHint}
+      </span>
+    </div>
+  </SectionShell>
+
+  <div class="rail-bleed pb-16 sm:pb-20 lg:pb-24">
+    <ul
+      class="rail"
+      data-rail
+      tabindex="0"
+      role="list"
+      aria-label="PocketChomp app screens"
+    >
+      {
+        screens.map((screen) => (
+          <li class="rail__item">
+            <figure class="rail__card">
+              <div class="rail__shot">
+                <Image
+                  src={screen.image}
+                  alt={screen.alt}
+                  widths={[320, 480, 640]}
+                  sizes="(max-width: 40rem) 68vw, 20rem"
+                  loading="lazy"
+                  decoding="async"
+                  class="rail__img"
+                  draggable="false"
+                />
+              </div>
+              <figcaption class="rail__caption">
+                <h3 class="font-heading text-base font-black leading-tight text-foreground">
+                  {screen.title}
+                </h3>
+                <p class="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  {screen.caption}
+                </p>
+              </figcaption>
+            </figure>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<script>
+  // Drag-to-pan. Native scroll (wheel, trackpad, touch, keyboard) already
+  // works on the overflow container — this only adds mouse dragging, so
+  // touch/pen pointers are ignored to avoid fighting native momentum.
+  const rail = document.querySelector<HTMLElement>("[data-rail]");
+
+  if (rail) {
+    let startX = 0;
+    let startScroll = 0;
+    let pointerId: number | null = null;
+    let dragged = false;
+
+    const DRAG_THRESHOLD = 4;
+
+    const onPointerDown = (event: PointerEvent) => {
+      if (event.pointerType !== "mouse" || event.button !== 0) return;
+
+      pointerId = event.pointerId;
+      startX = event.clientX;
+      startScroll = rail.scrollLeft;
+      dragged = false;
+      rail.classList.add("is-grabbing");
+    };
+
+    const onPointerMove = (event: PointerEvent) => {
+      if (pointerId === null || event.pointerId !== pointerId) return;
+
+      const delta = event.clientX - startX;
+
+      if (!dragged && Math.abs(delta) > DRAG_THRESHOLD) {
+        dragged = true;
+        // Capture only once dragging is real, so plain clicks stay clicks
+        rail.setPointerCapture(pointerId);
+        // Snap fights a live drag — restore it on release
+        rail.style.scrollSnapType = "none";
+      }
+
+      if (dragged) {
+        event.preventDefault();
+        rail.scrollLeft = startScroll - delta;
+      }
+    };
+
+    const endDrag = (event: PointerEvent) => {
+      if (pointerId === null || event.pointerId !== pointerId) return;
+
+      if (rail.hasPointerCapture(pointerId)) {
+        rail.releasePointerCapture(pointerId);
+      }
+
+      rail.classList.remove("is-grabbing");
+      rail.style.scrollSnapType = "";
+      pointerId = null;
+    };
+
+    rail.addEventListener("pointerdown", onPointerDown);
+    rail.addEventListener("pointermove", onPointerMove);
+    rail.addEventListener("pointerup", endDrag);
+    rail.addEventListener("pointercancel", endDrag);
+
+    // Suppress the click that follows a drag so cards stay non-interactive
+    rail.addEventListener(
+      "click",
+      (event) => {
+        if (dragged) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+      },
+      true
+    );
+
+    rail.addEventListener("dragstart", (event) => event.preventDefault());
+  }
+</script>
+
+<style>
+  /* Full-bleed track: the rail runs edge to edge, but the first card lines
+     up with the SectionShell gutter so it reads as part of the column */
+  .rail-bleed {
+    --rail-gutter: max(1.5rem, calc((100vw - 90rem) / 2 + 1.5rem));
+  }
+
+  .rail {
+    display: flex;
+    gap: 1.25rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: var(--rail-gutter);
+    padding-inline: var(--rail-gutter);
+    padding-block: 0.5rem;
+    cursor: grab;
+    /* Vertical page scroll must still work over the rail */
+    touch-action: pan-y;
+    scrollbar-width: none;
+    list-style: none;
+    margin: 0;
+  }
+
+  .rail::-webkit-scrollbar {
+    display: none;
+  }
+
+  .rail:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 4px;
+    border-radius: 1rem;
+  }
+
+  .rail.is-grabbing {
+    cursor: grabbing;
+    /* Text selection mid-drag makes the pan feel broken */
+    user-select: none;
+  }
+
+  .rail__item {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    /* ~3.5 cards visible at desktop so the cut card cues the scroll */
+    width: min(68vw, 20rem);
+  }
+
+  .rail__card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0;
+  }
+
+  /* Screenshots are light-theme, so the shot keeps a light bed in both
+     themes — a dark surface behind them would halo */
+  .rail__shot {
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 1.6rem;
+    background: oklch(0.97 0.005 145);
+    box-shadow: var(--shadow-elevated);
+  }
+
+  .rail__img {
+    display: block;
+    width: 100%;
+    height: auto;
+    /* Uniform card height: every screen shows its top, cropped at the fold */
+    aspect-ratio: 9 / 15;
+    object-fit: cover;
+    object-position: top;
+    -webkit-user-drag: none;
+    user-select: none;
+  }
+
+  .rail__caption {
+    padding: 1.1rem 0.25rem 0;
+  }
+
+  /* Reveal stagger lives in CSS — CSP (style-src, no unsafe-inline) blocks
+     inline style attributes site-wide, so never pass --reveal-delay inline */
+  .rail__item:nth-child(1) {
+    --reveal-delay: 0ms;
+  }
+  .rail__item:nth-child(2) {
+    --reveal-delay: 70ms;
+  }
+  .rail__item:nth-child(3) {
+    --reveal-delay: 140ms;
+  }
+  .rail__item:nth-child(4) {
+    --reveal-delay: 210ms;
+  }
+  .rail__item:nth-child(n + 5) {
+    --reveal-delay: 280ms;
+  }
+
+  .rail-hint__icon {
+    animation: rail-nudge 2.6s ease-in-out infinite;
+  }
+
+  @keyframes rail-nudge {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(0.2rem);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rail {
+      scroll-behavior: auto;
+    }
+
+    .rail-hint__icon {
+      animation: none;
+    }
+  }
+</style>

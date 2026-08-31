@@ -217,6 +217,27 @@ const tools = defineCollection({
   }),
 });
 
+const landingScreenRail = defineCollection({
+  loader: glob({ pattern: "screen-rail.md", base: "./src/content/landing" }),
+  schema: ({ image }) =>
+    z.object({
+      eyebrow: z.string(),
+      headline: z.string(),
+      description: z.string(),
+      dragHint: z.string(),
+      screens: z
+        .array(
+          z.object({
+            title: z.string(),
+            caption: z.string(),
+            image: image(),
+            alt: z.string(),
+          })
+        )
+        .min(3),
+    }),
+});
+
 export const collections = {
   tools,
   blog,
@@ -233,4 +254,5 @@ export const collections = {
   landingFooter,
   landingBlogMasthead,
   landingBlogNow,
+  landingScreenRail,
 };
