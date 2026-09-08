@@ -1,4 +1,6 @@
 ---
+import { SIGNUP_FORM_ACTION, SIGNUP_FORM_METHOD } from "../../consts";
+
 interface Props {
   placeholder: string;
   buttonText: string;
@@ -7,14 +9,17 @@ interface Props {
 const { placeholder, buttonText } = Astro.props;
 ---
 
-<form id="signup" action="/contact" method="get" class="w-full">
+<!-- Plain HTML post to Kit; the field name `email_address` is what Kit expects.
+     Kit redirects to /thanks after submit (set in the form's settings). -->
+<form id="signup" action={SIGNUP_FORM_ACTION} method={SIGNUP_FORM_METHOD} class="w-full">
   <label class="sr-only" for="signup-email">Email address</label>
-  <input type="hidden" name="source" value="pocketchomp-beta" />
   <div class="signup-shell flex w-full rounded-full border border-accent bg-surface p-1 shadow-[var(--shadow-elevated)]">
     <input
       id="signup-email"
       type="email"
-      name="email"
+      name="email_address"
+      autocomplete="email"
+      required
       placeholder={placeholder}
       class="min-w-0 flex-1 bg-transparent px-5 text-base text-foreground placeholder:text-muted-foreground focus:outline-none"
     />

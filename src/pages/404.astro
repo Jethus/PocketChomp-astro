@@ -1,0 +1,29 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import SectionShell from "../components/ui/SectionShell.astro";
+import Button from "../components/ui/Button.astro";
+---
+
+<BaseLayout title="Page not found" description="That page isn't on the menu.">
+  <Fragment slot="head">
+    <meta name="robots" content="noindex" />
+  </Fragment>
+  <Header />
+  <main>
+    <SectionShell innerClass="max-w-3xl">
+      <p class="font-heading text-sm font-black uppercase tracking-wide text-accent-strong">404</p>
+      <h1 class="fs-xl mt-3 leading-[1.05] text-foreground">Nothing logged here.</h1>
+      <p class="mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">
+        That page doesn't exist, or it moved. The calculators and field notes are still where they should be.
+      </p>
+      <div class="mt-10 flex flex-wrap gap-3">
+        <Button href="/" variant="accent" size="lg">Back home</Button>
+        <Button href="/tools/tdee-calculator" variant="outline" size="lg">TDEE calculator</Button>
+        <Button href="/blog" variant="outline" size="lg">Field notes</Button>
+      </div>
+    </SectionShell>
+  </main>
+  <Footer />
+</BaseLayout>

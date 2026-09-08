@@ -1,0 +1,56 @@
+---
+import { getEntry } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import SectionShell from "../components/ui/SectionShell.astro";
+import Button from "../components/ui/Button.astro";
+
+const entry = await getEntry("landingThanks", "thanks");
+
+if (!entry) {
+  throw new Error("Could not find PocketChomp thanks content");
+}
+
+const { headline, description, steps, ctaText, ctaLink } = entry.data;
+---
+
+<BaseLayout title="You're almost in" description="Confirm your email to join the PocketChomp beta list.">
+  <Fragment slot="head">
+    <meta name="robots" content="noindex" />
+  </Fragment>
+  <Header />
+  <main>
+    <SectionShell innerClass="max-w-3xl" data-reveal-root>
+      <div data-reveal>
+        <h1 class="fs-xl leading-[1.05] text-foreground">{headline}</h1>
+        <p class="mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">{description}</p>
+      </div>
+
+      <ol class="thanks-steps mt-10 space-y-4" data-reveal>
+        {
+          steps.map((step, index) => (
+            <li class="flex items-start gap-4 rounded-2xl border border-border bg-surface px-5 py-4 shadow-[var(--shadow-elevated)]">
+              <span class="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent-strong font-heading text-sm font-black text-white">
+                {index + 1}
+              </span>
+              <span class="leading-relaxed text-foreground">{step}</span>
+            </li>
+          ))
+        }
+      </ol>
+
+      <div class="mt-10" data-reveal>
+        <Button href={ctaLink} variant="outline" size="lg">{ctaText}</Button>
+      </div>
+    </SectionShell>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* Stagger in CSS; inline style attributes are blocked by the site CSP */
+  .thanks-steps {
+    --reveal-delay: 120ms;
+  }
+</style>

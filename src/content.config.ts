@@ -164,6 +164,17 @@ const landingFreePremium = defineCollection({
   }),
 });
 
+const landingThanks = defineCollection({
+  loader: glob({ pattern: "thanks.md", base: "./src/content/landing" }),
+  schema: z.object({
+    headline: z.string(),
+    description: z.string(),
+    steps: z.array(z.string()).min(1),
+    ctaText: z.string(),
+    ctaLink: z.string(),
+  }),
+});
+
 const landingFooter = defineCollection({
   loader: glob({ pattern: "footer.md", base: "./src/content/landing" }),
   schema: z.object({
@@ -250,6 +261,7 @@ export const collections = {
   landingValuePillars,
   landingBeyondCalorie,
   landingSignupCta,
+  landingThanks,
   landingFreePremium,
   landingFooter,
   landingBlogMasthead,

@@ -42,5 +42,13 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  security: { csp: true },
+  security: {
+    csp: {
+      // Astro hashes every bundled script; this only widens the host list so
+      // the optional Cloudflare Web Analytics beacon can load.
+      scriptDirective: {
+        resources: ["'self'", "https://static.cloudflareinsights.com"],
+      },
+    },
+  },
 });
