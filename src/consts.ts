@@ -7,16 +7,13 @@ export const SITE_DESCRIPTION =
 
 /**
  * Beta signup list. The form posts straight to Kit (ConvertKit) with no
- * JavaScript, so it works under the strict CSP. Set PUBLIC_KIT_FORM_ID in
- * the build environment (Cloudflare Pages -> Settings -> Variables) to the
- * numeric id from the Kit form's embed code. Until it is set the form posts
- * to the thank-you page so local builds never 404.
+ * JavaScript, so it works under the strict CSP. The form id is public (it is
+ * in the page HTML either way); PUBLIC_KIT_FORM_ID overrides it if the form
+ * is ever recreated. Kit redirects to /thanks after submit.
  */
-const KIT_FORM_ID = import.meta.env.PUBLIC_KIT_FORM_ID as string | undefined;
-export const SIGNUP_FORM_ACTION = KIT_FORM_ID
-  ? `https://app.kit.com/forms/${KIT_FORM_ID}/subscriptions`
-  : "/thanks";
-export const SIGNUP_FORM_METHOD: "post" | "get" = KIT_FORM_ID ? "post" : "get";
+const KIT_FORM_ID = (import.meta.env.PUBLIC_KIT_FORM_ID as string | undefined) || "9894910";
+export const SIGNUP_FORM_ACTION = `https://app.kit.com/forms/${KIT_FORM_ID}/subscriptions`;
+export const SIGNUP_FORM_METHOD = "post" as const;
 
 /** Cloudflare Web Analytics beacon token (cookieless). Optional. */
 export const CF_BEACON_TOKEN = import.meta.env.PUBLIC_CF_BEACON_TOKEN as string | undefined;
