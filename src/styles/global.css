@@ -1,4 +1,7 @@
 @import "tailwindcss";
+/* Agent reference docs contain Tailwind class examples (bg-[url(/img/...)])
+   that otherwise get scanned into the build and emit unresolved-asset warnings */
+@source not "../../.agents";
 
 @font-face {
   font-display: swap;

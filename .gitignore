@@ -29,3 +29,10 @@ pnpm-debug.log*
 
 keystatic.config.old
 
+
+# raw screen recordings / unused demo video exports
+src/assets/product/*.mp4
+src/assets/product/*.webm
+
+# git-bash crash dumps
+bash.exe.stackdump

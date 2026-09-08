@@ -43,6 +43,8 @@ export interface CalculatorResult {
   bmr: number;
   maintenance: Range;
   target: Range;
+  /** Signed kcal/day vs maintenance: negative = deficit, positive = surplus */
+  dailyAdjustment: number;
   proteinG: Range;
   macros: { proteinG: number; carbsG: number; fatG: number };
   warning: "aggressive_pace" | null;
@@ -119,6 +121,7 @@ export function calculate(input: CalculatorInput): CalculatorResult {
     bmr,
     maintenance,
     target,
+    dailyAdjustment,
     proteinG,
     macros: { proteinG: proteinMidG, carbsG, fatG },
     warning: targetMid < MIN_KCAL[input.sex] ? "aggressive_pace" : null,

@@ -25,115 +25,117 @@ const defaultGoal = mode === "deficit" ? "lose" : "maintain";
 
 <div class="calc" data-calculator data-mode={mode}>
   <form class="calc__form" data-calc-form>
-    <div class="calc__row">
-      <fieldset class="calc__field">
-        <legend class="calc__label">Units</legend>
-        <div class="calc__segmented" role="group">
-          <label><input type="radio" name="units" value="imperial" checked /> lbs / ft</label>
-          <label><input type="radio" name="units" value="metric" /> kg / cm</label>
-        </div>
-      </fieldset>
-
-      <fieldset class="calc__field">
-        <legend class="calc__label">Sex</legend>
-        <div class="calc__segmented" role="group">
-          <label><input type="radio" name="sex" value="female" checked /> Female</label>
-          <label><input type="radio" name="sex" value="male" /> Male</label>
-        </div>
-      </fieldset>
-
-      <div class="calc__field">
-        <label class="calc__label" for="calc-age">Age</label>
-        <input id="calc-age" name="age" type="number" inputmode="numeric" min="16" max="100" placeholder="30" />
+    <fieldset class="calc__field">
+      <legend class="calc__label">Units</legend>
+      <div class="calc__segmented" role="group">
+        <label><input type="radio" name="units" value="imperial" checked /> lbs / ft</label>
+        <label><input type="radio" name="units" value="metric" /> kg / cm</label>
       </div>
+    </fieldset>
+
+    <fieldset class="calc__field">
+      <legend class="calc__label">Sex</legend>
+      <div class="calc__segmented" role="group">
+        <label><input type="radio" name="sex" value="female" checked /> Female</label>
+        <label><input type="radio" name="sex" value="male" /> Male</label>
+      </div>
+    </fieldset>
+
+    <div class="calc__field">
+      <label class="calc__label" for="calc-age">Age</label>
+      <input id="calc-age" name="age" type="number" inputmode="numeric" min="16" max="100" placeholder="30" />
     </div>
 
-    <div class="calc__row">
-      <div class="calc__field" data-imperial>
-        <label class="calc__label" for="calc-ft">Height</label>
-        <div class="calc__pair">
-          <input id="calc-ft" name="heightFt" type="number" inputmode="numeric" min="3" max="7" placeholder="5" aria-label="feet" />
-          <span>ft</span>
-          <input name="heightIn" type="number" inputmode="numeric" min="0" max="11" placeholder="10" aria-label="inches" />
-          <span>in</span>
-        </div>
-      </div>
-      <div class="calc__field" data-metric hidden>
-        <label class="calc__label" for="calc-cm">Height (cm)</label>
-        <input id="calc-cm" name="heightCm" type="number" inputmode="numeric" min="100" max="230" placeholder="178" />
-      </div>
-
-      <div class="calc__field" data-imperial>
-        <label class="calc__label" for="calc-lbs">Weight (lbs)</label>
-        <input id="calc-lbs" name="weightLbs" type="number" inputmode="decimal" min="70" max="700" placeholder="176" />
-      </div>
-      <div class="calc__field" data-metric hidden>
-        <label class="calc__label" for="calc-kg">Weight (kg)</label>
-        <input id="calc-kg" name="weightKg" type="number" inputmode="decimal" min="35" max="320" placeholder="80" />
-      </div>
-
-      <div class="calc__field">
-        <label class="calc__label" for="calc-activity">Activity</label>
-        <select id="calc-activity" name="activity">
-          {activityOptions.map((o) => (
-            <option value={o.value} selected={o.value === "moderate"}>{o.label}</option>
-          ))}
-        </select>
+    <div class="calc__field" data-imperial>
+      <label class="calc__label" for="calc-ft">Height</label>
+      <div class="calc__pair">
+        <input id="calc-ft" name="heightFt" type="number" inputmode="numeric" min="3" max="7" placeholder="5" aria-label="feet" />
+        <span>ft</span>
+        <input name="heightIn" type="number" inputmode="numeric" min="0" max="11" placeholder="10" aria-label="inches" />
+        <span>in</span>
       </div>
     </div>
+    <div class="calc__field" data-metric hidden>
+      <label class="calc__label" for="calc-cm">Height (cm)</label>
+      <input id="calc-cm" name="heightCm" type="number" inputmode="numeric" min="100" max="230" placeholder="178" />
+    </div>
 
-    <div class="calc__row">
-      <div class="calc__field">
-        <label class="calc__label" for="calc-goal">Goal</label>
-        <select id="calc-goal" name="goal">
-          <option value="lose" selected={defaultGoal === "lose"}>Lose weight</option>
-          <option value="maintain" selected={defaultGoal === "maintain"}>Maintain</option>
-          <option value="gain">Gain weight</option>
-        </select>
-      </div>
+    <div class="calc__field" data-imperial>
+      <label class="calc__label" for="calc-lbs">Weight (lbs)</label>
+      <input id="calc-lbs" name="weightLbs" type="number" inputmode="decimal" min="70" max="700" placeholder="176" />
+    </div>
+    <div class="calc__field" data-metric hidden>
+      <label class="calc__label" for="calc-kg">Weight (kg)</label>
+      <input id="calc-kg" name="weightKg" type="number" inputmode="decimal" min="35" max="320" placeholder="80" />
+    </div>
 
-      <div class="calc__field" data-pace-row hidden={defaultGoal === "maintain"}>
-        <label class="calc__label" for="calc-pace">Pace</label>
-        <select id="calc-pace" name="pace">
-          {paceOptions.map((o) => (
-            <option value={o.value} selected={o.value === "0.5"}>{o.label}</option>
-          ))}
-        </select>
-      </div>
+    <div class="calc__field">
+      <label class="calc__label" for="calc-activity">Activity</label>
+      <select id="calc-activity" name="activity">
+        {activityOptions.map((o) => (
+          <option value={o.value} selected={o.value === "moderate"}>{o.label}</option>
+        ))}
+      </select>
+    </div>
+
+    <div class="calc__field">
+      <label class="calc__label" for="calc-goal">Goal</label>
+      <select id="calc-goal" name="goal">
+        <option value="lose" selected={defaultGoal === "lose"}>Lose weight</option>
+        <option value="maintain" selected={defaultGoal === "maintain"}>Maintain</option>
+        <option value="gain">Gain weight</option>
+      </select>
+    </div>
+
+    <div class="calc__field" data-pace-row hidden={defaultGoal === "maintain"}>
+      <label class="calc__label" for="calc-pace">Pace</label>
+      <select id="calc-pace" name="pace">
+        {paceOptions.map((o) => (
+          <option value={o.value} selected={o.value === "0.5"}>{o.label}</option>
+        ))}
+      </select>
     </div>
   </form>
 
-  <div class="calc__results" data-results aria-live="polite">
+  <aside class="calc__summary" data-results aria-live="polite">
     <p class="calc__placeholder" data-placeholder>
-      Fill in your details — results appear instantly. Nothing is stored or sent anywhere.
+      Fill in your details — your plan appears here instantly. Nothing is
+      stored or sent anywhere.
     </p>
 
     <div class="calc__numbers" data-numbers hidden>
-      <div class="calc__stat" data-stat="maintenance">
-        <span class="calc__stat-label">Maintenance (TDEE)</span>
-        <span class="calc__stat-value"><span data-out="maintenance">—</span> kcal/day</span>
-      </div>
-      <div class="calc__stat" data-stat="target">
-        <span class="calc__stat-label" data-out="target-label">Your target</span>
-        <span class="calc__stat-value"><span data-out="target">—</span> kcal/day</span>
-      </div>
-      <div class="calc__stat">
-        <span class="calc__stat-label">Protein</span>
-        <span class="calc__stat-value"><span data-out="protein">—</span> g/day</span>
-      </div>
-      <p class="calc__macros">
-        Suggested split: <strong><span data-out="macro-p">—</span>g protein</strong> ·
-        <strong><span data-out="macro-c">—</span>g carbs</strong> ·
-        <strong><span data-out="macro-f">—</span>g fat</strong>
-      </p>
-      <p class="calc__bmr">BMR: <span data-out="bmr">—</span> kcal/day</p>
-    </div>
+      <p class="calc__summary-label" data-out="target-label">Your daily target</p>
+      <p class="calc__summary-value"><span data-out="target">—</span></p>
+      <p class="calc__summary-unit">kcal/day</p>
+      <p class="calc__delta" data-delta><span data-out="delta">—</span></p>
 
-    <p class="calc__warning" data-warning hidden>
-      That pace puts your target below a safe floor for your stats. Pick a
-      slower pace — a deficit you can sustain beats one that burns you out.
-    </p>
-  </div>
+      <dl class="calc__rows">
+        <div class="calc__row-line" data-row="maintenance">
+          <dt>Maintenance (TDEE)</dt>
+          <dd><span data-out="maintenance">—</span> kcal</dd>
+        </div>
+        <div class="calc__row-line">
+          <dt>Protein</dt>
+          <dd><span data-out="protein">—</span> g</dd>
+        </div>
+        <div class="calc__row-line">
+          <dt>Split P&hairsp;/&hairsp;C&hairsp;/&hairsp;F</dt>
+          <dd><span data-out="macro-split">—</span></dd>
+        </div>
+        <div class="calc__row-line">
+          <dt>BMR</dt>
+          <dd><span data-out="bmr">—</span> kcal</dd>
+        </div>
+      </dl>
+
+      <p class="calc__warning" data-warning hidden>
+        That pace puts your target below a safe floor for your stats. Pick a
+        slower pace — a deficit you can sustain beats one that burns you out.
+      </p>
+
+      <p class="calc__privacy">Runs in your browser. Nothing is stored or sent.</p>
+    </div>
+  </aside>
 </div>
 
 <script>
@@ -148,13 +150,14 @@ const defaultGoal = mode === "deficit" ? "lose" : "maintain";
 
   document.querySelectorAll<HTMLElement>("[data-calculator]").forEach((root) => {
     const form = root.querySelector<HTMLFormElement>("[data-calc-form]")!;
-    const mode = root.dataset.mode;
     const out = (name: string) =>
       root.querySelector<HTMLElement>(`[data-out="${name}"]`)!;
     const numbersEl = root.querySelector<HTMLElement>("[data-numbers]")!;
     const placeholderEl = root.querySelector<HTMLElement>("[data-placeholder]")!;
     const warningEl = root.querySelector<HTMLElement>("[data-warning]")!;
-    const targetStat = root.querySelector<HTMLElement>('[data-stat="target"]')!;
+    const deltaEl = root.querySelector<HTMLElement>("[data-delta]")!;
+    const summaryEl = root.querySelector<HTMLElement>("[data-results]")!;
+    const maintenanceRow = root.querySelector<HTMLElement>('[data-row="maintenance"]')!;
     const paceRow = root.querySelector<HTMLElement>("[data-pace-row]")!;
 
     const num = (name: string): number => {
@@ -191,9 +194,9 @@ const defaultGoal = mode === "deficit" ? "lose" : "maintain";
         weightKg >= 35 && weightKg <= 320;
 
       placeholderEl.hidden = valid;
+      summaryEl.classList.toggle("calc__summary--live", valid);
       if (!valid) {
         numbersEl.hidden = true;
-        warningEl.hidden = true;
         return;
       }
 
@@ -207,22 +210,36 @@ const defaultGoal = mode === "deficit" ? "lose" : "maintain";
         paceKgPerWeek: goal === "maintain" ? 0 : parseFloat(val("pace")),
       });
 
+      const aggressive = result.warning === "aggressive_pace";
+      // With an unsafe pace the target is not worth headlining — fall back to
+      // maintenance up top and let the warning explain why.
+      const showTarget = goal !== "maintain" && !aggressive;
+
+      out("target").textContent = fmt(showTarget ? result.target : result.maintenance);
+      out("target-label").textContent = showTarget
+        ? goal === "lose"
+          ? "Deficit target"
+          : "Surplus target"
+        : "Maintenance (TDEE)";
+
+      const adj = result.dailyAdjustment;
+      deltaEl.classList.toggle("calc__delta--neutral", !showTarget);
+      out("delta").textContent = !showTarget
+        ? "At maintenance — no deficit or surplus"
+        : adj < 0
+          ? `−${Math.abs(adj).toLocaleString()} kcal/day deficit`
+          : `+${adj.toLocaleString()} kcal/day surplus`;
+      deltaEl.hidden = aggressive;
+
+      maintenanceRow.hidden = !showTarget;
       out("maintenance").textContent = fmt(result.maintenance);
-      out("target").textContent = fmt(result.target);
-      out("target-label").textContent =
-        goal === "lose" ? "Deficit target" : goal === "gain" ? "Surplus target" : "Your target";
       out("protein").textContent = fmt(result.proteinG);
-      out("macro-p").textContent = String(result.macros.proteinG);
-      out("macro-c").textContent = String(result.macros.carbsG);
-      out("macro-f").textContent = String(result.macros.fatG);
+      out("macro-split").textContent =
+        `${result.macros.proteinG} / ${result.macros.carbsG} / ${result.macros.fatG} g`;
       out("bmr").textContent = result.bmr.toLocaleString();
 
-      const aggressive = result.warning === "aggressive_pace";
       warningEl.hidden = !aggressive;
-      targetStat.hidden = aggressive;
       numbersEl.hidden = false;
-
-      root.classList.toggle("calc--deficit-first", mode === "deficit");
     };
 
     form.addEventListener("input", render);
@@ -236,57 +253,61 @@ const defaultGoal = mode === "deficit" ? "lose" : "maintain";
     border: 1px solid var(--border);
     background: var(--surface);
     box-shadow: var(--shadow-elevated);
-    padding: 1.75rem;
+    padding: 1.5rem;
     display: grid;
-    gap: 1.75rem;
+    gap: 1.5rem;
+  }
+
+  /* Form left, result card right — the whole tool reads as one unit */
+  @media (min-width: 56rem) {
+    .calc {
+      grid-template-columns: 1.15fr 0.85fr;
+      align-items: start;
+      padding: 1.75rem;
+      gap: 1.75rem;
+    }
   }
 
   .calc__form {
     display: grid;
-    gap: 1.25rem;
+    gap: 1rem;
   }
 
-  .calc__row {
-    display: grid;
-    gap: 1.25rem;
-  }
-
-  @media (min-width: 40rem) {
-    .calc__row {
-      grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  @media (min-width: 26rem) {
+    .calc__form {
+      grid-template-columns: 1fr 1fr;
     }
   }
 
   .calc__field {
     display: grid;
-    gap: 0.4rem;
+    gap: 0.35rem;
+    align-content: start;
     border: 0;
     padding: 0;
     margin: 0;
     min-width: 0;
   }
 
-  /* Labels ride the fluid scale one step below body so the form
-     doesn't read as a different site than the fluid copy around it */
   .calc__label {
-    --fl: -1;
     font-family: var(--font-heading);
-    font-size: calc(var(--fluid-type) * 0.82);
-    font-weight: 900;
-    letter-spacing: 0.14em;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--muted-foreground);
   }
 
   .calc input[type="number"],
   .calc select {
-    height: 3.1rem;
-    border-radius: 0.9rem;
+    height: 2.75rem;
+    border-radius: 0.8rem;
     border: 1px solid var(--border);
     background: var(--background);
-    padding: 0 0.9rem;
+    padding: 0 0.8rem;
     color: var(--foreground);
     width: 100%;
+    font-size: 0.95rem;
   }
 
   .calc input:focus-visible,
@@ -298,7 +319,7 @@ const defaultGoal = mode === "deficit" ? "lose" : "maintain";
   .calc__pair {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.45rem;
   }
 
   .calc__pair span {
@@ -317,8 +338,8 @@ const defaultGoal = mode === "deficit" ? "lose" : "maintain";
     align-items: center;
     justify-content: center;
     gap: 0.45rem;
-    height: 2.9rem;
-    border-radius: 0.9rem;
+    height: 2.75rem;
+    border-radius: 0.8rem;
     border: 1px solid var(--border);
     background: var(--background);
     font-size: 0.9rem;
@@ -329,80 +350,143 @@ const defaultGoal = mode === "deficit" ? "lose" : "maintain";
     border-color: var(--primary);
     background: color-mix(in oklab, var(--primary) 10%, var(--background));
     font-weight: 700;
+    color: var(--primary-strong);
   }
 
+  .calc__segmented label:has(input:focus-visible) {
+    outline: 2px solid var(--primary);
+    outline-offset: 1px;
+  }
+
+  /* App-style segments: the state shows in the fill, not a radio dot */
   .calc__segmented input {
-    accent-color: var(--primary);
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
   }
 
-  .calc__results {
+  /* Result card mirrors the app's goal-summary card: bold accent border,
+     one big kcal number, the deficit/surplus called out right under it */
+  /* Quiet until there are numbers — the accent frame is the reward state,
+     not an alert around the placeholder text */
+  .calc__summary {
     border-radius: 1.2rem;
+    border: 2px dashed var(--border);
     background: var(--surface-strong);
     padding: 1.5rem;
+    transition: border-color 0.25s ease, background-color 0.25s ease;
   }
 
-  .calc__placeholder,
-  .calc__warning {
+  .calc__summary--live {
+    border: 2px solid var(--accent-strong);
+    background: color-mix(in oklab, var(--accent) 4%, var(--surface));
+  }
+
+  .calc__placeholder {
     margin: 0;
     color: var(--muted-foreground);
     line-height: 1.5;
+    text-align: center;
   }
 
-  .calc__warning {
+  .calc__summary-label {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+    text-align: center;
+  }
+
+  .calc__summary-value {
+    --fl: 3;
+    margin: 0.35rem 0 0;
+    font-family: var(--font-heading);
+    font-size: var(--fluid-type);
+    font-weight: 900;
+    line-height: 1.05;
+    color: var(--accent-strong);
+    text-align: center;
+  }
+
+  .calc__summary-unit {
+    margin: 0.15rem 0 0;
+    font-size: 0.85rem;
+    color: var(--muted-foreground);
+    text-align: center;
+  }
+
+  .calc__delta {
+    margin: 0.85rem auto 0;
+    width: fit-content;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--accent) 14%, var(--surface));
     color: var(--accent-strong);
     font-weight: 700;
+    font-size: 0.9rem;
+    text-align: center;
   }
 
   .calc__numbers {
     display: grid;
-    gap: 1rem;
+    justify-items: center;
   }
 
-  .calc__stat {
+  .calc__delta--neutral {
+    background: var(--surface-strong);
+    color: var(--muted-foreground);
+    font-weight: 400;
+  }
+
+  .calc__rows {
+    margin: 1.25rem 0 0;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--border);
+    width: 100%;
+    justify-self: stretch;
+  }
+
+  .calc__row-line {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
     gap: 1rem;
-    flex-wrap: wrap;
+    padding: 0.55rem 0;
   }
 
-  .calc__stat-label {
-    --fl: -1;
-    font-family: var(--font-heading);
-    font-size: calc(var(--fluid-type) * 0.82);
-    font-weight: 900;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
+  .calc__row-line dt {
     color: var(--muted-foreground);
+    font-size: 0.9rem;
   }
 
-  .calc__stat-value {
-    --fl: 1;
-    font-family: var(--font-heading);
-    font-weight: 900;
-    font-size: var(--fluid-type);
-    color: var(--foreground);
-  }
-
-  .calc--deficit-first [data-stat="target"] {
-    order: -1;
-  }
-
-  .calc--deficit-first [data-stat="target"] .calc__stat-value {
-    --fl: 2;
-    color: var(--primary);
-  }
-
-  .calc:not(.calc--deficit-first) [data-stat="maintenance"] .calc__stat-value {
-    --fl: 2;
-    color: var(--primary);
-  }
-
-  .calc__macros,
-  .calc__bmr {
-    --fl: -1;
+  .calc__row-line dd {
     margin: 0;
-    font-size: var(--fluid-type);
+    font-weight: 700;
+    color: var(--foreground);
+    font-size: 0.95rem;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .calc__warning {
+    margin: 1rem 0 0;
+    color: var(--accent-strong);
+    font-weight: 700;
+    line-height: 1.5;
+    font-size: 0.9rem;
+  }
+
+  .calc__privacy {
+    margin: 1rem 0 0;
+    font-size: 0.78rem;
     color: var(--muted-foreground);
+    text-align: center;
   }
 </style>
