@@ -17,6 +17,20 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
+
+// Every calculator links to every other one. Four pages targeting adjacent
+// queries interlink cheaply, and it keeps a visitor who landed on the wrong
+// one from bouncing back to the search results.
+const allTools = await getCollection("tools");
+const TOOL_ORDER = [
+  "tdee-calculator",
+  "calorie-deficit-calculator",
+  "macro-calculator",
+  "bmr-calculator",
+];
+const otherTools = allTools
+  .filter((t) => t.id !== entry.id)
+  .sort((a, b) => TOOL_ORDER.indexOf(a.id) - TOOL_ORDER.indexOf(b.id));
 const {
   title,
   metaDescription,
@@ -33,14 +47,49 @@ const {
 
 const { Content } = await render(entry);
 
-const faqSchema = {
+const canonical = new URL(`/tools/${entry.id}`, Astro.site ?? Astro.url).href;
+
+// One @graph rather than three separate blocks so the nodes can reference each
+// other: the calculator is the primary entity of the page, and the FAQ hangs
+// off the same page node instead of floating free.
+const schema = {
   "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: faq.map((item) => ({
-    "@type": "Question",
-    name: item.q,
-    acceptedAnswer: { "@type": "Answer", text: item.a },
-  })),
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "@id": `${canonical}#calculator`,
+      name: h1,
+      url: canonical,
+      description: metaDescription,
+      applicationCategory: "HealthApplication",
+      operatingSystem: "Any",
+      browserRequirements: "Requires JavaScript",
+      isAccessibleForFree: true,
+      offers: { "@type": "Offer", price: "0", priceCurrency: "CAD" },
+    },
+    {
+      "@type": "FAQPage",
+      "@id": `${canonical}#faq`,
+      mainEntity: faq.map((item) => ({
+        "@type": "Question",
+        name: item.q,
+        acceptedAnswer: { "@type": "Answer", text: item.a },
+      })),
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${canonical}#breadcrumb`,
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: new URL("/", Astro.site ?? Astro.url).href,
+        },
+        { "@type": "ListItem", position: 2, name: h1, item: canonical },
+      ],
+    },
+  ],
 };
 ---
 
@@ -116,11 +165,25 @@ const faqSchema = {
       <p class="related-link">
         <a href={related.href}>{related.label} →</a>
       </p>
+
+      <nav class="tool-links" aria-label="Other calculators">
+        <h2 class="fs-s text-foreground">Other calculators</h2>
+        <ul>
+          {otherTools.map((t) => (
+            <li>
+              <a href={`/tools/${t.id}`}>
+                <span class="tool-links__name">{t.data.h1}</span>
+                <span class="tool-links__desc">{t.data.eyebrow}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </SectionShell>
   </main>
   <Footer />
 
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
 </BaseLayout>
 
 <style>
@@ -264,6 +327,47 @@ const faqSchema = {
     line-height: 1.6;
     color: var(--muted-foreground);
     max-width: 65ch;
+  }
+
+  .tool-links ul {
+    list-style: none;
+    margin: 1rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  @media (min-width: 40rem) {
+    .tool-links ul {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .tool-links a {
+    display: grid;
+    gap: 0.2rem;
+    height: 100%;
+    padding: 1rem 1.1rem;
+    border: 1px solid var(--border);
+    border-radius: 1.1rem;
+    background: var(--surface);
+    transition: border-color 0.18s ease, transform 0.18s ease;
+  }
+
+  .tool-links a:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+  }
+
+  .tool-links__name {
+    font-weight: 700;
+    color: var(--primary);
+  }
+
+  .tool-links__desc {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: var(--muted-foreground);
   }
 
   .related-link a {

@@ -33,10 +33,28 @@ related:
 ## How this calculator works
 
 This tool uses the Mifflin-St Jeor equation — the formula with the best
-research support for estimating resting metabolism — then multiplies by a
-standard activity factor. Every mainstream calculator does roughly this. The
+research support for estimating resting metabolism — then multiplies by an
+activity factor. Every mainstream calculator does roughly this. The
 difference is what we do with the output: instead of pretending the result is
 exact, we show the ±10% band the formula actually earns.
+
+## Why we ask about movement and training separately
+
+Most calculators ask one blended question: "how active are you?", with answers
+like *moderate — exercise 3–5 days a week*. That forces a single answer out of two
+unrelated things. A warehouse worker who never trains and a desk worker who lifts
+four times a week both land on "moderate," and neither description fits.
+
+So we ask twice. **Activity** covers movement outside exercise — work, errands,
+getting around — anchored to step counts, because most people know roughly what
+their phone reports even if they can't rank themselves on an abstract scale.
+**Exercise** covers structured training sessions, which add on top.
+
+Being straight about what this buys: it is a clearer way to ask the question, not
+a more accurate equation. Self-reported activity carries a 10–20% error against
+doubly-labelled water however you elicit it. The gain is that each question is
+easier to answer honestly, and you're not describing your training twice — which
+is the usual way these estimates come out high.
 
 ## Why a range beats a single number
 

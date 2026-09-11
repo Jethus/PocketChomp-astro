@@ -1,16 +1,45 @@
 ---
 interface Props {
-  mode: "tdee" | "deficit";
+  mode: "tdee" | "deficit" | "bmr" | "macro";
 }
 
 const { mode } = Astro.props;
 
+// BMR is a resting figure — activity, goal and pace don't enter the formula,
+// so the form drops them rather than showing inputs that change nothing.
+const isBmr = mode === "bmr";
+const isMacro = mode === "macro";
+
+// Shared vocabulary with the app's DIET_STYLE_OPTIONS.
+const splitOptions = [
+  { value: "balanced", label: "Balanced — steady all-round eating" },
+  { value: "high_protein", label: "High protein — lifting, cutting, satiety" },
+  { value: "low_carb", label: "Lower carb — higher fat, fewer carbs" },
+  { value: "low_fat", label: "Low fat — more carbs, less fat" },
+  { value: "keto", label: "Keto — carbs capped near 30 g/day" },
+];
+
+/**
+ * Non-exercise activity only. Training is asked separately below, so these
+ * descriptions must NOT mention exercise — a user who reads "exercise most
+ * days" here and then also answers "5 sessions a week" has described the same
+ * training twice and their target reads high. Wording and the step-count
+ * anchors mirror PocketChomp/constants/activity.ts.
+ */
 const activityOptions = [
-  { value: "sedentary", label: "Sedentary — desk job, little exercise" },
-  { value: "light", label: "Light — exercise 1–3 days/week" },
-  { value: "moderate", label: "Moderate — exercise 3–5 days/week" },
-  { value: "active", label: "Active — exercise 6–7 days/week" },
-  { value: "very_active", label: "Very active — hard training + physical job" },
+  { value: "sedentary", label: "Mostly sedentary — under 5,000 steps a day" },
+  { value: "light", label: "Lightly active — around 5,000–7,500 steps" },
+  { value: "moderate", label: "Moderately active — around 7,500–10,000 steps" },
+  { value: "active", label: "Active — on the move, 10,000–12,500 steps" },
+  { value: "very_active", label: "Very active — physical job, 12,500+ steps" },
+];
+
+/** Representative days/week per band — midpoints, matching the app. */
+const exerciseOptions = [
+  { value: "0", label: "None — no structured exercise" },
+  { value: "2", label: "1–3 sessions a week" },
+  { value: "5", label: "4–6 sessions a week" },
+  { value: "7", label: "7+ sessions a week" },
 ];
 
 const paceOptions = [
@@ -20,7 +49,10 @@ const paceOptions = [
   { value: "1", label: "Aggressive — 1 kg (2 lb) / week" },
 ];
 
-const defaultGoal = mode === "deficit" ? "lose" : "maintain";
+// Macro pages default to "lose" alongside the deficit page: most people setting
+// macros are cutting, and the maintain branch drops protein to 1.2–1.6 g/kg,
+// which would open a macro calculator on a low-protein recommendation.
+const defaultGoal = mode === "deficit" || mode === "macro" ? "lose" : "maintain";
 ---
 
 <div class="calc" data-calculator data-mode={mode}>
@@ -69,7 +101,7 @@ const defaultGoal = mode === "deficit" ? "lose" : "maintain";
       <input id="calc-kg" name="weightKg" type="number" inputmode="decimal" min="35" max="320" placeholder="80" />
     </div>
 
-    <div class="calc__field">
+    <div class="calc__field" hidden={isBmr}>
       <label class="calc__label" for="calc-activity">Activity</label>
       <select id="calc-activity" name="activity">
         {activityOptions.map((o) => (
@@ -78,7 +110,16 @@ const defaultGoal = mode === "deficit" ? "lose" : "maintain";
       </select>
     </div>
 
-    <div class="calc__field">
+    <div class="calc__field" hidden={isBmr}>
+      <label class="calc__label" for="calc-exercise">Exercise</label>
+      <select id="calc-exercise" name="exercise">
+        {exerciseOptions.map((o) => (
+          <option value={o.value} selected={o.value === "2"}>{o.label}</option>
+        ))}
+      </select>
+    </div>
+
+    <div class="calc__field" hidden={isBmr}>
       <label class="calc__label" for="calc-goal">Goal</label>
       <select id="calc-goal" name="goal">
         <option value="lose" selected={defaultGoal === "lose"}>Lose weight</option>
@@ -87,7 +128,7 @@ const defaultGoal = mode === "deficit" ? "lose" : "maintain";
       </select>
     </div>
 
-    <div class="calc__field" data-pace-row hidden={defaultGoal === "maintain"}>
+    <div class="calc__field" data-pace-row hidden={isBmr || defaultGoal === "maintain"}>
       <label class="calc__label" for="calc-pace">Pace</label>
       <select id="calc-pace" name="pace">
         {paceOptions.map((o) => (
@@ -95,6 +136,17 @@ const defaultGoal = mode === "deficit" ? "lose" : "maintain";
         ))}
       </select>
     </div>
+
+    {isMacro && (
+      <div class="calc__field calc__field--wide">
+        <label class="calc__label" for="calc-split">Macro split</label>
+        <select id="calc-split" name="split">
+          {splitOptions.map((o) => (
+            <option value={o.value} selected={o.value === "balanced"}>{o.label}</option>
+          ))}
+        </select>
+      </div>
+    )}
   </form>
 
   <aside class="calc__summary" data-results aria-live="polite">
@@ -109,20 +161,36 @@ const defaultGoal = mode === "deficit" ? "lose" : "maintain";
       <p class="calc__summary-unit">kcal/day</p>
       <p class="calc__delta" data-delta><span data-out="delta">—</span></p>
 
+      {isMacro && (
+        <div class="macrobar" data-macrobar aria-hidden="true">
+          <span class="macrobar__seg macrobar__seg--p" data-bar="protein"></span>
+          <span class="macrobar__seg macrobar__seg--c" data-bar="carbs"></span>
+          <span class="macrobar__seg macrobar__seg--f" data-bar="fat"></span>
+        </div>
+      )}
+
+      {isMacro && (
+        <ul class="macrokeys" data-macrokeys>
+          <li><span class="macrokeys__dot macrokeys__dot--p"></span>Protein <b><span data-out="m-protein-g">—</span>g</b> <i><span data-out="m-protein-p">—</span>%</i></li>
+          <li><span class="macrokeys__dot macrokeys__dot--c"></span>Carbs <b><span data-out="m-carbs-g">—</span>g</b> <i><span data-out="m-carbs-p">—</span>%</i></li>
+          <li><span class="macrokeys__dot macrokeys__dot--f"></span>Fat <b><span data-out="m-fat-g">—</span>g</b> <i><span data-out="m-fat-p">—</span>%</i></li>
+        </ul>
+      )}
+
       <dl class="calc__rows">
         <div class="calc__row-line" data-row="maintenance">
           <dt>Maintenance (TDEE)</dt>
           <dd><span data-out="maintenance">—</span> kcal</dd>
         </div>
-        <div class="calc__row-line">
+        <div class="calc__row-line" data-row="protein" hidden={isMacro}>
           <dt>Protein</dt>
           <dd><span data-out="protein">—</span> g</dd>
         </div>
-        <div class="calc__row-line">
+        <div class="calc__row-line" data-row="macro-split" hidden={isMacro}>
           <dt>Split P&hairsp;/&hairsp;C&hairsp;/&hairsp;F</dt>
           <dd><span data-out="macro-split">—</span></dd>
         </div>
-        <div class="calc__row-line">
+        <div class="calc__row-line" data-row="bmr">
           <dt>BMR</dt>
           <dd><span data-out="bmr">—</span> kcal</dd>
         </div>
@@ -145,10 +213,14 @@ const defaultGoal = mode === "deficit" ? "lose" : "maintain";
     lbsToKg,
     type ActivityLevel,
     type Goal,
+    type MacroSplit,
     type Sex,
   } from "../../lib/calculator/engine";
 
   document.querySelectorAll<HTMLElement>("[data-calculator]").forEach((root) => {
+    const mode = root.dataset.mode ?? "tdee";
+    const isBmr = mode === "bmr";
+    const isMacro = mode === "macro";
     const form = root.querySelector<HTMLFormElement>("[data-calc-form]")!;
     const out = (name: string) =>
       root.querySelector<HTMLElement>(`[data-out="${name}"]`)!;
@@ -180,8 +252,10 @@ const defaultGoal = mode === "deficit" ? "lose" : "maintain";
         .querySelectorAll<HTMLElement>("[data-metric]")
         .forEach((el) => (el.hidden = !metric));
 
-      const goal = val("goal") as Goal;
-      paceRow.hidden = goal === "maintain";
+      // BMR ignores goal entirely; treat it as maintenance so the shared engine
+      // call stays on one path and no deficit is ever applied to a resting figure.
+      const goal = (isBmr ? "maintain" : val("goal")) as Goal;
+      paceRow.hidden = isBmr || goal === "maintain";
 
       const age = num("age");
       const heightCm = metric
@@ -200,15 +274,38 @@ const defaultGoal = mode === "deficit" ? "lose" : "maintain";
         return;
       }
 
+      const splitEl = form.elements.namedItem("split") as HTMLSelectElement | null;
+      const exerciseEl = form.elements.namedItem(
+        "exercise",
+      ) as HTMLSelectElement | null;
+      const activeDaysPerWeek = exerciseEl ? parseFloat(exerciseEl.value) : 0;
+
       const result = calculate({
         age,
         sex: val("sex") as Sex,
         heightCm,
         weightKg,
         activity: val("activity") as ActivityLevel,
+        activeDaysPerWeek,
         goal,
         paceKgPerWeek: goal === "maintain" ? 0 : parseFloat(val("pace")),
+        split: (splitEl?.value as MacroSplit) ?? "balanced",
       });
+
+      // BMR mode: the resting figure is the headline, and nothing below it
+      // (maintenance, deficit, macros) belongs on a page about resting burn.
+      if (isBmr) {
+        out("target-label").textContent = "Your BMR";
+        out("target").textContent = result.bmr.toLocaleString();
+        deltaEl.hidden = true;
+        maintenanceRow.hidden = true;
+        root.querySelector<HTMLElement>('[data-row="protein"]')!.hidden = true;
+        root.querySelector<HTMLElement>('[data-row="macro-split"]')!.hidden = true;
+        root.querySelector<HTMLElement>('[data-row="bmr"]')!.hidden = true;
+        warningEl.hidden = true;
+        numbersEl.hidden = false;
+        return;
+      }
 
       const aggressive = result.warning === "aggressive_pace";
       // With an unsafe pace the target is not worth headlining — fall back to
@@ -233,10 +330,48 @@ const defaultGoal = mode === "deficit" ? "lose" : "maintain";
 
       maintenanceRow.hidden = !showTarget;
       out("maintenance").textContent = fmt(result.maintenance);
-      out("protein").textContent = fmt(result.proteinG);
-      out("macro-split").textContent =
-        `${result.macros.proteinG} / ${result.macros.carbsG} / ${result.macros.fatG} g`;
       out("bmr").textContent = result.bmr.toLocaleString();
+
+      if (isMacro) {
+        // At an unsafe pace the headline falls back to maintenance, so the
+        // macros must follow it. Splitting the rejected target instead leaves
+        // almost nothing after protein and renders an absurd ~93% protein bar.
+        const macroSource = aggressive
+          ? calculate({
+              age,
+              sex: val("sex") as Sex,
+              heightCm,
+              weightKg,
+              activity: val("activity") as ActivityLevel,
+              activeDaysPerWeek,
+              goal: "maintain",
+              paceKgPerWeek: 0,
+              split: (splitEl?.value as MacroSplit) ?? "balanced",
+            })
+          : result;
+        const { protein, carbs, fat } = macroSource.macroPercents;
+        // The site ships a strict CSP with no 'unsafe-inline' for styles, which
+        // drops inline style *attributes* in markup. Setting a property through
+        // the CSSOM at runtime is not an inline attribute and is unaffected —
+        // verified against a production build, see the macrobar width check.
+        const bar = (n: string, pct: number) => {
+          const el = root.querySelector<HTMLElement>(`[data-bar="${n}"]`);
+          if (el) el.style.setProperty("--seg", String(pct));
+        };
+        bar("protein", protein);
+        bar("carbs", carbs);
+        bar("fat", fat);
+        out("m-protein-g").textContent = String(macroSource.macros.proteinG);
+        out("m-carbs-g").textContent = String(macroSource.macros.carbsG);
+        out("m-fat-g").textContent = String(macroSource.macros.fatG);
+        out("m-protein-p").textContent = String(protein);
+        out("m-carbs-p").textContent = String(carbs);
+        out("m-fat-p").textContent = String(fat);
+      } else {
+        out("protein").textContent = fmt(result.proteinG);
+        out("macro-split").textContent =
+          `${result.macros.proteinG} / ${result.macros.carbsG} / ${result.macros.fatG} g`;
+      }
 
       warningEl.hidden = !aggressive;
       numbersEl.hidden = false;
@@ -402,6 +537,8 @@ const defaultGoal = mode === "deficit" ? "lose" : "maintain";
     text-align: center;
   }
 
+  /* The headline is a calorie figure, so it carries the app's calories colour
+     rather than the generic accent — same number, same colour, both products. */
   .calc__summary-value {
     --fl: 3;
     margin: 0.35rem 0 0;
@@ -409,7 +546,7 @@ const defaultGoal = mode === "deficit" ? "lose" : "maintain";
     font-size: var(--fluid-type);
     font-weight: 900;
     line-height: 1.05;
-    color: var(--accent-strong);
+    color: var(--color-calories);
     text-align: center;
   }
 
@@ -443,6 +580,90 @@ const defaultGoal = mode === "deficit" ? "lose" : "maintain";
     background: var(--surface-strong);
     color: var(--muted-foreground);
     font-weight: 400;
+  }
+
+  /* Macro split: one bar the width of the card, segments sized from --seg
+     (a unitless percent set by the script — no inline style attribute, which
+     the site's CSP would drop). */
+  .macrobar {
+    display: flex;
+    width: 100%;
+    height: 0.85rem;
+    margin-top: 1.1rem;
+    border-radius: 999px;
+    overflow: hidden;
+    background: var(--surface-strong);
+  }
+
+  .macrobar__seg {
+    width: calc(var(--seg, 0) * 1%);
+    transition: width 0.25s ease;
+  }
+
+  .macrobar__seg--p {
+    background: var(--color-protein);
+  }
+
+  .macrobar__seg--c {
+    background: var(--color-carb);
+  }
+
+  .macrobar__seg--f {
+    background: var(--color-fat);
+  }
+
+  .macrokeys {
+    list-style: none;
+    margin: 0.9rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.45rem;
+    width: 100%;
+  }
+
+  .macrokeys li {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--muted-foreground);
+  }
+
+  .macrokeys b {
+    margin-left: auto;
+    color: var(--foreground);
+    font-weight: 700;
+  }
+
+  .macrokeys i {
+    font-style: normal;
+    min-width: 2.6rem;
+    text-align: right;
+    color: var(--muted-foreground);
+  }
+
+  .macrokeys__dot {
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 999px;
+    flex-shrink: 0;
+  }
+
+  .macrokeys__dot--p {
+    background: var(--color-protein);
+  }
+
+  .macrokeys__dot--c {
+    background: var(--color-carb);
+  }
+
+  .macrokeys__dot--f {
+    background: var(--color-fat);
+  }
+
+  /* A full-width control in the two-column form grid (the macro split select) */
+  .calc__field--wide {
+    grid-column: 1 / -1;
   }
 
   .calc__rows {

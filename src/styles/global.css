@@ -107,6 +107,17 @@
     --accent-strong: oklch(0.53 0.185 37.627);
     --accent-foreground: oklch(0.1912 0.0076 145.27);
 
+    /* Macro palette — the canonical values from the app's global.css, converted
+       from its hex to OKLCH so they live in this token system. Protein, carb
+       and fat are deliberately theme-independent (identical in dark below);
+       only calories shifts, exactly as the app does it. Keep these in sync with
+       PocketChomp/global.css — a user who sees carbs as amber in the app and
+       something else here stops trusting both. */
+    --color-calories: oklch(0.5588 0.1611 44.53); /* #BD4C00 */
+    --color-protein: oklch(0.5324 0.1843 30.77); /* #C02F1D */
+    --color-carb: oklch(0.7389 0.1348 59.57); /* #E8944A */
+    --color-fat: oklch(0.7665 0.1387 91.06); /* #D4AF37 */
+
     --radius-card: 1rem;
     --radius-pill: 9999px;
 
@@ -136,6 +147,10 @@
     --accent: oklch(67.064% 0.22127 37.627);
     --accent-strong: oklch(0.55 0.185 37.627);
     --accent-foreground: oklch(0.1912 0.0076 145.27);
+
+    /* Only calories brightens in dark (#E4551C); the three macros stay put —
+       see the light block and PocketChomp/global.css for why. */
+    --color-calories: oklch(0.6335 0.1889 39.16); /* #E4551C */
 
     --shadow-elevated: 0 18px 38px -28px rgb(0 0 0 / 0.48);
     --shadow-elevated-lg: 0 24px 54px -32px rgb(0 0 0 / 0.56);

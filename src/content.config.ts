@@ -17,27 +17,6 @@ const blog = defineCollection({
     }),
 });
 
-const services = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/services" }),
-  schema: () =>
-    z.object({
-      tab: z.string(),
-      label: z.string(),
-      order: z.number(),
-    }),
-});
-
-const portfolio = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/portfolio" }),
-  schema: ({ image }) =>
-    z.object({
-      title: z.string(),
-      tags: z.string(),
-      image: image(),
-      outcome: z.string().optional(),
-    }),
-});
-
 const landingHero = defineCollection({
   loader: glob({ pattern: "hero.md", base: "./src/content/landing" }),
   schema: z.object({
@@ -215,7 +194,7 @@ const tools = defineCollection({
     eyebrow: z.string(),
     h1: z.string(),
     intro: z.string(),
-    mode: z.enum(["tdee", "deficit"]),
+    mode: z.enum(["tdee", "deficit", "bmr", "macro"]),
     faq: z
       .array(z.object({ q: z.string(), a: z.string() }))
       .min(3),
@@ -243,6 +222,7 @@ const landingScreenRail = defineCollection({
             caption: z.string(),
             image: image(),
             alt: z.string(),
+            tier: z.enum(["free", "plus"]).default("free"),
           })
         )
         .min(3),
@@ -252,8 +232,6 @@ const landingScreenRail = defineCollection({
 export const collections = {
   tools,
   blog,
-  services,
-  portfolio,
   landingHero,
   landingProofStrip,
   landingSocialProof,
