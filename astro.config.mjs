@@ -45,9 +45,15 @@ export default defineConfig({
   security: {
     csp: {
       // Astro hashes every bundled script; this only widens the host list so
-      // the optional Cloudflare Web Analytics beacon can load.
+      // the optional Cloudflare Web Analytics beacon and the self-hosted
+      // Plausible script can load. There is no default-src, so connect-src is
+      // unrestricted and Plausible's event POSTs need no extra allowance.
       scriptDirective: {
-        resources: ["'self'", "https://static.cloudflareinsights.com"],
+        resources: [
+          "'self'",
+          "https://static.cloudflareinsights.com",
+          "https://data.pixelboost.dev",
+        ],
       },
     },
   },

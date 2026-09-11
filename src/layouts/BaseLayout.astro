@@ -1,6 +1,11 @@
 ---
 import "../styles/global.css";
-import { SITE_TITLE, SITE_DESCRIPTION, CF_BEACON_TOKEN } from "../consts";
+import {
+  SITE_TITLE,
+  SITE_DESCRIPTION,
+  CF_BEACON_TOKEN,
+  PLAUSIBLE_SRC,
+} from "../consts";
 import type { ImageMetadata } from "astro";
 import { Font } from "astro:assets";
 import { createHash } from "node:crypto";
@@ -71,6 +76,12 @@ Astro.csp?.insertScriptHash(
         />
       )
     }
+
+    {/* Privacy-friendly analytics by Plausible (self-hosted, cookieless) */}
+    <script is:inline async src={PLAUSIBLE_SRC}></script>
+    <script>
+      import "../scripts/plausible";
+    </script>
     <slot name="head" />
   </head>
 

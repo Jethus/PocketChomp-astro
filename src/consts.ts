@@ -17,3 +17,15 @@ export const SIGNUP_FORM_METHOD = "post" as const;
 
 /** Cloudflare Web Analytics beacon token (cookieless). Optional. */
 export const CF_BEACON_TOKEN = import.meta.env.PUBLIC_CF_BEACON_TOKEN as string | undefined;
+
+/**
+ * Plausible (self-hosted at data.pixelboost.dev) — cookieless, no personal
+ * data, so no consent banner is required. The host is allow-listed in
+ * astro.config.mjs; the init call lives in src/scripts/plausible.ts rather than
+ * an inline block so Astro hashes it for the CSP.
+ *
+ * PUBLIC_PLAUSIBLE_SRC overrides the script URL if the site is recreated.
+ */
+export const PLAUSIBLE_SRC =
+  (import.meta.env.PUBLIC_PLAUSIBLE_SRC as string | undefined) ||
+  "https://data.pixelboost.dev/js/pa-M2wuAVVmlh3G_ru432_mv.js";
