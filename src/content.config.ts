@@ -158,12 +158,21 @@ const landingFooter = defineCollection({
   loader: glob({ pattern: "footer.md", base: "./src/content/landing" }),
   schema: z.object({
     tagline: z.string(),
-    links: z.array(
-      z.object({
-        label: z.string(),
-        href: z.string(),
-      })
-    ).min(1),
+    /**
+     * Grouped into labelled columns rather than one flat row. Past about six
+     * entries a single wrapped list stops being scannable, and grouping also
+     * signals site structure to crawlers.
+     */
+    groups: z
+      .array(
+        z.object({
+          heading: z.string(),
+          links: z
+            .array(z.object({ label: z.string(), href: z.string() }))
+            .min(1),
+        })
+      )
+      .min(2),
   }),
 });
 

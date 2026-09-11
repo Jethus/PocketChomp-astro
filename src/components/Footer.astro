@@ -9,13 +9,13 @@ if (!footerEntry) {
   throw new Error("Could not find PocketChomp footer content");
 }
 
-const { tagline, links } = footerEntry.data;
+const { tagline, groups } = footerEntry.data;
 const currentYear = new Date().getFullYear();
 ---
 
 <footer class="border-t border-border bg-surface-strong">
-  <div class="mx-auto flex max-w-7xl flex-col gap-8 px-6 py-10 md:flex-row md:items-end md:justify-between">
-    <div class="space-y-4">
+  <div class="footer-inner">
+    <div class="footer-brand">
       <a href="/" aria-label="PocketChomp home" class="inline-flex items-center">
         <span class="footer-logo-light">
           <img src={logoLight.src} alt="PocketChomp" class="h-12 w-auto sm:h-14" />
@@ -25,24 +25,132 @@ const currentYear = new Date().getFullYear();
         </span>
       </a>
 
-      <p class="text-sm text-muted-foreground">
-        &copy; {currentYear} PocketChomp. {tagline}
-      </p>
+      <p class="footer-tagline">{tagline}</p>
+      <p class="footer-platform">Android · free barcode scanning · no ads</p>
     </div>
 
-    <nav aria-label="Footer" class="flex flex-wrap gap-6 text-sm text-muted-foreground">
+    <nav aria-label="Footer" class="footer-nav">
       {
-        links.map((link) => (
-          <a href={link.href} class="transition hover:text-foreground">
-            {link.label}
-          </a>
+        groups.map((group) => (
+          <div class="footer-col">
+            <h2 class="footer-col__heading">{group.heading}</h2>
+            <ul class="footer-col__list">
+              {group.links.map((link) => (
+                <li>
+                  <a href={link.href}>{link.label}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
         ))
       }
     </nav>
   </div>
+
+  <div class="footer-legal">
+    <p>&copy; {currentYear} PocketChomp. All rights reserved.</p>
+  </div>
 </footer>
 
 <style>
+  .footer-inner {
+    max-width: 80rem;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+    padding-block: 3rem 2.5rem;
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  /* Brand block anchors the left, link columns fill the rest — the shape most
+     product sites settle on because it keeps the wordmark as the entry point
+     and lets the columns stay narrow enough to scan. */
+  @media (min-width: 52rem) {
+    .footer-inner {
+      grid-template-columns: minmax(14rem, 1fr) 2.2fr;
+      gap: 4rem;
+      align-items: start;
+    }
+  }
+
+  .footer-brand {
+    display: grid;
+    gap: 0.75rem;
+    align-content: start;
+  }
+
+  .footer-tagline {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+    max-width: 22ch;
+  }
+
+  .footer-platform {
+    margin: 0;
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+    opacity: 0.8;
+  }
+
+  .footer-nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem 1.5rem;
+  }
+
+  /* auto-fit rather than a fixed count, so adding or removing a group doesn't
+     leave a gap in the row. */
+  @media (min-width: 40rem) {
+    .footer-nav {
+      grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    }
+  }
+
+  .footer-col__heading {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--foreground);
+  }
+
+  .footer-col__list {
+    list-style: none;
+    margin: 0.9rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .footer-col__list a {
+    font-size: 0.88rem;
+    line-height: 1.4;
+    color: var(--muted-foreground);
+    transition: color 0.15s ease;
+  }
+
+  .footer-col__list a:hover {
+    color: var(--foreground);
+  }
+
+  .footer-legal {
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-legal p {
+    max-width: 80rem;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+    padding-block: 1.25rem;
+    font-size: 0.78rem;
+    color: var(--muted-foreground);
+  }
+
   .footer-logo-dark {
     display: none;
   }

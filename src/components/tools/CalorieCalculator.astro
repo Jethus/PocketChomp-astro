@@ -9,6 +9,8 @@ const { mode } = Astro.props;
 // so the form drops them rather than showing inputs that change nothing.
 const isBmr = mode === "bmr";
 const isMacro = mode === "macro";
+const isTdee = mode === "tdee";
+const isDeficit = mode === "deficit";
 
 // Shared vocabulary with the app's DIET_STYLE_OPTIONS.
 const splitOptions = [
@@ -137,6 +139,23 @@ const defaultGoal = mode === "deficit" || mode === "macro" ? "lose" : "maintain"
       </select>
     </div>
 
+    {isDeficit && (
+      <div class="calc__field" data-goal-weight-row>
+        <label class="calc__label" for="calc-goal-weight">
+          Goal weight <span class="calc__optional">optional</span>
+        </label>
+        <input
+          id="calc-goal-weight"
+          name="goalWeight"
+          type="number"
+          inputmode="decimal"
+          min="30"
+          max="700"
+          placeholder="Add one for a timeline"
+        />
+      </div>
+    )}
+
     {isMacro && (
       <div class="calc__field calc__field--wide">
         <label class="calc__label" for="calc-split">Macro split</label>
@@ -160,6 +179,46 @@ const defaultGoal = mode === "deficit" || mode === "macro" ? "lose" : "maintain"
       <p class="calc__summary-value"><span data-out="target">—</span></p>
       <p class="calc__summary-unit">kcal/day</p>
       <p class="calc__delta" data-delta><span data-out="delta">—</span></p>
+
+      {isTdee && (
+        <div class="breakdown" data-breakdown>
+          <p class="breakdown__title">Where that goes</p>
+          <ul class="breakdown__list">
+            <li>
+              <span class="breakdown__label">At rest (BMR)</span>
+              <span class="breakdown__val"><span data-out="eb-bmr">—</span></span>
+            </li>
+            <li>
+              <span class="breakdown__label">Daily movement</span>
+              <span class="breakdown__val"><span data-out="eb-neat">—</span></span>
+            </li>
+            <li data-row="eb-training">
+              <span class="breakdown__label">Training</span>
+              <span class="breakdown__val"><span data-out="eb-training">—</span></span>
+            </li>
+            <li>
+              <span class="breakdown__label">Digesting food</span>
+              <span class="breakdown__val"><span data-out="eb-digestion">—</span></span>
+            </li>
+          </ul>
+          <p class="breakdown__note">
+            An attribution of the estimate, not four separate measurements.
+          </p>
+        </div>
+      )}
+
+      {isDeficit && (
+        <div class="timeline" data-timeline hidden>
+          <p class="timeline__lead">
+            At this pace you'd reach <span data-out="tl-goal">—</span> around
+          </p>
+          <p class="timeline__date" data-out="tl-date">—</p>
+          <p class="timeline__note">
+            <span data-out="tl-weeks">—</span> — and that's the optimistic
+            version. Loss slows as you get lighter, so treat it as a floor.
+          </p>
+        </div>
+      )}
 
       {isMacro && (
         <div class="macrobar" data-macrobar aria-hidden="true">
@@ -211,6 +270,8 @@ const defaultGoal = mode === "deficit" || mode === "macro" ? "lose" : "maintain"
     calculate,
     feetInchesToCm,
     lbsToKg,
+    projectGoalDate,
+    LBS_PER_KG,
     type ActivityLevel,
     type Goal,
     type MacroSplit,
@@ -221,6 +282,8 @@ const defaultGoal = mode === "deficit" || mode === "macro" ? "lose" : "maintain"
     const mode = root.dataset.mode ?? "tdee";
     const isBmr = mode === "bmr";
     const isMacro = mode === "macro";
+    const isTdee = mode === "tdee";
+    const isDeficit = mode === "deficit";
     const form = root.querySelector<HTMLFormElement>("[data-calc-form]")!;
     const out = (name: string) =>
       root.querySelector<HTMLElement>(`[data-out="${name}"]`)!;
@@ -231,6 +294,7 @@ const defaultGoal = mode === "deficit" || mode === "macro" ? "lose" : "maintain"
     const summaryEl = root.querySelector<HTMLElement>("[data-results]")!;
     const maintenanceRow = root.querySelector<HTMLElement>('[data-row="maintenance"]')!;
     const paceRow = root.querySelector<HTMLElement>("[data-pace-row]")!;
+    const timelineEl = root.querySelector<HTMLElement>("[data-timeline]");
 
     const num = (name: string): number => {
       const el = form.elements.namedItem(name) as HTMLInputElement | null;
@@ -331,6 +395,49 @@ const defaultGoal = mode === "deficit" || mode === "macro" ? "lose" : "maintain"
       maintenanceRow.hidden = !showTarget;
       out("maintenance").textContent = fmt(result.maintenance);
       out("bmr").textContent = result.bmr.toLocaleString();
+
+      if (isTdee) {
+        const e = result.energyBreakdown;
+        out("eb-bmr").textContent = `${e.bmr.toLocaleString()} kcal`;
+        out("eb-neat").textContent = `${e.neat.toLocaleString()} kcal`;
+        out("eb-training").textContent = `${e.training.toLocaleString()} kcal`;
+        out("eb-digestion").textContent = `${e.digestion.toLocaleString()} kcal`;
+        // A "Training: 0 kcal" row reads like a bug to someone who told us they
+        // don't train; drop it instead.
+        const trainingRow = root.querySelector<HTMLElement>('[data-row="eb-training"]');
+        if (trainingRow) trainingRow.hidden = e.training <= 0;
+      }
+
+      if (isDeficit && timelineEl) {
+        const goalRaw = num("goalWeight");
+        const goalKg = metric ? goalRaw : lbsToKg(goalRaw);
+        const pace = goal === "maintain" ? 0 : parseFloat(val("pace"));
+        const projection =
+          Number.isFinite(goalKg) && goalKg > 0
+            ? projectGoalDate(weightKg - goalKg, pace)
+            : null;
+
+        // Only project when the goal actually lies in the direction of travel —
+        // a goal above current weight while losing is a typo, not a plan.
+        const directionOk =
+          projection &&
+          ((goal === "lose" && goalKg < weightKg) ||
+            (goal === "gain" && goalKg > weightKg));
+
+        if (projection && directionOk) {
+          const unit = metric ? "kg" : "lbs";
+          const shown = metric ? goalKg : goalKg * LBS_PER_KG;
+          out("tl-goal").textContent = `${Math.round(shown * 10) / 10} ${unit}`;
+          out("tl-date").textContent = projection.date.toLocaleDateString("en-CA", {
+            month: "long",
+            year: "numeric",
+          });
+          out("tl-weeks").textContent = `About ${projection.weeks} weeks`;
+          timelineEl.hidden = false;
+        } else {
+          timelineEl.hidden = true;
+        }
+      }
 
       if (isMacro) {
         // At an unsafe pace the headline falls back to maintenance, so the
@@ -580,6 +687,96 @@ const defaultGoal = mode === "deficit" || mode === "macro" ? "lose" : "maintain"
     background: var(--surface-strong);
     color: var(--muted-foreground);
     font-weight: 400;
+  }
+
+  .calc__optional {
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+    opacity: 0.7;
+  }
+
+  /* TDEE: where the day's burn comes from. Muted on purpose — the headline
+     number is the answer, this is the explanation underneath it. */
+  .breakdown {
+    width: 100%;
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .breakdown__title,
+  .timeline__lead {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+    text-align: center;
+  }
+
+  .breakdown__list {
+    list-style: none;
+    margin: 0.8rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .breakdown__list li {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .breakdown__label {
+    color: var(--muted-foreground);
+  }
+
+  .breakdown__val {
+    font-weight: 700;
+    color: var(--foreground);
+    white-space: nowrap;
+  }
+
+  .breakdown__note {
+    margin: 0.8rem 0 0;
+    font-size: 0.76rem;
+    line-height: 1.45;
+    color: var(--muted-foreground);
+    text-align: center;
+    opacity: 0.85;
+  }
+
+  /* Deficit: the projected arrival date. The one number on this page that
+     answers "when", which is what someone setting a deficit actually wants. */
+  .timeline {
+    width: 100%;
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .timeline__date {
+    --fl: 1;
+    margin: 0.35rem 0 0;
+    font-family: var(--font-heading);
+    font-size: var(--fluid-type);
+    font-weight: 900;
+    line-height: 1.1;
+    color: var(--primary-strong);
+  }
+
+  .timeline__note {
+    margin: 0.55rem 0 0;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
   }
 
   /* Macro split: one bar the width of the card, segments sized from --seg

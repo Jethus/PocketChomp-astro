@@ -175,7 +175,50 @@ export interface CalculatorResult {
   macroPercents: { protein: number; carbs: number; fat: number };
   /** Midpoint of the target range — the kcal the macros are derived from */
   targetKcal: number;
+  /**
+   * Where the day's burn comes from, in kcal. Sums to the TDEE midpoint.
+   * Split for display only — the underlying model is bmr x multiplier, so
+   * these are an attribution of that product, not four measured quantities.
+   */
+  energyBreakdown: {
+    bmr: number;
+    /** Non-exercise movement: the NEAT multiplier's share above resting. */
+    neat: number;
+    /** The exercise increment's share. Zero when no training was reported. */
+    training: number;
+    /** Thermic effect of food — about 10% of intake. */
+    digestion: number;
+  };
   warning: "aggressive_pace" | null;
+}
+
+/** Thermic effect of food: roughly 10% of intake across a mixed diet. */
+const TEF_SHARE = 0.1;
+
+/**
+ * Weeks to move `deltaKg` at `paceKgPerWeek`, and the date that lands on.
+ *
+ * Deliberately linear. Real weight loss is not — the rate slows as a smaller
+ * body needs fewer calories — so this is an optimistic floor, not a schedule,
+ * and the page says so. Returns null when the inputs cannot produce a
+ * meaningful projection rather than inventing one.
+ */
+export function projectGoalDate(
+  deltaKg: number,
+  paceKgPerWeek: number,
+  from = new Date(),
+): { weeks: number; date: Date } | null {
+  const pace = Math.abs(paceKgPerWeek);
+  const delta = Math.abs(deltaKg);
+  if (!Number.isFinite(delta) || !Number.isFinite(pace) || pace <= 0 || delta <= 0) {
+    return null;
+  }
+  const weeks = Math.ceil(delta / pace);
+  // Beyond a couple of years the linear assumption is worthless.
+  if (weeks > 104) return null;
+  const date = new Date(from.getTime());
+  date.setDate(date.getDate() + weeks * 7);
+  return { weeks, date };
 }
 
 export function feetInchesToCm(feet: number, inches: number): number {
@@ -302,11 +345,34 @@ export function calculate(input: CalculatorInput): CalculatorResult {
   const fatPct = macroKcal ? Math.round((fatG * 9 * 100) / macroKcal) : 0;
   const carbsPct = macroKcal ? 100 - proteinPct - fatPct : 0;
 
+  // Attribution of the tdee product, not four independent measurements. TEF is
+  // carved out first (it scales with intake, not with activity), then what
+  // remains above BMR is split between the NEAT base and the exercise
+  // increment in proportion to how much each contributed to the multiplier.
+  const neatBase = NEAT_MULTIPLIERS[input.activity];
+  const exerciseInc =
+    EXERCISE_INCREMENTS[sessionsToExerciseBand(input.activeDaysPerWeek)];
+  // The clamp can trim the raw sum, so proportions come from the clamped value.
+  const neatShareOfRaw = neatBase - 1;
+  const rawSplitTotal = neatShareOfRaw + exerciseInc;
+  const neatFraction = rawSplitTotal > 0 ? neatShareOfRaw / rawSplitTotal : 1;
+
+  const digestion = Math.round(tdee * TEF_SHARE);
+  const activityKcal = Math.max(0, tdee - bmr - digestion);
+  const neatKcal = Math.round(activityKcal * neatFraction);
+  const trainingKcal = Math.max(0, activityKcal - neatKcal);
+
   return {
     bmr,
     maintenance,
     target,
     dailyAdjustment,
+    energyBreakdown: {
+      bmr,
+      neat: neatKcal,
+      training: trainingKcal,
+      digestion,
+    },
     proteinG,
     macros: { proteinG: proteinMidG, carbsG, fatG },
     macroPercents: { protein: proteinPct, carbs: carbsPct, fat: fatPct },
