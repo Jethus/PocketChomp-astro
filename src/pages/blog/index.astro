@@ -201,6 +201,12 @@ function readTime(body: string): string {
     font-size: 0.65rem;
   }
 
+  /* `display: grid` below would otherwise beat the `hidden` attribute the tag
+     filter sets, leaving filtered-out rows visible. */
+  .post-row[hidden] {
+    display: none !important;
+  }
+
   .post-row {
     display: grid;
     grid-template-columns: 7rem 1fr auto;
@@ -271,25 +277,27 @@ function readTime(body: string): string {
   }
 </style>
 
-<script is:inline>
-  const chips = document.querySelectorAll('.chip');
-  const rows = document.querySelectorAll('.post-row');
+<!-- Deliberately NOT is:inline. The site ships a strict CSP with no
+     'unsafe-inline' for scripts, and Astro only emits a hash for scripts it
+     processes — an is:inline block is left verbatim, unhashed, and silently
+     blocked in production, which is exactly what happened to this filter. -->
+<script>
+  const chips = document.querySelectorAll<HTMLElement>(".chip");
+  const rows = document.querySelectorAll<HTMLElement>(".post-row");
 
-  chips.forEach(chip => {
-    chip.addEventListener('click', () => {
-      chips.forEach(c => c.classList.remove('active'));
-      chip.classList.add('active');
-      chips.forEach(c => c.setAttribute('aria-pressed', 'false'));
-      chip.setAttribute('aria-pressed', 'true');
+  chips.forEach((chip) => {
+    chip.addEventListener("click", () => {
+      chips.forEach((c) => {
+        c.classList.remove("active");
+        c.setAttribute("aria-pressed", "false");
+      });
+      chip.classList.add("active");
+      chip.setAttribute("aria-pressed", "true");
 
       const filter = chip.dataset.filter;
-      rows.forEach(row => {
-        if (filter === 'all') {
-          row.style.display = '';
-        } else {
-          const tags = (row.dataset.tags || '').split(',');
-          row.style.display = tags.includes(filter) ? '' : 'none';
-        }
+      rows.forEach((row) => {
+        const tags = (row.dataset.tags || "").split(",");
+        row.hidden = filter !== "all" && !tags.includes(filter ?? "");
       });
     });
   });
