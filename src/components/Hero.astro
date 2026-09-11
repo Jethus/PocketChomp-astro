@@ -185,13 +185,18 @@ const dbCard = collageCards.find((card) => card.kind === "database");
   }
 
   /* Grid fills its column, height derived from aspect-ratio */
+  /* Taller than it is wide, because every panel holds a portrait phone screen.
+     At 1/1.25 the cells were squat and the screenshots had to be cropped hard
+     to fill them. */
   .hero-grid {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(8, 1fr);
-    gap: 1.25rem;
+    gap: 1rem;
     width: 100%;
-    aspect-ratio: 1 / 1.25;
+    /* Sized so the phone column (5 of 10 cols) fits a whole device at the
+       frame's 1:2.13 ratio without clipping. */
+    aspect-ratio: 1 / 1.12;
   }
 
   /* Reveal stagger lives in CSS — CSP (style-src, no unsafe-inline) blocks
@@ -221,21 +226,32 @@ const dbCard = collageCards.find((card) => card.kind === "database");
   }
 
   /* Frameless UI extracts fill their panel edge-to-edge */
+  /* Framed like a device, not presented as a flat rectangle: beside a phone in
+     a real frame, a bare screenshot reads as a mistake. The inner radius and
+     bezel echo the frame art without needing a second frame asset. */
   .hero-panel--shot {
-    padding: 0;
-    background: #16110d;
+    padding: 0.55rem;
     display: flex;
-    align-items: stretch;
-    justify-content: stretch;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 1.9rem;
   }
 
-  /* Full app screens fill the portrait panels nearly edge-to-edge —
-     top-anchored so each panel opens on a complete piece of UI */
+  .hero-panel--shot .hero-shot__img {
+    border-radius: 1.4rem;
+  }
+
+  /* `contain`, not `cover`. Cover filled each cell by cropping the capture
+     mid-content — the dashboard lost "My Library", the diary lost its evening
+     rows — which made the app look broken rather than busy. Contain keeps every
+     screen whole; the panels are proportioned for a tall phone so the
+     letterboxing is negligible. */
   .hero-shot__img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    object-position: top;
+    object-fit: contain;
+    object-position: center;
     display: block;
   }
 
@@ -326,21 +342,39 @@ const dbCard = collageCards.find((card) => card.kind === "database");
     color: oklch(0.97 0.005 145);
   }
 
-  /* cols 1-3: left panels, cols 4-7: phone, cols 8-10: right panels */
+  /* Composition: the phone is the subject and gets half the width. One
+     supporting screenshot sits beside it and the two tiles stack under that —
+     five equal-weight panels gave the eye nowhere to land, and splitting ten
+     columns five ways left every screenshot too small to read. */
   .hero-panel--tl {
-    grid-column: 1 / span 3;
-    grid-row: 1 / span 4;
+    grid-column: 6 / span 5;
+    grid-row: 1 / span 5;
   }
 
+  /* The second screenshot is the weakest element at this size and its content
+     (food search) is already carried by the panel above. Dropped rather than
+     shrunk further — see Chanel's rule. */
   .hero-panel--bl {
-    grid-column: 1 / span 3;
-    grid-row: 5 / span 3;
+    display: none;
   }
 
+  /* The screen is positioned with percentage insets against the frame art, so
+     the frame must keep its own aspect ratio — stretching the cell slid the
+     screenshot out from under the bezel. It sits at the top of its cell and
+     takes its height from the artwork. */
   .hero-panel--center {
     position: relative;
-    grid-column: 4 / span 4;
-    grid-row: 1 / span 5;
+    grid-column: 1 / span 5;
+    grid-row: 1 / span 8;
+    align-self: stretch;
+    justify-self: center;
+    /* Exactly the frame PNG's own ratio (1335x2841). Height-driven so the
+       device always fits its rows and never clips against the section edge;
+       the column is wider than the phone and simply centres it. */
+    aspect-ratio: 1335 / 2841;
+    height: 100%;
+    width: auto;
+    max-width: 100%;
     display: flex;
     align-items: stretch;
     justify-content: center;
@@ -351,16 +385,20 @@ const dbCard = collageCards.find((card) => card.kind === "database");
   }
 
   /* The status pill floats in its grid cell — the cell itself is invisible */
+  /* Shares the phone's cell and sits at the bottom of it, so the pill reads as
+     a caption on the device rather than a sixth floating panel. */
   .hero-panel--bc {
-    grid-column: 4 / span 4;
-    grid-row: 6 / span 2;
+    grid-column: 1 / span 5;
+    grid-row: 1 / span 8;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
     background: transparent;
     border: 0;
     box-shadow: none;
     overflow: visible;
+    pointer-events: none;
+    z-index: 3;
   }
 
   .hero-mini__pill {
@@ -374,14 +412,16 @@ const dbCard = collageCards.find((card) => card.kind === "database");
     padding: 0.55rem 1rem;
   }
 
+  /* The two stat tiles sit side by side beneath the supporting screenshot,
+     filling the width that the removed panel freed up. */
   .hero-panel--tr {
-    grid-column: 8 / span 3;
-    grid-row: 1 / span 4;
+    grid-column: 6 / span 2;
+    grid-row: 6 / span 3;
   }
 
   .hero-panel--br {
     grid-column: 8 / span 3;
-    grid-row: 5 / span 3;
+    grid-row: 6 / span 3;
   }
 
   .hero-frame {
@@ -406,6 +446,9 @@ const dbCard = collageCards.find((card) => card.kind === "database");
     display: block;
   }
 
+  /* Anchored to the top of the capture rather than centre-cropped: the
+     dashboard's headline number is what this panel is for, so if anything is
+     lost it should be the bottom of the scroll, never the top. */
   .hero-phone__screen {
     position: absolute;
     inset: 3.5% 6% 3.5% 6%;
@@ -413,7 +456,7 @@ const dbCard = collageCards.find((card) => card.kind === "database");
     height: 93%;
     border-radius: 1.6rem;
     object-fit: cover;
-    object-position: top;
+    object-position: top center;
     z-index: 1;
   }
 
@@ -506,6 +549,43 @@ const dbCard = collageCards.find((card) => card.kind === "database");
     .hero-grid {
       max-width: 36rem;
       margin-inline: auto;
+    }
+  }
+
+  /* On a phone the two-up collage shrinks every element below legibility —
+     the device ends up ~143px wide and the tile text overflows its card. One
+     readable screenshot beats four unreadable ones, so the supporting panels
+     step aside and the phone takes the full width. */
+  @media (max-width: 40rem) {
+    .hero-grid {
+      position: relative;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+      aspect-ratio: auto;
+      max-width: 20rem;
+      gap: 1.25rem;
+    }
+
+    .hero-panel--center {
+      grid-column: 1;
+      grid-row: auto;
+      width: 100%;
+      height: auto;
+      justify-self: stretch;
+    }
+
+    .hero-panel--tl,
+    .hero-panel--tr,
+    .hero-panel--br {
+      display: none;
+    }
+
+    .hero-panel--bc {
+      grid-column: 1;
+      grid-row: auto;
+      position: absolute;
+      inset-inline: 0;
+      bottom: -0.75rem;
     }
   }
 </style>

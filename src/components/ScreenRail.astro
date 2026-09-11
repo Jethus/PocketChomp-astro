@@ -211,9 +211,16 @@ const { eyebrow, headline, description, dragHint, screens } = railEntry.data;
   .rail__item {
     flex: 0 0 auto;
     scroll-snap-align: start;
-    /* Full phones are tall, so keep them narrow: ~4 visible at desktop
-       and the cut card still cues the scroll */
-    width: min(62vw, 17rem);
+    /* A screenshot has to be legible or it is decoration. At 17rem the app UI
+       was unreadable, so cards are wider and fewer are visible at once — the
+       partially-cut third card still cues that the rail scrolls. */
+    width: min(78vw, 23rem);
+  }
+
+  @media (min-width: 64rem) {
+    .rail__item {
+      width: 25rem;
+    }
   }
 
   .rail__card {
@@ -250,8 +257,19 @@ const { eyebrow, headline, description, dragHint, screens } = railEntry.data;
     box-shadow: var(--shadow-elevated);
   }
 
+  /* The caption sits on a surface tied to the phone above it, so a card reads
+     as one object rather than a screenshot with loose text underneath. */
   .rail__caption {
-    padding: 1.1rem 0.25rem 0;
+    margin-top: 1.25rem;
+    padding: 1.15rem 1.25rem 1.3rem;
+    border-radius: 1.1rem;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    flex: 1;
+  }
+
+  .rail__caption p {
+    max-width: 34ch;
   }
 
   /* Reveal stagger lives in CSS — CSP (style-src, no unsafe-inline) blocks
