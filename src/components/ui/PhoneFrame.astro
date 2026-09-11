@@ -47,6 +47,16 @@ const [frameLight, frameDark] = await Promise.all([
     display: none;
   }
 
+  /* These insets are tuned by eye against the frame art and are correct as they
+     stand — an attempt to derive them from the PNG's alpha channel produced an
+     overflowing screen, because the frame is opaque at the bezel and
+     transparent BOTH in the screen window and outside its rounded corners, so a
+     naive scan reads the two as one region.
+
+     The real residual mismatch is the source captures: they are 1440x3120
+     (1:2.167) while the window is roughly 1:2.13, so `cover` trims a little
+     from the bottom. Re-capturing at the window's ratio would make the fit
+     exact; nudging these percentages cannot fix a ratio difference. */
   .phone-frame__screen {
     position: absolute;
     inset: 3.4% 5.7% 3.3% 5.7%;
