@@ -1,90 +1,240 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
-import SectionShell from "../components/ui/SectionShell.astro";
+import LegalLayout from "../layouts/LegalLayout.astro";
 
-const PAGE_TITLE = "Privacy Policy";
-const PAGE_DESCRIPTION =
-  "How PocketChomp handles your data: on-device by default, no ads, no selling of personal information.";
-
-const LAST_UPDATED = "July 6, 2026";
+const LAST_UPDATED = "September 10, 2026";
 ---
 
-<BaseLayout title={PAGE_TITLE} description={PAGE_DESCRIPTION}>
-  <Header />
-  <main>
-    <SectionShell innerClass="max-w-3xl">
-      <h1 class="fs-xl uppercase leading-[1.05] text-foreground">Privacy Policy</h1>
-      <p class="mt-3 text-sm text-muted-foreground">Last updated: {LAST_UPDATED}</p>
+<LegalLayout
+  title="Privacy Policy"
+  description="How PocketChomp handles your data: on your device by default, no ads, never sold, and every server-side feature named."
+  lastUpdated={LAST_UPDATED}
+  lede="PocketChomp is built to keep your food log on your phone. This page explains exactly what leaves it, when, and why. It applies to the PocketChomp Android app and to pocketchomp.com."
+>
+  <section>
+    <h2 class="fs-s">The short version</h2>
+    <ul>
+      <li>Everything you log is stored on your device first. You can use the whole app as a guest with no account.</li>
+      <li>Cloud sync is opt-in. It only happens if you sign in.</li>
+      <li>We show no ads and we never sell, rent, or trade personal data.</li>
+      <li>Usage analytics are off by default. Crash reports are on, and they never include your food log or identity.</li>
+      <li>A few features need a server. Each one is listed below, along with the third party involved.</li>
+      <li>You can export or delete everything at any time.</li>
+    </ul>
+  </section>
 
-      <div class="privacy-prose mt-10 space-y-8 text-foreground">
-        <section>
-          <h2 class="fs-s">The short version</h2>
-          <p>
-            PocketChomp is local-first. Your food logs, goals, and progress live on your
-            device by default. We do not run ads, and we do not sell personal data to
-            anyone — advertisers, brokers, or otherwise.
-          </p>
-        </section>
+  <section>
+    <h2 class="fs-s">Who we are</h2>
+    <p>
+      PocketChomp is built and operated by Josh Del Vecchio, an independent developer in Ontario, Canada.
+      For anything in this policy, email <a href="mailto:josh@pocketchomp.com">josh@pocketchomp.com</a>.
+    </p>
+  </section>
 
-        <section>
-          <h2 class="fs-s">Data in the app</h2>
-          <p>
-            Everything you log in PocketChomp — foods, meals, weights, goals, and
-            preferences — is stored on your device. Using the app does not require an
-            account.
-          </p>
-          <p>
-            If you later opt in to cloud sync, the data you choose to sync is stored so
-            it can be restored across your devices. Sync is always optional, and you can
-            export your data or delete it from within the app.
-          </p>
-        </section>
+  <section>
+    <h2 class="fs-s">Data on your device</h2>
+    <p>
+      The app keeps a local database on your phone. It holds your food diary, custom foods,
+      recipes, favourites, water and weight logs, goals and targets, nutrient preferences, and
+      the profile details you enter during setup (sex, date of birth, height, weight, activity
+      level and goal). A bundled copy of the Health Canada and USDA food tables ships inside the
+      app, and any food you search, scan or log is cached locally so it works offline.
+    </p>
+    <p>
+      In guest mode none of this leaves your phone. Uninstalling the app deletes it.
+    </p>
+  </section>
 
-        <section>
-          <h2 class="fs-s">Data on this website</h2>
-          <p>
-            If you join the beta list, we collect your email address and use it only to
-            send PocketChomp launch and beta updates. Every email includes an
-            unsubscribe link, and unsubscribing removes you from the list.
-          </p>
-        </section>
+  <section>
+    <h2 class="fs-s">Accounts and cloud sync</h2>
+    <p>
+      You can create an account with an email address (we send a one-time code) or with Google
+      Sign-In. When you sign in, the data listed above is synced to our database so it can be
+      backed up and restored on another device. Your local copy stays on your phone.
+    </p>
+    <p>
+      Our database and authentication are hosted by <a href="https://supabase.com/privacy" rel="noopener">Supabase</a>. Google Sign-In shares
+      your name and email address with us. We use the first name as a display name and nothing else.
+    </p>
+    <p>
+      Signing out keeps your data on the server until you delete your account. Deleting your
+      account removes it from our servers immediately. See <a href="/delete-account">how to delete your account</a>.
+    </p>
+  </section>
 
-        <section>
-          <h2 class="fs-s">What we don't do</h2>
-          <ul class="list-disc space-y-2 pl-6">
-            <li>No advertising, and no advertising trackers.</li>
-            <li>No selling, renting, or sharing of personal data.</li>
-            <li>No collection of your food logs without your explicit opt-in to sync.</li>
-          </ul>
-        </section>
+  <section>
+    <h2 class="fs-s">Features that use a server</h2>
+    <p>Each of these sends a small, specific request. None of them upload your diary.</p>
 
-        <section>
-          <h2 class="fs-s">Contact</h2>
-          <p>
-            Questions about this policy? Email&nbsp;<a href="mailto:jdelvecchio96@gmail.com" class="text-accent underline underline-offset-4">jdelvecchio96@gmail.com</a>.
-          </p>
-        </section>
-      </div>
-    </SectionShell>
-  </main>
-  <Footer />
-</BaseLayout>
+    <h3 class="fs-xs">Barcode lookup</h3>
+    <p>
+      If a barcode is not in our database, the barcode number is sent to <a href="https://world.openfoodfacts.org/privacy" rel="noopener">Open Food Facts</a> to
+      find the product. Only the barcode is sent.
+    </p>
 
-<style>
-  .privacy-prose p {
-    margin-top: 0.75rem;
-    line-height: 1.7;
-    color: var(--muted-foreground);
-  }
+    <h3 class="fs-xs">AI photo logging (PocketChomp+)</h3>
+    <p>
+      The photo you take is sent to our server and then to the Gemini API from Google, which
+      returns a list of foods and estimated portions. We do not store the photo. The request is
+      tagged with the app's anonymous device id so we can measure cost and accuracy, never with
+      your name or account. Google describes its handling of API requests in the <a href="https://ai.google.dev/gemini-api/terms" rel="noopener">Gemini API terms</a>.
+    </p>
 
-  .privacy-prose li {
-    line-height: 1.7;
-    color: var(--muted-foreground);
-  }
+    <h3 class="fs-xs">Recipe import from a URL (PocketChomp+)</h3>
+    <p>
+      The web address you paste is fetched by our server and the ingredient list is sent to
+      the Gemini API to estimate nutrition. We do not keep the page or the address.
+    </p>
 
-  .privacy-prose h2 {
-    color: var(--foreground);
-  }
-</style>
+    <h3 class="fs-xs">Label scanning</h3>
+    <p>
+      Nutrition-label scanning runs entirely on your phone using Google ML Kit. The image never
+      leaves the device.
+    </p>
+
+    <h3 class="fs-xs">Voice and typed logging</h3>
+    <p>
+      Speech recognition uses the speech service built into your phone, and the text is parsed
+      on the device. Depending on your Android settings, your phone may send audio to Google for
+      recognition.
+    </p>
+
+    <h3 class="fs-xs">CSV export</h3>
+    <p>
+      Exporting your food log generates a file from the data on your device or, when signed in,
+      from your synced data. The file is handed to you and not kept by us.
+    </p>
+
+    <h3 class="fs-xs">PocketChomp+ verification</h3>
+    <p>
+      When you subscribe, our server checks your entitlement with our billing provider so
+      Plus features unlock. See <a href="#purchases">Purchases</a>.
+    </p>
+  </section>
+
+  <section>
+    <h2 class="fs-s">Health Connect</h2>
+    <p>
+      On Android you can optionally connect PocketChomp to Health Connect. If you grant
+      permission, the app reads the following data types: steps, exercise sessions, heart rate,
+      weight, height and active calories burned. Access is read-only. PocketChomp never writes
+      to Health Connect.
+    </p>
+    <p>We use this data only to:</p>
+    <ul>
+      <li>estimate your daily activity level and, if you choose, add exercise calories back to your target;</li>
+      <li>pre-fill your weight and height so you do not have to type them.</li>
+    </ul>
+    <p>
+      Raw Health Connect records stay on your phone. If you are signed in, a summary (your
+      computed activity level, average daily steps and average active calories) is synced with
+      your profile so your targets match across devices. Health Connect data is never used for
+      advertising, never sold, and never shared with third parties except as part of that synced
+      summary in our database. You can revoke access at any time in Android settings or in
+      Health Connect, and deleting your account removes the synced summary.
+    </p>
+  </section>
+
+  <section>
+    <h2 class="fs-s">Analytics and crash reports</h2>
+    <p>
+      We use <a href="https://posthog.com/privacy" rel="noopener">PostHog</a>, identified by a
+      random per-install device id rather than your name, email or account.
+    </p>
+    <ul>
+      <li>
+        <strong>Crash and error reports are always on.</strong> They contain the error, the
+        app version and device model. They never contain your food log, profile or screen content.
+      </li>
+      <li>
+        <strong>Usage analytics are off by default.</strong> If you turn on "Share usage
+        analytics" in Settings, we also record which features you use and how the app performs.
+        Turning it off stops collection immediately.
+      </li>
+    </ul>
+    <p>
+      While usage analytics are on and you are signed in, your email and display name are also
+      shared with our billing provider, RevenueCat, so subscription problems can be matched to an
+      account. Turning analytics off removes them from RevenueCat.
+    </p>
+    <p>
+      The website itself sets no cookies and runs no analytics or tracking scripts. Your theme
+      choice is stored in your browser only.
+    </p>
+  </section>
+
+  <section id="purchases">
+    <h2 class="fs-s">Purchases</h2>
+    <p>
+      PocketChomp+ is sold through Google Play. Google handles payment and holds your billing
+      details. We never see your card. We use <a href="https://www.revenuecat.com/privacy" rel="noopener">RevenueCat</a> to confirm
+      the subscription is active. RevenueCat receives your account id and purchase status, plus
+      your email and name only in the case described under Analytics above.
+    </p>
+  </section>
+
+  <section>
+    <h2 class="fs-s">The beta email list</h2>
+    <p>
+      If you join the list on this website, we collect your email address through <a href="https://kit.com/privacy" rel="noopener">Kit</a> and use it only for PocketChomp
+      beta and launch news. You confirm your address before you are added. Every email has an
+      unsubscribe link, and unsubscribing removes you from the list.
+    </p>
+  </section>
+
+  <section>
+    <h2 class="fs-s">Where data is processed</h2>
+    <p>
+      Some of the providers above store or process data outside Canada, including in the United
+      States. We choose providers with published privacy commitments and send them the minimum
+      each feature needs. In guest mode with analytics off, the only data that ever leaves your
+      phone is a barcode number, a crash report, and whatever you send when you use a Plus
+      feature.
+    </p>
+  </section>
+
+  <section>
+    <h2 class="fs-s">How long we keep data</h2>
+    <ul>
+      <li>Synced account data: until you delete your account, then removed immediately.</li>
+      <li>Photos and recipe pages sent to Plus features: not stored.</li>
+      <li>Crash and analytics events: retained by PostHog under our account, tied to the device id only.</li>
+      <li>Email list: until you unsubscribe.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 class="fs-s">Your choices and rights</h2>
+    <ul>
+      <li><strong>Stay a guest.</strong> The full app works without an account.</li>
+      <li><strong>Export.</strong> Download your food log as CSV from Settings.</li>
+      <li><strong>Delete.</strong> Delete all local data from Settings, or delete your account and synced data. Details on the <a href="/delete-account">account deletion page</a>.</li>
+      <li><strong>Turn things off.</strong> Analytics, cloud sync and Health Connect are each independent switches.</li>
+      <li><strong>Ask us.</strong> Under Canadian privacy law (PIPEDA) you can ask what personal information we hold about you, have it corrected, or withdraw consent. Email us and we will respond within 30 days.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 class="fs-s">Children</h2>
+    <p>
+      PocketChomp is not directed at children and is not intended for anyone under 18. We do not
+      knowingly collect data from children. If you believe a child has created an account, email
+      us and we will delete it.
+    </p>
+  </section>
+
+  <section>
+    <h2 class="fs-s">Changes to this policy</h2>
+    <p>
+      If we add a feature that changes what leaves your phone, we will update this page and
+      change the date at the top. Material changes will also be noted in the app.
+    </p>
+  </section>
+
+  <section>
+    <h2 class="fs-s">Contact</h2>
+    <p>
+      Questions, requests or complaints: <a href="mailto:josh@pocketchomp.com">josh@pocketchomp.com</a>. You may also contact the
+      Office of the Privacy Commissioner of Canada.
+    </p>
+  </section>
+</LegalLayout>

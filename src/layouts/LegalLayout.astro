@@ -1,0 +1,124 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import SectionShell from "../components/ui/SectionShell.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  lastUpdated: string;
+  lede?: string;
+}
+
+const { title, description, lastUpdated, lede } = Astro.props as Props;
+---
+
+<BaseLayout title={title} description={description}>
+  <Header />
+  <main>
+    <SectionShell innerClass="max-w-3xl">
+      <h1 class="fs-xl leading-[1.05] text-foreground">{title}</h1>
+      <p class="mt-3 text-sm text-muted-foreground">Last updated: {lastUpdated}</p>
+      {lede && <p class="legal-lede mt-6 max-w-2xl text-lg leading-relaxed text-foreground">{lede}</p>}
+
+      <div class="legal-prose mt-10 space-y-10">
+        <slot />
+      </div>
+    </SectionShell>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* Slot content comes from the page, so these rules are deliberately global
+     and scoped by the wrapper class. */
+  :global(.legal-prose h2) {
+    color: var(--foreground);
+  }
+
+  :global(.legal-prose h3) {
+    margin-top: 1.25rem;
+    color: var(--foreground);
+    font-family: var(--font-heading);
+    font-weight: 900;
+  }
+
+  :global(.legal-prose p),
+  :global(.legal-prose li) {
+    line-height: 1.7;
+    color: var(--muted-foreground);
+  }
+
+  :global(.legal-prose p) {
+    margin-top: 0.75rem;
+  }
+
+  :global(.legal-prose ul),
+  :global(.legal-prose ol) {
+    margin-top: 0.75rem;
+    padding-left: 1.5rem;
+  }
+
+  :global(.legal-prose ul) {
+    list-style: disc;
+  }
+
+  :global(.legal-prose ol) {
+    list-style: decimal;
+  }
+
+  :global(.legal-prose li + li) {
+    margin-top: 0.5rem;
+  }
+
+  :global(.legal-prose a) {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  :global(.legal-prose strong) {
+    color: var(--foreground);
+    font-weight: 600;
+  }
+
+  :global(.legal-callout) {
+    margin-top: 0.75rem;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    background: var(--surface);
+    box-shadow: var(--shadow-elevated);
+  }
+
+  :global(.legal-callout p) {
+    margin-top: 0;
+    color: var(--foreground);
+  }
+
+  :global(.legal-table) {
+    width: 100%;
+    margin-top: 0.75rem;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+
+  :global(.legal-table th),
+  :global(.legal-table td) {
+    padding: 0.6rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+    vertical-align: top;
+    line-height: 1.55;
+  }
+
+  :global(.legal-table th) {
+    color: var(--foreground);
+    font-weight: 600;
+  }
+
+  :global(.legal-table td) {
+    color: var(--muted-foreground);
+  }
+</style>

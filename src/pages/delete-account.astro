@@ -1,0 +1,87 @@
+---
+import LegalLayout from "../layouts/LegalLayout.astro";
+
+const LAST_UPDATED = "September 10, 2026";
+---
+
+<LegalLayout
+  title="Delete Your Account"
+  description="How to delete your PocketChomp account and synced data, in the app or by email, and exactly what is removed."
+  lastUpdated={LAST_UPDATED}
+  lede="You can delete your PocketChomp account and everything synced to it in about ten seconds from inside the app. If you no longer have the app, email us and we will do it for you."
+>
+  <section>
+    <h2 class="fs-s">Delete in the app</h2>
+    <ol>
+      <li>Open PocketChomp and go to the <strong>More</strong> tab.</li>
+      <li>Open <strong>Profile</strong>.</li>
+      <li>Tap <strong>Delete Account</strong> and confirm twice.</li>
+    </ol>
+    <p>
+      Deletion runs immediately. Your account, your synced data and the local copy on that phone
+      are removed together.
+    </p>
+    <div class="legal-callout">
+      <p>
+        <strong>PocketChomp+ subscribers:</strong> deleting your account does not cancel your
+        subscription. Google Play will keep billing you until you cancel it there. The app offers
+        to open Google Play Subscriptions before it deletes anything, or you can go to <a href="https://play.google.com/store/account/subscriptions" rel="noopener">play.google.com/store/account/subscriptions</a>.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="fs-s">Delete by email</h2>
+    <p>
+      If you have uninstalled the app or cannot sign in, email <a href="mailto:josh@pocketchomp.com?subject=Delete%20my%20PocketChomp%20account">josh@pocketchomp.com</a> with the subject "Delete my PocketChomp account". Send it from the email address on the
+      account, or from the Google account you used to sign in, so we can confirm it is you.
+      We will delete the account and reply within 30 days, usually much sooner.
+    </p>
+  </section>
+
+  <section>
+    <h2 class="fs-s">What gets deleted</h2>
+    <p>Everything tied to your account on our servers, immediately:</p>
+    <ul>
+      <li>your sign-in identity (email or Google) and profile details such as sex, date of birth, height, weight, activity level and goals;</li>
+      <li>your food diary, plates and logged foods;</li>
+      <li>custom foods, recipes and favourites;</li>
+      <li>weight and water history, nutrition goals and targets;</li>
+      <li>the Health Connect activity summary, if you had connected it;</li>
+      <li>your PocketChomp+ entitlement record, including the matching customer record at our billing provider, RevenueCat.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 class="fs-s">What is not affected</h2>
+    <ul>
+      <li><strong>Google Play purchase and subscription records.</strong> Google holds these. Cancel the subscription in Google Play and manage its records through your Google account.</li>
+      <li><strong>Anonymous crash and analytics events.</strong> These are tied to a random device id, not to your account, so they cannot be linked back to you after deletion. Turning off "Share usage analytics" in Settings stops usage events at any time.</li>
+      <li><strong>Local data on other devices.</strong> If you used PocketChomp on more than one phone, the local copy on each remains until you uninstall the app or clear its data there.</li>
+      <li><strong>The beta email list.</strong> It is separate from your account. Use the unsubscribe link in any email, or ask us to remove you.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 class="fs-s">Guest mode</h2>
+    <p>
+      If you never signed in, there is no account and nothing on our servers. Uninstalling the
+      app, or choosing <strong>Delete all data</strong> in Settings, removes everything.
+    </p>
+  </section>
+
+  <section>
+    <h2 class="fs-s">Want a copy first?</h2>
+    <p>
+      Export your food log as a CSV from Settings before you delete. Deletion cannot be undone
+      and we keep no backups of deleted accounts.
+    </p>
+  </section>
+
+  <section>
+    <h2 class="fs-s">Questions</h2>
+    <p>
+      Email <a href="mailto:josh@pocketchomp.com">josh@pocketchomp.com</a>. The <a href="/privacy">Privacy Policy</a> explains what we collect and why.
+    </p>
+  </section>
+</LegalLayout>
