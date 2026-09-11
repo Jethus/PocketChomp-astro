@@ -118,6 +118,22 @@
     --color-carb: oklch(0.7389 0.1348 59.57); /* #E8944A */
     --color-fat: oklch(0.7665 0.1387 91.06); /* #D4AF37 */
 
+    /**
+     * Phone-frame geometry — where the screenshot sits inside the frame art.
+     * Defined once because Hero.astro and ui/PhoneFrame.astro both fill the
+     * same window, and they previously drifted apart with hand-tuned values.
+     *
+     * Current art: a generic 1335x2841 Android render whose window is ~1:2.13.
+     * Source captures are 1:2.167 (and a Pixel 8 Pro shoots 1:2.226), so
+     * `cover` trims a little from the bottom of every screenshot. Swapping in a
+     * frame whose window matches the capture ratio fixes that for good — update
+     * these four values to the new art and nothing else needs to change.
+     */
+    --phone-screen-top: 3.5%;
+    --phone-screen-left: 6%;
+    --phone-screen-width: 88%;
+    --phone-screen-height: 93%;
+
     --radius-card: 1rem;
     --radius-pill: 9999px;
 

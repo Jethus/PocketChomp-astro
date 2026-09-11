@@ -446,16 +446,16 @@ const dbCard = collageCards.find((card) => card.kind === "database");
     display: block;
   }
 
-  /* Matches PhoneFrame.astro's window — see the note there on why these are
-     eye-tuned rather than derived from the PNG's alpha channel.
+  /* Geometry from --phone-screen-* in global.css, shared with ui/PhoneFrame.
      Anchored to the top of the capture: the dashboard's headline number is what
      this panel is for, so if the ratio difference costs anything it should be
      the bottom of the scroll, never the top. */
   .hero-phone__screen {
     position: absolute;
-    inset: 3.5% 6% 3.5% 6%;
-    width: 88%;
-    height: 93%;
+    top: var(--phone-screen-top);
+    left: var(--phone-screen-left);
+    width: var(--phone-screen-width);
+    height: var(--phone-screen-height);
     border-radius: 1.6rem;
     object-fit: cover;
     object-position: top center;
