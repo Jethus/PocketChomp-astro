@@ -9,6 +9,8 @@ links:
     href: /tools/macro-calculator
   - label: BMR Calculator
     href: /tools/bmr-calculator
+  - label: PocketChomp vs MyFitnessPal
+    href: /vs/myfitnesspal
   - label: Field Notes
     href: /blog
   - label: Privacy Policy

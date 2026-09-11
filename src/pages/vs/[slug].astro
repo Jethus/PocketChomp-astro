@@ -1,0 +1,490 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import SectionShell from "../../components/ui/SectionShell.astro";
+import EyebrowPill from "../../components/ui/EyebrowPill.astro";
+import SignupForm from "../../components/ui/SignupForm.astro";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("comparisons");
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const {
+  title,
+  metaDescription,
+  eyebrow,
+  h1,
+  intro,
+  competitor,
+  verified,
+  verdict,
+  rows,
+  faq,
+  ctaHeadline,
+  ctaNote,
+} = entry.data;
+
+const { Content } = await render(entry);
+
+const canonical = new URL(`/vs/${entry.id}`, Astro.site ?? Astro.url).href;
+
+// Formatted in UTC: a bare `2026-09-11` in frontmatter parses as UTC midnight,
+// which renders as the 10th in any timezone behind UTC — including Toronto.
+const verifiedLabel = verified.toLocaleDateString("en-CA", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+  timeZone: "UTC",
+});
+
+// No Product/Review markup here on purpose: review rich results need a rating,
+// and a self-authored rating of our own product against a competitor is exactly
+// the self-serving review Google's guidelines exclude. FAQ + breadcrumb only.
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": canonical,
+      name: h1,
+      url: canonical,
+      description: metaDescription,
+      dateModified: verified.toISOString().slice(0, 10),
+    },
+    {
+      "@type": "FAQPage",
+      "@id": `${canonical}#faq`,
+      mainEntity: faq.map((item) => ({
+        "@type": "Question",
+        name: item.q,
+        acceptedAnswer: { "@type": "Answer", text: item.a },
+      })),
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${canonical}#breadcrumb`,
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: new URL("/", Astro.site ?? Astro.url).href,
+        },
+        { "@type": "ListItem", position: 2, name: h1, item: canonical },
+      ],
+    },
+  ],
+};
+---
+
+<BaseLayout title={title} description={metaDescription}>
+  <Header />
+  <main>
+    <SectionShell innerClass="max-w-4xl space-y-10">
+      <div>
+        <EyebrowPill>{eyebrow}</EyebrowPill>
+        <h1 class="fs-xl mt-4 leading-[1.02] text-foreground">{h1}</h1>
+        <p class="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+          {intro}
+        </p>
+      </div>
+
+      <div class="verdict">
+        <h2 class="fs-m text-foreground">{verdict.headline}</h2>
+        <p class="mt-2 max-w-2xl text-muted-foreground">{verdict.body}</p>
+
+        <div class="verdict__cols">
+          <div>
+            <h3 class="verdict__label">Stay with {competitor} if…</h3>
+            <ul class="verdict__list">
+              {verdict.chooseThemIf.map((item) => <li>{item}</li>)}
+            </ul>
+          </div>
+          <div>
+            <h3 class="verdict__label">Try PocketChomp if…</h3>
+            <ul class="verdict__list verdict__list--ours">
+              {verdict.chooseUsIf.map((item) => <li>{item}</li>)}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h2 class="fs-m text-foreground">Side by side</h2>
+        <p class="mt-2 text-sm text-muted-foreground">
+          {competitor} details verified {verifiedLabel}.
+        </p>
+        <div class="mt-5 overflow-x-auto">
+          <table class="vs-table">
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>PocketChomp</th>
+                <th>{competitor}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((row) => (
+                <tr>
+                  <td data-label="Feature">{row.feature}</td>
+                  <td data-label="PocketChomp" class="vs-table__ours">
+                    {row.ours}
+                  </td>
+                  <td data-label={competitor}>
+                    {row.theirs}
+                    {row.note && <span class="vs-table__note">{row.note}</span>}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <article class="prose-body">
+        <Content />
+      </article>
+
+      <div class="cta-panel">
+        <h2 class="fs-m text-foreground">{ctaHeadline}</h2>
+        <p class="mt-2 max-w-xl text-muted-foreground">{ctaNote}</p>
+        <div class="mt-5 max-w-xl">
+          <SignupForm placeholder="you@email.com" buttonText="Get early access" />
+        </div>
+      </div>
+
+      <div>
+        <h2 class="fs-m text-foreground">Frequently asked questions</h2>
+        <div class="faq-list mt-5">
+          {faq.map((item) => (
+            <details class="faq-item">
+              <summary class="faq-item__q">
+                <span>{item.q}</span>
+                <span class="faq-item__icon" aria-hidden="true">
+                  <svg viewBox="0 0 512 512" fill="none" stroke="currentColor" stroke-width="48" stroke-linecap="round">
+                    <line x1="256" y1="112" x2="256" y2="400" />
+                    <line x1="112" y1="256" x2="400" y2="256" />
+                  </svg>
+                </span>
+              </summary>
+              <p class="faq-item__a">{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+
+      <nav class="tool-links" aria-label="Calculators">
+        <h2 class="fs-s text-foreground">Work out your numbers first</h2>
+        <ul>
+          <li>
+            <a href="/tools/tdee-calculator">
+              <span class="tool-links__name">TDEE Calculator</span>
+              <span class="tool-links__desc">How many calories you burn a day</span>
+            </a>
+          </li>
+          <li>
+            <a href="/tools/calorie-deficit-calculator">
+              <span class="tool-links__name">Calorie Deficit Calculator</span>
+              <span class="tool-links__desc">A realistic weight-loss target</span>
+            </a>
+          </li>
+          <li>
+            <a href="/tools/macro-calculator">
+              <span class="tool-links__name">Macro Calculator</span>
+              <span class="tool-links__desc">Protein, carbs and fat targets</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </SectionShell>
+  </main>
+  <Footer />
+
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+</BaseLayout>
+
+<style>
+  .verdict {
+    border-radius: 1.6rem;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    box-shadow: var(--shadow-elevated);
+    padding: 1.75rem;
+  }
+
+  .verdict__cols {
+    display: grid;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  @media (min-width: 44rem) {
+    .verdict__cols {
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+  }
+
+  .verdict__label {
+    font-family: var(--font-heading);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+  }
+
+  .verdict__list {
+    margin: 0.75rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .verdict__list li {
+    position: relative;
+    padding-left: 1.4rem;
+    line-height: 1.55;
+    color: var(--muted-foreground);
+  }
+
+  .verdict__list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 999px;
+    background: var(--muted-foreground);
+  }
+
+  .verdict__list--ours li::before {
+    background: var(--primary);
+  }
+
+  .vs-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 40rem;
+  }
+
+  .vs-table th,
+  .vs-table td {
+    text-align: left;
+    padding: 0.95rem 1rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+
+  .vs-table th {
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+  }
+
+  .vs-table td:first-child {
+    color: var(--foreground);
+    font-weight: 700;
+  }
+
+  .vs-table td {
+    color: var(--muted-foreground);
+  }
+
+  .vs-table__ours {
+    color: var(--primary-strong) !important;
+    font-weight: 700;
+  }
+
+  .vs-table__note {
+    display: block;
+    margin-top: 0.35rem;
+    font-size: 0.82rem;
+    line-height: 1.45;
+    opacity: 0.85;
+  }
+
+  /* Below 46rem the three-column table stacks into labelled rows rather than
+     scrolling sideways with the feature name clipped off the left edge. */
+  @media (max-width: 46rem) {
+    .vs-table {
+      min-width: 0;
+    }
+
+    .vs-table thead {
+      display: none;
+    }
+
+    .vs-table tr {
+      display: block;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .vs-table td {
+      display: block;
+      padding: 0;
+      border-bottom: 0;
+    }
+
+    .vs-table td:not(:first-child) {
+      margin-top: 0.4rem;
+      padding-left: 0.9rem;
+      border-left: 2px solid var(--border);
+    }
+
+    .vs-table td:not(:first-child)::before {
+      content: attr(data-label);
+      display: block;
+      font-family: var(--font-heading);
+      font-size: 0.64rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted-foreground);
+      margin-bottom: 0.15rem;
+    }
+
+    .vs-table__ours {
+      border-left-color: var(--primary) !important;
+    }
+  }
+
+  .cta-panel {
+    border-radius: 1.6rem;
+    border: 1px solid color-mix(in oklab, var(--primary) 30%, var(--border));
+    background: color-mix(in oklab, var(--primary) 9%, var(--surface));
+    box-shadow: var(--shadow-elevated);
+    padding: 2.25rem 2rem;
+  }
+
+  .prose-body :global(h2) {
+    --fl: 1;
+    font-size: var(--fluid-type);
+    margin-top: 2.25rem;
+  }
+
+  .prose-body :global(p) {
+    margin-top: 0.8rem;
+    line-height: 1.65;
+    color: var(--muted-foreground);
+    max-width: 65ch;
+  }
+
+  .prose-body :global(em) {
+    font-size: 0.88rem;
+    opacity: 0.85;
+  }
+
+  .faq-list {
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .faq-item {
+    border: 1px solid var(--border);
+    border-radius: 1.2rem;
+    background: var(--surface);
+    box-shadow: var(--shadow-elevated);
+  }
+
+  .faq-item__q {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.1rem 1.4rem;
+    cursor: pointer;
+    list-style: none;
+    font-weight: 700;
+    color: var(--foreground);
+  }
+
+  .faq-item__q::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.8rem;
+    height: 1.8rem;
+    flex-shrink: 0;
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--primary) 12%, var(--surface));
+    color: var(--primary);
+    transition: transform 0.2s ease;
+  }
+
+  .faq-item__icon svg {
+    width: 0.85rem;
+    height: 0.85rem;
+  }
+
+  .faq-item[open] .faq-item__icon {
+    transform: rotate(45deg);
+  }
+
+  .faq-item__a {
+    margin: 0;
+    padding: 0 1.4rem 1.25rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    max-width: 65ch;
+  }
+
+  .tool-links ul {
+    list-style: none;
+    margin: 1rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  @media (min-width: 40rem) {
+    .tool-links ul {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .tool-links a {
+    display: grid;
+    gap: 0.2rem;
+    height: 100%;
+    padding: 1rem 1.1rem;
+    border: 1px solid var(--border);
+    border-radius: 1.1rem;
+    background: var(--surface);
+    transition: border-color 0.18s ease, transform 0.18s ease;
+  }
+
+  .tool-links a:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+  }
+
+  .tool-links__name {
+    font-weight: 700;
+    color: var(--primary);
+  }
+
+  .tool-links__desc {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: var(--muted-foreground);
+  }
+</style>

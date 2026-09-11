@@ -207,6 +207,49 @@ const tools = defineCollection({
   }),
 });
 
+/**
+ * Head-to-head comparison pages (/vs/<slug>).
+ *
+ * Claims are structured rather than prose so every row states what PocketChomp
+ * does AND what the competitor does, side by side. Comparative advertising is
+ * lawful when it is accurate and verifiable, so `note` exists to carry the
+ * qualifier a claim needs — and `verified` records when the competitor's
+ * details were last checked, because their pricing and features change.
+ */
+const comparisons = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/comparisons" }),
+  schema: z.object({
+    title: z.string(),
+    metaDescription: z.string(),
+    eyebrow: z.string(),
+    h1: z.string(),
+    intro: z.string(),
+    competitor: z.string(),
+    /** When the competitor's pricing/features were last checked. */
+    verified: z.coerce.date(),
+    verdict: z.object({
+      headline: z.string(),
+      body: z.string(),
+      /** Who the competitor genuinely suits better. Keeps the page honest. */
+      chooseThemIf: z.array(z.string()).min(1),
+      chooseUsIf: z.array(z.string()).min(1),
+    }),
+    rows: z
+      .array(
+        z.object({
+          feature: z.string(),
+          ours: z.string(),
+          theirs: z.string(),
+          note: z.string().optional(),
+        })
+      )
+      .min(4),
+    faq: z.array(z.object({ q: z.string(), a: z.string() })).min(3),
+    ctaHeadline: z.string(),
+    ctaNote: z.string(),
+  }),
+});
+
 const landingScreenRail = defineCollection({
   loader: glob({ pattern: "screen-rail.md", base: "./src/content/landing" }),
   schema: ({ image }) =>
@@ -231,6 +274,7 @@ const landingScreenRail = defineCollection({
 
 export const collections = {
   tools,
+  comparisons,
   blog,
   landingHero,
   landingProofStrip,
