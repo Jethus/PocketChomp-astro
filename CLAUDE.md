@@ -35,47 +35,42 @@ This is a static Astro marketing site assembled from content collections and sec
 
 Content lives under `src/content/` and is defined in `src/content.config.ts`.
 
-Landing page sections are modeled as singleton collections in `src/content/landing/`:
-
-- `landingHero` -> `hero.md`
-- `landingWhatWeOffer` -> `what-we-offer.md`
-- `landingPortfolio` -> `portfolio.md`
-- `landingComparison` -> `comparison.md`
-- `landingPricing` -> `pricing.md`
-- `landingCTA` -> `cta.md`
+Landing page sections are modeled as singleton collections in `src/content/landing/`
+(hero, proof strip, value pillars, modular feature, beyond-calorie, screen rail,
+free/premium, signup CTA, thanks, footer, blog masthead and blog "now"). Each has a
+`landingX` collection in `src/content.config.ts` and one Markdown file.
 
 Repeatable content collections live separately:
 
-- `src/content/services/`
-- `src/content/portfolio/`
 - `src/content/blog/`
+- `src/content/tools/` (calculator pages)
+
+Legal pages (`/privacy`, `/terms`, `/delete-account`) are plain `.astro` pages under
+`src/pages/` that share `src/layouts/LegalLayout.astro`. The app links to all three
+by URL, and Google Play requires the deletion page, so keep those routes stable.
 
 If a new landing section is added, prefer creating a new collection entry and schema rather than hardcoding editable copy in a component.
 
 ### Render Flow
 
-The homepage at `src/pages/index.astro` is intentionally thin. It composes section components only:
-
-- `Hero`
-- `Features`
-- `Portfolio`
-- `Comparison`
-- `Pricing`
-- `ClosingCTA`
+The homepage at `src/pages/index.astro` is intentionally thin. It composes section
+components only (Hero, ProofStrip, ValuePillars, ModularFeature, BeyondCalorie,
+ScreenRail, FreePremium, ClosingCTA, FieldNotesTeaser). `SocialProof` exists but is
+deliberately unmounted until real testimonials exist.
 
 Each section component fetches its own content with `getEntry()` or `getCollection()`. Keep that pattern unless there is a strong architectural reason to centralize data loading.
 
 ### Route Patterns
 
-- `src/pages/services/[slug].astro` provides dynamic detail pages for services.
+- `src/pages/tools/[slug].astro` renders the calculator pages from the `tools` collection.
 - `src/pages/blog/[slug].astro` and `src/pages/blog/index.astro` exist for blog content.
-- Portfolio content is currently used as collection-driven marketing content, not a detail-page system.
+- `/thanks` is the Kit signup redirect target and is `noindex`; `/404` is a static page.
 
 ### Non-Obvious Implementation Details
 
-- `src/components/Features.astro` contains a hardcoded `iconMap` keyed by service slug. Add or update entries when adding service content that needs a custom icon.
-- Service cards are sorted using each service entry's `order` field.
-- The site is already wired to `src/content/blog/` in `src/content.config.ts`; do not reintroduce the old broken `src/data/blog/` path.
+- Service cards from the agency site are gone; there is no `services` or `portfolio` collection anymore.
+- The site is wired to `src/content/blog/` in `src/content.config.ts`; do not reintroduce the old broken `src/data/blog/` path.
+- The site ships a strict CSP with no `unsafe-inline` for styles. Inline `style` attributes are silently dropped in production; put per-element values in scoped `<style>` rules.
 
 ## Design System
 

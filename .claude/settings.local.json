@@ -4,7 +4,14 @@
       "Bash(find /c/repos/pixelboost-astro -maxdepth 2 -type f -name README.md -o -name .cursorrules -o -name .cursor -o -name copilot*)",
       "Bash(grep -v \"^\\\\.\\\\.$\")",
       "Bash(npm run:*)",
-      "Bash(grep -n \"h2.*fs-\" /c/repos/pixelboost-astro/src/components/*.astro)"
+      "Bash(grep -n \"h2.*fs-\" /c/repos/pixelboost-astro/src/components/*.astro)",
+      "WebFetch(domain:pixelboost.ca)",
+      "Bash(git -C \"c:/repos/PocketChomp\" rev-parse --is-inside-work-tree)",
+      "Bash(grep -o \"prefers-reduced-motion[^\\\\\"]*\\\\\"[^;]\\\\{0,40\\\\}\" dist/index.html)",
+      "Bash(npx astro *)",
+      "Bash(curl -s http://localhost:4399/)",
+      "Bash(kill %1)",
+      "Bash(git checkout *)"
     ]
   }
 }
