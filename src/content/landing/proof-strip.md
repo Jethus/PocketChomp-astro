@@ -1,9 +1,9 @@
 ---
 items:
-  - value: 60,000+ foods
-    label: Canadian-first database, searchable offline
-  - value: On-device
-    label: your logs stay on your phone by default — sync is opt-in
+  - value: 130,000+ foods
+    label: over 60,000 from Canadian sources, Health Canada to house brands
+  - value: Works offline
+    label: core foods ship with the app, and everything you log stays cached on your phone
   - value: $0 to start
-    label: no card, no trial traps
+    label: no account, no card, no countdown
 ---

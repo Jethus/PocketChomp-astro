@@ -1,11 +1,10 @@
 ---
-headline: "Closed beta, round one."
-body: "Shipping private TestFlight + internal Play builds to the first 50. Writing the onboarding wizard. Fighting with the food database importer."
+headline: "Closed beta on Android."
+body: "Internal Play builds are in testers' hands. Working through Health Connect, fresh screenshots, and the launch plumbing."
 items:
-  - "Onboarding wizard (TestFlight #4)"
-  - "Gemini prompt v7"
-  - "Food DB → SQLite schema"
-  - "iCloud sync adapter"
-  - "Barcode UX polish"
-  - "PRP for voice logging"
+  - "Play internal testing, build 0.2.5"
+  - "Food insights ranked per serving"
+  - "Welcome screen choreography"
+  - "Fresh app screenshots"
+  - "Beta email list"
 ---

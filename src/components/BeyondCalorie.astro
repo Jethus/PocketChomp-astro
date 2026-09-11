@@ -1,5 +1,6 @@
 ---
 import { getEntry } from "astro:content";
+import { Image } from "astro:assets";
 import SectionShell from "./ui/SectionShell.astro";
 
 const beyondEntry = await getEntry("landingBeyondCalorie", "beyond-calorie");
@@ -41,13 +42,14 @@ const { headline, description, nutrients, panelLabel, image, imageAlt } = beyond
     data-reveal
   >
     <p class="text-sm uppercase tracking-[0.22em] text-white/62">{panelLabel}</p>
-    <img
-      src={image.src}
+    <Image
+      src={image}
       alt={imageAlt}
-      width={image.width}
-      height={image.height}
+      widths={[640, 960, 1296]}
+      sizes="(max-width: 64rem) 90vw, 34rem"
       class="mt-4 w-full rounded-[1rem]"
       loading="lazy"
+      decoding="async"
     />
   </div>
 </SectionShell>

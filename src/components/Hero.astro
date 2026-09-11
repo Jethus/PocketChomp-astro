@@ -1,12 +1,24 @@
 ---
 import { getEntry } from "astro:content";
+import { getImage } from "astro:assets";
 import Button from "./ui/Button.astro";
 import SectionShell from "./ui/SectionShell.astro";
 import androidFrameDark from "../assets/png/android-frame-dark.png";
 import androidFrameLight from "../assets/png/android-frame-light.png";
-import uiDashboard from "../assets/ui/ui-dashboard.png";
-import uiScreenLabel from "../assets/ui/ui-screen-label.png";
-import uiScreenSearch from "../assets/ui/ui-screen-search.png";
+import uiDashboard from "../assets/screens/screen-home.png";
+import uiScreenLabel from "../assets/screens/screen-diary.png";
+import uiScreenSearch from "../assets/screens/screen-search.png";
+
+// The source captures are full-resolution phone screenshots. Emit sized
+// WebP renditions so the hero does not ship 300 KB PNGs; the largest panel
+// renders well under 640 CSS px even on wide screens.
+const [shotLabel, shotSearch, shotDashboard, frameLight, frameDark] = await Promise.all([
+  getImage({ src: uiScreenLabel, width: 480, format: "webp" }),
+  getImage({ src: uiScreenSearch, width: 480, format: "webp" }),
+  getImage({ src: uiDashboard, width: 640, format: "webp" }),
+  getImage({ src: androidFrameLight, width: 640, format: "webp" }),
+  getImage({ src: androidFrameDark, width: 640, format: "webp" }),
+]);
 
 const heroEntry = await getEntry("landingHero", "hero");
 
@@ -70,23 +82,23 @@ const dbCard = collageCards.find((card) => card.kind === "database");
 
     <div class="hero-grid" aria-hidden="true" data-reveal-root>
       <article class="hero-panel hero-panel--shot hero-panel--tl" data-reveal>
-        <img src={uiScreenLabel.src} alt="" class="hero-shot__img" loading="eager" />
+        <img src={shotLabel.src} alt="" class="hero-shot__img" loading="eager" />
       </article>
 
       <article class="hero-panel hero-panel--shot hero-panel--bl" data-reveal>
-        <img src={uiScreenSearch.src} alt="" class="hero-shot__img" loading="eager" />
+        <img src={shotSearch.src} alt="" class="hero-shot__img" loading="eager" />
       </article>
 
       <div class="hero-panel hero-panel--phone hero-panel--center" data-reveal>
         <img
-          src={uiDashboard.src}
+          src={shotDashboard.src}
           alt="PocketChomp dashboard showing today's calories, macros and micronutrients"
           class="hero-phone__screen"
           loading="eager"
         />
         <span class="hero-phone__sheen"></span>
-        <img src={androidFrameLight.src} alt="" class="hero-frame hero-frame--light" />
-        <img src={androidFrameDark.src} alt="" class="hero-frame hero-frame--dark" />
+        <img src={frameLight.src} alt="" class="hero-frame hero-frame--light" />
+        <img src={frameDark.src} alt="" class="hero-frame hero-frame--dark" />
       </div>
 
       <article class="hero-panel hero-panel--tile hero-panel--tr" data-reveal>
@@ -421,10 +433,11 @@ const dbCard = collageCards.find((card) => card.kind === "database");
     color: var(--muted-foreground);
   }
 
-  /* Shot panels keep the app's dark UI background in both themes */
+  /* Screenshots are light-theme, so the shot panels keep a light bed in
+     both themes; a dark surface behind them would halo */
   .hero-panel--shot,
   :global(html[data-theme="dark"]) .hero-panel--shot {
-    background: #16110d;
+    background: oklch(0.97 0.005 145);
   }
 
   /* One-shot sheen sweeping across the phone after it reveals */

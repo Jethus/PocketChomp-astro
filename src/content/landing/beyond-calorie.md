@@ -1,12 +1,12 @@
 ---
 headline: Beyond the calorie.
-description: Track what actually matters to you — caffeine, fibre, electrolytes, or any micronutrient you care about. Your dashboard, your metrics.
+description: Every nutrient in the database is on the free tier, from vitamins and minerals to fibre, caffeine, alcohol and omega-3, each measured against your own daily target. Choose the ones you care about and they follow you through the diary and insights.
 nutrients:
-  - Protein
   - Fibre
+  - Potassium
+  - Sodium
   - Caffeine
-  - Electrolytes
 panelLabel: Straight from the app
-image: ../../assets/ui/ui-detailed.png
-imageAlt: PocketChomp detailed nutrition panel showing saturated fat, sugar, fibre and sodium with daily-value percentages
+image: ../../assets/ui/ui-micros-panel.png
+imageAlt: PocketChomp dashboard micronutrient card showing fibre, potassium, magnesium, sodium, calcium and iron against daily targets
 ---

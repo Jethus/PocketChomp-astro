@@ -2,5 +2,5 @@
 eyebrow: "Building in public · since April 2026"
 headlinePrefix: "Field notes from"
 headlineAccent: "a tiny app."
-lede: "Architecture decisions, prompt anatomy, PRPs, debug stories, and the occasional philosophical detour. One person. Two platforms. Whatever honesty survives shipping."
+lede: "How PocketChomp gets built: the Canadian food database, local-first sync, the adaptive calorie math, and the decisions behind them. One person, one app, whatever honesty survives shipping."
 ---

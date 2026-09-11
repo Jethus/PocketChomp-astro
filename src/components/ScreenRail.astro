@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import { getEntry } from "astro:content";
 import SectionShell from "./ui/SectionShell.astro";
+import PhoneFrame from "./ui/PhoneFrame.astro";
 
 const railEntry = await getEntry("landingScreenRail", "screen-rail");
 
@@ -58,16 +59,20 @@ const { eyebrow, headline, description, dragHint, screens } = railEntry.data;
           <li class="rail__item">
             <figure class="rail__card">
               <div class="rail__shot">
-                <Image
-                  src={screen.image}
-                  alt={screen.alt}
-                  widths={[320, 480, 640]}
-                  sizes="(max-width: 40rem) 68vw, 20rem"
-                  loading="lazy"
-                  decoding="async"
-                  class="rail__img"
-                  draggable="false"
-                />
+                <PhoneFrame class="rail__phone">
+                  <Image
+                    src={screen.image}
+                    alt={screen.alt}
+                    widths={[320, 480, 640]}
+                    sizes="(max-width: 40rem) 62vw, 17rem"
+                    loading="lazy"
+                    decoding="async"
+                    draggable="false"
+                  />
+                </PhoneFrame>
+                {screen.tier === "plus" && (
+                  <span class="rail__badge">PocketChomp+</span>
+                )}
               </div>
               <figcaption class="rail__caption">
                 <h3 class="font-heading text-base font-black leading-tight text-foreground">
@@ -118,7 +123,10 @@ const { eyebrow, headline, description, dragHint, screens } = railEntry.data;
         dragged = true;
         // Capture only once dragging is real, so plain clicks stay clicks
         rail.setPointerCapture(pointerId);
-        // Snap fights a live drag — restore it on release
+        // Snap fights a drag: mid-drag it jitters, and re-enabling it on
+        // release springs a short drag back to where it started. Once the
+        // visitor has shown they drag with a mouse, leave it off; touch and
+        // wheel users never reach this branch and keep native snapping.
         rail.style.scrollSnapType = "none";
       }
 
@@ -136,7 +144,6 @@ const { eyebrow, headline, description, dragHint, screens } = railEntry.data;
       }
 
       rail.classList.remove("is-grabbing");
-      rail.style.scrollSnapType = "";
       pointerId = null;
     };
 
@@ -172,13 +179,14 @@ const { eyebrow, headline, description, dragHint, screens } = railEntry.data;
     display: flex;
     gap: 1.25rem;
     overflow-x: auto;
-    scroll-snap-type: x mandatory;
+    /* proximity, not mandatory: a short drag must not spring back */
+    scroll-snap-type: x proximity;
     scroll-padding-left: var(--rail-gutter);
     padding-inline: var(--rail-gutter);
     padding-block: 0.5rem;
     cursor: grab;
-    /* Vertical page scroll must still work over the rail */
-    touch-action: pan-y;
+    /* Both axes: pan-y alone forbids horizontal touch scrolling */
+    touch-action: pan-x pan-y;
     scrollbar-width: none;
     list-style: none;
     margin: 0;
@@ -203,8 +211,9 @@ const { eyebrow, headline, description, dragHint, screens } = railEntry.data;
   .rail__item {
     flex: 0 0 auto;
     scroll-snap-align: start;
-    /* ~3.5 cards visible at desktop so the cut card cues the scroll */
-    width: min(68vw, 20rem);
+    /* Full phones are tall, so keep them narrow: ~4 visible at desktop
+       and the cut card still cues the scroll */
+    width: min(62vw, 17rem);
   }
 
   .rail__card {
@@ -214,26 +223,31 @@ const { eyebrow, headline, description, dragHint, screens } = railEntry.data;
     margin: 0;
   }
 
-  /* Screenshots are light-theme, so the shot keeps a light bed in both
-     themes — a dark surface behind them would halo */
+  /* The whole screenshot sits inside a phone frame; nothing is cropped */
   .rail__shot {
-    overflow: hidden;
-    border: 1px solid var(--border);
-    border-radius: 1.6rem;
-    background: oklch(0.97 0.005 145);
-    box-shadow: var(--shadow-elevated);
+    position: relative;
+    width: 100%;
   }
 
-  .rail__img {
-    display: block;
+  .rail__phone {
     width: 100%;
-    height: auto;
-    /* Uniform card height: every screen shows its top, cropped at the fold */
-    aspect-ratio: 9 / 15;
-    object-fit: cover;
-    object-position: top;
-    -webkit-user-drag: none;
-    user-select: none;
+  }
+
+  .rail__badge {
+    position: absolute;
+    /* Sits on the frame bezel corner, clear of the status bar */
+    top: 1.6rem;
+    right: 1.1rem;
+    padding: 0.3rem 0.65rem;
+    border-radius: 999px;
+    background: var(--accent-strong);
+    color: white;
+    font-family: var(--font-heading);
+    font-size: 0.6rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    box-shadow: var(--shadow-elevated);
   }
 
   .rail__caption {
