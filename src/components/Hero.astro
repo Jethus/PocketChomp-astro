@@ -148,9 +148,13 @@ const dbCard = collageCards.find((card) => card.kind === "database");
     const words: string[] = JSON.parse(rotator.dataset.words ?? "[]");
 
     if (words.length > 1) {
-      const HOLD = 2200;
-      const HOLD_PUNCHLINE = 3600;
-      const SWAP = 230;
+      // Short holds on purpose: the rotating words are single nutrients and
+      // read at a glance, so a long dwell reads as a stall rather than a list.
+      // SWAP is kept well under HOLD so most of each hold is legible time
+      // rather than mid-fade.
+      const HOLD = 900;
+      const HOLD_PUNCHLINE = 2000;
+      const SWAP = 140;
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
       let next = 0;
 
@@ -274,8 +278,8 @@ const dbCard = collageCards.find((card) => card.kind === "database");
   .hero-accent {
     color: var(--primary);
     transition:
-      opacity 0.22s ease,
-      transform 0.22s ease;
+      opacity 0.14s ease,
+      transform 0.14s ease;
   }
 
   .hero-accent.is-punchline {
