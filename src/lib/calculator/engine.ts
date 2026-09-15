@@ -139,6 +139,14 @@ const SPLIT_PROTEIN_FACTOR: Record<MacroSplit, Range> = {
  */
 const KETO_CARB_CAP_G = 30;
 
+/**
+ * Keto reserves this share of calories for fat before protein is capped, so a
+ * very heavy user at the calorie floor still gets a fat-dominant split rather
+ * than protein consuming everything above the carb cap. Mirrors
+ * KETO_MIN_FAT_SHARE in PocketChomp/lib/calculations.ts.
+ */
+const KETO_MIN_FAT_SHARE = 0.4;
+
 export interface Range {
   low: number;
   high: number;
@@ -316,7 +324,9 @@ export function calculate(input: CalculatorInput): CalculatorResult {
   const nominalFatG = Math.round((macroKcalBase * SPLIT_FAT_SHARE[split]) / 9);
   // Protein is capped so it can never crowd out the rest of the budget: at most
   // the grams that fit alongside fat (or the carb floor, under keto).
-  const reservedKcal = isKeto ? KETO_CARB_CAP_G * 4 : nominalFatG * 9;
+  const reservedKcal = isKeto
+    ? KETO_CARB_CAP_G * 4 + Math.round(macroKcalBase * KETO_MIN_FAT_SHARE)
+    : nominalFatG * 9;
   const proteinCapG = Math.max(0, Math.floor((macroKcalBase - reservedKcal) / 4));
   const proteinMidG = Math.min(
     Math.round((proteinG.low + proteinG.high) / 2),

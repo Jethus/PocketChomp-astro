@@ -66,6 +66,24 @@ describe("calculate", () => {
     expect(Math.abs(kcal - mid)).toBeLessThanOrEqual(15); // rounding slack
   });
 
+  it("keeps keto fat-dominant for a very heavy user at the calorie floor", () => {
+    // Mirrors the app's calculateMacrosHybrid: without a fat reservation,
+    // bodyweight protein ate the whole budget above the carb cap.
+    const r = calculate({
+      age: 40,
+      sex: "male",
+      heightCm: 180,
+      weightKg: 200,
+      activity: "sedentary",
+      goal: "lose",
+      paceKgPerWeek: 1.5,
+      split: "keto",
+    });
+    const kcal = r.macros.proteinG * 4 + r.macros.carbsG * 4 + r.macros.fatG * 9;
+    expect((r.macros.fatG * 9) / kcal).toBeGreaterThanOrEqual(0.4);
+    expect(r.macros.fatG * 9).toBeGreaterThan(r.macros.carbsG * 4);
+  });
+
   it("flags aggressive pace below the sex-specific floor", () => {
     const r = calculate({
       age: 25,
