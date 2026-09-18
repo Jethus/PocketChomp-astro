@@ -31,15 +31,21 @@ const normalizedVariant =
 
 const normalizedSize = size === "base" ? "md" : size;
 
+/**
+ * Hover language: buttons stay put and gain depth instead of moving. A lift
+ * was the odd one out next to the rest of the site's hovers, which grow or
+ * fade in place. Filled variants bloom their shadow and lighten a touch; the
+ * flat variants, which have no resting shadow to grow, just take their fill.
+ */
 const variants = {
   solid:
-    "border-transparent bg-primary text-primary-foreground shadow-[var(--shadow-elevated)] hover:-translate-y-0.5 hover:bg-primary/92",
+    "border-transparent bg-primary text-primary-foreground shadow-[var(--shadow-elevated)] hover:bg-primary-dark hover:shadow-[var(--btn-glow-primary)]",
   outline:
-    "border-border bg-surface text-foreground hover:-translate-y-0.5 hover:bg-muted/80",
+    "border-border bg-surface text-foreground shadow-[var(--shadow-elevated-hover)] hover:border-primary/40 hover:bg-muted hover:shadow-[var(--shadow-elevated-lg)]",
   ghost:
-    "border-transparent bg-transparent text-foreground hover:-translate-y-0.5 hover:bg-muted/70",
+    "border-transparent bg-transparent text-foreground hover:bg-muted",
   accent:
-    "border-transparent bg-accent-strong text-white shadow-[var(--shadow-elevated)] hover:-translate-y-0.5 hover:bg-accent-strong/92",
+    "border-transparent bg-accent-strong text-white shadow-[var(--shadow-elevated)] hover:bg-accent hover:shadow-[var(--btn-glow-accent)]",
 } as const;
 
 const sizes = {
@@ -58,7 +64,7 @@ const rel = rest.target === "_blank"
   {...rest}
   rel={rel}
   class:list={[
-    "inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-full border font-body font-bold transition duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+    "inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-full border font-body font-bold transition-[background-color,box-shadow,color,border-color] duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
     variants[normalizedVariant],
     sizes[normalizedSize],
     className,

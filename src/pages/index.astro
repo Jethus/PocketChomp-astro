@@ -8,16 +8,49 @@ import ScreenRail from "../components/ScreenRail.astro";
 import ModularFeature from "../components/ModularFeature.astro";
 import ValuePillars from "../components/ValuePillars.astro";
 import BeyondCalorie from "../components/BeyondCalorie.astro";
-import FreePremium from "../components/FreePremium.astro";
+import Faq from "../components/Faq.astro";
 import FieldNotesTeaser from "../components/FieldNotesTeaser.astro";
 import ClosingCTA from "../components/ClosingCTA.astro";
 import Footer from "../components/Footer.astro";
 
 const PAGE_TITLE = "Free Calorie Counter & Macro Tracker for Canadians";
 const PAGE_DESCRIPTION = SITE_DESCRIPTION;
+
+// The homepage carried no structured data at all, while the tools, blog and
+// comparison pages all emit some. Prices and the platform match what the app
+// actually ships; keep them in step with /plus.
+const appLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "PocketChomp",
+  applicationCategory: "HealthApplication",
+  operatingSystem: "Android",
+  description: PAGE_DESCRIPTION,
+  url: new URL("/", Astro.site).toString(),
+  offers: [
+    {
+      "@type": "Offer",
+      name: "Free",
+      price: "0",
+      priceCurrency: "CAD",
+      description:
+        "Unlimited barcode scanning, label scanning, every micronutrient, offline logging and CSV export.",
+    },
+    {
+      "@type": "Offer",
+      name: "PocketChomp+",
+      price: "6.99",
+      priceCurrency: "CAD",
+      description: "Optional subscription. $6.99 per month or $39.99 per year, with a 14-day free trial.",
+    },
+  ],
+};
 ---
 
 <BaseLayout title={PAGE_TITLE} description={PAGE_DESCRIPTION}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(appLd)} />
+  </Fragment>
   <Header />
   <main>
     <Hero />
@@ -26,7 +59,7 @@ const PAGE_DESCRIPTION = SITE_DESCRIPTION;
     <ModularFeature />
     <ValuePillars />
     <BeyondCalorie />
-    <FreePremium />
+    <Faq />
     <FieldNotesTeaser />
     <ClosingCTA />
   </main>

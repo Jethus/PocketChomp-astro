@@ -3,39 +3,371 @@ import Button from "./ui/Button.astro";
 import ThemeToggle from "./ui/ThemeToggle.astro";
 import logoLight from "../assets/svgs/logo-light.svg";
 import logoDark from "../assets/svgs/logo-dark.svg";
+
+// Mark the current section so the nav shows where you are, not just where you
+// can go. Blog posts live under /blog/..., so match the prefix rather than the
+// exact path.
+const path = Astro.url.pathname;
+const NAV = [
+  { href: "/tools", label: "Calculators" },
+  { href: "/blog", label: "Field Notes" },
+  { href: "/plus", label: "PocketChomp+" },
+  { href: "/support", label: "Support" },
+];
+const isCurrent = (href: string) =>
+  path === href || path.startsWith(`${href}/`);
 ---
 
-<header class="sticky top-0 z-50 border-b border-border bg-background/85 backdrop-blur-xl">
-  <div class="mx-auto flex max-w-[90rem] items-center justify-between gap-4 px-6 py-4">
+<header class="site-header sticky top-0 z-50 border-b border-border bg-background/85 backdrop-blur-xl">
+  <div class="mx-auto grid max-w-[90rem] grid-cols-[1fr_auto] items-center gap-4 px-4 py-4 sm:gap-6 sm:px-6 sm:py-6 md:grid-cols-[1fr_auto_1fr]">
     <a href="/" aria-label="PocketChomp home" class="inline-flex items-center">
       <span class="logo-light">
-        <img src={logoLight.src} alt="PocketChomp" class="h-10 w-auto sm:h-14" />
+        <img src={logoLight.src} alt="PocketChomp" class="h-9 w-auto sm:h-11" />
       </span>
       <span class="logo-dark">
-        <img src={logoDark.src} alt="PocketChomp" class="h-10 w-auto sm:h-14" />
+        <img src={logoDark.src} alt="PocketChomp" class="h-9 w-auto sm:h-11" />
       </span>
     </a>
 
-    <div class="flex items-center gap-3">
-      <a
-        href="/tools/tdee-calculator"
-        class="hidden font-body text-[0.9rem] font-bold text-muted-foreground transition-colors hover:text-foreground sm:inline-flex"
-      >
-        TDEE Calculator
-      </a>
-      <a
-        href="/tools/calorie-deficit-calculator"
-        class="hidden font-body text-[0.9rem] font-bold text-muted-foreground transition-colors hover:text-foreground sm:inline-flex"
-      >
-        Deficit Calculator
-      </a>
-      <ThemeToggle />
-      <Button href="#signup" size="md" variant="accent">Join the beta</Button>
+    <nav aria-label="Main" class="hidden items-center justify-center gap-1 md:flex lg:gap-2">
+      {
+        NAV.map((item) => (
+          <a
+            href={item.href}
+            class="nav-pill"
+            aria-current={isCurrent(item.href) ? "page" : undefined}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="flex items-center justify-end gap-2 sm:gap-3">
+      <span class="hidden md:inline-flex">
+        <ThemeToggle />
+      </span>
+      <span class="cta-flair">
+        <Button href="/#signup" size="md" variant="accent">Join the beta</Button>
+      </span>
+
+      <!-- Phone menu. A native <details> so it opens and closes with no
+           script, which keeps it working under the strict CSP and without
+           JS. The panel hangs off the sticky header. -->
+      <details class="mobile-menu md:hidden">
+        <summary class="mobile-menu__button" aria-label="Menu">
+          <svg
+            class="mobile-menu__icon mobile-menu__icon--open"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            aria-hidden="true"
+          >
+            <path d="M4 7h16M4 12h16M4 17h16" />
+          </svg>
+          <svg
+            class="mobile-menu__icon mobile-menu__icon--close"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            aria-hidden="true"
+          >
+            <path d="M6 6l12 12M18 6 6 18" />
+          </svg>
+        </summary>
+        <nav aria-label="Main" class="mobile-menu__panel">
+          <ul class="mobile-menu__list" role="list">
+            {
+              NAV.map((item) => (
+                <li>
+                  <a
+                    href={item.href}
+                    class="mobile-menu__link"
+                    aria-current={isCurrent(item.href) ? "page" : undefined}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+          <div class="mobile-menu__foot">
+            <span class="mobile-menu__foot-label">Theme</span>
+            <ThemeToggle />
+          </div>
+        </nav>
+      </details>
     </div>
   </div>
 </header>
 
 <style>
+  /* Nav pills. The pattern Linear and Vercel popularised: the link itself is a
+     generous rounded hit area, and a soft fill appears behind the label on
+     hover instead of the label merely changing colour. The fill is a
+     pseudo-element so it can scale independently of the text. */
+  .nav-pill {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    /* 44px tall: the comfortable touch target, and it matches the height of
+       the theme toggle and CTA beside it so the row lines up. */
+    min-height: 2.75rem;
+    padding: 0 1.05rem;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--muted-foreground);
+    text-decoration: none;
+    transition: color 180ms ease-out;
+    isolation: isolate;
+  }
+
+  .nav-pill::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: color-mix(in oklab, var(--primary) 12%, transparent);
+    opacity: 0;
+    transform: scale(0.92);
+    transition:
+      opacity 180ms ease-out,
+      transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .nav-pill:hover,
+  .nav-pill:focus-visible {
+    color: var(--foreground);
+  }
+
+  .nav-pill:hover::before,
+  .nav-pill:focus-visible::before {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .nav-pill:focus-visible {
+    outline: 2px solid color-mix(in oklab, var(--primary) 45%, transparent);
+    outline-offset: 2px;
+  }
+
+  /* The page you are on keeps the fill permanently, so the nav doubles as a
+     location indicator rather than only reacting to the pointer. */
+  .nav-pill[aria-current="page"] {
+    color: var(--foreground);
+  }
+
+  .nav-pill[aria-current="page"]::before {
+    opacity: 1;
+    transform: scale(1);
+    background: color-mix(in oklab, var(--primary) 16%, transparent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nav-pill::before {
+      transform: none;
+      transition: opacity 120ms linear;
+    }
+
+    .nav-pill:hover::before,
+    .nav-pill:focus-visible::before {
+      transform: none;
+    }
+  }
+
+  /* Phone menu. */
+  .mobile-menu__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--foreground);
+    cursor: pointer;
+    list-style: none;
+    transition: background-color 0.2s ease-out;
+  }
+
+  .mobile-menu__button::-webkit-details-marker {
+    display: none;
+  }
+
+  .mobile-menu__button:hover {
+    background: var(--muted);
+  }
+
+  .mobile-menu__button:focus-visible {
+    outline: 2px solid color-mix(in oklab, var(--primary) 45%, transparent);
+    outline-offset: 2px;
+  }
+
+  .mobile-menu__icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .mobile-menu__icon--close,
+  .mobile-menu[open] .mobile-menu__icon--open {
+    display: none;
+  }
+
+  .mobile-menu[open] .mobile-menu__icon--close {
+    display: block;
+  }
+
+  /* Closed <details> content still gets a layout box in Chromium, and an
+     absolutely positioned one can widen the page. Hide it outright. */
+  .mobile-menu:not([open]) .mobile-menu__panel {
+    display: none;
+  }
+
+  .mobile-menu__panel {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    padding: 0.75rem 1rem 1.25rem;
+    background: var(--background);
+    border-bottom: 1px solid var(--border);
+    box-shadow: var(--shadow-elevated-lg);
+  }
+
+  .mobile-menu__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+  }
+
+  .mobile-menu__link {
+    display: flex;
+    align-items: center;
+    min-height: 3rem;
+    padding-inline: 0.75rem;
+    border-radius: 0.75rem;
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--foreground);
+    text-decoration: none;
+  }
+
+  .mobile-menu__link:hover,
+  .mobile-menu__link[aria-current="page"] {
+    background: color-mix(in oklab, var(--primary) 12%, transparent);
+  }
+
+  .mobile-menu__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.75rem;
+    padding: 0.75rem 0.75rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .mobile-menu__foot-label {
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+  }
+
+  /* CTA flair, scoped to the header. A soft accent glow grows behind the
+     button and a light sheen sweeps across it on hover -- the button itself
+     keeps the shared Button primitive's hover, so nothing else on the site
+     changes. */
+  .cta-flair {
+    position: relative;
+    display: inline-flex;
+    border-radius: var(--radius-pill);
+  }
+
+  .cta-flair::before {
+    content: "";
+    position: absolute;
+    inset: -0.35rem;
+    z-index: 0;
+    border-radius: var(--radius-pill);
+    background: radial-gradient(
+      closest-side,
+      color-mix(in oklab, var(--accent) 45%, transparent),
+      transparent
+    );
+    opacity: 0;
+    transform: scale(0.85);
+    transition:
+      opacity 260ms ease-out,
+      transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+  }
+
+  .cta-flair:hover::before,
+  .cta-flair:focus-within::before {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .cta-flair :global(a) {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  /* The sweep. A narrow translucent band crosses the button once per hover.
+     Capped at 12% white: at 32% the band drops the label's contrast to 3.3:1
+     as it passes, under AA. 12% holds 4.75:1 at the band's peak. */
+  .cta-flair :global(a)::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -60%;
+    width: 45%;
+    background: linear-gradient(
+      100deg,
+      transparent,
+      rgb(255 255 255 / 0.12),
+      transparent
+    );
+    transform: skewX(-18deg);
+    transition: left 520ms cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+  }
+
+  .cta-flair:hover :global(a)::after,
+  .cta-flair:focus-within :global(a)::after {
+    left: 115%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cta-flair::before {
+      transform: none;
+      transition: opacity 120ms linear;
+    }
+
+    .cta-flair:hover::before,
+    .cta-flair:focus-within::before {
+      transform: none;
+    }
+
+    .cta-flair :global(a)::after {
+      display: none;
+    }
+  }
+
   .logo-dark {
     display: none;
   }

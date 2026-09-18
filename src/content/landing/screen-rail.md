@@ -2,7 +2,6 @@
 eyebrow: "Inside the app"
 headline: "What logging looks like."
 description: "Search, scan a barcode, scan a label, take a photo, say it, type it, or quick-add the numbers. Everything below is in the free app unless it carries a Plus badge."
-dragHint: "Hover to pause"
 screens:
   - title: "Today at a glance"
     caption: "Calories, macros, water and the micronutrients you chose."
@@ -39,7 +38,7 @@ screens:
     image: ../../assets/screens/screen-offline.webp
     alt: "PocketChomp add food screen in airplane mode with an offline notice, and a chicken search still returning Health Canada, USDA and Kirkland results"
     tier: free
-  - title: "Yours to shape"
+  - title: "Hide calories entirely"
     caption: "Hide calories everywhere. Make protein the big number."
     image: ../../assets/screens/screen-metrics.webp
     alt: "PocketChomp metrics settings with Hide Calories switched on and Protein selected as the diary's hero metric"

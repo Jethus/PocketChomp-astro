@@ -9,47 +9,52 @@ if (!beyondEntry) {
   throw new Error("Could not find PocketChomp beyond-calorie content");
 }
 
-const { headline, description, nutrients, panelLabel, image, imageAlt } = beyondEntry.data;
+const { headline, description, panelLabel, image, imageAlt } = beyondEntry.data;
 ---
 
 <SectionShell
   class="pt-8"
-  innerClass="overflow-hidden rounded-[2.5rem] bg-accent px-6 py-10 text-accent-foreground shadow-[var(--shadow-elevated-lg)] md:px-10 md:py-14 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(18rem,1fr)] lg:items-center lg:gap-14"
+  innerClass="overflow-hidden rounded-[2.5rem] bg-accent px-6 py-10 text-accent-foreground shadow-[var(--shadow-elevated-lg)] md:px-10 md:py-14 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(15rem,0.7fr)] lg:items-center lg:gap-14"
   data-reveal-root
 >
   <div>
-    <h2 class="fs-xl max-w-[11ch] leading-[1.02]">
+    <h2 class="beyond-headline fs-xl leading-[1.02]">
       {headline}
     </h2>
-    <p class="mt-6 max-w-2xl text-lg leading-relaxed text-black/80">
+    <p class="beyond-body mt-6 max-w-2xl text-lg leading-relaxed text-black/80">
       {description}
     </p>
-
-    <ul class="mt-8 grid gap-x-8 gap-y-3 sm:grid-cols-2">
-      {
-        nutrients.map((nutrient) => (
-          <li class="flex items-center gap-3 border-b border-black/15 pb-3 font-heading text-base font-black uppercase tracking-wide">
-            <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-black/55" aria-hidden="true" />
-            {nutrient}
-          </li>
-        ))
-      }
-    </ul>
   </div>
 
   <div
-    class="mt-10 overflow-hidden rounded-[1.6rem] bg-black/92 p-5 text-white shadow-[var(--shadow-elevated)] lg:mt-0"
+    class="mx-auto mt-10 max-w-sm overflow-hidden rounded-[1.6rem] bg-black/92 p-4 text-white shadow-[var(--shadow-elevated)] lg:mt-0 lg:max-w-none"
     data-reveal
   >
     <p class="text-sm uppercase tracking-[0.22em] text-white/62">{panelLabel}</p>
     <Image
       src={image}
       alt={imageAlt}
-      widths={[640, 960, 1296]}
-      sizes="(max-width: 64rem) 90vw, 34rem"
+      widths={[480, 720, 960]}
+      sizes="(max-width: 64rem) 80vw, 24rem"
       class="mt-4 w-full rounded-[1rem]"
       loading="lazy"
       decoding="async"
     />
   </div>
 </SectionShell>
+
+<style>
+  /* One line. nowrap alone ran the fluid heading past the card's clipped
+     edge on narrow screens, so the size is clamped against the viewport
+     instead: it fits on a single line at every width without overflowing. */
+  .beyond-headline {
+    white-space: nowrap;
+    font-size: clamp(1.75rem, 0.9rem + 3.6vw, 4.2rem);
+  }
+
+  /* Balanced so the last line keeps company; a lone trailing word was
+     sitting under three full lines. */
+  .beyond-body {
+    text-wrap: pretty;
+  }
+</style>

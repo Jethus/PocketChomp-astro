@@ -1,0 +1,295 @@
+---
+import { getEntry } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import SectionShell from "../components/ui/SectionShell.astro";
+import SignupForm from "../components/ui/SignupForm.astro";
+
+const entry = await getEntry("landingFreePremium", "free-premium");
+
+if (!entry) {
+  throw new Error("Could not find PocketChomp free-premium content");
+}
+
+const {
+  eyebrow,
+  headline,
+  description,
+  funding,
+  freeTitle,
+  freeNote,
+  premiumTitle,
+  premiumNote,
+  comparison,
+} = entry.data;
+
+const TITLE = "PocketChomp+ — what's free and what's paid";
+const META =
+  "Every PocketChomp feature, free versus PocketChomp+. Barcode scanning, label scanning, micronutrients and offline logging are free forever. No ads on either tier.";
+---
+
+<BaseLayout title={TITLE} description={META}>
+  <Header />
+  <main id="main">
+    <SectionShell>
+      <div class="max-w-2xl">
+        <p class="font-heading text-[0.7rem] font-black uppercase tracking-[0.16em] text-muted-foreground">{eyebrow}</p>
+        <h1 class="fs-xl mt-4 leading-[1.05] text-foreground">{headline}</h1>
+        <p class="mt-5 text-lg leading-relaxed text-muted-foreground">
+          {description}
+        </p>
+      </div>
+
+      <div class="matrix mt-12">
+        <table class="matrix__table">
+          <caption class="sr-only">
+            PocketChomp features compared between the free tier and PocketChomp+
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col" class="matrix__rowhead-col">
+                <span class="sr-only">Feature</span>
+              </th>
+              <th scope="col" class="matrix__tier">
+                <span class="matrix__tier-name">{freeTitle}</span>
+                <span class="matrix__tier-note">{freeNote}</span>
+              </th>
+              <th scope="col" class="matrix__tier matrix__tier--plus">
+                <span class="matrix__tier-name">{premiumTitle}</span>
+                <span class="matrix__tier-note">{premiumNote}</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              comparison.map((row) => (
+                <tr>
+                  <th scope="row" class="matrix__feature">{row.feature}</th>
+                  {[row.free, row.plus].map((cell, i) => (
+                    <td
+                      class:list={["matrix__cell", i === 1 && "matrix__cell--plus"]}
+                      data-tier={i === 1 ? premiumTitle : freeTitle}
+                    >
+                      {typeof cell === "string" ? (
+                        <span class="matrix__value">{cell}</span>
+                      ) : cell ? (
+                        <>
+                          <span
+                            class:list={["matrix__mark", i === 1 ? "matrix__mark--plus" : "matrix__mark--free"]}
+                            aria-hidden="true"
+                          >
+                            ✓
+                          </span>
+                          <span class="sr-only">Included</span>
+                        </>
+                      ) : (
+                        <>
+                          <span class="matrix__mark matrix__mark--off" aria-hidden="true">–</span>
+                          <span class="sr-only">Not included</span>
+                        </>
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <p class="funding-note mt-10">{funding}</p>
+
+      <div class="cta-panel mt-14">
+        <h2 class="fs-m text-foreground">Try it before you pay for it.</h2>
+        <p class="mt-2 max-w-xl text-muted-foreground">
+          The free tier is the whole logging loop, not a trial. Join the beta and
+          decide about Plus later.
+        </p>
+        <div class="mt-5 max-w-xl">
+          <SignupForm placeholder="you@email.com" buttonText="Join the beta" />
+        </div>
+      </div>
+    </SectionShell>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .matrix {
+    /* The sr-only caption is absolutely positioned; anchor it here so it
+       cannot widen the page. */
+    position: relative;
+  }
+
+  .matrix__table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+  }
+
+  .matrix__rowhead-col {
+    width: 40%;
+  }
+
+  .matrix__tier {
+    width: 30%;
+    padding: 0 1rem 1rem;
+    vertical-align: top;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .matrix__tier-name {
+    display: block;
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: 1.05rem;
+    color: var(--foreground);
+  }
+
+  .matrix__tier-note {
+    display: block;
+    margin-top: 0.3rem;
+    font-size: 0.78rem;
+    line-height: 1.35;
+    color: var(--muted-foreground);
+  }
+
+  /* The paid column is tinted end to end so the eye can follow it down the
+     table without re-reading the header. */
+  .matrix__tier--plus,
+  .matrix__cell--plus {
+    background: color-mix(in oklab, var(--accent) 7%, transparent);
+  }
+
+  .matrix__feature {
+    padding: 0.95rem 1rem 0.95rem 0;
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: 0.95rem;
+    color: var(--foreground);
+    border-bottom: 1px solid color-mix(in oklab, var(--border) 65%, transparent);
+  }
+
+  .matrix__cell {
+    padding: 0.95rem 1rem;
+    text-align: center;
+    vertical-align: middle;
+    border-bottom: 1px solid color-mix(in oklab, var(--border) 65%, transparent);
+  }
+
+  .matrix__value {
+    font-size: 0.9rem;
+    line-height: 1.35;
+    color: var(--muted-foreground);
+  }
+
+  .matrix__mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 999px;
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  .matrix__mark--free {
+    background: color-mix(in oklab, var(--primary) 18%, var(--surface));
+    border: 1px solid color-mix(in oklab, var(--primary) 32%, var(--border));
+    color: var(--primary);
+  }
+
+  /* --accent on its own tint fails AA in the light theme; --accent-strong
+     clears it. The dark theme override sits below. */
+  .matrix__mark--plus {
+    background: color-mix(in oklab, var(--accent) 18%, var(--surface));
+    border: 1px solid color-mix(in oklab, var(--accent) 34%, var(--border));
+    color: var(--accent-strong);
+  }
+
+  .matrix__mark--off {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted-foreground);
+  }
+
+  :global(html[data-theme="dark"]) .matrix__mark--plus {
+    color: var(--accent);
+  }
+
+  /* Stated plainly rather than as a badge: the business model IS the proof. */
+  .funding-note {
+    max-width: 46rem;
+    padding-left: 1rem;
+    border-left: 2px solid color-mix(in oklab, var(--primary) 45%, transparent);
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--muted-foreground);
+  }
+
+  .cta-panel {
+    border-radius: var(--radius-card);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    padding: 1.75rem;
+    box-shadow: var(--shadow-elevated);
+  }
+
+  /* Narrow screens: each row becomes a small card. Feature name on top,
+     the two tiers side by side beneath it, each labelled with its tier via
+     data-tier so the header row can be hidden without losing the labels. */
+  @media (max-width: 40rem) {
+    .matrix__table thead {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+
+    .matrix__table,
+    .matrix__table tbody {
+      display: block;
+    }
+
+    .matrix__table tr {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      padding-block: 0.9rem;
+      border-bottom: 1px solid color-mix(in oklab, var(--border) 65%, transparent);
+    }
+
+    .matrix__feature {
+      grid-column: 1 / -1;
+      padding: 0 0 0.5rem;
+      border-bottom: 0;
+    }
+
+    .matrix__cell {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.75rem;
+      text-align: left;
+      border-bottom: 0;
+      border-radius: 0.6rem;
+    }
+
+    .matrix__cell::before {
+      content: attr(data-tier);
+      font-family: var(--font-heading);
+      font-size: 0.66rem;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted-foreground);
+    }
+
+  }
+</style>

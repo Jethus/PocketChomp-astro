@@ -1,8 +1,7 @@
 ---
 import { getEntry } from "astro:content";
 import SectionShell from "./ui/SectionShell.astro";
-import EyebrowPill from "./ui/EyebrowPill.astro";
-import ChipList from "./ui/ChipList.astro";
+import PillarIcon from "./ui/PillarIcon.astro";
 
 const pillarsEntry = await getEntry("landingValuePillars", "value-pillars");
 
@@ -13,80 +12,116 @@ if (!pillarsEntry) {
 const { headline, items } = pillarsEntry.data;
 ---
 
-<SectionShell innerClass="space-y-10" data-reveal-root>
+<SectionShell innerClass="space-y-12" data-reveal-root>
   <h2 class="fs-xl leading-[0.92] text-foreground">
     {headline}
   </h2>
-  <div class="grid gap-6 md:grid-cols-2">
-  {
-    items.map((item, index) => (
-      <article class="pillar-card" data-reveal>
-        <div class="pillar-card__inner">
-          <div class="flex items-center gap-3">
-            <EyebrowPill>{item.eyebrow}</EyebrowPill>
-          </div>
-          <h3 class="mt-5 max-w-[14ch] [text-wrap:balance] text-2xl leading-[1.1] text-foreground md:text-3xl lg:text-4xl">
-            {item.headline}
-          </h3>
-          <p class="mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">
-            {item.description}
-          </p>
-          <div class="mt-6">
-            <ChipList items={item.chips} tone={item.tone} />
-          </div>
-        </div>
-      </article>
-    ))
-  }
+
+  <!-- Icon, heading, paragraph. No card, no chips, no eyebrow: the three
+       pillars are a statement, not a feature grid. -->
+  <div class="pillar-grid">
+    {
+      items.map((item) => (
+        <article class="pillar" data-reveal>
+          <span class:list={["pillar__mark", `pillar__mark--${item.tone}`]}>
+            <PillarIcon name={item.icon} class="pillar__icon" />
+          </span>
+          <h3 class="pillar__headline">{item.headline}</h3>
+          <p class="pillar__body">{item.description}</p>
+        </article>
+      ))
+    }
   </div>
 </SectionShell>
 
 <style>
+  .pillar-grid {
+    display: grid;
+    gap: 3rem 2.5rem;
+  }
+
+  @media (min-width: 48rem) {
+    .pillar-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .pillar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Each mark sits on a soft disc of its own hue, so the three read as a set
+     of three rather than three copies of one. The icon is drawn at display
+     size now that the card around it is gone. */
+  .pillar__mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 4.25rem;
+    height: 4.25rem;
+    border-radius: 999px;
+    color: var(--mark-ink);
+    background: color-mix(in oklab, var(--mark-ink) 12%, transparent);
+  }
+
+  /* Ember for the Canadian leaf, sage for the free-forever tag, and a cooler
+     blue-green for privacy so it does not read as a second sage pillar. */
+  .pillar__mark--canadian {
+    --mark-ink: var(--accent-strong);
+  }
+
+  .pillar__mark--free {
+    --mark-ink: var(--primary);
+  }
+
+  .pillar__mark--private {
+    --mark-ink: oklch(0.48 0.09 232);
+  }
+
+  :global(html[data-theme="dark"]) .pillar__mark--canadian {
+    --mark-ink: var(--accent);
+  }
+
+  :global(html[data-theme="dark"]) .pillar__mark--free {
+    --mark-ink: oklch(0.72 0.08 164);
+  }
+
+  :global(html[data-theme="dark"]) .pillar__mark--private {
+    --mark-ink: oklch(0.7 0.1 232);
+  }
+
+  .pillar__mark :global(.pillar__icon) {
+    width: 2.1rem;
+    height: 2.1rem;
+  }
+
+  .pillar__headline {
+    margin: 1.5rem 0 0;
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: 1.3rem;
+    line-height: 1.2;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .pillar__body {
+    margin: 0.85rem 0 0;
+    max-width: 34ch;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+  }
+
   /* Stagger in CSS — inline style attributes are blocked by the site CSP */
-  .pillar-card:nth-child(2) {
+  .pillar:nth-child(2) {
     --reveal-delay: 100ms;
   }
-  .pillar-card:nth-child(3) {
+
+  .pillar:nth-child(3) {
     --reveal-delay: 200ms;
-  }
-  .pillar-card:nth-child(4) {
-    --reveal-delay: 300ms;
-  }
-
-  /* Gradient-border card */
-  .pillar-card {
-    position: relative;
-    border-radius: 1.6rem;
-    padding: 2px; /* border thickness */
-    background: linear-gradient(
-      145deg,
-      color-mix(in oklab, var(--border) 90%, var(--primary) 10%),
-      color-mix(in oklab, var(--border) 40%, transparent),
-      color-mix(in oklab, var(--border) 70%, var(--primary) 5%)
-    );
-    box-shadow: var(--shadow-elevated);
-  }
-
-  .pillar-card__inner {
-    position: relative;
-    border-radius: calc(1.6rem - 2px);
-    background: var(--surface);
-    padding: 2rem 2rem 1.75rem;
-    height: 100%;
-    overflow: hidden;
-  }
-
-  /* Dark mode refinements */
-  :global(html[data-theme="dark"]) .pillar-card {
-    background: linear-gradient(
-      145deg,
-      color-mix(in oklab, var(--border) 100%, white 8%),
-      color-mix(in oklab, var(--border) 30%, transparent),
-      color-mix(in oklab, var(--border) 80%, white 4%)
-    );
-  }
-
-  :global(html[data-theme="dark"]) .pillar-card__inner {
-    background: color-mix(in oklab, var(--surface) 95%, black 5%);
   }
 </style>

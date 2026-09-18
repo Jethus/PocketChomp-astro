@@ -1,0 +1,160 @@
+---
+import { getEntry } from "astro:content";
+import SectionShell from "./ui/SectionShell.astro";
+
+// The compact version of /plus. The "free, no paywall" argument is the hook
+// the whole site is built on, so it has to be on the homepage and not only
+// behind a nav link. Highlights come from the same content file as the full
+// matrix so the two can't drift.
+const entry = await getEntry("landingFreePremium", "free-premium");
+
+if (!entry) {
+  throw new Error("Could not find PocketChomp free-premium content");
+}
+
+const { eyebrow, headline, description, freeTitle, freeNote, premiumTitle, premiumNote, highlights } =
+  entry.data;
+---
+
+<SectionShell id="pricing" class="border-b border-border" data-reveal-root>
+  <div class="max-w-2xl">
+    <p class="font-heading text-xs font-black uppercase tracking-[0.18em] text-muted-foreground">{eyebrow}</p>
+    <h2 class="fs-xl mt-3 leading-[1.05] text-foreground">{headline}</h2>
+    <p class="mt-5 text-lg leading-relaxed text-muted-foreground">{description}</p>
+  </div>
+
+  <div class="plans mt-10">
+    <article class="plan" data-reveal>
+      <h3 class="plan__name">{freeTitle}</h3>
+      <p class="plan__note">{freeNote}</p>
+      <ul class="plan__list" role="list">
+        {highlights.free.map((item) => <li class="plan__item plan__item--free">{item}</li>)}
+      </ul>
+    </article>
+
+    <article class="plan plan--plus" data-reveal>
+      <h3 class="plan__name">{premiumTitle}</h3>
+      <p class="plan__note">{premiumNote}</p>
+      <p class="plan__lead">Everything in Free, plus:</p>
+      <ul class="plan__list" role="list">
+        {highlights.plus.map((item) => <li class="plan__item plan__item--plus">{item}</li>)}
+      </ul>
+    </article>
+  </div>
+
+  <p class="mt-8">
+    <a href="/plus" class="plans__link">Compare every feature, free versus Plus</a>
+  </p>
+</SectionShell>
+
+<style>
+  .plans {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 48rem) {
+    .plans {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .plan {
+    --plan-tint: var(--primary);
+    padding: 1.75rem;
+    border-radius: 1.6rem;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    box-shadow: var(--shadow-elevated);
+  }
+
+  .plan--plus {
+    --plan-tint: var(--accent-strong);
+    --reveal-delay: 120ms;
+    border-color: color-mix(in oklab, var(--accent) 35%, var(--border));
+    background: color-mix(in oklab, var(--accent) 6%, var(--surface));
+  }
+
+  :global(html[data-theme="dark"]) .plan--plus {
+    --plan-tint: var(--accent);
+  }
+
+  .plan__name {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 900;
+    line-height: 1.1;
+    color: var(--foreground);
+  }
+
+  .plan__note {
+    margin: 0.4rem 0 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .plan__lead {
+    margin: 1.25rem 0 0;
+    font-family: var(--font-heading);
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+  }
+
+  .plan__list {
+    list-style: none;
+    margin: 1rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .plan__item {
+    position: relative;
+    padding-left: 1.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--foreground);
+  }
+
+  /* A check drawn in CSS so the list needs no per-item SVG. */
+  .plan__item::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.2rem;
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--plan-tint) 18%, var(--surface));
+    border: 1px solid color-mix(in oklab, var(--plan-tint) 40%, var(--border));
+  }
+
+  .plan__item::after {
+    content: "";
+    position: absolute;
+    left: 0.36rem;
+    top: 0.42rem;
+    width: 0.32rem;
+    height: 0.55rem;
+    border-right: 2px solid var(--plan-tint);
+    border-bottom: 2px solid var(--plan-tint);
+    transform: rotate(45deg);
+  }
+
+  .plans__link {
+    font-family: var(--font-body);
+    font-weight: 700;
+    color: var(--primary);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .plans__link:hover {
+    color: var(--primary-strong);
+  }
+</style>

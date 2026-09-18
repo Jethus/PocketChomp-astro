@@ -1,0 +1,113 @@
+---
+/**
+ * One FAQ treatment for the whole site: flat rows with a chevron, native
+ * <details> so it works with no JS, is keyboard operable and is announced
+ * correctly. The homepage, the calculators and the comparison pages all
+ * render their questions through this so they stop drifting apart.
+ */
+interface Props {
+  items: { q: string; a: string }[];
+  class?: string;
+}
+
+const { items, class: className = "" } = Astro.props as Props;
+---
+
+<div class:list={["faq-list", className]}>
+  {
+    items.map((item) => (
+      <details class="faq-item" data-reveal>
+        <summary class="faq-item__q">
+          <span>{item.q}</span>
+          <svg
+            class="faq-item__chevron"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="m6 9 6 6 6-6" />
+          </svg>
+        </summary>
+        <div class="faq-item__a">
+          <p>{item.a}</p>
+        </div>
+      </details>
+    ))
+  }
+</div>
+
+<style>
+  .faq-item {
+    border-top: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
+  }
+
+  .faq-item:last-of-type {
+    border-bottom: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
+  }
+
+  /* 44px+ target, whole row clickable. */
+  .faq-item__q {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    min-height: 3.5rem;
+    padding-block: 1rem;
+    cursor: pointer;
+    list-style: none;
+    font-family: var(--font-heading);
+    font-size: 1.02rem;
+    font-weight: 900;
+    line-height: 1.35;
+    color: var(--foreground);
+    transition: color 150ms ease-out;
+  }
+
+  .faq-item__q::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item__q:hover {
+    color: var(--primary);
+  }
+
+  .faq-item__q:focus-visible {
+    outline: 2px solid color-mix(in oklab, var(--primary) 50%, transparent);
+    outline-offset: 3px;
+    border-radius: 0.4rem;
+  }
+
+  .faq-item__chevron {
+    width: 1.2rem;
+    height: 1.2rem;
+    flex: none;
+    color: var(--muted-foreground);
+    transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .faq-item[open] .faq-item__chevron {
+    transform: rotate(180deg);
+  }
+
+  .faq-item__a {
+    padding-bottom: 1.35rem;
+  }
+
+  .faq-item__a p {
+    margin: 0;
+    max-width: 65ch;
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--muted-foreground);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .faq-item__chevron {
+      transition: none;
+    }
+  }
+</style>

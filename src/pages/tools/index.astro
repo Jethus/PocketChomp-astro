@@ -1,0 +1,154 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import SectionShell from "../../components/ui/SectionShell.astro";
+import SignupForm from "../../components/ui/SignupForm.astro";
+
+// Same order the calculator pages use for their cross-links.
+const TOOL_ORDER = [
+  "tdee-calculator",
+  "calorie-deficit-calculator",
+  "macro-calculator",
+  "bmr-calculator",
+];
+const tools = (await getCollection("tools")).sort(
+  (a, b) => TOOL_ORDER.indexOf(a.id) - TOOL_ORDER.indexOf(b.id)
+);
+
+const TITLE = "Free calorie, macro and TDEE calculators";
+const META =
+  "Free calculators for maintenance calories, a realistic deficit, macro splits and BMR. Honest ranges, no account, nothing stored.";
+
+const canonical = new URL("/tools", Astro.site ?? Astro.url).href;
+const listLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: TITLE,
+  url: canonical,
+  itemListElement: tools.map((t, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    name: t.data.h1,
+    url: new URL(`/tools/${t.id}`, Astro.site ?? Astro.url).href,
+  })),
+};
+---
+
+<BaseLayout title={TITLE} description={META}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(listLd)} />
+  </Fragment>
+  <Header />
+  <main id="main">
+    <SectionShell innerClass="max-w-4xl space-y-10">
+      <div>
+        <p class="font-heading text-[0.7rem] font-black uppercase tracking-[0.16em] text-muted-foreground">Free tools</p>
+        <h1 class="fs-xl mt-4 leading-[1.02] text-foreground">Work out your numbers.</h1>
+        <p class="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+          Four calculators, each one honest about how precise a formula can be. Nothing is stored or sent anywhere.
+        </p>
+      </div>
+
+      <ul class="tool-grid" role="list">
+        {
+          tools.map((t) => (
+            <li>
+              <a href={`/tools/${t.id}`} class="tool-card">
+                <span class="tool-card__eyebrow">{t.data.eyebrow}</span>
+                <span class="tool-card__name">{t.data.h1}</span>
+                <span class="tool-card__desc">{t.data.intro}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="cta-panel">
+        <h2 class="fs-m text-foreground">A calculator gets you close. Tracking gets you exact.</h2>
+        <p class="mt-2 max-w-xl text-muted-foreground">
+          PocketChomp checks your intake against your real weight trend. Free, no ads, no account needed. Android beta.
+        </p>
+        <div class="mt-5 max-w-xl">
+          <SignupForm placeholder="you@email.com" buttonText="Join the beta" />
+        </div>
+      </div>
+    </SectionShell>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .tool-grid {
+    list-style: none;
+    margin-block-start: 0;
+    padding: 0;
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 40rem) {
+    .tool-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .tool-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    height: 100%;
+    padding: 1.5rem;
+    border-radius: var(--radius-card);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    box-shadow: var(--shadow-elevated);
+    text-decoration: none;
+    transition:
+      border-color 0.2s ease-out,
+      box-shadow 0.2s ease-out;
+  }
+
+  .tool-card:hover,
+  .tool-card:focus-visible {
+    border-color: color-mix(in oklab, var(--primary) 40%, var(--border));
+    box-shadow: var(--shadow-elevated-lg);
+  }
+
+  .tool-card:focus-visible {
+    outline: 2px solid color-mix(in oklab, var(--primary) 45%, transparent);
+    outline-offset: 2px;
+  }
+
+  .tool-card__eyebrow {
+    font-family: var(--font-heading);
+    font-size: 0.68rem;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+  }
+
+  .tool-card__name {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 900;
+    line-height: 1.2;
+    color: var(--foreground);
+  }
+
+  .tool-card__desc {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--muted-foreground);
+  }
+
+  .cta-panel {
+    border-radius: var(--radius-card);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    padding: 1.75rem;
+    box-shadow: var(--shadow-elevated);
+  }
+</style>

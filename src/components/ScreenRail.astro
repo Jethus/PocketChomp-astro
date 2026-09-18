@@ -10,7 +10,7 @@ if (!railEntry) {
   throw new Error("Could not find PocketChomp screen-rail content");
 }
 
-const { eyebrow, headline, description, dragHint, screens } = railEntry.data;
+const { eyebrow, headline, description, screens } = railEntry.data;
 
 // The track is rendered twice so the marquee can loop seamlessly: the
 // animation slides exactly one copy's width, then restarts on the identical
@@ -33,15 +33,9 @@ const copies = [
       </p>
     </div>
 
-    <p class="mt-6 flex items-center gap-2 text-muted-foreground marquee-hint">
-      <span class="marquee-hint__dot" aria-hidden="true"></span>
-      <span class="font-heading text-[0.6rem] font-black uppercase tracking-[0.14em]">
-        {dragHint}
-      </span>
-    </p>
   </SectionShell>
 
-  <div class="marquee pb-16 sm:pb-20 lg:pb-24" data-marquee>
+  <div class="marquee pb-10 sm:pb-12 lg:pb-14" data-marquee>
     <div class="marquee__viewport">
       <div class="marquee__track">
         {
@@ -55,9 +49,9 @@ const copies = [
                         <Image
                           src={screen.image}
                           alt={copy.hidden ? "" : screen.alt}
-                          width={1080}
-                          widths={[360, 720, 1080]}
-                          quality={85}
+                          width={480}
+                          widths={[240, 360, 480]}
+                          quality={82}
                           sizes="(max-width: 40rem) 58vw, 15rem"
                           loading="lazy"
                           decoding="async"
@@ -66,10 +60,6 @@ const copies = [
                       </PhoneFrame>
                       {screen.tier === "plus" && <span class="marquee__badge">PocketChomp+</span>}
                     </div>
-                    <figcaption class="marquee__caption">
-                      <h3 class="font-heading text-sm font-black leading-tight text-foreground">{screen.title}</h3>
-                      <p class="mt-1.5 text-xs leading-snug text-muted-foreground">{screen.caption}</p>
-                    </figcaption>
                   </figure>
                 </li>
               ))}
@@ -87,8 +77,8 @@ const copies = [
      rather than a boxed carousel. */
   .marquee__viewport {
     overflow: hidden;
-    /* Bottom padding covers the offset cards' extra 1.75rem plus caption slack */
-    padding-block: 1.5rem 3rem;
+    /* Bottom padding covers the offset cards' extra 1.75rem plus shadow. */
+    padding-block: 1.5rem 3.5rem;
     mask-image: linear-gradient(
       to right,
       transparent,
@@ -102,16 +92,23 @@ const copies = [
     display: flex;
     width: max-content;
     animation: marquee-scroll 70s linear infinite;
+    will-change: transform;
+    backface-visibility: hidden;
   }
 
-  .marquee:hover .marquee__track,
-  .marquee:focus-within .marquee__track {
+  /* Off-screen the rail should cost nothing. The compositor keeps ticking a
+     running animation even when it is scrolled out of view, so the section
+     drives the animation only while it actually intersects the viewport. */
+  :global(html.js-marquee) .marquee:not([data-visible]) .marquee__track {
     animation-play-state: paused;
   }
 
   .marquee__group {
     display: flex;
     flex: none;
+    /* flex-start so the even-card margin offset reads as a vertical stagger
+       rather than stretching those cards taller than their neighbours. */
+    align-items: flex-start;
     gap: 1.5rem;
     padding-inline-end: 1.5rem;
     list-style: none;
@@ -120,15 +117,18 @@ const copies = [
     padding-inline-start: 0;
   }
 
+  /* Layout containment only. Paint containment clipped the phones' drop
+     shadows to the item box. */
   .marquee__item {
     flex: none;
     width: min(58vw, 15rem);
+    contain: layout;
   }
 
   /* Alternate cards ride slightly lower so the strip has a rhythm instead of
      a flat row of identical phones. */
   .marquee__item:nth-child(even) {
-    transform: translateY(1.75rem);
+    margin-block-start: 1.75rem;
   }
 
   .marquee__card {
@@ -137,7 +137,15 @@ const copies = [
 
   .marquee__shot {
     position: relative;
-    filter: drop-shadow(0 22px 30px rgb(0 0 0 / 0.22));
+  }
+
+  /* A drop-shadow filter here re-rasterizes the blurred alpha of every phone
+     on every animation frame, which is what made the rail stutter. The plate
+     is an opaque rounded rectangle, so a plain box-shadow on the image is
+     visually equivalent and composites for free. */
+  .marquee__shot :global(img) {
+    border-radius: 1.6rem;
+    box-shadow: 0 22px 30px rgb(0 0 0 / 0.22);
   }
 
   .marquee__phone {
@@ -160,32 +168,12 @@ const copies = [
     box-shadow: var(--shadow-elevated);
   }
 
-  .marquee__caption {
-    margin-top: 1rem;
-    padding-inline: 0.25rem;
-  }
-
-  .marquee-hint__dot {
-    width: 0.45rem;
-    height: 0.45rem;
-    border-radius: 999px;
-    background: var(--primary);
-    animation: marquee-pulse 2.4s ease-in-out infinite;
-  }
-
   @keyframes marquee-scroll {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
     to {
-      transform: translateX(-50%);
-    }
-  }
-
-  @keyframes marquee-pulse {
-    0%,
-    100% {
-      box-shadow: 0 0 0 0 color-mix(in oklab, var(--primary) 55%, transparent);
-    }
-    50% {
-      box-shadow: 0 0 0 0.32rem color-mix(in oklab, var(--primary) 0%, transparent);
+      transform: translate3d(-50%, 0, 0);
     }
   }
 
@@ -216,8 +204,5 @@ const copies = [
       scroll-snap-align: start;
     }
 
-    .marquee-hint__dot {
-      animation: none;
-    }
   }
 </style>

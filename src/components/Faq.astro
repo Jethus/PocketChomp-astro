@@ -1,0 +1,40 @@
+---
+import { getEntry } from "astro:content";
+import SectionShell from "./ui/SectionShell.astro";
+import FaqList from "./ui/FaqList.astro";
+
+const entry = await getEntry("landingFaq", "faq");
+
+if (!entry) {
+  throw new Error("Could not find PocketChomp FAQ content");
+}
+
+const { headline, items } = entry.data;
+
+// Same shape the blog and tools pages emit, so the homepage finally carries
+// structured data too.
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: items.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+};
+---
+
+<section id="faq" class="border-b border-border">
+  <SectionShell innerClass="faq-shell" data-reveal-root>
+    <h2 class="fs-xl leading-[1.05] text-foreground">{headline}</h2>
+    <FaqList items={items} class="mt-8" />
+  </SectionShell>
+
+  <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
+</section>
+
+<style>
+  .faq-shell {
+    max-width: 64ch;
+  }
+</style>

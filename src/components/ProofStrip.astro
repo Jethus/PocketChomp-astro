@@ -11,14 +11,16 @@ const { items } = entry.data;
 ---
 
 <section aria-label="PocketChomp at a glance" class="border-b border-border" data-reveal-root>
-  <div class="mx-auto grid w-full max-w-7xl grid-cols-1 gap-6 px-6 py-8 sm:grid-cols-3 md:py-10">
+  <div class="proof-grid mx-auto w-full max-w-7xl gap-6 px-6 py-8 md:py-10">
     {
-      items.map((item, index) => (
-        <div class="proof-item text-center sm:text-left" data-reveal>
-          <p class="font-heading fs-m font-black uppercase tracking-tight text-foreground">
+      items.map((item) => (
+        <div class="proof-item" data-reveal>
+          <p class="proof-item__value font-heading font-black uppercase text-foreground">
             {item.value}
           </p>
-          <p class="mt-1 text-sm leading-relaxed text-muted-foreground">{item.label}</p>
+          {item.label && (
+            <p class="mt-1 text-sm leading-relaxed text-muted-foreground">{item.label}</p>
+          )}
         </div>
       ))
     }
@@ -26,12 +28,47 @@ const { items } = entry.data;
 </section>
 
 <style>
+  /* auto-fit rather than a fixed column count, so three or four items both
+     fill the row evenly instead of leaving an orphan. */
+  .proof-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+  }
+
+  @media (min-width: 48rem) {
+    .proof-grid {
+      grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    }
+  }
+
+  /* Bare claims, so they are centred in their cell rather than ragged-left
+     under a missing subtitle. */
+  .proof-item {
+    text-align: center;
+    min-width: 0;
+  }
+
+  /* One line each. fs-m is fluid and grew wide enough that "60,000+ Canadian"
+     broke across two lines while its neighbours stayed on one, which made the
+     row look ragged. Scaling with the viewport keeps all three level. */
+  .proof-item__value {
+    font-size: clamp(1rem, 0.6rem + 1.55vw, 1.6rem);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+
   /* Stagger in CSS — inline style attributes are blocked by the site CSP */
   .proof-item:nth-child(2) {
-    --reveal-delay: 120ms;
+    --reveal-delay: 100ms;
   }
 
   .proof-item:nth-child(3) {
-    --reveal-delay: 240ms;
+    --reveal-delay: 200ms;
+  }
+
+  .proof-item:nth-child(4) {
+    --reveal-delay: 300ms;
   }
 </style>

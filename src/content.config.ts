@@ -57,7 +57,8 @@ const landingProofStrip = defineCollection({
       .array(
         z.object({
           value: z.string(),
-          label: z.string(),
+          /** Optional supporting line. The strip reads as bare claims without it. */
+          label: z.string().optional(),
         })
       )
       .min(3)
@@ -101,15 +102,14 @@ const landingValuePillars = defineCollection({
       items: z
         .array(
           z.object({
-            eyebrow: z.string(),
             headline: z.string(),
             description: z.string(),
-            icon: z.enum(["shield", "ban", "cloud", "maple"]),
-            tone: z.enum(["default", "canadian"]).default("default"),
-            chips: z.array(z.string()),
+            icon: z.enum(["maple", "tag", "shield"]),
+            /** Each pillar carries its own hue so the three read as a set. */
+            tone: z.enum(["canadian", "free", "private"]),
           })
         )
-        .length(4),
+        .length(3),
     }),
 });
 
@@ -119,7 +119,6 @@ const landingBeyondCalorie = defineCollection({
     z.object({
       headline: z.string(),
       description: z.string(),
-      nutrients: z.array(z.string()).length(4),
       panelLabel: z.string(),
       image: image(),
       imageAlt: z.string(),
@@ -143,12 +142,65 @@ const landingFreePremium = defineCollection({
     eyebrow: z.string(),
     headline: z.string(),
     description: z.string(),
+    /** How the app is paid for. Trust device in place of the user numbers a
+        pre-launch site cannot cite honestly. */
+    funding: z.string(),
     freeTitle: z.string(),
     freeNote: z.string(),
-    freeItems: z.array(z.string()),
     premiumTitle: z.string(),
     premiumNote: z.string(),
-    premiumItems: z.array(z.string()),
+    /** Short lists for the homepage strip. The full matrix lives on /plus. */
+    highlights: z.object({
+      free: z.array(z.string()).min(3).max(7),
+      plus: z.array(z.string()).min(3).max(6),
+    }),
+    /**
+     * Comparison matrix rows. Each cell is either a boolean (rendered as a
+     * check or a dash) or a short string when the tiers differ by degree
+     * rather than by presence — "2 at a time" vs "Unlimited" says more than
+     * a cross would. Keep every paid row traceable to a real gate in the app
+     * (see the verified gate list before adding one).
+     */
+    comparison: z.array(
+      z.object({
+        feature: z.string(),
+        free: z.union([z.boolean(), z.string()]),
+        plus: z.union([z.boolean(), z.string()]),
+      })
+    ),
+  }),
+});
+
+const landingSupport = defineCollection({
+  loader: glob({ pattern: "support.md", base: "./src/content/landing" }),
+  schema: z.object({
+    eyebrow: z.string(),
+    headline: z.string(),
+    /** Lead paragraph. `{email}` is replaced with a mailto link at render. */
+    intro: z.string(),
+    email: z.string().email(),
+    topics: z
+      .array(z.object({ heading: z.string(), body: z.string() }))
+      .min(1),
+    stuckHeadline: z.string(),
+    /** `{email}` is replaced with a mailto link at render. */
+    stuckBody: z.string(),
+  }),
+});
+
+const landingFaq = defineCollection({
+  loader: glob({ pattern: "faq.md", base: "./src/content/landing" }),
+  schema: z.object({
+    headline: z.string(),
+    items: z
+      .array(
+        z.object({
+          q: z.string(),
+          /** Plain text: it is rendered as-is and also emitted as FAQPage JSON-LD. */
+          a: z.string(),
+        })
+      )
+      .min(3),
   }),
 });
 
@@ -275,7 +327,6 @@ const landingScreenRail = defineCollection({
       eyebrow: z.string(),
       headline: z.string(),
       description: z.string(),
-      dragHint: z.string(),
       screens: z
         .array(
           z.object({
@@ -303,6 +354,8 @@ export const collections = {
   landingSignupCta,
   landingThanks,
   landingFreePremium,
+  landingFaq,
+  landingSupport,
   landingFooter,
   landingBlogMasthead,
   landingBlogNow,

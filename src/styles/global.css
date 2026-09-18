@@ -126,6 +126,12 @@
     --shadow-elevated-lg: 0 24px 54px -32px rgb(18 21 18 / 0.22);
     --shadow-elevated-hover: 0 12px 28px -22px rgb(18 21 18 / 0.16);
 
+    /* Button hover glows: a tinted halo under the button, strong enough to
+       read at a glance. Colour-matched so each variant energises in its own
+       hue instead of sharing one neutral shadow. */
+    --btn-glow-primary: 0 10px 26px -10px color-mix(in oklab, var(--primary) 62%, transparent);
+    --btn-glow-accent: 0 10px 26px -10px color-mix(in oklab, var(--accent) 62%, transparent);
+
     --shadow-brutal: var(--shadow-elevated);
     --shadow-brutal-lg: var(--shadow-elevated-lg);
     --shadow-brutal-hover: var(--shadow-elevated-hover);

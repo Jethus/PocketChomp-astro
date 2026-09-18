@@ -4,8 +4,8 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import SectionShell from "../../components/ui/SectionShell.astro";
-import EyebrowPill from "../../components/ui/EyebrowPill.astro";
 import SignupForm from "../../components/ui/SignupForm.astro";
+import FaqList from "../../components/ui/FaqList.astro";
 
 export async function getStaticPaths() {
   const entries = await getCollection("comparisons");
@@ -89,7 +89,7 @@ const schema = {
   <main>
     <SectionShell innerClass="max-w-4xl space-y-10">
       <div>
-        <EyebrowPill>{eyebrow}</EyebrowPill>
+        <p class="font-heading text-[0.7rem] font-black uppercase tracking-[0.16em] text-muted-foreground">{eyebrow}</p>
         <h1 class="fs-xl mt-4 leading-[1.02] text-foreground">{h1}</h1>
         <p class="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">
           {intro}
@@ -156,28 +156,13 @@ const schema = {
         <h2 class="fs-m text-foreground">{ctaHeadline}</h2>
         <p class="mt-2 max-w-xl text-muted-foreground">{ctaNote}</p>
         <div class="mt-5 max-w-xl">
-          <SignupForm placeholder="you@email.com" buttonText="Get early access" />
+          <SignupForm placeholder="you@email.com" buttonText="Join the beta" />
         </div>
       </div>
 
       <div>
         <h2 class="fs-m text-foreground">Frequently asked questions</h2>
-        <div class="faq-list mt-5">
-          {faq.map((item) => (
-            <details class="faq-item">
-              <summary class="faq-item__q">
-                <span>{item.q}</span>
-                <span class="faq-item__icon" aria-hidden="true">
-                  <svg viewBox="0 0 512 512" fill="none" stroke="currentColor" stroke-width="48" stroke-linecap="round">
-                    <line x1="256" y1="112" x2="256" y2="400" />
-                    <line x1="112" y1="256" x2="400" y2="256" />
-                  </svg>
-                </span>
-              </summary>
-              <p class="faq-item__a">{item.a}</p>
-            </details>
-          ))}
-        </div>
+        <FaqList items={faq} class="mt-5" />
       </div>
 
       <nav class="tool-links" aria-label="Calculators">
@@ -387,64 +372,6 @@ const schema = {
   .prose-body :global(em) {
     font-size: 0.88rem;
     opacity: 0.85;
-  }
-
-  .faq-list {
-    display: grid;
-    gap: 0.9rem;
-  }
-
-  .faq-item {
-    border: 1px solid var(--border);
-    border-radius: 1.2rem;
-    background: var(--surface);
-    box-shadow: var(--shadow-elevated);
-  }
-
-  .faq-item__q {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 1.1rem 1.4rem;
-    cursor: pointer;
-    list-style: none;
-    font-weight: 700;
-    color: var(--foreground);
-  }
-
-  .faq-item__q::-webkit-details-marker {
-    display: none;
-  }
-
-  .faq-item__icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.8rem;
-    height: 1.8rem;
-    flex-shrink: 0;
-    border-radius: 999px;
-    background: color-mix(in oklab, var(--primary) 12%, var(--surface));
-    color: var(--primary);
-    transition: transform 0.2s ease;
-  }
-
-  .faq-item__icon svg {
-    width: 0.85rem;
-    height: 0.85rem;
-  }
-
-  .faq-item[open] .faq-item__icon {
-    transform: rotate(45deg);
-  }
-
-  .faq-item__a {
-    margin: 0;
-    padding: 0 1.4rem 1.25rem;
-    line-height: 1.6;
-    color: var(--muted-foreground);
-    max-width: 65ch;
   }
 
   .tool-links ul {

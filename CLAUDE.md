@@ -37,7 +37,7 @@ Content lives under `src/content/` and is defined in `src/content.config.ts`.
 
 Landing page sections are modeled as singleton collections in `src/content/landing/`
 (hero, proof strip, value pillars, modular feature, beyond-calorie, screen rail,
-free/premium, signup CTA, thanks, footer, blog masthead and blog "now"). Each has a
+free/premium, FAQ, support, signup CTA, thanks, footer, blog masthead and blog "now"). Each has a
 `landingX` collection in `src/content.config.ts` and one Markdown file.
 
 Repeatable content collections live separately:
@@ -54,15 +54,24 @@ If a new landing section is added, prefer creating a new collection entry and sc
 ### Render Flow
 
 The homepage at `src/pages/index.astro` is intentionally thin. It composes section
-components only (Hero, ProofStrip, ValuePillars, ModularFeature, BeyondCalorie,
-ScreenRail, FreePremium, ClosingCTA, FieldNotesTeaser). `SocialProof` exists but is
+components only (Hero, ProofStrip, ScreenRail, ModularFeature, ValuePillars,
+BeyondCalorie, Faq, FieldNotesTeaser, ClosingCTA). `SocialProof` exists but is
 deliberately unmounted until real testimonials exist.
+
+Pricing is deliberately NOT on the homepage: the free-vs-Plus argument lives on `/plus`
+and in the FAQ. `PlanStrip` is a built but unmounted compact version of that card pair
+(same `src/content/landing/free-premium.md` source as the `/plus` matrix), kept for if
+that decision is ever revisited. FAQ lists everywhere use
+`src/components/ui/FaqList.astro` so the homepage, calculators and comparison pages
+share one treatment.
 
 Each section component fetches its own content with `getEntry()` or `getCollection()`. Keep that pattern unless there is a strong architectural reason to centralize data loading.
 
 ### Route Patterns
 
-- `src/pages/tools/[slug].astro` renders the calculator pages from the `tools` collection.
+- `src/pages/tools/[slug].astro` renders the calculator pages from the `tools` collection;
+  `src/pages/tools/index.astro` lists them and is the header's "Calculators" target.
+- `/support` reads the `landingSupport` singleton; `{email}` in its copy becomes a mailto link.
 - `src/pages/blog/[slug].astro` and `src/pages/blog/index.astro` exist for blog content.
 - `/thanks` is the Kit signup redirect target and is `noindex`; `/404` is a static page.
 

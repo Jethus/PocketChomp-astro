@@ -13,10 +13,14 @@ groups:
         href: /tools/bmr-calculator
   - heading: Learn
     links:
+      - label: PocketChomp+
+        href: /plus
       - label: vs MyFitnessPal
         href: /vs/myfitnesspal
       - label: Field Notes
         href: /blog
+      - label: Support
+        href: /support
   - heading: Legal
     links:
       - label: Privacy Policy
