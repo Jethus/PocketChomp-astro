@@ -3,7 +3,7 @@
 
 export const SITE_TITLE = "PocketChomp";
 export const SITE_DESCRIPTION =
-  "The free calorie counter built for Canadians. Unlimited barcode scanning, 130,000+ foods with 60,000+ from Canadian sources, every micronutrient, and a food log that stays on your device by default. No ads.";
+  "Created by a Canadian, for Canadians. A free calorie counter that doesn't paywall the basics. Real Canadian products, data kept on your device, and goals you customize, even hiding calories.";
 
 /**
  * Beta signup list. The form posts straight to Kit (ConvertKit) with no

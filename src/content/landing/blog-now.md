@@ -1,10 +1,10 @@
 ---
-headline: "Closed beta on Android."
-body: "Internal Play builds are in testers' hands. Working through Health Connect, fresh screenshots, and the launch plumbing."
+headline: "Submitted to Google Play."
+body: "Version 0.6.1 went in for its first Play review this week. Closed testers are on it while the review runs. Next up: exercise as editable diary rows, and the photo log picking from your album."
 items:
-  - "Play internal testing, build 0.2.5"
-  - "Food insights ranked per serving"
-  - "Welcome screen choreography"
-  - "Fresh app screenshots"
-  - "Beta email list"
+  - "First Play review submitted, 0.6.1"
+  - "Play Store screenshots and feature graphic"
+  - "Health Connect declarations"
+  - "Free and paid line written down, in public"
+  - "Exercise diary rows, spec'd"
 ---

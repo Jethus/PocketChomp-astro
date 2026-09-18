@@ -11,6 +11,14 @@ if (!railEntry) {
 }
 
 const { eyebrow, headline, description, dragHint, screens } = railEntry.data;
+
+// The track is rendered twice so the marquee can loop seamlessly: the
+// animation slides exactly one copy's width, then restarts on the identical
+// second copy. Only the first copy is exposed to assistive tech.
+const copies = [
+  { key: "a", hidden: false },
+  { key: "b", hidden: true },
+];
 ---
 
 <section id="screens" class="border-b border-border">
@@ -25,291 +33,190 @@ const { eyebrow, headline, description, dragHint, screens } = railEntry.data;
       </p>
     </div>
 
-    <div class="mt-6 flex items-center gap-2 text-muted-foreground">
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        class="h-4 w-4 rail-hint__icon"
-        aria-hidden="true"
-      >
-        <path d="M4 12h16" />
-        <path d="M8 8l-4 4 4 4" />
-        <path d="M16 8l4 4-4 4" />
-      </svg>
+    <p class="mt-6 flex items-center gap-2 text-muted-foreground marquee-hint">
+      <span class="marquee-hint__dot" aria-hidden="true"></span>
       <span class="font-heading text-[0.6rem] font-black uppercase tracking-[0.14em]">
         {dragHint}
       </span>
-    </div>
+    </p>
   </SectionShell>
 
-  <div class="rail-bleed pb-16 sm:pb-20 lg:pb-24">
-    <ul
-      class="rail"
-      data-rail
-      tabindex="0"
-      role="list"
-      aria-label="PocketChomp app screens"
-    >
-      {
-        screens.map((screen) => (
-          <li class="rail__item">
-            <figure class="rail__card">
-              <div class="rail__shot">
-                <PhoneFrame class="rail__phone">
-                  <Image
-                    src={screen.image}
-                    alt={screen.alt}
-                    widths={[320, 480, 640]}
-                    sizes="(max-width: 40rem) 62vw, 17rem"
-                    loading="lazy"
-                    decoding="async"
-                    draggable="false"
-                  />
-                </PhoneFrame>
-                {screen.tier === "plus" && (
-                  <span class="rail__badge">PocketChomp+</span>
-                )}
-              </div>
-              <figcaption class="rail__caption">
-                <h3 class="font-heading text-base font-black leading-tight text-foreground">
-                  {screen.title}
-                </h3>
-                <p class="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {screen.caption}
-                </p>
-              </figcaption>
-            </figure>
-          </li>
-        ))
-      }
-    </ul>
+  <div class="marquee pb-16 sm:pb-20 lg:pb-24" data-marquee>
+    <div class="marquee__viewport">
+      <div class="marquee__track">
+        {
+          copies.map((copy) => (
+            <ul class="marquee__group" role="list" aria-hidden={copy.hidden} aria-label={copy.hidden ? undefined : "PocketChomp app screens"}>
+              {screens.map((screen) => (
+                <li class="marquee__item">
+                  <figure class="marquee__card">
+                    <div class="marquee__shot">
+                      <PhoneFrame class="marquee__phone">
+                        <Image
+                          src={screen.image}
+                          alt={copy.hidden ? "" : screen.alt}
+                          width={1080}
+                          widths={[360, 720, 1080]}
+                          quality={85}
+                          sizes="(max-width: 40rem) 58vw, 15rem"
+                          loading="lazy"
+                          decoding="async"
+                          draggable="false"
+                        />
+                      </PhoneFrame>
+                      {screen.tier === "plus" && <span class="marquee__badge">PocketChomp+</span>}
+                    </div>
+                    <figcaption class="marquee__caption">
+                      <h3 class="font-heading text-sm font-black leading-tight text-foreground">{screen.title}</h3>
+                      <p class="mt-1.5 text-xs leading-snug text-muted-foreground">{screen.caption}</p>
+                    </figcaption>
+                  </figure>
+                </li>
+              ))}
+            </ul>
+          ))
+        }
+      </div>
+    </div>
   </div>
 </section>
 
-<script>
-  // Drag-to-pan. Native scroll (wheel, trackpad, touch, keyboard) already
-  // works on the overflow container — this only adds mouse dragging, so
-  // touch/pen pointers are ignored to avoid fighting native momentum.
-  const rail = document.querySelector<HTMLElement>("[data-rail]");
-
-  if (rail) {
-    let startX = 0;
-    let startScroll = 0;
-    let pointerId: number | null = null;
-    let dragged = false;
-
-    const DRAG_THRESHOLD = 4;
-
-    const onPointerDown = (event: PointerEvent) => {
-      if (event.pointerType !== "mouse" || event.button !== 0) return;
-
-      pointerId = event.pointerId;
-      startX = event.clientX;
-      startScroll = rail.scrollLeft;
-      dragged = false;
-      rail.classList.add("is-grabbing");
-    };
-
-    const onPointerMove = (event: PointerEvent) => {
-      if (pointerId === null || event.pointerId !== pointerId) return;
-
-      const delta = event.clientX - startX;
-
-      if (!dragged && Math.abs(delta) > DRAG_THRESHOLD) {
-        dragged = true;
-        // Capture only once dragging is real, so plain clicks stay clicks
-        rail.setPointerCapture(pointerId);
-        // Snap fights a drag: mid-drag it jitters, and re-enabling it on
-        // release springs a short drag back to where it started. Once the
-        // visitor has shown they drag with a mouse, leave it off; touch and
-        // wheel users never reach this branch and keep native snapping.
-        rail.style.scrollSnapType = "none";
-      }
-
-      if (dragged) {
-        event.preventDefault();
-        rail.scrollLeft = startScroll - delta;
-      }
-    };
-
-    const endDrag = (event: PointerEvent) => {
-      if (pointerId === null || event.pointerId !== pointerId) return;
-
-      if (rail.hasPointerCapture(pointerId)) {
-        rail.releasePointerCapture(pointerId);
-      }
-
-      rail.classList.remove("is-grabbing");
-      pointerId = null;
-    };
-
-    rail.addEventListener("pointerdown", onPointerDown);
-    rail.addEventListener("pointermove", onPointerMove);
-    rail.addEventListener("pointerup", endDrag);
-    rail.addEventListener("pointercancel", endDrag);
-
-    // Suppress the click that follows a drag so cards stay non-interactive
-    rail.addEventListener(
-      "click",
-      (event) => {
-        if (dragged) {
-          event.preventDefault();
-          event.stopPropagation();
-        }
-      },
-      true
-    );
-
-    rail.addEventListener("dragstart", (event) => event.preventDefault());
-  }
-</script>
-
 <style>
-  /* Full-bleed track: the rail runs edge to edge, but the first card lines
-     up with the SectionShell gutter so it reads as part of the column */
-  .rail-bleed {
-    --rail-gutter: max(1.5rem, calc((100vw - 90rem) / 2 + 1.5rem));
+  /* Full-bleed viewport. The track is wider than the screen on purpose: cards
+     run off both edges and fade out, so the section reads as a moving strip
+     rather than a boxed carousel. */
+  .marquee__viewport {
+    overflow: hidden;
+    /* Bottom padding covers the offset cards' extra 1.75rem plus caption slack */
+    padding-block: 1.5rem 3rem;
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 6rem,
+      black calc(100% - 6rem),
+      transparent
+    );
   }
 
-  .rail {
+  .marquee__track {
     display: flex;
-    gap: 1.25rem;
-    overflow-x: auto;
-    /* proximity, not mandatory: a short drag must not spring back */
-    scroll-snap-type: x proximity;
-    scroll-padding-left: var(--rail-gutter);
-    padding-inline: var(--rail-gutter);
-    padding-block: 0.5rem;
-    cursor: grab;
-    /* Both axes: pan-y alone forbids horizontal touch scrolling */
-    touch-action: pan-x pan-y;
-    scrollbar-width: none;
+    width: max-content;
+    animation: marquee-scroll 70s linear infinite;
+  }
+
+  .marquee:hover .marquee__track,
+  .marquee:focus-within .marquee__track {
+    animation-play-state: paused;
+  }
+
+  .marquee__group {
+    display: flex;
+    flex: none;
+    gap: 1.5rem;
+    padding-inline-end: 1.5rem;
     list-style: none;
     margin: 0;
+    padding-block: 0;
+    padding-inline-start: 0;
   }
 
-  .rail::-webkit-scrollbar {
-    display: none;
+  .marquee__item {
+    flex: none;
+    width: min(58vw, 15rem);
   }
 
-  .rail:focus-visible {
-    outline: 2px solid var(--primary);
-    outline-offset: 4px;
-    border-radius: 1rem;
+  /* Alternate cards ride slightly lower so the strip has a rhythm instead of
+     a flat row of identical phones. */
+  .marquee__item:nth-child(even) {
+    transform: translateY(1.75rem);
   }
 
-  .rail.is-grabbing {
-    cursor: grabbing;
-    /* Text selection mid-drag makes the pan feel broken */
-    user-select: none;
-  }
-
-  .rail__item {
-    flex: 0 0 auto;
-    scroll-snap-align: start;
-    /* A screenshot has to be legible or it is decoration. At 17rem the app UI
-       was unreadable, so cards are wider and fewer are visible at once — the
-       partially-cut third card still cues that the rail scrolls. */
-    width: min(78vw, 23rem);
-  }
-
-  @media (min-width: 64rem) {
-    .rail__item {
-      width: 25rem;
-    }
-  }
-
-  .rail__card {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+  .marquee__card {
     margin: 0;
   }
 
-  /* The whole screenshot sits inside a phone frame; nothing is cropped */
-  .rail__shot {
+  .marquee__shot {
     position: relative;
+    filter: drop-shadow(0 22px 30px rgb(0 0 0 / 0.22));
+  }
+
+  .marquee__phone {
     width: 100%;
   }
 
-  .rail__phone {
-    width: 100%;
-  }
-
-  .rail__badge {
+  .marquee__badge {
     position: absolute;
-    /* Sits on the frame bezel corner, clear of the status bar */
-    top: 1.6rem;
-    right: 1.1rem;
-    padding: 0.3rem 0.65rem;
+    top: 0.9rem;
+    right: 0.75rem;
+    padding: 0.25rem 0.55rem;
     border-radius: 999px;
     background: var(--accent-strong);
     color: white;
     font-family: var(--font-heading);
-    font-size: 0.6rem;
+    font-size: 0.5rem;
     font-weight: 900;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     box-shadow: var(--shadow-elevated);
   }
 
-  /* The caption sits on a surface tied to the phone above it, so a card reads
-     as one object rather than a screenshot with loose text underneath. */
-  .rail__caption {
-    margin-top: 1.25rem;
-    padding: 1.15rem 1.25rem 1.3rem;
-    border-radius: 1.1rem;
-    border: 1px solid var(--border);
-    background: var(--surface);
-    flex: 1;
+  .marquee__caption {
+    margin-top: 1rem;
+    padding-inline: 0.25rem;
   }
 
-  .rail__caption p {
-    max-width: 34ch;
+  .marquee-hint__dot {
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 999px;
+    background: var(--primary);
+    animation: marquee-pulse 2.4s ease-in-out infinite;
   }
 
-  /* Reveal stagger lives in CSS — CSP (style-src, no unsafe-inline) blocks
-     inline style attributes site-wide, so never pass --reveal-delay inline */
-  .rail__item:nth-child(1) {
-    --reveal-delay: 0ms;
-  }
-  .rail__item:nth-child(2) {
-    --reveal-delay: 70ms;
-  }
-  .rail__item:nth-child(3) {
-    --reveal-delay: 140ms;
-  }
-  .rail__item:nth-child(4) {
-    --reveal-delay: 210ms;
-  }
-  .rail__item:nth-child(n + 5) {
-    --reveal-delay: 280ms;
+  @keyframes marquee-scroll {
+    to {
+      transform: translateX(-50%);
+    }
   }
 
-  .rail-hint__icon {
-    animation: rail-nudge 2.6s ease-in-out infinite;
-  }
-
-  @keyframes rail-nudge {
+  @keyframes marquee-pulse {
     0%,
     100% {
-      transform: translateX(0);
+      box-shadow: 0 0 0 0 color-mix(in oklab, var(--primary) 55%, transparent);
     }
     50% {
-      transform: translateX(0.2rem);
+      box-shadow: 0 0 0 0.32rem color-mix(in oklab, var(--primary) 0%, transparent);
     }
   }
 
+  /* Reduced motion: no auto-scroll. The strip becomes an ordinary horizontal
+     scroller and the duplicate copy is dropped so nothing repeats. */
   @media (prefers-reduced-motion: reduce) {
-    .rail {
-      scroll-behavior: auto;
+    .marquee__viewport {
+      overflow-x: auto;
+      scroll-snap-type: x proximity;
+      scrollbar-width: none;
+      mask-image: none;
+      padding-inline: 1.5rem;
     }
 
-    .rail-hint__icon {
+    .marquee__viewport::-webkit-scrollbar {
+      display: none;
+    }
+
+    .marquee__track {
+      animation: none;
+    }
+
+    .marquee__group[aria-hidden="true"] {
+      display: none;
+    }
+
+    .marquee__item {
+      scroll-snap-align: start;
+    }
+
+    .marquee-hint__dot {
       animation: none;
     }
   }

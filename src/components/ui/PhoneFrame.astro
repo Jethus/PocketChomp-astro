@@ -1,10 +1,11 @@
 ---
-import { getImage } from "astro:assets";
-import androidFrameDark from "../../assets/png/android-frame-dark.png";
-import androidFrameLight from "../../assets/png/android-frame-light.png";
-
+// The screen images are "plates" built by scripts/build-screens.mjs: the
+// native 1344x2992 capture already composited into the Pixel 8 Pro emulator
+// skin at its 1:1 window, on a transparent canvas the size of the skin.
+// There is no separate frame overlay to line up any more; this wrapper only
+// sizes the image and keeps the rail's slot API.
 interface Props extends astroHTML.JSX.HTMLAttributes {
-  /** Screen image URL. Ignored when a screen element is passed as the default slot. */
+  /** Plate image URL. Ignored when a plate element is passed as the default slot. */
   src?: string;
   alt?: string;
   loading?: "eager" | "lazy";
@@ -12,100 +13,22 @@ interface Props extends astroHTML.JSX.HTMLAttributes {
 
 const { src, alt = "", class: className = "", loading = "lazy", ...rest } = Astro.props as Props;
 const hasSlottedScreen = Astro.slots.has("default");
-
-const [frameLight, frameDark] = await Promise.all([
-  getImage({ src: androidFrameLight, width: 640, format: "webp" }),
-  getImage({ src: androidFrameDark, width: 640, format: "webp" }),
-]);
 ---
 
-<div {...rest} class:list={["phone-frame relative", className]}>
-  <img src={frameLight.src} alt="" class="phone-frame__spacer phone-frame__spacer--light" aria-hidden="true" loading={loading} />
-  <img src={frameDark.src} alt="" class="phone-frame__spacer phone-frame__spacer--dark" aria-hidden="true" loading={loading} />
+<div {...rest} class:list={["phone-frame", className]}>
   {hasSlottedScreen ? (
-    <div class="phone-frame__screen phone-frame__screen--slot">
-      <slot />
-    </div>
+    <slot />
   ) : (
-    <img src={src} alt={alt} class="phone-frame__screen" loading={loading} />
+    <img src={src} alt={alt} class="phone-frame__plate" loading={loading} />
   )}
-  <img src={frameLight.src} alt="" class="phone-frame__top phone-frame__top--light" aria-hidden="true" loading={loading} />
-  <img src={frameDark.src} alt="" class="phone-frame__top phone-frame__top--dark" aria-hidden="true" loading={loading} />
 </div>
 
 <style>
-  /* In-flow spacer frame — invisible, just sets container height */
-  .phone-frame__spacer {
+  .phone-frame :global(img) {
     display: block;
     width: 100%;
     height: auto;
-    visibility: hidden;
-  }
-
-  /* Light mode spacer: dark frame sets height, light frame hidden */
-  .phone-frame__spacer--light {
-    display: none;
-  }
-
-  /* Geometry comes from --phone-screen-* in global.css so this and Hero.astro
-     cannot drift apart. See that block for why the current values are eye-tuned
-     and what a frame swap involves. */
-  .phone-frame__screen {
-    position: absolute;
-    top: var(--phone-screen-top);
-    left: var(--phone-screen-left);
-    width: var(--phone-screen-width);
-    height: var(--phone-screen-height);
-    border-radius: 2.4rem;
-    object-fit: cover;
-    object-position: top;
-  }
-
-  /* Slotted screen (e.g. <Image>) fills the same window as the plain img */
-  .phone-frame__screen--slot {
-    overflow: hidden;
-  }
-
-  .phone-frame__screen--slot :global(img) {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top;
     -webkit-user-drag: none;
     user-select: none;
-  }
-
-  /* Visible frame rendered on top of screen */
-  .phone-frame__top {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    pointer-events: none;
-  }
-
-  /* Light mode: show dark frame on top */
-  .phone-frame__top--light {
-    display: none;
-  }
-
-  /* Dark mode: show light (silver) frame on top, hide dark overlay */
-  :global(html[data-theme="dark"]) .phone-frame__top--light {
-    display: block;
-  }
-
-  :global(html[data-theme="dark"]) .phone-frame__top--dark {
-    display: none;
-  }
-
-  /* Spacer: dark mode uses light frame for height reference */
-  :global(html[data-theme="dark"]) .phone-frame__spacer--dark {
-    display: none;
-  }
-
-  :global(html[data-theme="dark"]) .phone-frame__spacer--light {
-    display: block;
   }
 </style>

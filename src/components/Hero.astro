@@ -3,21 +3,20 @@ import { getEntry } from "astro:content";
 import { getImage } from "astro:assets";
 import Button from "./ui/Button.astro";
 import SectionShell from "./ui/SectionShell.astro";
-import androidFrameDark from "../assets/png/android-frame-dark.png";
-import androidFrameLight from "../assets/png/android-frame-light.png";
-import uiDashboard from "../assets/screens/screen-home.png";
-import uiScreenLabel from "../assets/screens/screen-diary.png";
-import uiScreenSearch from "../assets/screens/screen-search.png";
+import uiDashboard from "../assets/screens/screen-today.webp";
+import uiSearchCrop from "../assets/ui/hero-search.webp";
+import uiPlanCrop from "../assets/ui/hero-plan.webp";
+import uiMetricsCrop from "../assets/ui/hero-metrics.webp";
 
-// The source captures are full-resolution phone screenshots. Emit sized
-// WebP renditions so the hero does not ship 300 KB PNGs; the largest panel
-// renders well under 640 CSS px even on wide screens.
-const [shotLabel, shotSearch, shotDashboard, frameLight, frameDark] = await Promise.all([
-  getImage({ src: uiScreenLabel, width: 480, format: "webp" }),
-  getImage({ src: uiScreenSearch, width: 480, format: "webp" }),
-  getImage({ src: uiDashboard, width: 640, format: "webp" }),
-  getImage({ src: androidFrameLight, width: 640, format: "webp" }),
-  getImage({ src: androidFrameDark, width: 640, format: "webp" }),
+// The plate (capture already inside the Pixel 8 Pro skin) and the UI
+// extracts are full-resolution, built by scripts/build-screens.mjs. Emit sized
+// WebP renditions (quality 85 keeps UI text crisp); the largest panel renders
+// well under 640 CSS px even on wide screens.
+const [shotSearch, shotPlan, shotMetrics, shotDashboard] = await Promise.all([
+  getImage({ src: uiSearchCrop, width: 900, format: "webp", quality: 85 }),
+  getImage({ src: uiPlanCrop, width: 900, format: "webp", quality: 85 }),
+  getImage({ src: uiMetricsCrop, width: 900, format: "webp", quality: 85 }),
+  getImage({ src: uiDashboard, width: 1000, format: "webp", quality: 85 }),
 ]);
 
 const heroEntry = await getEntry("landingHero", "hero");
@@ -35,11 +34,7 @@ const {
   secondaryCtaText,
   secondaryCtaLink,
   ctaNote,
-  collageCards,
 } = heroEntry.data;
-
-const ringCard = collageCards.find((card) => card.kind === "ring");
-const dbCard = collageCards.find((card) => card.kind === "database");
 ---
 
 <section id="hero" class="overflow-x-clip border-b border-border hero-section">
@@ -52,13 +47,14 @@ const dbCard = collageCards.find((card) => card.kind === "database");
         {headline}
         <span class="hero-accent-stack">
           {accents.map((word) => (
-            <span class="hero-accent-ghost" aria-hidden="true">{word}</span>
+            <span class="hero-accent-ghost" aria-hidden="true">{word.text}</span>
           ))}
           <span
-            class="hero-accent is-punchline"
+            class="hero-accent"
             data-accent-rotator
+            data-tint={accents[accents.length - 1].tint}
             data-words={JSON.stringify(accents)}
-          >{accents[accents.length - 1]}</span>
+          >{accents[accents.length - 1].text}</span>
         </span>
       </h1>
 
@@ -82,60 +78,25 @@ const dbCard = collageCards.find((card) => card.kind === "database");
 
     <div class="hero-grid" aria-hidden="true" data-reveal-root>
       <article class="hero-panel hero-panel--shot hero-panel--tl" data-reveal>
-        <img src={shotLabel.src} alt="" class="hero-shot__img" loading="eager" />
+        <img src={shotSearch.src} alt="" class="hero-shot__img" loading="eager" />
       </article>
 
       <article class="hero-panel hero-panel--shot hero-panel--bl" data-reveal>
-        <img src={shotSearch.src} alt="" class="hero-shot__img" loading="eager" />
+        <img src={shotMetrics.src} alt="" class="hero-shot__img" loading="eager" />
       </article>
 
       <div class="hero-panel hero-panel--phone hero-panel--center" data-reveal>
         <img
           src={shotDashboard.src}
-          alt="PocketChomp dashboard showing today's calories, macros and micronutrients"
+          alt="PocketChomp diary showing today's calories, protein, fat and carbs, water, and six micronutrients"
           class="hero-phone__screen"
           loading="eager"
         />
         <span class="hero-phone__sheen"></span>
-        <img src={frameLight.src} alt="" class="hero-frame hero-frame--light" />
-        <img src={frameDark.src} alt="" class="hero-frame hero-frame--dark" />
       </div>
 
-      <article class="hero-panel hero-panel--tile hero-panel--tr" data-reveal>
-        {ringCard && (
-          <>
-            <span class="hero-tile__badge">
-              <svg viewBox="0 0 36 36" fill="none" aria-hidden="true">
-                <circle cx="18" cy="18" r="12" stroke="var(--accent)" stroke-width="5.5" stroke-dasharray="47 76" stroke-linecap="round" transform="rotate(-90 18 18)" />
-                <circle cx="18" cy="18" r="12" stroke="var(--primary)" stroke-width="5.5" stroke-dasharray="20 76" stroke-dashoffset="-51" stroke-linecap="round" transform="rotate(-90 18 18)" />
-              </svg>
-            </span>
-            <span class="hero-tile__label">{ringCard.title}</span>
-          </>
-        )}
-      </article>
-
-      <article class="hero-panel hero-panel--tile hero-panel--br" data-reveal>
-        {dbCard && (
-          <>
-            <span class="hero-tile__badge">
-              <svg viewBox="0 0 36 36" fill="none" stroke="var(--primary)" stroke-width="2.4" aria-hidden="true">
-                <ellipse cx="18" cy="10" rx="10" ry="4.5" />
-                <path d="M8 10v8c0 2.5 4.5 4.5 10 4.5s10-2 10-4.5v-8" />
-                <path d="M8 18v8c0 2.5 4.5 4.5 10 4.5s10-2 10-4.5v-8" />
-              </svg>
-            </span>
-            {dbCard.body && <span class="hero-tile__eyebrow">{dbCard.body}</span>}
-            <span class="hero-tile__label">{dbCard.title}</span>
-          </>
-        )}
-      </article>
-
-      <article class="hero-panel hero-panel--mini hero-panel--bc" data-reveal>
-        <span class="hero-mini__pill">
-          <span class="hero-mini__dot"></span>
-          <span class="hero-mini__label">on-device by default</span>
-        </span>
+      <article class="hero-panel hero-panel--shot hero-panel--tr" data-reveal>
+        <img src={shotPlan.src} alt="" class="hero-shot__img" loading="eager" />
       </article>
     </div>
   </SectionShell>
@@ -145,24 +106,27 @@ const dbCard = collageCards.find((card) => card.kind === "database");
   const rotator = document.querySelector<HTMLElement>("[data-accent-rotator]");
 
   if (rotator) {
-    const words: string[] = JSON.parse(rotator.dataset.words ?? "[]");
+    const words: { text: string; tint: string }[] = JSON.parse(rotator.dataset.words ?? "[]");
 
     if (words.length > 1) {
-      // Short holds on purpose: the rotating words are single nutrients and
-      // read at a glance, so a long dwell reads as a stall rather than a list.
-      // SWAP is kept well under HOLD so most of each hold is legible time
-      // rather than mid-fade.
-      const HOLD = 900;
+      // Short holds on purpose: the rotating goals are two words and read at
+      // a glance, so a long dwell reads as a stall rather than a list. SWAP
+      // matches the CSS transition and stays well under HOLD.
+      const HOLD = 1200;
       const HOLD_PUNCHLINE = 2000;
-      const SWAP = 140;
+      const SWAP = 200;
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
       let next = 0;
 
       const show = () => {
         const isPunchline = next === words.length - 1;
-        rotator.textContent = words[next];
+        rotator.textContent = words[next].text;
+        rotator.dataset.tint = words[next].tint;
+        // Jump to the left, unanimated, then let the transition carry it in
         rotator.classList.remove("is-swapping");
-        rotator.classList.toggle("is-punchline", isPunchline);
+        rotator.classList.add("is-entering");
+        void rotator.offsetWidth;
+        rotator.classList.remove("is-entering");
         next = (next + 1) % words.length;
         setTimeout(swap, isPunchline ? HOLD_PUNCHLINE : HOLD);
       };
@@ -189,18 +153,20 @@ const dbCard = collageCards.find((card) => card.kind === "database");
   }
 
   /* Grid fills its column, height derived from aspect-ratio */
-  /* Taller than it is wide, because every panel holds a portrait phone screen.
-     At 1/1.25 the cells were squat and the screenshots had to be cropped hard
-     to fill them. */
+  /* Three rows, weighted so each right-hand panel's inner box has the exact
+     ratio of the UI extract it holds (search 1344x1055, metrics 1344x508,
+     plan 1344x1045). Worked at a 640px column with the 1rem gap and 0.55rem
+     panel padding; other widths drift by a percent or two, which `cover`
+     absorbs at the extract's padding rather than its content. */
   .hero-grid {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
-    grid-template-rows: repeat(8, 1fr);
+    grid-template-rows: 1.915fr 1fr 1.9fr;
     gap: 1rem;
     width: 100%;
     /* Sized so the phone column (5 of 10 cols) fits a whole device at the
-       frame's 1:2.13 ratio without clipping. */
-    aspect-ratio: 1 / 1.12;
+       plate's 1469:3104 ratio without clipping. */
+    aspect-ratio: 1 / 1.03;
   }
 
   /* Reveal stagger lives in CSS — CSP (style-src, no unsafe-inline) blocks
@@ -213,12 +179,6 @@ const dbCard = collageCards.find((card) => card.kind === "database");
   }
   .hero-panel--tr {
     --reveal-delay: 160ms;
-  }
-  .hero-panel--br {
-    --reveal-delay: 300ms;
-  }
-  .hero-panel--bc {
-    --reveal-delay: 380ms;
   }
 
   .hero-panel {
@@ -246,17 +206,20 @@ const dbCard = collageCards.find((card) => card.kind === "database");
     border-radius: 1.4rem;
   }
 
-  /* `contain`, not `cover`. Cover filled each cell by cropping the capture
-     mid-content — the dashboard lost "My Library", the diary lost its evening
-     rows — which made the app look broken rather than busy. Contain keeps every
-     screen whole; the panels are proportioned for a tall phone so the
-     letterboxing is negligible. */
+  /* The extracts are pre-cropped to their panel's ratio (scripts/build-screens.mjs),
+     so `cover` only ever trims a sliver of padding as the column width drifts.
+     The search extract anchors to the top so the typed query never loses its
+     box; the other two are symmetric and centre. */
   .hero-shot__img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
     object-position: center;
     display: block;
+  }
+
+  .hero-panel--tl .hero-shot__img {
+    object-position: top center;
   }
 
   /* All words stack in one grid cell: hidden ghosts reserve the size of
@@ -273,109 +236,81 @@ const dbCard = collageCards.find((card) => card.kind === "database");
     visibility: hidden;
   }
 
-  /* Headline accent follows the brand mockup: green on light, orange on dark;
-     the punchline word flips to the opposite brand colour so it lands */
+  /* Each goal carries the colour the app gives it (macro palette, water,
+     brand); the punchline lands on ember */
   .hero-accent {
     color: var(--primary);
     transition:
-      opacity 0.14s ease,
-      transform 0.14s ease;
+      opacity 0.2s ease,
+      transform 0.2s ease;
   }
 
-  .hero-accent.is-punchline {
-    color: var(--accent);
-  }
+  .hero-accent[data-tint="protein"] { color: var(--color-protein); }
+  .hero-accent[data-tint="carb"] { color: var(--color-carb); }
+  .hero-accent[data-tint="fat"] { color: var(--color-fat); }
+  .hero-accent[data-tint="water"] { color: var(--color-water); }
+  .hero-accent[data-tint="calories"] { color: var(--color-calories); }
+  .hero-accent[data-tint="sage"] { color: var(--primary); }
+  .hero-accent[data-tint="ember"] { color: var(--accent); }
 
+  /* Out to the right, in from the left */
   .hero-accent.is-swapping {
     opacity: 0;
-    transform: translateY(0.18em);
+    transform: translateX(0.35em);
   }
 
-  :global(html[data-theme="dark"]) .hero-accent {
-    color: var(--accent);
+  .hero-accent.is-entering {
+    opacity: 0;
+    transform: translateX(-0.35em);
+    transition: none;
   }
 
-  :global(html[data-theme="dark"]) .hero-accent.is-punchline {
+  :global(html[data-theme="dark"]) .hero-accent[data-tint="sage"] {
     color: var(--primary-strong);
   }
 
-  /* Forest-green info tiles from the original mockup */
-  .hero-panel--tile {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.8rem;
-    padding: 1.4rem;
-    text-align: center;
-    background: var(--primary);
-    border-color: color-mix(in oklab, var(--primary) 78%, black);
+  /* The protein red and the calories ember are tuned for bars on the app's
+     dark surfaces; as display type on near-black they go muddy, so lift them */
+  :global(html[data-theme="dark"]) .hero-accent[data-tint="protein"] {
+    color: oklch(0.66 0.2 28);
   }
 
-  .hero-tile__badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 3.6rem;
-    height: 3.6rem;
-    border-radius: 999px;
-    background: oklch(0.97 0.005 145);
-    box-shadow: var(--shadow-elevated);
+  :global(html[data-theme="dark"]) .hero-accent[data-tint="calories"] {
+    color: var(--accent);
   }
 
-  .hero-tile__badge svg {
-    width: 2rem;
-    height: 2rem;
-  }
-
-  .hero-tile__eyebrow {
-    font-family: var(--font-heading);
-    font-size: 0.55rem;
-    font-weight: 900;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: oklch(0.97 0.005 145 / 0.72);
-  }
-
-  .hero-tile__label {
-    font-family: var(--font-heading);
-    font-size: 0.86rem;
-    font-weight: 900;
-    line-height: 1.25;
-    max-width: 11ch;
-    color: oklch(0.97 0.005 145);
-  }
-
-  /* Composition: the phone is the subject and gets half the width. One
-     supporting screenshot sits beside it and the two tiles stack under that —
-     five equal-weight panels gave the eye nowhere to land, and splitting ten
-     columns five ways left every screenshot too small to read. */
+  /* Composition: the phone is the subject and gets half the width. Three UI
+     extracts stack beside it — search results (Canadian shelves), the Hide
+     Calories toggle from Custom Setup, and the Plan's current-targets card. Full screenshots at this size were
+     unreadable; an extract shows one real piece of UI at a legible scale. */
   .hero-panel--tl {
     grid-column: 6 / span 5;
-    grid-row: 1 / span 5;
+    grid-row: 1;
   }
 
-  /* The second screenshot is the weakest element at this size and its content
-     (food search) is already carried by the panel above. Dropped rather than
-     shrunk further — see Chanel's rule. */
   .hero-panel--bl {
-    display: none;
+    grid-column: 6 / span 5;
+    grid-row: 2;
   }
 
-  /* The screen is positioned with percentage insets against the frame art, so
-     the frame must keep its own aspect ratio — stretching the cell slid the
-     screenshot out from under the bezel. It sits at the top of its cell and
-     takes its height from the artwork. */
+  .hero-panel--tr {
+    grid-column: 6 / span 5;
+    grid-row: 3;
+  }
+
+  /* The cell keeps the plate's own aspect ratio so the sheen's percentage
+     insets land on the screen. It sits at the top of its cell and takes its
+     height from the artwork. */
   .hero-panel--center {
     position: relative;
     grid-column: 1 / span 5;
-    grid-row: 1 / span 8;
+    grid-row: 1 / span 3;
     align-self: stretch;
     justify-self: center;
-    /* Exactly the frame PNG's own ratio (1335x2841). Height-driven so the
-       device always fits its rows and never clips against the section edge;
-       the column is wider than the phone and simply centres it. */
-    aspect-ratio: 1335 / 2841;
+    /* Exactly the plate's own ratio (1469x3104). Height-driven so the device
+       always fits its rows and never clips against the section edge; the
+       column is wider than the phone and simply centres it. */
+    aspect-ratio: 1469 / 3104;
     height: 100%;
     width: auto;
     max-width: 100%;
@@ -388,112 +323,30 @@ const dbCard = collageCards.find((card) => card.kind === "database");
     overflow: visible;
   }
 
-  /* The status pill floats in its grid cell — the cell itself is invisible */
-  /* Shares the phone's cell and sits at the bottom of it, so the pill reads as
-     a caption on the device rather than a sixth floating panel. */
-  .hero-panel--bc {
-    grid-column: 1 / span 5;
-    grid-row: 1 / span 8;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    background: transparent;
-    border: 0;
-    box-shadow: none;
-    overflow: visible;
-    pointer-events: none;
-    z-index: 3;
-  }
-
-  .hero-mini__pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-    border-radius: 999px;
-    border: 1px solid var(--border);
-    background: var(--surface);
-    box-shadow: var(--shadow-elevated);
-    padding: 0.55rem 1rem;
-  }
-
-  /* The two stat tiles sit side by side beneath the supporting screenshot,
-     filling the width that the removed panel freed up. */
-  .hero-panel--tr {
-    grid-column: 6 / span 2;
-    grid-row: 6 / span 3;
-  }
-
-  .hero-panel--br {
-    grid-column: 8 / span 3;
-    grid-row: 6 / span 3;
-  }
-
-  .hero-frame {
+  /* The plate is the whole device (scripts/build-screens.mjs); its box is the
+     cell, which is sized to the plate's own ratio below. */
+  .hero-phone__screen {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     object-fit: contain;
-    z-index: 2;
-    pointer-events: none;
-  }
-
-  .hero-frame--dark {
-    display: none;
-  }
-
-  :global(html[data-theme="dark"]) .hero-frame--light {
-    display: none;
-  }
-
-  :global(html[data-theme="dark"]) .hero-frame--dark {
-    display: block;
-  }
-
-  /* Geometry from --phone-screen-* in global.css, shared with ui/PhoneFrame.
-     Anchored to the top of the capture: the dashboard's headline number is what
-     this panel is for, so if the ratio difference costs anything it should be
-     the bottom of the scroll, never the top. */
-  .hero-phone__screen {
-    position: absolute;
-    top: var(--phone-screen-top);
-    left: var(--phone-screen-left);
-    width: var(--phone-screen-width);
-    height: var(--phone-screen-height);
-    border-radius: 1.6rem;
-    object-fit: cover;
-    object-position: top center;
     z-index: 1;
   }
 
-  .hero-mini__dot {
-    width: 0.45rem;
-    height: 0.45rem;
-    border-radius: 999px;
-    background: var(--primary);
-  }
-
-  .hero-mini__label {
-    font-family: var(--font-heading);
-    font-size: 0.55rem;
-    font-weight: 900;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: var(--muted-foreground);
-  }
-
-  /* Screenshots are light-theme, so the shot panels keep a light bed in
-     both themes; a dark surface behind them would halo */
+  /* The captures are dark-theme, so the shot panels keep the app's own
+     background in both themes; anything lighter halos around the extract */
   .hero-panel--shot,
   :global(html[data-theme="dark"]) .hero-panel--shot {
-    background: oklch(0.97 0.005 145);
+    background: #111512;
   }
 
   /* One-shot sheen sweeping across the phone after it reveals */
+  /* Inset to the plate's screen: 1344x2992 at (58,58) on a 1469x3104 plate */
   .hero-phone__sheen {
     position: absolute;
-    inset: 3.5% 6% 3.5% 6%;
-    border-radius: 1.6rem;
+    inset: 1.9% 4.6% 1.7% 3.9%;
+    border-radius: 2.5rem;
     z-index: 1;
     pointer-events: none;
     overflow: hidden;
@@ -528,24 +381,9 @@ const dbCard = collageCards.find((card) => card.kind === "database");
     }
   }
 
-  .hero-mini__dot {
-    animation: hero-pulse 2.4s ease-in-out infinite;
-  }
-
-  @keyframes hero-pulse {
-    0%,
-    100% {
-      box-shadow: 0 0 0 0 color-mix(in oklab, var(--primary) 55%, transparent);
-    }
-    50% {
-      box-shadow: 0 0 0 0.32rem color-mix(in oklab, var(--primary) 0%, transparent);
-    }
-  }
-
   @media (prefers-reduced-motion: reduce) {
     .hero-phone__sheen::after,
-    [data-reveal-root].is-revealed .hero-phone__sheen::after,
-    .hero-mini__dot {
+    [data-reveal-root].is-revealed .hero-phone__sheen::after {
       animation: none;
     }
   }
@@ -581,17 +419,9 @@ const dbCard = collageCards.find((card) => card.kind === "database");
     }
 
     .hero-panel--tl,
-    .hero-panel--tr,
-    .hero-panel--br {
+    .hero-panel--bl,
+    .hero-panel--tr {
       display: none;
-    }
-
-    .hero-panel--bc {
-      grid-column: 1;
-      grid-row: auto;
-      position: absolute;
-      inset-inline: 0;
-      bottom: -0.75rem;
     }
   }
 </style>

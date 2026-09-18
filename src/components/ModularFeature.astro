@@ -3,9 +3,9 @@ import { getEntry } from "astro:content";
 import { getImage } from "astro:assets";
 import SectionShell from "./ui/SectionShell.astro";
 import PhoneFrame from "./ui/PhoneFrame.astro";
-import modularShot from "../assets/screens/screen-home.png";
+import modularShot from "../assets/screens/screen-metrics.webp";
 
-const modularShotOptimized = await getImage({ src: modularShot, width: 480, format: "webp" });
+const modularShotOptimized = await getImage({ src: modularShot, width: 800, format: "webp", quality: 85 });
 
 const featureEntry = await getEntry("landingModularFeature", "modular-feature");
 
@@ -23,7 +23,7 @@ const { eyebrow, headline, description, bullets } = featureEntry.data;
 >
   <PhoneFrame
     src={modularShotOptimized.src}
-    alt="PocketChomp dashboard with calories remaining, macro targets and a custom set of micronutrients"
+    alt="PocketChomp metrics settings with calories hidden and protein chosen as the diary's hero number"
     class="mx-auto w-full max-w-[14.5rem] lg:max-w-[16.5rem]"
   />
 

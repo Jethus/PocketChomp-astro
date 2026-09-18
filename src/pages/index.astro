@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { SITE_DESCRIPTION } from "../consts";
 import Header from "../components/Header.astro";
 import Hero from "../components/Hero.astro";
 import ProofStrip from "../components/ProofStrip.astro";
@@ -13,7 +14,7 @@ import ClosingCTA from "../components/ClosingCTA.astro";
 import Footer from "../components/Footer.astro";
 
 const PAGE_TITLE = "Free Calorie Counter & Macro Tracker for Canadians";
-const PAGE_DESCRIPTION = "Free calorie counter built for Canadians. Unlimited barcode scanning, every micronutrient, real Canadian grocery products, and a food log that stays on your device by default. No ads.";
+const PAGE_DESCRIPTION = SITE_DESCRIPTION;
 ---
 
 <BaseLayout title={PAGE_TITLE} description={PAGE_DESCRIPTION}>

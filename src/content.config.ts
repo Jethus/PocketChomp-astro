@@ -14,6 +14,8 @@ const blog = defineCollection({
       updatedDate: z.coerce.date().optional(),
       heroImage: image().optional(),
       tags: z.array(z.string()).optional(),
+      /** Optional FAQ block; rendered after the body and emitted as FAQPage JSON-LD. */
+      faq: z.array(z.object({ q: z.string(), a: z.string() })).optional(),
     }),
 });
 
@@ -24,7 +26,14 @@ const landingHero = defineCollection({
     headline: z.string(),
     // Rotating accent line. Last entry is the punchline — it renders
     // statically (no-JS, reduced-motion, crawlers) and holds longest.
-    accents: z.array(z.string()).min(2),
+    accents: z
+      .array(
+        z.object({
+          text: z.string(),
+          tint: z.enum(["protein", "carb", "fat", "water", "calories", "sage", "ember"]),
+        })
+      )
+      .min(2),
     description: z.string(),
     primaryCtaText: z.string(),
     primaryCtaLink: z.string(),
