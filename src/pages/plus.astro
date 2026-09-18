@@ -120,6 +120,9 @@ const META =
     /* The sr-only caption is absolutely positioned; anchor it here so it
        cannot widen the page. */
     position: relative;
+    /* Narrower than the prose above it: a full-width matrix drags the eye
+       across dead space between the feature and its two answers. */
+    max-width: 46rem;
   }
 
   .matrix__table {
@@ -129,11 +132,11 @@ const META =
   }
 
   .matrix__rowhead-col {
-    width: 40%;
+    width: 46%;
   }
 
   .matrix__tier {
-    width: 30%;
+    width: 27%;
     padding: 0 1rem 1rem;
     vertical-align: top;
     text-align: center;
@@ -144,71 +147,42 @@ const META =
     display: block;
     font-family: var(--font-heading);
     font-weight: 900;
-    font-size: 1.05rem;
+    font-size: 1.2rem;
     color: var(--foreground);
   }
 
   .matrix__tier-note {
     display: block;
-    margin-top: 0.3rem;
-    font-size: 0.78rem;
-    line-height: 1.35;
+    margin-top: 0.35rem;
+    font-size: 0.875rem;
+    line-height: 1.4;
     color: var(--muted-foreground);
   }
 
   /* The paid column is tinted end to end so the eye can follow it down the
      table without re-reading the header. */
-  /* The paid column is marked by a warm edge down its left side rather than
-     a heavy wash: orange mixed into a near-black surface goes brown fast, so
-     the fill stays faint and the edge does the work of pointing the eye
-     down the column. */
-  .matrix__tier--plus,
-  .matrix__cell--plus {
-    background: color-mix(in oklab, var(--accent) 5%, var(--surface));
-    box-shadow: inset 2px 0 0 color-mix(in oklab, var(--accent) 55%, transparent);
-  }
-
-  :global(html[data-theme="dark"]) .matrix__tier--plus,
-  :global(html[data-theme="dark"]) .matrix__cell--plus {
-    background: color-mix(in oklab, var(--accent) 7%, var(--surface));
-  }
-
-  /* Rounded as one block, on the outer edge only: the left side stays square
-     against the free column and its accent edge. */
-  .matrix__tier--plus {
-    border-start-end-radius: 0.9rem;
-  }
-
-  .matrix__table tr:last-child .matrix__cell--plus {
-    border-end-end-radius: 0.9rem;
-    border-bottom-color: transparent;
-  }
+  /* No column fill: the marks and their colours carry the distinction, so
+     both tiers sit on the page background and the rows read as one table. */
 
   .matrix__feature {
-    padding: 0.95rem 1rem 0.95rem 0;
+    padding: 1.05rem 1rem 1.05rem 0;
     font-family: var(--font-heading);
     font-weight: 900;
-    font-size: 0.95rem;
+    font-size: 1.05rem;
     color: var(--foreground);
     border-bottom: 1px solid color-mix(in oklab, var(--border) 65%, transparent);
   }
 
   .matrix__cell {
-    padding: 0.95rem 1rem;
+    padding: 1.05rem 1rem;
     text-align: center;
     vertical-align: middle;
     border-bottom: 1px solid color-mix(in oklab, var(--border) 65%, transparent);
   }
 
-  /* The tinted cell paints over the shared bottom border, so the paid
-     column draws its own separator in a tone that reads against the tint. */
-  .matrix__cell--plus {
-    border-bottom-color: color-mix(in oklab, var(--accent) 22%, var(--border));
-  }
-
   .matrix__value {
-    font-size: 0.9rem;
-    line-height: 1.35;
+    font-size: 1rem;
+    line-height: 1.4;
     color: var(--muted-foreground);
   }
 
@@ -216,11 +190,11 @@ const META =
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.75rem;
+    height: 1.75rem;
     border-radius: 999px;
     font-family: var(--font-heading);
-    font-size: 0.8rem;
+    font-size: 0.95rem;
     font-weight: 900;
     line-height: 1;
   }
@@ -308,20 +282,28 @@ const META =
       border-bottom: 0;
     }
 
+    /* Label above value, not beside it: "POCKETCHOMP+" and a phrase like
+       "Your saved portion" cannot share half a phone row without one of them
+       shredding into a vertical stack of letters. */
     .matrix__cell {
       display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 0.75rem;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.25rem;
+      min-width: 0;
+      padding: 0.5rem 0.75rem 0.5rem 0;
       text-align: left;
       border-bottom: 0;
-      border-radius: 0.6rem;
+    }
+
+    .matrix__value {
+      min-width: 0;
     }
 
     .matrix__cell::before {
       content: attr(data-tier);
       font-family: var(--font-heading);
-      font-size: 0.66rem;
+      font-size: 0.72rem;
       font-weight: 900;
       letter-spacing: 0.1em;
       text-transform: uppercase;
