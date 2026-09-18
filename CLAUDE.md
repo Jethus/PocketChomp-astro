@@ -59,9 +59,8 @@ BeyondCalorie, Faq, FieldNotesTeaser, ClosingCTA). `SocialProof` exists but is
 deliberately unmounted until real testimonials exist.
 
 Pricing is deliberately NOT on the homepage: the free-vs-Plus argument lives on `/plus`
-and in the FAQ. `PlanStrip` is a built but unmounted compact version of that card pair
-(same `src/content/landing/free-premium.md` source as the `/plus` matrix), kept for if
-that decision is ever revisited. FAQ lists everywhere use
+and in the FAQ. `/plus` itself states no price either -- it compares what each tier does,
+and the cost is answered in the FAQ. FAQ lists everywhere use
 `src/components/ui/FaqList.astro` so the homepage, calculators and comparison pages
 share one treatment.
 

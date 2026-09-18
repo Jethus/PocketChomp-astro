@@ -149,11 +149,6 @@ const landingFreePremium = defineCollection({
     freeNote: z.string(),
     premiumTitle: z.string(),
     premiumNote: z.string(),
-    /** Short lists for the homepage strip. The full matrix lives on /plus. */
-    highlights: z.object({
-      free: z.array(z.string()).min(3).max(7),
-      plus: z.array(z.string()).min(3).max(6),
-    }),
     /**
      * Comparison matrix rows. Each cell is either a boolean (rendered as a
      * check or a dash) or a short string when the tiers differ by degree
