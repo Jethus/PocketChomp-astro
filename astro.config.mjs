@@ -5,6 +5,11 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   site: "https://pocketchomp.com",
+  // Canonical URLs carry no trailing slash (/tools, not /tools/), matching the
+  // internal links and JSON-LD. Cloudflare Assets (html_handling
+  // "drop-trailing-slash" in wrangler.jsonc) 308s the slash form to the bare
+  // path so Google consolidates on one URL.
+  trailingSlash: "never",
   fonts: [
     {
       provider: fontProviders.local(),
@@ -35,7 +40,11 @@ export default defineConfig({
       },
     },
   ],
-  integrations: [mdx(), sitemap()],
+  integrations: [
+    mdx(),
+    // /thanks is a post-signup page, disallowed in robots.txt; keep it out.
+    sitemap({ filter: (page) => !page.includes("/thanks") }),
+  ],
   markdown: {
     syntaxHighlight: false,
   },
