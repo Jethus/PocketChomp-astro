@@ -17,8 +17,16 @@ describe("calculateBMR (Mifflin-St Jeor, matches app lib/calculations.ts)", () =
 });
 
 describe("calculateTDEE", () => {
-  it("moderate on 1780 = 2759", () => {
-    expect(calculateTDEE(1780, "moderate")).toBe(2759);
+  // NEAT-only multiplier (moderate = 1.45) with no exercise sessions, matching
+  // NEAT_MULTIPLIERS in the app's lib/calculations.ts.
+  it("moderate on 1780 with no exercise = 2581", () => {
+    expect(calculateTDEE(1780, "moderate")).toBe(2581);
+  });
+  it("adds the exercise increment: moderate + 4-6 sessions = 1.60", () => {
+    expect(calculateTDEE(1780, "moderate", 5)).toBe(2848);
+  });
+  it("clamps the combined multiplier at 1.9", () => {
+    expect(calculateTDEE(1780, "very_active", 7)).toBe(Math.round(1780 * 1.9));
   });
 });
 
@@ -33,19 +41,19 @@ describe("calculate", () => {
 
   it("maintenance range is TDEE ±10%", () => {
     const r = calculate({ ...base, goal: "maintain", paceKgPerWeek: 0 });
-    expect(r.maintenance).toEqual({ low: 2483, high: 3035 });
+    expect(r.maintenance).toEqual({ low: 2323, high: 2839 });
     expect(r.target).toEqual(r.maintenance);
     expect(r.warning).toBeNull();
   });
 
   it("lose 0.5 kg/wk shifts band by -550 kcal/day", () => {
     const r = calculate({ ...base, goal: "lose", paceKgPerWeek: 0.5 });
-    expect(r.target).toEqual({ low: 1933, high: 2485 });
+    expect(r.target).toEqual({ low: 1773, high: 2289 });
   });
 
   it("gain shifts band upward", () => {
     const r = calculate({ ...base, goal: "gain", paceKgPerWeek: 0.25 });
-    expect(r.target).toEqual({ low: 2758, high: 3310 });
+    expect(r.target).toEqual({ low: 2598, high: 3114 });
   });
 
   it("protein range: lose = 1.6-2.2 g/kg", () => {
@@ -53,9 +61,9 @@ describe("calculate", () => {
     expect(r.proteinG).toEqual({ low: 128, high: 176 });
   });
 
-  it("protein range: maintain = 1.2-1.6 g/kg", () => {
+  it("protein range: maintain (balanced) = 1.2-1.8 g/kg", () => {
     const r = calculate({ ...base, goal: "maintain", paceKgPerWeek: 0 });
-    expect(r.proteinG).toEqual({ low: 96, high: 128 });
+    expect(r.proteinG).toEqual({ low: 96, high: 144 });
   });
 
   it("macros sum roughly to target midpoint", () => {
