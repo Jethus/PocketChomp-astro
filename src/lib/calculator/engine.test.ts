@@ -56,14 +56,19 @@ describe("calculate", () => {
     expect(r.target).toEqual({ low: 2598, high: 3114 });
   });
 
-  it("protein range: lose = 1.6-2.2 g/kg", () => {
+  it("protein range: lose (balanced) = 1.2-1.6 g/kg", () => {
     const r = calculate({ ...base, goal: "lose", paceKgPerWeek: 0.5 });
-    expect(r.proteinG).toEqual({ low: 128, high: 176 });
+    expect(r.proteinG).toEqual({ low: 96, high: 128 });
   });
 
-  it("protein range: maintain (balanced) = 1.2-1.8 g/kg", () => {
+  it("protein range: maintain (balanced) = 1.2-1.6 g/kg, same as lose", () => {
     const r = calculate({ ...base, goal: "maintain", paceKgPerWeek: 0 });
-    expect(r.proteinG).toEqual({ low: 96, high: 144 });
+    expect(r.proteinG).toEqual({ low: 96, high: 128 });
+  });
+
+  it("protein range: high protein = 1.6-2.0 g/kg", () => {
+    const r = calculate({ ...base, goal: "lose", paceKgPerWeek: 0.5, split: "high_protein" });
+    expect(r.proteinG).toEqual({ low: 128, high: 160 });
   });
 
   it("macros sum roughly to target midpoint", () => {

@@ -121,15 +121,27 @@ const SPLIT_FAT_SHARE: Record<MacroSplit, number> = {
   keto: 0.7,
 };
 
-/** Protein g/kg bodyweight per split, before the goal adjustment below. */
+/**
+ * Protein g/kg bodyweight per split, the same for every goal. Mirrors the app's
+ * HYBRID_PROTEIN_FACTOR (lib/calculations.ts) — change them together.
+ *
+ * Sources (primary text checked 2026-09-28):
+ * - AND / Dietitians of Canada / ACSM joint position, Nutrition and Athletic
+ *   Performance (2016), p.17: intake "generally ranges from 1.2 to 2.0
+ *   g/kg/d"; higher only "for short periods ... when reducing energy intake".
+ * - ISSN position stand (Jäger et al. 2017), point 2: 1.4–2.0 g/kg/d.
+ * - Morton et al., BJSM 2018: no further lean-mass gain "beyond total protein
+ *   intakes of 1.62 g/kg/day".
+ * - Health Canada DRI (IOM 2005): adult RDA 0.80 g/kg/d, the sedentary floor.
+ */
 const SPLIT_PROTEIN_FACTOR: Record<MacroSplit, Range> = {
-  balanced: { low: 1.6, high: 2.2 },
-  high_protein: { low: 2.0, high: 2.6 },
-  low_carb: { low: 1.6, high: 2.2 },
-  low_fat: { low: 1.6, high: 2.2 },
+  balanced: { low: 1.2, high: 1.6 },
+  high_protein: { low: 1.6, high: 2.0 },
+  low_carb: { low: 1.2, high: 1.6 },
+  low_fat: { low: 1.2, high: 1.6 },
   // Moderate, not high: excess protein is gluconeogenic and works against
-  // ketosis, which is why keto is not simply "high protein, high fat".
-  keto: { low: 1.4, high: 1.8 },
+  // ketosis. Keto is defined by its carb cap, not by extra protein.
+  keto: { low: 1.2, high: 1.6 },
 };
 
 /**
@@ -288,20 +300,9 @@ export function calculate(input: CalculatorInput): CalculatorResult {
 
   const split = input.split ?? "balanced";
 
-  // Maintaining needs less protein than a deficit (where it protects lean mass)
-  // or a surplus. Applied as a shift off each split's own factor rather than a
-  // flat 1.2–1.6 override, so the splits keep their relative ordering — a
-  // hardcoded override silently flattened balanced, low_carb and low_fat to the
-  // same 1.4 g/kg and undercut their intended 1.6 floor.
-  const MAINTAIN_PROTEIN_REDUCTION = 0.4;
-  const base = SPLIT_PROTEIN_FACTOR[split];
-  const proteinFactor =
-    input.goal === "maintain"
-      ? {
-          low: Math.max(1.2, base.low - MAINTAIN_PROTEIN_REDUCTION),
-          high: Math.max(1.6, base.high - MAINTAIN_PROTEIN_REDUCTION),
-        }
-      : base;
+  // One range per split for every goal: the sources above give a single range,
+  // with higher intakes only "for short periods" while cutting.
+  const proteinFactor = SPLIT_PROTEIN_FACTOR[split];
   const proteinG: Range = {
     low: Math.round(input.weightKg * proteinFactor.low),
     high: Math.round(input.weightKg * proteinFactor.high),
