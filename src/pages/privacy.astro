@@ -1,7 +1,7 @@
 ---
 import LegalLayout from "../layouts/LegalLayout.astro";
 
-const LAST_UPDATED = "September 22, 2026";
+const LAST_UPDATED = "October 1, 2026";
 ---
 
 <LegalLayout
@@ -97,6 +97,12 @@ const LAST_UPDATED = "September 22, 2026";
       on the device. Depending on your Android settings, your phone may send audio to Google for
       recognition.
     </p>
+    <p>
+      If usage analytics are on, we keep a copy of the text (what you typed, or what your phone
+      transcribed), the foods and portions the app matched, and what you finally logged, so we can
+      measure and improve matching. It is stored without your name, account or device id, so it
+      cannot be tied back to you. With analytics off, none of it leaves your phone.
+    </p>
 
     <h3 class="fs-xs">CSV export</h3>
     <p>
@@ -147,7 +153,8 @@ const LAST_UPDATED = "September 22, 2026";
       </li>
       <li>
         <strong>Usage analytics are off by default.</strong> If you turn on "Share usage
-        analytics" in Settings, we also record which features you use and how the app performs.
+        analytics" in Settings, we also record which features you use, how the app performs, the
+        words you type into food search, and (described above) your voice and typed meal descriptions.
         Turning it off stops collection immediately.
       </li>
       <li>
@@ -203,6 +210,7 @@ const LAST_UPDATED = "September 22, 2026";
     <ul>
       <li>Synced account data: until you delete your account, then removed immediately.</li>
       <li>Photos and recipe pages sent to Plus features: not stored.</li>
+      <li>Voice and typed meal descriptions (analytics on only): kept with no account or device id, so they cannot be traced to you or singled out for deletion.</li>
       <li>Crash and analytics events: retained by PostHog under our account, tied to the device id only.</li>
       <li>Email list: until you unsubscribe.</li>
     </ul>
