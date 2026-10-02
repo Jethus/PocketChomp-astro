@@ -11,13 +11,13 @@ faq:
   - q: "What's the best macro split?"
     a: "The one you'll actually stick to at the right calorie total. Research comparing diets at matched calories and matched protein finds remarkably small differences in fat loss between high-carb and low-carb approaches. Protein is the macro that reliably matters; beyond hitting it, carb and fat ratios are largely a question of preference, training style and what keeps you full."
   - q: "How much protein do I actually need?"
-    a: "For active people aiming to keep muscle, roughly 1.6–2.2 g per kg of bodyweight covers the evidence, with the upper end worth targeting in a calorie deficit where lean mass is most at risk. Below about 1.2 g/kg you're likely leaving muscle retention on the table. Very high intakes aren't harmful for healthy kidneys — they're just increasingly unnecessary."
+    a: "The Health Canada RDA is 0.8 g per kg of bodyweight, which is the floor for sedentary adults rather than a target. If you train, the Dietitians of Canada and ACSM joint position puts it at 1.2–2.0 g/kg, and a 2018 meta-analysis found no further muscle gain above about 1.6 g/kg. This calculator uses 1.2–1.6 g/kg by default and 1.6–2.0 for the high-protein split. Higher intakes aren't harmful for healthy kidneys — they're just increasingly unnecessary. The full numbers, with sources, are in our guide to how much protein, carbs, fat and fibre adults need."
   - q: "Do I have to hit my macros exactly?"
     a: "No. Treat them as targets with a sensible tolerance — being within roughly 10 g on protein and 15–20 g on carbs and fat is functionally hitting them. Chasing exact numbers turns a useful guide into an anxious daily maths problem, which is a much more common reason people quit than imprecise macros ever was."
   - q: "Should I eat low carb to lose fat?"
     a: "Only if you prefer eating that way. At matched calories and protein, low-carb diets don't produce meaningfully more fat loss — the rapid initial drop is largely glycogen and its associated water. Lower carb genuinely suits some people's appetite and energy; others feel flat and train badly on it. Both are valid, and neither is the mechanism behind fat loss."
   - q: "Why did my macros change when I changed my goal?"
-    a: "Because they're a share of your calorie target, which moves with your goal, and because protein recommendations rise in a deficit. Cutting calories while holding protein high means protein takes a bigger percentage of a smaller budget — that's deliberate, and it's what protects lean mass while you lose fat."
+    a: "Because carbs and fat are a share of your calorie target, and that target moves with your goal. Protein is set from your bodyweight in grams per kilo and stays the same whether you're cutting, maintaining or gaining — so in a deficit it takes a bigger percentage of a smaller budget. That's deliberate: holding protein steady while calories drop is what protects lean mass while you lose fat."
 realityCheck:
   - condition: "You hit calories but miss protein most days"
     adjustment: "Anchor meals to a protein source first and build the rest around it. Protein is the macro with the clearest evidence behind it — prioritise it over carb and fat precision."
@@ -49,11 +49,11 @@ Macros are a division of a calorie budget, so the calculation runs in that order
 
 ## The five splits, and who each suits
 
-**Balanced** — roughly a quarter to a third of calories from fat, protein set from
+**Balanced** — roughly a quarter to a third of calories from fat, protein at 1.2–1.6 g/kg of
 bodyweight, carbs filling the rest. The sensible default for most people, most of the time.
 Enough carbohydrate to train properly, enough fat to feel satisfied.
 
-**High protein** — raises protein to 2.0–2.6 g/kg and trims fat slightly. Worth choosing if
+**High protein** — raises protein to 1.6–2.0 g/kg and trims fat slightly. Worth choosing if
 you're lifting seriously, in a meaningful deficit, or you simply find protein keeps you full.
 The strongest evidence base of the five, particularly for holding lean mass while losing fat.
 
