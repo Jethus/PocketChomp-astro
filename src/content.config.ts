@@ -16,6 +16,8 @@ const blog = defineCollection({
       tags: z.array(z.string()).optional(),
       /** Optional FAQ block; rendered after the body and emitted as FAQPage JSON-LD. */
       faq: z.array(z.object({ q: z.string(), a: z.string() })).optional(),
+      /** Set `draft: true` to unpublish: no page, no listing, no sitemap entry. */
+      draft: z.boolean().default(false),
     }),
 });
 

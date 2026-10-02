@@ -2,6 +2,7 @@
 title: "Primary Keyword-Rich Title Here (Optimal length: 50-60 characters)"
 description: "A compelling meta description summarizing the post. Include the primary keyword naturally. Keep it between 150-160 characters to avoid truncation in search results."
 pubDate: "2024-01-01"
+# draft: true   # uncomment to unpublish: removes the page, the listing entry and the sitemap entry
 ---
 
 # Your Main H1 Title (Make it Catchy and Include Primary Keyword)

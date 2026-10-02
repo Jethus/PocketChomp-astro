@@ -1,13 +1,13 @@
 ---
-import { getCollection, render } from "astro:content";
+import { render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import SignupForm from "../../components/ui/SignupForm.astro";
+import { getPublishedPosts } from "../../lib/blog";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blog");
-  const sorted = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+  const sorted = await getPublishedPosts();
   return sorted.map((post, i) => ({
     params: { slug: post.id },
     props: {
@@ -110,11 +110,11 @@ function tagClass(tag: string): string {
         <!-- Author row -->
         <div class="mt-8 flex items-center gap-3 border-t border-border pt-5">
           <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent font-heading text-sm font-black text-accent-foreground">
-            JT
+            JD
           </div>
           <div>
             <p class="text-sm font-bold leading-tight text-foreground">Josh</p>
-            <p class="font-mono text-[0.68rem] text-muted-foreground">@jethus · solo founder</p>
+            <p class="font-mono text-[0.68rem] text-muted-foreground">solo founder</p>
           </div>
           <div class="ml-auto flex gap-2">
             <!-- Copy link -->

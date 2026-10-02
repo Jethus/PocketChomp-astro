@@ -1,12 +1,11 @@
 ---
-import { getCollection, getEntry } from "astro:content";
+import { getEntry } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
+import { getPublishedPosts } from "../../lib/blog";
 
-const posts = (await getCollection("blog")).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
+const posts = await getPublishedPosts();
 
 const masthead = await getEntry("landingBlogMasthead", "blog-masthead");
 const nowCard = await getEntry("landingBlogNow", "blog-now");
