@@ -36,3 +36,12 @@ src/assets/product/*.webm
 
 # git-bash crash dumps
 bash.exe.stackdump
+
+# machine-local agent settings
+.claude/settings.local.json
+
+# vendored agent skills (reinstall from skills-lock.json)
+.agents/skills/
+
+# site planning docs live in the private app repo
+docs/

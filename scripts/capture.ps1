@@ -10,7 +10,7 @@
 #   .\scripts\capture.ps1 today -Serial XXXX   # override device serial
 param(
   [Parameter(Mandatory = $true)][string]$Name,
-  [string]$Serial = '$env:ANDROID_SERIAL',
+  [string]$Serial = $env:ANDROID_SERIAL,
   [string]$OutDir = (Join-Path $PSScriptRoot '..\src\assets\product\captures-native'),
   [int]$Width = 1344,
   [int]$Height = 2992
@@ -24,8 +24,9 @@ $OutDir = (Resolve-Path $OutDir).Path
 $out = Join-Path $OutDir "$Name.png"
 
 # exec-out streams raw PNG bytes; go through cmd so PowerShell never touches the binary stream.
-cmd /c "adb -s $Serial exec-out screencap -p > `"$out`""
-if ($LASTEXITCODE -ne 0 -or -not (Test-Path $out)) { throw "screencap failed (is $Serial connected?)" }
+$adbArgs = if ($Serial) { "-s $Serial" } else { "" }
+cmd /c "adb $adbArgs exec-out screencap -p > `"$out`""
+if ($LASTEXITCODE -ne 0 -or -not (Test-Path $out)) { throw "screencap failed (is the device connected? set -Serial or ANDROID_SERIAL if more than one)" }
 
 $img = [System.Drawing.Image]::FromFile($out)
 try {
