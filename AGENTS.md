@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Start here for this repository. Keep this file short, and use it as the entry point into the fuller project instructions in [CLAUDE.md](/C:/repos/PocketChomp-site/CLAUDE.md).
+Start here for this repository. Keep this file short; fuller project instructions and agent rules are kept local-only and are not part of the public repo.
 
 ## Project
 
@@ -10,9 +10,8 @@ PocketChomp is a content-first Astro marketing site built with Astro 6 and Tailw
 
 Read these before making material changes:
 
-1. [CLAUDE.md](/C:/repos/PocketChomp-site/CLAUDE.md)
-2. [.agents/rules/00-context.md](/C:/repos/PocketChomp-site/.agents/rules/00-context.md)
-3. [.agents/rules/01-architecture.md](/C:/repos/PocketChomp-site/.agents/rules/01-architecture.md)
+1. [.agents/rules/00-context.md](/C:/repos/PocketChomp-site/.agents/rules/00-context.md)
+2. [.agents/rules/01-architecture.md](/C:/repos/PocketChomp-site/.agents/rules/01-architecture.md)
 
 Use these as needed:
 
