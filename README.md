@@ -13,7 +13,7 @@ Nutrition tracking on your terms. Unlimited barcode scanning, every micronutrien
 - **On your device by default.** Every log is written to your phone first. No account needed, and sync is something you turn on.
 - **Beyond the calorie.** Vitamins, minerals, fibre, caffeine, omega-3, each measured against your own daily target.
 
-Android, in beta. Built by one person in Ontario.
+Android, in beta. Built by a privacy-concerned Torontonian.
 
 ## About this repo
 
