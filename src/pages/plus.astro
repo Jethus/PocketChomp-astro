@@ -1,6 +1,7 @@
 ---
 import { getEntry } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { ogPath } from "../lib/og-cards";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import SectionShell from "../components/ui/SectionShell.astro";
@@ -26,7 +27,7 @@ const META =
   "Every PocketChomp feature, free versus PocketChomp+. Barcode scanning, label scanning, micronutrients and offline logging are free forever. No ads on either tier.";
 ---
 
-<BaseLayout title={TITLE} description={META}>
+<BaseLayout title={TITLE} description={META} image={ogPath("plus")}>
   <Header />
   <main id="main">
     <SectionShell>

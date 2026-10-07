@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { ogPath } from "../../lib/og-cards";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import SectionShell from "../../components/ui/SectionShell.astro";
@@ -36,7 +37,7 @@ const listLd = {
 };
 ---
 
-<BaseLayout title={TITLE} description={META}>
+<BaseLayout title={TITLE} description={META} image={ogPath("tools")}>
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(listLd)} />
   </Fragment>

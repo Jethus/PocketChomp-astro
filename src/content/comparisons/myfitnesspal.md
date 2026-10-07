@@ -42,7 +42,7 @@ rows:
     ours: "On your device. Cloud sync is opt-in."
     theirs: "Account-based, synced to their servers"
   - feature: "Canadian foods"
-    ours: "~61,000 Canadian entries including Compliments, President's Choice and Metro house brands"
+    ours: "64,000+ Canadian entries including Compliments, President's Choice, Metro and Walmart house brands"
     theirs: "Very large global database with Canadian items"
     note: "MyFitnessPal's database is far bigger overall. Ours is more specifically Canadian."
   - feature: "Micronutrients"
@@ -58,7 +58,7 @@ faq:
   - q: "Can I import my MyFitnessPal data?"
     a: "Not automatically yet. MyFitnessPal lets you export your history as a CSV from its website, and an importer is on the roadmap, but today you'd be starting a fresh log. If years of history matter to you, that's a real cost of switching and worth weighing honestly."
   - q: "Is the food database as good as MyFitnessPal's?"
-    a: "No, and it would be strange to claim otherwise — MyFitnessPal has had over a decade and millions of users adding entries. PocketChomp has around 136,000 foods with about 61,000 Canadian entries. The bet is that a smaller, cleaner, more Canadian database resolves your actual groceries more often than a vast one full of duplicates. If you shop somewhere ours doesn't cover well, MyFitnessPal will beat us there."
+    a: "No, and it would be strange to claim otherwise — MyFitnessPal has had over a decade and millions of users adding entries. PocketChomp has around 142,000 foods with about 64,000 Canadian entries. The bet is that a smaller, cleaner, more Canadian database resolves your actual groceries more often than a vast one full of duplicates. If you shop somewhere ours doesn't cover well, MyFitnessPal will beat us there."
   - q: "Why should I trust a smaller app not to do the same thing later?"
     a: "Fair question, and no answer from us settles it — MyFitnessPal was also free once. What can be checked rather than promised: there's no ad SDK in the app, logging works without an account, your data stays on-device unless you turn on sync, and you can delete your account and data from a link in the app. Those are structural, not policy statements."
   - q: "Is there an iPhone version?"
@@ -97,7 +97,7 @@ Worth saying clearly, because a comparison page that pretends its competitor has
 
 **No account required.** Open it and start logging. Cloud sync exists if you want it and is off unless you turn it on.
 
-**Canadian groceries resolve.** Around 61,000 Canadian entries, including Compliments, President's Choice and Metro house brands. If you shop at a Canadian supermarket, the thing in your hand is more likely to be in the database.
+**Canadian groceries resolve.** About 64,000 Canadian entries, including Compliments, President's Choice, Metro and Walmart house brands. If you shop at a Canadian supermarket, the thing in your hand is more likely to be in the database.
 
 ## The honest summary
 

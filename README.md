@@ -8,7 +8,7 @@ Marketing site for [PocketChomp](https://pocketchomp.com), a calorie counter bui
 
 Nutrition tracking on your terms. Unlimited barcode scanning, every micronutrient, and a food log that stays on your phone unless you decide otherwise. No ads, and the basics are never paywalled.
 
-- **Your groceries are actually in it.** Health Canada's nutrient file plus the house brands you actually buy. 130,000+ foods, 60,000+ of them Canadian. Metric, and it's fibre, not fiber.
+- **Your groceries are actually in it.** Health Canada's nutrient file plus the house brands you actually buy. 140,000+ foods, 64,000+ of them Canadian. Metric, and it's fibre, not fiber.
 - **The basics are never paywalled.** Barcode scanning, label scanning and every micronutrient are free. Plus adds intelligence, never the basics back.
 - **On your device by default.** Every log is written to your phone first. No account needed, and sync is something you turn on.
 - **Beyond the calorie.** Vitamins, minerals, fibre, caffeine, omega-3, each measured against your own daily target.

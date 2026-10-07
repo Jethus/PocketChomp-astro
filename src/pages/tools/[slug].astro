@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { ogPath } from "../../lib/og-cards";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import SectionShell from "../../components/ui/SectionShell.astro";
@@ -93,7 +94,7 @@ const schema = {
 };
 ---
 
-<BaseLayout title={title} description={metaDescription}>
+<BaseLayout title={title} description={metaDescription} image={ogPath(`tools/${entry.id}`)}>
   <Header />
   <main>
     <SectionShell innerClass="max-w-4xl space-y-10">

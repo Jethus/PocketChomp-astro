@@ -1,6 +1,7 @@
 ---
 import { getEntry } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { ogPath } from "../../lib/og-cards";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import { getPublishedPosts } from "../../lib/blog";
@@ -46,7 +47,7 @@ function readTime(body: string): string {
 }
 ---
 
-<BaseLayout title="Blog" description={lede}>
+<BaseLayout title="Blog" description={lede} image={ogPath("blog")}>
   <Header />
   <main>
 

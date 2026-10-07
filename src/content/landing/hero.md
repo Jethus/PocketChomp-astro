@@ -32,7 +32,7 @@ collageCards:
   - title: Your nutrients, your dashboard
     body: built around you
     kind: ring
-  - title: 130,000+ foods
+  - title: 140,000+ foods
     body: Canadian shelves first
     kind: database
 ---
