@@ -4,14 +4,28 @@ import { SIGNUP_FORM_ACTION, SIGNUP_FORM_METHOD } from "../../consts";
 interface Props {
   placeholder: string;
   buttonText: string;
+  /**
+   * Where on the site this form sits (e.g. "closing-cta", "blog-post"). Sent
+   * as the `placement` prop on the "Signup Form Viewed" Plausible event so the
+   * goal can be broken down by location.
+   */
+  placement?: string;
 }
 
-const { placeholder, buttonText } = Astro.props;
+const { placeholder, buttonText, placement = "unknown" } = Astro.props;
 ---
 
 <!-- Plain HTML post to Kit; the field name `email_address` is what Kit expects.
-     Kit redirects to /thanks after submit (set in the form's settings). -->
-<form id="signup" action={SIGNUP_FORM_ACTION} method={SIGNUP_FORM_METHOD} class="w-full">
+     Kit redirects to /thanks after submit (set in the form's settings).
+     `data-signup-form` + `data-placement` are read by scripts/signup-view.ts. -->
+<form
+  id="signup"
+  action={SIGNUP_FORM_ACTION}
+  method={SIGNUP_FORM_METHOD}
+  class="w-full"
+  data-signup-form
+  data-placement={placement}
+>
   <label class="sr-only" for="signup-email">Email address</label>
   <div class="signup-shell flex w-full rounded-full border border-accent bg-surface p-1 shadow-[var(--shadow-elevated)]">
     <input
@@ -31,6 +45,10 @@ const { placeholder, buttonText } = Astro.props;
     </button>
   </div>
 </form>
+
+<script>
+  import "../../scripts/signup-view";
+</script>
 
 <style>
   /* Very narrow viewports: pill stacks so the input keeps a usable width
