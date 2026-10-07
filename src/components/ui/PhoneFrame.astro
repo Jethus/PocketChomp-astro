@@ -9,9 +9,12 @@ interface Props extends astroHTML.JSX.HTMLAttributes {
   src?: string;
   alt?: string;
   loading?: "eager" | "lazy";
+  /** Intrinsic size of the plate so the browser reserves space before it loads. */
+  width?: number;
+  height?: number;
 }
 
-const { src, alt = "", class: className = "", loading = "lazy", ...rest } = Astro.props as Props;
+const { src, alt = "", class: className = "", loading = "lazy", width, height, ...rest } = Astro.props as Props;
 const hasSlottedScreen = Astro.slots.has("default");
 ---
 
@@ -19,7 +22,7 @@ const hasSlottedScreen = Astro.slots.has("default");
   {hasSlottedScreen ? (
     <slot />
   ) : (
-    <img src={src} alt={alt} class="phone-frame__plate" loading={loading} />
+    <img src={src} alt={alt} class="phone-frame__plate" loading={loading} width={width} height={height} />
   )}
 </div>
 
