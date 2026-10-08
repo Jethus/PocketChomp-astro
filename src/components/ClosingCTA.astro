@@ -31,12 +31,14 @@ const { headline, description, inputPlaceholder, buttonText, note, proof, compar
       <ul class="cta-proof mt-4" aria-label="What you get">
         {proof.map((item) => <li class="cta-proof__item">{item}</li>)}
       </ul>
-      <p class="mt-3 text-sm leading-relaxed text-muted-foreground">
-        {compare.text}{" "}
-        <a href={compare.href} class="font-semibold text-foreground underline underline-offset-4 decoration-accent hover:text-accent-strong">
-          {compare.linkLabel}
-        </a>
-      </p>
+      {compare && (
+        <p class="mt-3 text-sm leading-relaxed text-muted-foreground">
+          {compare.text}{" "}
+          <a href={compare.href} class="font-semibold text-foreground underline underline-offset-4 decoration-accent hover:text-accent-strong">
+            {compare.linkLabel}
+          </a>
+        </p>
+      )}
 
       <p class="mt-4 text-sm leading-relaxed text-muted-foreground">{note}</p>
     </div>

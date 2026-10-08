@@ -141,8 +141,8 @@ const landingSignupCta = defineCollection({
      * until there are real ones to cite.
      */
     proof: z.array(z.string()).min(2).max(4),
-    /** One-line head-to-head that links to the full comparison page. */
-    compare: z.object({ text: z.string(), linkLabel: z.string(), href: z.string() }),
+    /** Optional one-line head-to-head linking to a comparison page. */
+    compare: z.object({ text: z.string(), linkLabel: z.string(), href: z.string() }).optional(),
   }),
 });
 
