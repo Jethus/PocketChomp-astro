@@ -35,6 +35,11 @@ const {
   secondaryCtaLink,
   ctaNote,
 } = heroEntry.data;
+
+// The rotating line reserves the width of its longest word through a CSS
+// ::before (see .hero-accent-stack) rather than hidden duplicate spans, so the
+// H1 text crawlers and screen readers get is the one static sentence below.
+const longestAccent = accents.reduce((a, b) => (b.text.length > a.text.length ? b : a)).text;
 ---
 
 <section id="hero" class="overflow-x-clip border-b border-border hero-section">
@@ -44,11 +49,8 @@ const {
   >
     <div class="pt-2">
       <h1 class="fs-xxl uppercase leading-[1.05] text-foreground">
-        {headline}
-        <span class="hero-accent-stack">
-          {accents.map((word) => (
-            <span class="hero-accent-ghost" aria-hidden="true">{word.text}</span>
-          ))}
+        {headline}{" "}
+        <span class="hero-accent-stack" data-longest={longestAccent}>
           <span
             class="hero-accent"
             data-accent-rotator
@@ -222,17 +224,20 @@ const {
     object-position: top center;
   }
 
-  /* All words stack in one grid cell: hidden ghosts reserve the size of
-     the longest word so swaps never shift layout */
+  /* The rotator and an invisible copy of the longest word share one grid
+     cell, so swaps never shift layout. The copy is CSS-generated content, not
+     DOM text, so it never reaches the accessible name or a crawler's H1. */
   .hero-accent-stack {
     display: grid;
   }
 
-  .hero-accent-stack > * {
+  .hero-accent-stack > *,
+  .hero-accent-stack::before {
     grid-area: 1 / 1;
   }
 
-  .hero-accent-ghost {
+  .hero-accent-stack::before {
+    content: attr(data-longest);
     visibility: hidden;
   }
 

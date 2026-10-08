@@ -9,7 +9,7 @@ if (!ctaEntry) {
   throw new Error("Could not find PocketChomp signup CTA content");
 }
 
-const { headline, description, inputPlaceholder, buttonText, note } = ctaEntry.data;
+const { headline, description, inputPlaceholder, buttonText, note, proof, compare } = ctaEntry.data;
 ---
 
 <SectionShell class="pb-10" data-reveal-root>
@@ -25,6 +25,19 @@ const { headline, description, inputPlaceholder, buttonText, note } = ctaEntry.d
 
     <div class="cta-form" data-reveal>
       <SignupForm placeholder={inputPlaceholder} buttonText={buttonText} placement="closing-cta" />
+
+      <!-- Proof sits beside the field, not at the bottom of the page: the
+           doubt shows up at the button, so the answer has to be there too. -->
+      <ul class="cta-proof mt-4" aria-label="What you get">
+        {proof.map((item) => <li class="cta-proof__item">{item}</li>)}
+      </ul>
+      <p class="mt-3 text-sm leading-relaxed text-muted-foreground">
+        {compare.text}{" "}
+        <a href={compare.href} class="font-semibold text-foreground underline underline-offset-4 decoration-accent hover:text-accent-strong">
+          {compare.linkLabel}
+        </a>
+      </p>
+
       <p class="mt-4 text-sm leading-relaxed text-muted-foreground">{note}</p>
     </div>
   </div>
@@ -34,5 +47,35 @@ const { headline, description, inputPlaceholder, buttonText, note } = ctaEntry.d
   /* Stagger in CSS — inline style attributes are blocked by the site CSP */
   .cta-form {
     --reveal-delay: 120ms;
+  }
+
+  /* Two columns of short checkable claims under the field. Each line gets a
+     brand-coloured check so the list reads as proof, not as more copy. */
+  .cta-proof {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  .cta-proof__item {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+
+  .cta-proof__item::before {
+    content: "\2713";
+    flex: none;
+    color: var(--accent);
+    font-weight: 900;
+  }
+
+  @media (max-width: 26rem) {
+    .cta-proof {
+      grid-template-columns: minmax(0, 1fr);
+    }
   }
 </style>

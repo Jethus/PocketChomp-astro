@@ -135,6 +135,14 @@ const landingSignupCta = defineCollection({
     inputPlaceholder: z.string(),
     buttonText: z.string(),
     note: z.string(),
+    /**
+     * Proof points rendered beside the form, where the doubt actually shows
+     * up. Keep every line checkable in the app; no user counts or quotes
+     * until there are real ones to cite.
+     */
+    proof: z.array(z.string()).min(2).max(4),
+    /** One-line head-to-head that links to the full comparison page. */
+    compare: z.object({ text: z.string(), linkLabel: z.string(), href: z.string() }),
   }),
 });
 
