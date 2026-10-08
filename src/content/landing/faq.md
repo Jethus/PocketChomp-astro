@@ -8,7 +8,7 @@ items:
   - q: Does it work without a connection?
     a: Yes. Health Canada and USDA foods ship inside the app, and everything you have searched or logged before is cached on your device, so you can search, log and review with no connection at all.
   - q: How Canadian is the food database?
-    a: About 64,000 of the 140,000+ foods come from Canadian sources, including Health Canada's nutrient file and house brands from Loblaws, Sobeys, Metro and Walmart. Verified entries rank first in search, and the app is metric by default.
+    a: About 64,000 of the 140,000+ foods come from Canadian sources, including Health Canada's nutrient file and the house brands you find in the major Canadian grocery chains. Verified entries rank first in search, and the app is metric by default.
   - q: Is my food log private?
     a: Your log is stored on your device by default, and you can use the app without an account at all. If you turn on cloud sync, it is backed up to our server so it can follow you between devices. You can export everything to CSV or delete it, including the server copy, whenever you want. We do not sell your data.
   - q: Which phones does it run on?

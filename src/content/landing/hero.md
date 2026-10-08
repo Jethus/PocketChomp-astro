@@ -1,22 +1,18 @@
 ---
 eyebrow: ""
-headline: Nutrition tracking,
+headline: Scan every barcode.
 accents:
-  - text: build muscle.
-    tint: protein
-  - text: lose weight.
-    tint: calories
-  - text: reduce sugar.
-    tint: carb
-  - text: stay hydrated.
-    tint: water
-  - text: eat healthy.
-    tint: sage
-  - text: track macros.
-    tint: fat
-  - text: on your terms.
+  - text: no limits.
     tint: ember
-description: A calorie counter built on Canadian shelves. Unlimited barcode scanning, every micronutrient, and a food log that stays on your phone unless you decide otherwise. No ads, and the basics are never paywalled.
+  - text: no account.
+    tint: sage
+  - text: no ads.
+    tint: water
+  - text: no paywall.
+    tint: protein
+  - text: free, forever.
+    tint: ember
+description: The calorie counter that actually has your Canadian groceries. Unlimited barcode scanning, every micronutrient, and a food log that stays on your phone unless you decide otherwise. No ads, and the basics are never paywalled.
 primaryCtaText: Join the beta
 primaryCtaLink: "#signup"
 secondaryCtaText: See how it works

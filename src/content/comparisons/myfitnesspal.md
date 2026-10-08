@@ -42,7 +42,7 @@ rows:
     ours: "On your device. Cloud sync is opt-in."
     theirs: "Account-based, synced to their servers"
   - feature: "Canadian foods"
-    ours: "64,000+ Canadian entries including Compliments, President's Choice, Metro and Walmart house brands"
+    ours: "64,000+ Canadian entries, including the house brands from the major Canadian grocery chains"
     theirs: "Very large global database with Canadian items"
     note: "MyFitnessPal's database is far bigger overall. Ours is more specifically Canadian."
   - feature: "Micronutrients"
