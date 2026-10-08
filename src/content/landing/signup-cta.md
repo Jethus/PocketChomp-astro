@@ -9,8 +9,4 @@ proof:
   - No account needed
   - No ads, ever
   - 64,000+ Canadian foods
-compare:
-  text: "Barcode scanning is free here and Premium-only in MyFitnessPal."
-  linkLabel: See the full comparison
-  href: /vs/myfitnesspal
 ---
