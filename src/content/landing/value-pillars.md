@@ -1,5 +1,8 @@
 ---
-headline: What we stand for.
+headline: What PocketChomp stands for.
+ctaText: Join the beta
+ctaLink: "#signup"
+ctaNote: No account needed · Android first, iOS later
 items:
   - headline: Your groceries are actually in it.
     description: Health Canada's nutrient file plus the house brands you actually buy. Metric, and it's fibre, not fiber.

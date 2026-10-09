@@ -1,0 +1,42 @@
+---
+import { getEntry } from "astro:content";
+import SectionShell from "./ui/SectionShell.astro";
+
+const entry = await getEntry("landingStatement", "statement");
+
+if (!entry) {
+  throw new Error("Could not find PocketChomp statement content");
+}
+
+const { lead, rest } = entry.data;
+---
+
+<!-- The problem, once, at display size: the claim in ink, the reason in the
+     muted tone straight after it, read as one paragraph. -->
+<SectionShell data-reveal-root>
+  <p class="statement" data-reveal>
+    <span class="statement__lead">{lead}</span>{" "}
+    <span class="statement__rest">{rest}</span>
+  </p>
+</SectionShell>
+
+<style>
+  .statement {
+    margin: 0;
+    max-width: 30ch;
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: clamp(1.9rem, 1.1rem + 3.2vw, 4rem);
+    line-height: 1.08;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  .statement__lead {
+    color: var(--foreground);
+  }
+
+  .statement__rest {
+    color: color-mix(in oklab, var(--foreground) 55%, var(--background)); /* >= 3:1 large text, both themes */
+  }
+</style>

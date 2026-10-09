@@ -80,16 +80,18 @@ const longestAccent = accents.reduce((a, b) => (b.text.length > a.text.length ? 
 
     <div class="hero-grid" aria-hidden="true" data-reveal-root>
       <article class="hero-panel hero-panel--shot hero-panel--tl" data-reveal>
-        <img src={shotSearch.src} alt="" class="hero-shot__img" loading="eager" />
+        <img src={shotSearch.src} width={shotSearch.attributes.width} height={shotSearch.attributes.height} alt="" class="hero-shot__img" loading="eager" />
       </article>
 
       <article class="hero-panel hero-panel--shot hero-panel--bl" data-reveal>
-        <img src={shotMetrics.src} alt="" class="hero-shot__img" loading="eager" />
+        <img src={shotMetrics.src} width={shotMetrics.attributes.width} height={shotMetrics.attributes.height} alt="" class="hero-shot__img" loading="eager" />
       </article>
 
       <div class="hero-panel hero-panel--phone hero-panel--center" data-reveal>
         <img
           src={shotDashboard.src}
+          width={shotDashboard.attributes.width}
+          height={shotDashboard.attributes.height}
           alt="PocketChomp diary showing today's calories, protein, fat and carbs, water, and six micronutrients"
           class="hero-phone__screen"
           loading="eager"
@@ -98,7 +100,7 @@ const longestAccent = accents.reduce((a, b) => (b.text.length > a.text.length ? 
       </div>
 
       <article class="hero-panel hero-panel--shot hero-panel--tr" data-reveal>
-        <img src={shotPlan.src} alt="" class="hero-shot__img" loading="eager" />
+        <img src={shotPlan.src} width={shotPlan.attributes.width} height={shotPlan.attributes.height} alt="" class="hero-shot__img" loading="eager" />
       </article>
     </div>
   </SectionShell>
@@ -277,7 +279,11 @@ const longestAccent = accents.reduce((a, b) => (b.text.length > a.text.length ? 
   .hero-accent[data-tint="protein"] { color: var(--color-protein); }
   .hero-accent[data-tint="carb"] { color: var(--color-carb); }
   .hero-accent[data-tint="fat"] { color: var(--color-fat); }
-  .hero-accent[data-tint="water"] { color: var(--color-water); }
+  /* The app's water blue is 2.5:1 on light paper, too faint for a headline
+     word, and the app has no text-strength water. Same hue, deeper, for
+     display type in light mode only (4.0:1). Dark mode uses the app value. */
+  .hero-accent[data-tint="water"] { color: oklch(0.5604 0.0767 242.3); }
+  :global(html[data-theme="dark"]) .hero-accent[data-tint="water"] { color: var(--color-water); }
   .hero-accent[data-tint="calories"] { color: var(--color-calories); }
   .hero-accent[data-tint="sage"] { color: var(--primary); }
   .hero-accent[data-tint="ember"] { color: var(--accent); }

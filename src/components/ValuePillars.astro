@@ -2,6 +2,7 @@
 import { getEntry } from "astro:content";
 import SectionShell from "./ui/SectionShell.astro";
 import PillarIcon from "./ui/PillarIcon.astro";
+import Button from "./ui/Button.astro";
 
 const pillarsEntry = await getEntry("landingValuePillars", "value-pillars");
 
@@ -9,7 +10,7 @@ if (!pillarsEntry) {
   throw new Error("Could not find PocketChomp value pillars content");
 }
 
-const { headline, items } = pillarsEntry.data;
+const { headline, items, ctaText, ctaLink, ctaNote } = pillarsEntry.data;
 ---
 
 <SectionShell innerClass="space-y-10" data-reveal-root>
@@ -32,9 +33,38 @@ const { headline, items } = pillarsEntry.data;
       ))
     }
   </div>
+
+  {ctaText && ctaLink && (
+    <div class="pillar-cta" data-reveal>
+      <Button href={ctaLink} variant="accent" size="lg">{ctaText}</Button>
+      {ctaNote && <p class="pillar-cta__note">{ctaNote}</p>}
+    </div>
+  )}
 </SectionShell>
 
 <style>
+  .pillar-cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 1.5rem;
+  }
+
+  .pillar-cta__note {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+  }
+
+  @media (max-width: 40rem) {
+    .pillar-cta {
+      flex-direction: column;
+      align-items: stretch;
+      text-align: center;
+    }
+  }
+
   /* No boxes: three large statements under a heavy rule, numbered like a
      manifesto. The app's slab grammar made these read as settings cards. */
   .pillar-grid {

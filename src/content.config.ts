@@ -101,6 +101,20 @@ const landingModularFeature = defineCollection({
     }),
 });
 
+/**
+ * One big two-tone statement between the proof strip and the product: the
+ * problem PocketChomp answers, said once, at display size.
+ */
+const landingStatement = defineCollection({
+  loader: glob({ pattern: "statement.md", base: "./src/content/landing" }),
+  schema: z.object({
+    /** Ink. The claim. */
+    lead: z.string(),
+    /** Muted. The why, read straight after the claim. */
+    rest: z.string(),
+  }),
+});
+
 const landingValuePillars = defineCollection({
   loader: glob({ pattern: "value-pillars.md", base: "./src/content/landing" }),
   schema: () =>
@@ -117,6 +131,10 @@ const landingValuePillars = defineCollection({
           })
         )
         .length(3),
+      /** Mid-page CTA under the pillars, so nobody scrolls nine screens to act. */
+      ctaText: z.string().optional(),
+      ctaLink: z.string().optional(),
+      ctaNote: z.string().optional(),
     }),
 });
 
@@ -364,6 +382,7 @@ export const collections = {
   landingProofStrip,
   landingSocialProof,
   landingModularFeature,
+  landingStatement,
   landingValuePillars,
   landingBeyondCalorie,
   landingSignupCta,

@@ -4,6 +4,7 @@ import { SITE_DESCRIPTION } from "../consts";
 import Header from "../components/Header.astro";
 import Hero from "../components/Hero.astro";
 import ProofStrip from "../components/ProofStrip.astro";
+import Statement from "../components/Statement.astro";
 import ScreenRail from "../components/ScreenRail.astro";
 import ModularFeature from "../components/ModularFeature.astro";
 import ValuePillars from "../components/ValuePillars.astro";
@@ -55,12 +56,14 @@ const appLd = {
   <main>
     <Hero />
     <ProofStrip />
+    <Statement />
     <ScreenRail />
     <ModularFeature />
     <ValuePillars />
     <BeyondCalorie />
-    <Faq />
     <FieldNotesTeaser />
+    <!-- Objections answered right before the ask. -->
+    <Faq />
     <ClosingCTA />
   </main>
   <Footer />

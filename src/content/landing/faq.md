@@ -1,7 +1,7 @@
 ---
 headline: Before you install.
 intro: The questions people ask before they try it.
-contactLabel: Ask Josh directly
+contactLabel: Ask me directly
 contactHref: /support
 items:
   - q: Is PocketChomp really free?
