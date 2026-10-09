@@ -24,7 +24,7 @@ export const GET: APIRoute = async ({ site }) => {
 Key facts:
 
 - Platform: Android (in beta). iOS is planned, not available.
-- Food database: 140,000+ foods, 64,000+ of them Canadian, built on Health Canada's Canadian Nutrient File plus store and house brands sold in Canada.
+- Food database: 200,000+ foods, 130,000+ of them Canadian, built on Health Canada's Canadian Nutrient File, Open Food Facts Canada, and store and house brands sold in Canada.
 - Free tier: barcode scanning, label scanning, all micronutrients, offline logging, custom goals. No ads on any tier.
 - Privacy: logs are written to the phone first. Sync is opt-in. No account is needed to use the app.
 - Made by a solo developer in Toronto, Canada.
