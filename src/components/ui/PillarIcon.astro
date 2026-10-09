@@ -5,9 +5,8 @@
  * The `tag` and `shield` paths are Lucide's `tag` and `shield-check`
  * (https://lucide.dev, ISC licensed, Copyright (c) 2020 Lucide Contributors),
  * inlined rather than pulled in as a dependency so the build stays static.
- * `maple` is the eleven-point heraldic leaf from the Canadian flag, drawn in
- * the same 24x24 box but filled rather than stroked, because at this size a
- * stroked outline closes its own notches.
+ * `maple` is the leaf from the Flag of Canada, the flag's own vector path,
+ * filled rather than stroked, because at this size an outline closes its notches.
  */
 interface Props {
   name: "maple" | "tag" | "shield";
@@ -30,13 +29,17 @@ const { name, class: className = "" } = Astro.props as Props;
 >
   {
     name === "maple" && (
-      /* Filled, not stroked: at 34px the outline's notches close up and the
-         leaf turns into a blob. The silhouette stays legible. */
-      <path
-        fill="currentColor"
-        stroke="none"
-        d="M12 2.2a.35.35 0 0 0-.32.2l-1.6 3.35a.35.35 0 0 1-.5.14L7.9 4.74a.35.35 0 0 0-.52.37l.56 2.9a.35.35 0 0 1-.46.4l-1.62-.6a.35.35 0 0 0-.45.2l-.5 1.35a.35.35 0 0 1-.42.21l-2.3-.6a.35.35 0 0 0-.4.48l1.18 2.6a.35.35 0 0 1-.13.43l-.75.5a.35.35 0 0 0-.4.55l4.3 3.6a.35.35 0 0 1 .11.37l-.42 1.5a.35.35 0 0 0 .38.44l3.9-.5a.35.35 0 0 1 .39.38l-.28 3.28a.35.35 0 0 0 .35.38h1.9a.35.35 0 0 0 .35-.38l-.28-3.28a.35.35 0 0 1 .39-.38l3.9.5a.35.35 0 0 0 .38-.44l-.42-1.5a.35.35 0 0 1 .11-.37l4.3-3.6a.35.35 0 0 0-.04-.55l-.75-.5a.35.35 0 0 1-.13-.43l1.18-2.6a.35.35 0 0 0-.4-.48l-2.3.6a.35.35 0 0 1-.42-.21l-.5-1.35a.35.35 0 0 0-.45-.2l-1.62.6a.35.35 0 0 1-.46-.4l.56-2.9a.35.35 0 0 0-.52-.37l-1.68 1.15a.35.35 0 0 1-.5-.14l-1.6-3.35A.35.35 0 0 0 12 2.2Z"
-      />
+      /* The maple leaf from the Flag of Canada, using the flag's standard
+         vector path (public domain, as on Wikimedia Commons' Flag of Canada
+         SVG). Drawn in its own viewBox, square around the leaf with the same
+         breathing room as the other 24px icons, so it sits level with them. */
+      <svg x="0" y="0" width="24" height="24" viewBox="2500 118 4594 4594">
+        <path
+          fill="currentColor"
+          stroke="none"
+          d="m4890 4430-45-863a95 95 0 0 1 111-98l859 151-116-320a65 65 0 0 1 20-73l941-762-212-99a65 65 0 0 1-34-79l186-572-542 115a65 65 0 0 1-73-38l-105-247-423 454a65 65 0 0 1-111-57l204-1052-327 189a65 65 0 0 1-91-27l-332-652-332 652a65 65 0 0 1-91 27l-327-189 204 1052a65 65 0 0 1-111 57l-423-454-105 247a65 65 0 0 1-73 38l-542-115 186 572a65 65 0 0 1-34 79l-212 99 941 762a65 65 0 0 1 20 73l-116 320 859-151a95 95 0 0 1 111 98l-45 863z"
+        />
+      </svg>
     )
   }
   {
