@@ -202,6 +202,11 @@ const landingFaq = defineCollection({
   loader: glob({ pattern: "faq.md", base: "./src/content/landing" }),
   schema: z.object({
     headline: z.string(),
+    /** One line under the headline, beside the list on desktop. */
+    intro: z.string().optional(),
+    /** "Still have a question?" link under the intro. */
+    contactLabel: z.string().optional(),
+    contactHref: z.string().optional(),
     items: z
       .array(
         z.object({

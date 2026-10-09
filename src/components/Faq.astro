@@ -9,7 +9,7 @@ if (!entry) {
   throw new Error("Could not find PocketChomp FAQ content");
 }
 
-const { headline, items } = entry.data;
+const { headline, intro, contactLabel, contactHref, items } = entry.data;
 
 // Same shape the blog and tools pages emit, so the homepage finally carries
 // structured data too.
@@ -25,16 +25,65 @@ const faqLd = {
 ---
 
 <section id="faq">
-  <SectionShell innerClass="faq-shell" data-reveal-root>
-    <h2 class="fs-xl leading-[1.05] text-foreground">{headline}</h2>
-    <FaqList items={items} class="mt-8" />
+  <SectionShell innerClass="faq-layout" data-reveal-root>
+    <!-- Heading column stays in view beside the list on wide screens. -->
+    <div class="faq-head">
+      <h2 class="fs-xl leading-[1.02] text-foreground">{headline}</h2>
+      {intro && <p class="mt-4 max-w-sm text-lg leading-relaxed text-muted-foreground">{intro}</p>}
+      {contactLabel && contactHref && (
+        <a href={contactHref} class="faq-contact mt-6">
+          {contactLabel}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </a>
+      )}
+    </div>
+    <FaqList items={items} />
   </SectionShell>
 
   <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
 </section>
 
 <style>
-  .faq-shell {
-    max-width: 64ch;
+  /* .faq-layout lives on SectionShell's inner div, outside this component's
+     scope, so it is targeted globally. */
+  :global(.faq-layout) {
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  @media (min-width: 64rem) {
+    :global(.faq-layout) {
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr);
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .faq-head {
+      position: sticky;
+      top: 7rem;
+    }
+  }
+
+  .faq-contact {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-weight: 700;
+    color: var(--accent-text);
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 0.3em;
+  }
+
+  .faq-contact svg {
+    width: 1.1rem;
+    height: 1.1rem;
+    transition: transform 180ms ease-out;
+  }
+
+  .faq-contact:hover svg {
+    transform: translateX(3px);
   }
 </style>

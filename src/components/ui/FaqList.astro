@@ -1,9 +1,13 @@
 ---
 /**
- * One FAQ treatment for the whole site: flat rows with a chevron, native
+ * One FAQ treatment for the whole site: flat rows with a round toggle, native
  * <details> so it works with no JS, is keyboard operable and is announced
  * correctly. The homepage, the calculators and the comparison pages all
  * render their questions through this so they stop drifting apart.
+ *
+ * Editorial, not app UI: full-width rules between rows, the question as the
+ * loud element, and the brand orange concentrated in one place, the toggle,
+ * which fills ember when its row is open.
  */
 interface Props {
   items: { q: string; a: string }[];
@@ -18,19 +22,12 @@ const { items, class: className = "" } = Astro.props as Props;
     items.map((item) => (
       <details class="faq-item" data-reveal>
         <summary class="faq-item__q">
-          <span>{item.q}</span>
-          <svg
-            class="faq-item__chevron"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-          >
-            <path d="m6 9 6 6 6-6" />
-          </svg>
+          <span class="faq-item__text">{item.q}</span>
+          <span class="faq-item__toggle" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <path d="M12 5v14M5 12h14" />
+            </svg>
+          </span>
         </summary>
         <div class="faq-item__a">
           <p>{item.a}</p>
@@ -41,106 +38,133 @@ const { items, class: className = "" } = Astro.props as Props;
 </div>
 
 <style>
-  /* One white slab holding the rows, the way the app lays out a settings list. */
   .faq-list {
-    background: var(--surface);
-    border-radius: 2rem;
-    padding: 0.5rem;
-  }
-
-  :global(html[data-theme="dark"]) .faq-list {
-    border: 1px solid var(--border);
+    border-top: 2px solid var(--foreground);
   }
 
   .faq-item {
-    border-radius: 1.5rem;
-    padding-inline: 1.25rem;
-    transition: background-color 150ms ease-out;
+    border-bottom: 1px solid color-mix(in oklab, var(--foreground) 16%, transparent);
   }
 
-  .faq-item + .faq-item {
-    border-top: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
-  }
-
-  /* Open row: the app's selected tint, with label and chevron in its text
-     colour. The hairline would cut across the tint, so it goes. */
-  .faq-item[open] {
-    background: var(--accent-tint);
-    border-top-color: transparent;
-  }
-
-  .faq-item[open] + .faq-item {
-    border-top-color: transparent;
-  }
-
-  .faq-item[open] .faq-item__q,
-  .faq-item[open] .faq-item__chevron {
-    color: var(--accent-text);
-  }
-
-  /* 44px+ target, whole row clickable. */
+  /* The whole row is the target: 64px+ tall, question left, toggle right. */
   .faq-item__q {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1.5rem;
-    min-height: 3.5rem;
-    padding-block: 1rem;
+    min-height: 4rem;
+    padding-block: 1.25rem;
     cursor: pointer;
     list-style: none;
-    font-family: var(--font-heading);
-    font-size: 1.02rem;
-    font-weight: 900;
-    line-height: 1.35;
-    color: var(--foreground);
-    transition: color 150ms ease-out;
-  }
-
-  .faq-item__q > span {
-    text-wrap: balance;
   }
 
   .faq-item__q::-webkit-details-marker {
     display: none;
   }
 
-  /* Hover: only the chevron darkens. The question stays ink until open. */
-  .faq-item__q:hover .faq-item__chevron {
+  .faq-item__text {
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: clamp(1.05rem, 0.95rem + 0.45vw, 1.35rem);
+    line-height: 1.25;
     color: var(--foreground);
+    text-wrap: pretty;
+    transition: color 150ms ease-out;
   }
 
-  .faq-item__q:focus-visible {
-    outline: 2px solid color-mix(in oklab, var(--accent-strong) 60%, transparent);
-    outline-offset: 3px;
-    border-radius: 0.4rem;
-  }
-
-  .faq-item__chevron {
-    width: 1.2rem;
-    height: 1.2rem;
+  /* Round toggle: outlined at rest, fills ember on hover-intent and when
+     open, and the plus turns into a cross. */
+  .faq-item__toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     flex: none;
-    color: var(--muted-foreground);
-    transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 999px;
+    border: 2px solid color-mix(in oklab, var(--foreground) 22%, transparent);
+    color: var(--foreground);
+    transition:
+      background-color 180ms ease-out,
+      border-color 180ms ease-out,
+      color 180ms ease-out;
   }
 
-  .faq-item[open] .faq-item__chevron {
-    transform: rotate(180deg);
+  .faq-item__toggle svg {
+    width: 1.1rem;
+    height: 1.1rem;
+    transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  @media (hover: hover) {
+    .faq-item__q:hover .faq-item__text {
+      color: var(--accent-text);
+    }
+
+    .faq-item__q:hover .faq-item__toggle {
+      border-color: var(--accent-strong);
+      color: var(--accent-text);
+    }
+  }
+
+  .faq-item[open] .faq-item__text {
+    color: var(--accent-text);
+  }
+
+  .faq-item[open] .faq-item__toggle {
+    background: var(--accent-strong);
+    border-color: var(--accent-strong);
+    color: var(--accent-foreground);
+  }
+
+  .faq-item[open] .faq-item__toggle svg {
+    transform: rotate(45deg);
+  }
+
+  /* Keyboard focus rings the toggle, where the eye already is. */
+  .faq-item__q:focus-visible {
+    outline: none;
+  }
+
+  .faq-item__q:focus-visible .faq-item__toggle {
+    box-shadow:
+      0 0 0 3px var(--background),
+      0 0 0 5px var(--accent-strong);
+  }
+
+  .faq-item__q:focus-visible .faq-item__text {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.25em;
   }
 
   .faq-item__a {
-    padding-bottom: 1.35rem;
+    padding: 0 4rem 1.75rem 0;
   }
 
   .faq-item__a p {
     margin: 0;
-    max-width: 65ch;
-    font-size: 1rem;
+    max-width: 62ch;
+    font-size: 1.05rem;
     line-height: 1.65;
-    color: var(--foreground);
+    color: var(--muted-foreground);
+  }
+
+  @media (max-width: 40rem) {
+    .faq-item__a {
+      padding-right: 0;
+    }
+
+    .faq-item__toggle {
+      width: 2.25rem;
+      height: 2.25rem;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .faq-item__chevron {
+    .faq-item__toggle,
+    .faq-item__toggle svg,
+    .faq-item__text {
       transition: none;
     }
   }

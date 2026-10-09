@@ -1,5 +1,8 @@
 ---
 headline: Before you install.
+intro: The questions people ask before they try it.
+contactLabel: Ask Josh directly
+contactHref: /support
 items:
   - q: Is PocketChomp really free?
     a: Yes. Barcode scanning, label scanning, search, voice and typed logging, every micronutrient, custom goals, custom foods and recipes, offline use and CSV export are all free, with no ads and no scan limit. PocketChomp+ is an optional subscription that adds AI photo logging, adaptive targets and longer-range insights. It never takes the basics away.
