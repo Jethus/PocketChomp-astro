@@ -1,11 +1,11 @@
 ---
 eyebrow: Built around you
 headline: Your numbers, or none at all.
-description: Pick a nutrient profile or build your own. Set your own calorie and macro targets. Put whatever you care about at the top of the dashboard. And if seeing calories isn't good for you, hide them everywhere.
+description: Pick a nutrient profile or build your own, put what you care about at the top of the diary, and hide calories everywhere if seeing them isn't good for you.
 bullets:
-  - Six nutrient profiles, from endurance and hypertrophy to keto, plant-based and custom
-  - Up to eight micronutrients of your choosing on the dashboard
-  - Your own calorie and macro targets, with separate training and rest days
+  - Six nutrient profiles, or fully custom
+  - Separate targets for training and rest days
+  - Up to eight micronutrients on the dashboard
   - Mindful mode hides calories across the whole app
 panelLabel: Straight from the app
 image: ../../assets/ui/ui-metrics-panel.webp

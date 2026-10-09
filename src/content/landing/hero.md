@@ -10,14 +10,14 @@ accents:
     tint: sage
   - text: ad-free.
     tint: carb
-  - text: for free.
+  - text: no catch.
     tint: ember
-description: Scan what is actually in your cart. PocketChomp has the house brands on Canadian shelves, every micronutrient, and a food log that stays on your phone unless you turn sync on. No ads, no scan limit, and the basics are never paywalled.
+description: Scan what is in your cart and it comes up, house brand and all. Log it in seconds, see every nutrient against your own targets, and keep the whole log on your phone.
 primaryCtaText: Join the beta
 primaryCtaLink: "#signup"
 secondaryCtaText: See how it works
 secondaryCtaLink: "#screens"
-ctaNote: Free · No account needed · No ads · Android beta
+ctaNote: No account needed · Android beta
 collageCards:
   - title: Local logging
     body: on your device by default

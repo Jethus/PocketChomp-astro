@@ -51,12 +51,12 @@ const { headline, description, inputPlaceholder, buttonText, note, proof, compar
     --reveal-delay: 120ms;
   }
 
-  /* Two columns of short checkable claims under the field. Each line gets a
+  /* A wrapping row of short checkable claims under the field. Each gets a
      brand-coloured check so the list reads as proof, not as more copy. */
   .cta-proof {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.5rem 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
     font-size: 0.9rem;
     font-weight: 600;
     color: var(--foreground);
@@ -75,9 +75,4 @@ const { headline, description, inputPlaceholder, buttonText, note, proof, compar
     font-weight: 900;
   }
 
-  @media (max-width: 26rem) {
-    .cta-proof {
-      grid-template-columns: minmax(0, 1fr);
-    }
-  }
 </style>

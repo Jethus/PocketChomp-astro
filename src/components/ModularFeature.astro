@@ -16,24 +16,24 @@ const { eyebrow, headline, description, bullets, panelLabel, image, imageAlt } =
 <SectionShell
   id="modular"
   class="pt-6"
-  innerClass="overflow-hidden rounded-[2.5rem] bg-primary px-6 py-10 shadow-[var(--shadow-elevated-lg)] md:px-10 md:py-14 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(15rem,0.7fr)] lg:items-center lg:gap-14"
+  innerClass="overflow-hidden rounded-[2.5rem] bg-primary px-6 py-10 shadow-[var(--shadow-elevated-lg)] md:px-10 md:py-14 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(17rem,0.85fr)] lg:items-center lg:gap-12"
   data-reveal-root
 >
   <div>
     <p class="font-heading text-[0.68rem] font-black uppercase tracking-[0.22em] text-white/60">
       {eyebrow}
     </p>
-    <h2 class="fs-xl mt-3 max-w-[10ch] leading-[1.04] text-white">
+    <h2 class="modular-headline fs-xl mt-3 max-w-[14ch] leading-[1.04] text-white">
       {headline}
     </h2>
-    <p class="mt-6 max-w-2xl text-lg leading-relaxed text-white/75">
+    <p class="modular-body mt-5 max-w-[40ch] text-lg leading-relaxed text-white/78">
       {description}
     </p>
 
-    <ul class="mt-9 grid gap-x-8 gap-y-4 sm:grid-cols-2">
+    <ul class="modular-list mt-8 grid max-w-[40ch] gap-y-3">
       {
         bullets.map((bullet) => (
-          <li class="flex items-start gap-3 text-base font-medium leading-relaxed text-white">
+          <li class="flex items-start gap-3 text-base font-medium leading-snug text-white">
             <span class="modular-check" aria-hidden="true">
               <svg viewBox="0 0 512 512" fill="none" stroke="currentColor" stroke-width="56" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="96 272 208 368 416 144" />
@@ -59,6 +59,17 @@ const { eyebrow, headline, description, bullets, panelLabel, image, imageAlt } =
 </SectionShell>
 
 <style>
+  /* Balanced wrapping so the headline never strands a short word, and the
+     body and list wrap "pretty" so no line ends on a lone word. */
+  .modular-headline {
+    text-wrap: balance;
+  }
+
+  .modular-body,
+  .modular-list li {
+    text-wrap: pretty;
+  }
+
   .modular-check {
     display: inline-flex;
     align-items: center;

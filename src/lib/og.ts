@@ -26,7 +26,7 @@ export type { OgCard };
 const BACKGROUND = "#F6F8F6"; // --background
 const FOREGROUND = "#262B27"; // --foreground
 const MUTED = "#6A6F6B"; // --muted-foreground
-const SAGE = "#3D7358"; // --primary
+const SAGE = "#4A714C"; // --primary
 const EMBER = "#E4551C"; // --accent
 
 let fontsCache: ReturnType<typeof loadFonts> | undefined;

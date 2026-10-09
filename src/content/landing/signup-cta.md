@@ -1,12 +1,11 @@
 ---
 headline: Be first in Canada.
-description: Beta builds, launch news and field notes. No spam. Unsubscribe anytime.
+description: One email when there is a build to try. Nothing else.
 inputPlaceholder: you@email.com
 buttonText: Join the beta
-note: We only write about PocketChomp betas and launches. Android first, iOS later.
+note: Replies go straight to Josh. Android first, iOS later.
 proof:
-  - Free, with no scan limit
-  - No account needed
-  - No ads, ever
-  - 64,000+ Canadian foods
+  - No account to create
+  - Export or delete your log anytime
+  - Unsubscribe in one tap
 ---
