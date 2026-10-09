@@ -26,10 +26,10 @@ const leadWords = words.join(" ");
   data-reveal-root
 >
   <div>
-    <h2 class="beyond-headline fs-xl leading-[1.02] text-foreground">
+    <h2 class="beyond-headline fs-xl leading-[1.02]">
       {leadWords}{leadWords ? " " : ""}<span class="beyond-headline__accent">{lastWord}</span>
     </h2>
-    <p class="beyond-body mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+    <p class="beyond-body mt-6 max-w-2xl text-lg leading-relaxed">
       {description}
     </p>
   </div>
@@ -47,14 +47,11 @@ const leadWords = words.join(" ");
 </SectionShell>
 
 <style>
-  /* Same card shape as the green feature card, but on the page surface with
-     a hairline, so the two cards alternate loud / quiet instead of loud / loud. */
+  /* The page's bright moment: the app's rust ember with white type
+     (5.0:1), the same orange as every primary button. */
   :global(.beyond-card) {
-    background: var(--surface);
-  }
-
-  :global(html[data-theme="dark"]) .beyond-card {
-    border: 1px solid var(--border);
+    background: var(--accent-strong);
+    color: white;
   }
 
   /* One line. nowrap alone ran the fluid heading past the card's clipped
@@ -65,13 +62,19 @@ const leadWords = words.join(" ");
     font-size: clamp(1.75rem, 0.9rem + 3.6vw, 4.2rem);
   }
 
+  .beyond-headline {
+    color: white;
+  }
+
+  /* The app's selection tint, the one warm light that holds up on rust. */
   .beyond-headline__accent {
-    color: var(--accent);
+    color: oklch(0.9070 0.0440 52.63); /* choice-selected #F9D9C6 */
   }
 
   /* Balanced so the last line keeps company; a lone trailing word was
      sitting under three full lines. */
   .beyond-body {
     text-wrap: pretty;
+    color: oklch(1 0 0 / 0.9);
   }
 </style>

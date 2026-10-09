@@ -21,11 +21,14 @@ const { headline, items } = pillarsEntry.data;
        pillars are a statement, not a feature grid. -->
   <div class="pillar-grid">
     {
-      items.map((item) => (
+      items.map((item, index) => (
         <article class="pillar" data-reveal>
-          <span class:list={["pillar__mark", `pillar__mark--${item.tone}`]}>
-            <PillarIcon name={item.icon} class="pillar__icon" />
-          </span>
+          <div class="pillar__top">
+            <span class="pillar__num" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+            <span class:list={["pillar__mark", `pillar__mark--${item.tone}`]}>
+              <PillarIcon name={item.icon} class="pillar__icon" />
+            </span>
+          </div>
           <h3 class="pillar__headline">{item.headline}</h3>
           <p class="pillar__body">{item.description}</p>
         </article>
@@ -35,100 +38,78 @@ const { headline, items } = pillarsEntry.data;
 </SectionShell>
 
 <style>
+  /* No boxes: three large statements under a heavy rule, numbered like a
+     manifesto. The app's slab grammar made these read as settings cards. */
   .pillar-grid {
     display: grid;
-    gap: 1rem;
+    gap: 2.5rem;
   }
 
   @media (min-width: 48rem) {
     .pillar-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 3rem;
     }
   }
 
   .pillar {
+    border-top: 2px solid var(--foreground);
+    padding-top: 1.5rem;
+  }
+
+  .pillar__top {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
-    padding: 1.5rem;
-    border-radius: 2rem;
-    background: var(--surface);
+    align-items: center;
+    justify-content: space-between;
   }
 
-  :global(html[data-theme="dark"]) .pillar {
-    border: 1px solid var(--border);
+  .pillar__num {
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: clamp(2.5rem, 1.8rem + 2vw, 3.5rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--accent);
   }
 
-  /* Each mark sits on a soft disc of its own hue, so the three read as a set
-     of three rather than three copies of one. The icon is drawn at display
-     size now that the card around it is gone. */
   .pillar__mark {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 3rem;
+    height: 3rem;
     border-radius: 999px;
     color: var(--mark-ink);
-    background: color-mix(in oklab, var(--mark-ink) 12%, transparent);
+    background: color-mix(in oklab, var(--mark-ink) 14%, transparent);
   }
 
-  /* Ember for the Canadian leaf, sage for the free-forever tag, and a cooler
-     blue-green for privacy so it does not read as a second sage pillar. */
-  .pillar__mark--canadian {
-    --mark-ink: var(--accent-strong);
-  }
-
-  .pillar__mark--free {
-    --mark-ink: var(--primary);
-  }
-
-  .pillar__mark--private {
-    --mark-ink: oklch(0.48 0.09 232);
-  }
-
-  :global(html[data-theme="dark"]) .pillar__mark--canadian {
-    --mark-ink: var(--accent);
-  }
-
-  :global(html[data-theme="dark"]) .pillar__mark--free {
-    --mark-ink: oklch(0.72 0.08 164);
-  }
-
-  :global(html[data-theme="dark"]) .pillar__mark--private {
-    --mark-ink: oklch(0.7 0.1 232);
-  }
+  .pillar__mark--canadian { --mark-ink: var(--accent-text); }
+  .pillar__mark--free { --mark-ink: var(--primary-strong); }
+  .pillar__mark--private { --mark-ink: var(--color-water); }
 
   .pillar__mark :global(.pillar__icon) {
-    width: 1.75rem;
-    height: 1.75rem;
+    width: 1.5rem;
+    height: 1.5rem;
   }
 
   .pillar__headline {
-    margin: 1.5rem 0 0;
+    margin: 1.75rem 0 0;
     font-family: var(--font-heading);
     font-weight: 900;
-    font-size: 1.2rem;
-    line-height: 1.2;
-    text-wrap: pretty;
+    font-size: clamp(1.4rem, 1.1rem + 0.9vw, 1.9rem);
+    line-height: 1.1;
     color: var(--foreground);
   }
 
   .pillar__body {
-    margin: 0.85rem 0 0;
-    max-width: 34ch;
-    font-size: 1rem;
+    margin: 0.9rem 0 0;
+    max-width: 36ch;
+    font-size: 1.05rem;
     line-height: 1.6;
     color: var(--muted-foreground);
   }
 
   /* Stagger in CSS — inline style attributes are blocked by the site CSP */
-  .pillar:nth-child(2) {
-    --reveal-delay: 100ms;
-  }
-
-  .pillar:nth-child(3) {
-    --reveal-delay: 200ms;
-  }
+  .pillar:nth-child(2) { --reveal-delay: 100ms; }
+  .pillar:nth-child(3) { --reveal-delay: 200ms; }
 </style>

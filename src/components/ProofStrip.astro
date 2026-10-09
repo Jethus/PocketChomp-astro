@@ -11,16 +11,12 @@ const { items } = entry.data;
 ---
 
 <section aria-label="PocketChomp at a glance" data-reveal-root>
-  <div class="proof-grid mx-auto w-full max-w-7xl gap-6 px-6 py-8 md:py-10">
+  <div class="proof-grid mx-auto w-full max-w-7xl px-6 py-10 md:py-14">
     {
-      items.map((item) => (
-        <div class="proof-item" data-reveal>
-          <p class="proof-item__value font-heading font-black uppercase text-foreground">
-            {item.value}
-          </p>
-          {item.label && (
-            <p class="mt-1 text-sm leading-relaxed text-muted-foreground">{item.label}</p>
-          )}
+      items.map((item, index) => (
+        <div class="proof-item" data-reveal data-index={index}>
+          <p class="proof-item__value">{item.value}</p>
+          {item.label && <p class="proof-item__label">{item.label}</p>}
         </div>
       ))
     }
@@ -28,47 +24,50 @@ const { items } = entry.data;
 </section>
 
 <style>
-  /* auto-fit rather than a fixed column count, so three or four items both
-     fill the row evenly instead of leaving an orphan. */
+  /* Big number over a short label, the stat treatment every app site in the
+     category uses. Short values mean the number can be large without ever
+     overflowing its column. */
   .proof-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 1rem;
+    gap: 1.75rem;
   }
 
-  @media (min-width: 48rem) {
+  @media (min-width: 40rem) {
     .proof-grid {
-      grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0;
+    }
+
+    .proof-item + .proof-item {
+      border-left: 1px solid color-mix(in oklab, var(--foreground) 16%, transparent);
     }
   }
 
-  /* Bare claims, so they are centred in their cell rather than ragged-left
-     under a missing subtitle. */
   .proof-item {
     text-align: center;
     min-width: 0;
+    padding-inline: 1rem;
   }
 
-  /* One line each. fs-m is fluid and grew wide enough that "64,000+ Canadian"
-     broke across two lines while its neighbours stayed on one, which made the
-     row look ragged. Scaling with the viewport keeps all three level. */
   .proof-item__value {
-    font-size: clamp(1rem, 0.6rem + 1.55vw, 1.6rem);
-    line-height: 1.15;
-    letter-spacing: -0.01em;
+    margin: 0;
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: clamp(2.25rem, 1.5rem + 2.6vw, 3.75rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--foreground);
     white-space: nowrap;
   }
 
+  .proof-item__label {
+    margin: 0.6rem 0 0;
+    font-size: clamp(1rem, 0.95rem + 0.2vw, 1.15rem);
+    font-weight: 500;
+    color: var(--muted-foreground);
+  }
+
   /* Stagger in CSS — inline style attributes are blocked by the site CSP */
-  .proof-item:nth-child(2) {
-    --reveal-delay: 100ms;
-  }
-
-  .proof-item:nth-child(3) {
-    --reveal-delay: 200ms;
-  }
-
-  .proof-item:nth-child(4) {
-    --reveal-delay: 300ms;
-  }
+  .proof-item[data-index="1"] { --reveal-delay: 100ms; }
+  .proof-item[data-index="2"] { --reveal-delay: 200ms; }
 </style>
