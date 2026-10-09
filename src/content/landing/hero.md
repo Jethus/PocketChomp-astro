@@ -12,7 +12,7 @@ accents:
     tint: carb
   - text: no catch.
     tint: ember
-description: Scan what is in your cart and it comes up, house brand and all. Log it in seconds, see every nutrient against your own targets, and keep the whole log on your phone.
+description: Scan what's in your cart and it comes up, house brand and all. Every nutrient against your targets, and the log stays on your phone.
 primaryCtaText: Join the beta
 primaryCtaLink: "#signup"
 secondaryCtaText: See how it works

@@ -42,7 +42,7 @@ const {
 const longestAccent = accents.reduce((a, b) => (b.text.length > a.text.length ? b : a)).text;
 ---
 
-<section id="hero" class="overflow-x-clip border-b border-border hero-section">
+<section id="hero" class="overflow-x-clip hero-section">
   <SectionShell
     class="hero-shell"
     innerClass="max-w-[90rem] grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-12"
@@ -60,7 +60,7 @@ const longestAccent = accents.reduce((a, b) => (b.text.length > a.text.length ? 
         </span>
       </h1>
 
-      <p class="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+      <p class="hero-lede mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">
         {description}
       </p>
 
@@ -229,6 +229,10 @@ const longestAccent = accents.reduce((a, b) => (b.text.length > a.text.length ? 
      DOM text, so it never reaches the accessible name or a crawler's H1. */
   .hero-accent-stack {
     display: grid;
+  }
+
+  .hero-lede {
+    text-wrap: pretty;
   }
 
   .hero-accent-stack > *,

@@ -50,9 +50,11 @@ const leadWords = words.join(" ");
   /* Same card shape as the green feature card, but on the page surface with
      a hairline, so the two cards alternate loud / quiet instead of loud / loud. */
   :global(.beyond-card) {
-    background: var(--surface-strong);
-    border: 1px solid color-mix(in oklab, var(--border) 80%, transparent);
-    box-shadow: var(--shadow-elevated);
+    background: var(--surface);
+  }
+
+  :global(html[data-theme="dark"]) .beyond-card {
+    border: 1px solid var(--border);
   }
 
   /* One line. nowrap alone ran the fluid heading past the card's clipped

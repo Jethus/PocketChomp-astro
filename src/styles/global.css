@@ -62,6 +62,8 @@
   --color-accent: var(--accent);
   --color-accent-strong: var(--accent-strong);
   --color-accent-foreground: var(--accent-foreground);
+  --color-accent-tint: var(--accent-tint);
+  --color-accent-text: var(--accent-text);
   --color-ink: var(--foreground);
 
   --animate-fade-in: fade-in 0.5s ease-out;
@@ -108,6 +110,10 @@
     --accent: oklch(0.6 0.17 44.5);
     --accent-strong: oklch(0.5588 0.1611 44.5); /* app ember #BD4C00 */
     --accent-foreground: oklch(1 0 0); /* app on-ember: white, 5.0:1 */
+    /* Selection tint and its label, straight from the app: the one place a
+       state is coloured. */
+    --accent-tint: oklch(0.907 0.044 52.6); /* app choice-selected #F9D9C6 */
+    --accent-text: oklch(0.49 0.14 48); /* app selected-text #A34100 */
 
     /* Macro palette — the canonical values from the app's global.css, converted
        from its hex to OKLCH so they live in this token system. Keep these in
@@ -119,7 +125,7 @@
     --color-fat: oklch(0.6279 0.1164 90.8); /* #A38523 */
     --color-water: oklch(0.678 0.0704 239.7); /* #6F9EBF */
 
-    --radius-card: 1rem;
+    --radius-card: 2rem; /* app card radius, 32px */
     --radius-pill: 9999px;
 
     --shadow-elevated: 0 18px 38px -28px rgb(18 21 18 / 0.18);
@@ -156,6 +162,8 @@
     --accent: oklch(0.6589 0.185 40.5); /* app dark ember #EB6026 */
     --accent-strong: oklch(0.6589 0.185 40.5);
     --accent-foreground: oklch(0.1902 0.0086 153.1);
+    --accent-tint: oklch(0.28 0.06 45); /* app dark ember-muted #411E0E */
+    --accent-text: oklch(0.74 0.14 45); /* app dark on-ink-accent #F28552 */
 
     /* Dark macro values from the app's dark block. */
     --color-calories: oklch(0.6589 0.185 40.5); /* #EB6026 */

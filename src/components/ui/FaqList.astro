@@ -41,12 +41,41 @@ const { items, class: className = "" } = Astro.props as Props;
 </div>
 
 <style>
+  /* One white slab holding the rows, the way the app lays out a settings list. */
+  .faq-list {
+    background: var(--surface);
+    border-radius: 2rem;
+    padding: 0.5rem;
+  }
+
+  :global(html[data-theme="dark"]) .faq-list {
+    border: 1px solid var(--border);
+  }
+
   .faq-item {
+    border-radius: 1.5rem;
+    padding-inline: 1.25rem;
+    transition: background-color 150ms ease-out;
+  }
+
+  .faq-item + .faq-item {
     border-top: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
   }
 
-  .faq-item:last-of-type {
-    border-bottom: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
+  /* Open row: the app's selected tint, with label and chevron in its text
+     colour. The hairline would cut across the tint, so it goes. */
+  .faq-item[open] {
+    background: var(--accent-tint);
+    border-top-color: transparent;
+  }
+
+  .faq-item[open] + .faq-item {
+    border-top-color: transparent;
+  }
+
+  .faq-item[open] .faq-item__q,
+  .faq-item[open] .faq-item__chevron {
+    color: var(--accent-text);
   }
 
   /* 44px+ target, whole row clickable. */
@@ -71,16 +100,7 @@ const { items, class: className = "" } = Astro.props as Props;
     display: none;
   }
 
-  /* Hover and open live on the chevron and the rule, not on the question
-     text: a Montserrat Black question turning green read as a link. */
-  .faq-item:hover {
-    border-top-color: color-mix(in oklab, var(--foreground) 22%, transparent);
-  }
-
-  .faq-item:hover + .faq-item {
-    border-top-color: color-mix(in oklab, var(--foreground) 22%, transparent);
-  }
-
+  /* Hover: only the chevron darkens. The question stays ink until open. */
   .faq-item__q:hover .faq-item__chevron {
     color: var(--foreground);
   }
@@ -101,7 +121,6 @@ const { items, class: className = "" } = Astro.props as Props;
 
   .faq-item[open] .faq-item__chevron {
     transform: rotate(180deg);
-    color: var(--accent-strong);
   }
 
   .faq-item__a {
@@ -113,7 +132,7 @@ const { items, class: className = "" } = Astro.props as Props;
     max-width: 65ch;
     font-size: 1rem;
     line-height: 1.65;
-    color: var(--muted-foreground);
+    color: var(--foreground);
   }
 
   @media (prefers-reduced-motion: reduce) {

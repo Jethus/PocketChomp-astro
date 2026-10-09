@@ -1,66 +1,51 @@
 ---
 import SectionShell from "./ui/SectionShell.astro";
+import Button from "./ui/Button.astro";
 import { getPublishedPosts } from "../lib/blog";
 
-const posts = (await getPublishedPosts()).slice(0, 2);
-
+// Four most recent posts as slab cards. The old two-row list was reading as
+// a footnote; the app's card grammar (white slab, grey label on top, the
+// title as the loud thing) gives the writing the same weight as a feature.
 function readTime(body: string): string {
   const words = body.trim().split(/\s+/).length;
   return `${Math.max(1, Math.ceil(words / 200))} min read`;
 }
+
+const cards = (await getPublishedPosts()).slice(0, 4).map((post) => ({
+  href: `/blog/${post.id}`,
+  title: post.data.title,
+  description: post.data.description,
+  meta: `${post.data.pubDate.toLocaleDateString("en-CA", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" })} · ${readTime(post.body ?? "")}`,
+}));
 ---
 
-<SectionShell class="border-b border-border">
-  <div class="mx-auto max-w-3xl">
-
-    <!-- Eyebrow -->
-    <p class="teaser-eyebrow mb-6 text-[0.7rem] font-heading font-black uppercase tracking-[0.18em] text-muted-foreground">
-      Field Notes
-    </p>
-
-    <!-- Headline -->
-    <h2 class="font-heading font-black uppercase leading-[0.93] tracking-tight">
-      From the <span class="text-accent">build log.</span>
-    </h2>
-
-    <!-- Post rows -->
-    <div class="mt-10 divide-y divide-border">
-      {posts.map((post) => {
-        const d = post.data.pubDate;
-        const date = d.toLocaleDateString("en-CA", {
-          month: "short",
-          day: "numeric",
-          year: "numeric",
-          timeZone: "UTC",
-        }).toUpperCase();
-        const rt = readTime(post.body ?? "");
-        return (
-          <a href={`/blog/${post.id}`} class="teaser-row group">
-            <div class="min-w-0 flex-1">
-              <h3 class="teaser-title">{post.data.title}</h3>
-              <p class="mt-2 line-clamp-2 max-w-[60ch] text-sm leading-relaxed text-muted-foreground">
-                {post.data.description}
-              </p>
-            </div>
-            <div class="teaser-meta shrink-0 text-right">
-              <span class="block font-mono text-[0.68rem] text-muted-foreground">{date}</span>
-              <span class="block font-mono text-[0.68rem] text-muted-foreground">{rt}</span>
-            </div>
-          </a>
-        );
-      })}
+<SectionShell data-reveal-root>
+  <div class="flex flex-wrap items-end justify-between gap-6">
+    <div>
+      <p class="teaser-eyebrow mb-5 text-[0.7rem] font-heading font-black uppercase tracking-[0.18em] text-muted-foreground">
+        Field Notes
+      </p>
+      <h2 class="fs-xl leading-[1.02] text-foreground">
+        From the <span class="text-accent-strong">build log.</span>
+      </h2>
     </div>
+    <Button href="/blog" variant="outline" size="md">All Field Notes</Button>
+  </div>
 
-    <!-- All posts link -->
-    <div class="mt-8">
-      <a
-        href="/blog"
-        class="inline-flex items-center gap-2 font-mono text-[0.75rem] tracking-[0.05em] text-muted-foreground transition-colors hover:text-accent"
-      >
-        All Field Notes →
+  <div class="teaser-grid mt-10">
+    {cards.map((card, index) => (
+      <a href={card.href} class="teaser-card" data-reveal data-index={index}>
+        <p class="teaser-card__label">{card.meta}</p>
+        <h3 class="teaser-card__title">{card.title}</h3>
+        <p class="teaser-card__body">{card.description}</p>
+        <span class="teaser-card__more" aria-hidden="true">
+          Read
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m9 6 6 6-6 6" />
+          </svg>
+        </span>
       </a>
-    </div>
-
+    ))}
   </div>
 </SectionShell>
 
@@ -70,45 +55,95 @@ function readTime(body: string): string {
     align-items: center;
     gap: 0.75rem;
   }
+
   .teaser-eyebrow::before {
     content: "";
     display: block;
     width: 1.75rem;
     height: 1px;
-    background: var(--color-accent);
+    background: var(--accent-strong);
     flex-shrink: 0;
   }
 
-  .teaser-row {
-    display: flex;
-    gap: 2rem;
-    align-items: start;
-    padding: 1.75rem 0;
-    text-decoration: none;
-    color: inherit;
-    transition: padding-left 0.2s ease;
-  }
-  .teaser-row:hover {
-    padding-left: 0.5rem;
+  .teaser-grid {
+    display: grid;
+    gap: 1rem;
   }
 
-  .teaser-title {
+  @media (min-width: 40rem) {
+    .teaser-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  /* White slab on paper, no border, no shadow. Hover lifts nothing; the
+     title takes the ember text colour, as a pressed row does in the app. */
+  .teaser-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    border-radius: 2rem;
+    background: var(--surface);
+    color: inherit;
+    text-decoration: none;
+  }
+
+  :global(html[data-theme="dark"]) .teaser-card {
+    border: 1px solid var(--border);
+  }
+
+  .teaser-card__label {
+    margin: 0;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+  }
+
+  .teaser-card__title {
+    margin: 0.75rem 0 0;
     font-family: var(--font-heading);
     font-weight: 900;
-    font-size: clamp(1.1rem, 2vw, 1.4rem);
-    text-transform: uppercase;
-    letter-spacing: -0.01em;
-    line-height: 1;
-    margin: 0;
-    color: var(--color-foreground);
-    transition: color 0.2s;
-  }
-  .teaser-row:hover .teaser-title {
-    color: var(--color-accent);
+    font-size: 1.25rem;
+    line-height: 1.2;
+    text-wrap: pretty;
+    color: var(--foreground);
+    transition: color 150ms ease-out;
   }
 
-  .teaser-meta {
-    padding-top: 0.2rem;
-    min-width: 7rem;
+  .teaser-card:hover .teaser-card__title {
+    color: var(--accent-text);
   }
+
+  .teaser-card__body {
+    margin: 0.75rem 0 0;
+    max-width: 52ch;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .teaser-card__more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.15rem;
+    margin-top: auto;
+    padding-top: 1.25rem;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--accent-text);
+  }
+
+  .teaser-card__more svg {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+
+  /* Stagger in CSS; inline style attributes are blocked by the site CSP */
+  .teaser-card[data-index="1"] { --reveal-delay: 80ms; }
+  .teaser-card[data-index="2"] { --reveal-delay: 160ms; }
+  .teaser-card[data-index="3"] { --reveal-delay: 240ms; }
 </style>

@@ -16,7 +16,7 @@ const { eyebrow, headline, description, bullets, panelLabel, image, imageAlt } =
 <SectionShell
   id="modular"
   class="pt-6"
-  innerClass="overflow-hidden rounded-[2rem] bg-primary px-6 py-10 shadow-[var(--shadow-elevated-lg)] md:px-10 md:py-14 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(17rem,0.85fr)] lg:items-center lg:gap-12"
+  innerClass="overflow-hidden rounded-[2rem] bg-primary px-6 py-10 md:px-10 md:py-14 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(17rem,0.85fr)] lg:items-center lg:gap-12"
   data-reveal-root
 >
   <div>
@@ -70,6 +70,7 @@ const { eyebrow, headline, description, bullets, panelLabel, image, imageAlt } =
     text-wrap: pretty;
   }
 
+  /* A bare bold check, no ring: the app's list marks are glyphs on paper. */
   .modular-check {
     display: inline-flex;
     align-items: center;
@@ -77,15 +78,12 @@ const { eyebrow, headline, description, bullets, panelLabel, image, imageAlt } =
     width: 1.5rem;
     height: 1.5rem;
     flex-shrink: 0;
-    margin-top: 0.15rem;
-    border-radius: 999px;
-    border: 1px solid oklch(1 0 0 / 0.28);
-    background: oklch(1 0 0 / 0.14);
-    color: oklch(0.97 0.005 145);
+    margin-top: 0.1rem;
+    color: oklch(1 0 0);
   }
 
   .modular-check svg {
-    width: 0.8rem;
-    height: 0.8rem;
+    width: 1.1rem;
+    height: 1.1rem;
   }
 </style>
