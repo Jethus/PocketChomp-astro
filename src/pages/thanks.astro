@@ -31,7 +31,7 @@ const { headline, description, steps, ctaText, ctaLink } = entry.data;
         {
           steps.map((step, index) => (
             <li class="flex items-start gap-4 rounded-2xl border border-border bg-surface px-5 py-4 shadow-[var(--shadow-elevated)]">
-              <span class="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent-strong font-heading text-sm font-black text-white">
+              <span class="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent-strong font-heading text-sm font-black text-accent-foreground">
                 {index + 1}
               </span>
               <span class="leading-relaxed text-foreground">{step}</span>
