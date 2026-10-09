@@ -18,17 +18,4 @@ primaryCtaLink: "#signup"
 secondaryCtaText: See how it works
 secondaryCtaLink: "#screens"
 ctaNote: No account needed · Android beta
-collageCards:
-  - title: Local logging
-    body: on your device by default
-    kind: blank
-  - title: No ads, ever
-    body: free, always
-    kind: blank
-  - title: Your nutrients, your dashboard
-    body: built around you
-    kind: ring
-  - title: 160,000+ foods
-    body: Canadian shelves first
-    kind: database
 ---

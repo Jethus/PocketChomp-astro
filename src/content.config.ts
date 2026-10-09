@@ -42,13 +42,6 @@ const landingHero = defineCollection({
     secondaryCtaText: z.string(),
     secondaryCtaLink: z.string(),
     ctaNote: z.string(),
-    collageCards: z.array(
-      z.object({
-        title: z.string(),
-        body: z.string().optional(),
-        kind: z.enum(["blank", "ring", "database", "bar"]),
-      })
-    ).length(4),
   }),
 });
 
