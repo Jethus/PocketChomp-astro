@@ -1,11 +1,8 @@
 ---
 import { getEntry } from "astro:content";
-import { getImage } from "astro:assets";
+import { Image } from "astro:assets";
 import SectionShell from "./ui/SectionShell.astro";
-import PhoneFrame from "./ui/PhoneFrame.astro";
-import modularShot from "../assets/screens/screen-metrics.webp";
-
-const modularShotOptimized = await getImage({ src: modularShot, width: 800, format: "webp", quality: 85 });
+import AppPanel from "./ui/AppPanel.astro";
 
 const featureEntry = await getEntry("landingModularFeature", "modular-feature");
 
@@ -13,23 +10,16 @@ if (!featureEntry) {
   throw new Error("Could not find PocketChomp modular feature content");
 }
 
-const { eyebrow, headline, description, bullets } = featureEntry.data;
+const { eyebrow, headline, description, bullets, panelLabel, image, imageAlt } = featureEntry.data;
 ---
 
 <SectionShell
   id="modular"
   class="pt-6"
-  innerClass="overflow-hidden rounded-[2.5rem] bg-primary px-6 py-10 shadow-[var(--shadow-elevated-lg)] md:px-10 md:py-14 lg:grid lg:grid-cols-[minmax(14rem,20rem)_minmax(0,1fr)] lg:items-start lg:gap-14"
+  innerClass="overflow-hidden rounded-[2.5rem] bg-primary px-6 py-10 shadow-[var(--shadow-elevated-lg)] md:px-10 md:py-14 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(15rem,0.7fr)] lg:items-center lg:gap-14"
+  data-reveal-root
 >
-  <PhoneFrame
-    src={modularShotOptimized.src}
-    width={modularShotOptimized.attributes.width}
-    height={modularShotOptimized.attributes.height}
-    alt="PocketChomp metrics settings with calories hidden and protein chosen as the diary's hero number"
-    class="mx-auto w-full max-w-[14.5rem] lg:max-w-[16.5rem]"
-  />
-
-  <div class="mt-10 lg:mt-0">
+  <div>
     <p class="font-heading text-[0.68rem] font-black uppercase tracking-[0.22em] text-white/60">
       {eyebrow}
     </p>
@@ -55,6 +45,17 @@ const { eyebrow, headline, description, bullets } = featureEntry.data;
       }
     </ul>
   </div>
+
+  <AppPanel label={panelLabel} class="mx-auto mt-10 max-w-sm lg:mt-0 lg:max-w-none">
+    <Image
+      src={image}
+      alt={imageAlt}
+      widths={[480, 720, 960]}
+      sizes="(max-width: 64rem) 80vw, 24rem"
+      loading="lazy"
+      decoding="async"
+    />
+  </AppPanel>
 </SectionShell>
 
 <style>

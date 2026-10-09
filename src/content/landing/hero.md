@@ -1,18 +1,18 @@
 ---
 eyebrow: ""
-headline: Scan every barcode.
+headline: Calorie counting,
 accents:
-  - text: no limits.
-    tint: ember
-  - text: no account.
-    tint: sage
-  - text: no ads.
-    tint: water
-  - text: no paywall.
+  - text: Canadian.
     tint: protein
-  - text: free, forever.
+  - text: offline.
+    tint: water
+  - text: private.
+    tint: sage
+  - text: ad-free.
+    tint: carb
+  - text: for free.
     tint: ember
-description: The calorie counter that actually has your Canadian groceries. Unlimited barcode scanning, every micronutrient, and a food log that stays on your phone unless you decide otherwise. No ads, and the basics are never paywalled.
+description: Scan what is actually in your cart. PocketChomp has the house brands on Canadian shelves, every micronutrient, and a food log that stays on your phone unless you turn sync on. No ads, no scan limit, and the basics are never paywalled.
 primaryCtaText: Join the beta
 primaryCtaLink: "#signup"
 secondaryCtaText: See how it works

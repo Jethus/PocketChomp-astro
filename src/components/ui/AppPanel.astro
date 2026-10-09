@@ -1,0 +1,53 @@
+---
+/**
+ * "Straight from the app" panel: a dark card with a small label and one
+ * cropped piece of real UI. Both feature cards on the homepage use it so
+ * the app extracts read as one family instead of one floating phone and
+ * one floating card.
+ */
+interface Props {
+  label: string;
+  class?: string;
+}
+
+const { label, class: className = "" } = Astro.props as Props;
+---
+
+<div class:list={["app-panel", className]} data-reveal>
+  <p class="app-panel__label">{label}</p>
+  <div class="app-panel__shot">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .app-panel {
+    overflow: hidden;
+    border-radius: 1.6rem;
+    padding: 1rem;
+    background: oklch(0.14 0.006 145);
+    color: white;
+    box-shadow: var(--shadow-elevated);
+  }
+
+  .app-panel__label {
+    margin: 0 0 0 0.25rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: oklch(1 0 0 / 0.62);
+  }
+
+  .app-panel__shot {
+    margin-top: 0.85rem;
+    overflow: hidden;
+    border-radius: 1rem;
+  }
+
+  .app-panel__shot :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+</style>

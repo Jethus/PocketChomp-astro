@@ -2,10 +2,10 @@
 headline: You're in.
 description: Your email is confirmed and you're on the PocketChomp beta list.
 steps:
-  - Open the email from PocketChomp and confirm your address.
-  - If it isn't there in a minute, check spam or promotions.
-  - "When your build lands, do one thing first: scan something from your kitchen. Thirty seconds, and you'll know if PocketChomp is for you."
-  - We only write when there's a beta build or launch news. No drip campaigns.
-ctaText: Back to the site
-ctaLink: /
+  - You'll hear from us when there's a beta build to try or launch news to share. Nothing else.
+  - When the build lands, scan something from your kitchen first. Thirty seconds tells you whether it has your groceries.
+  - Replies go straight to Josh. If you have a question or want to say what you're hoping for, hit reply.
+  - In the meantime, the blog has the thinking behind the app.
+ctaText: Read the blog
+ctaLink: /blog
 ---

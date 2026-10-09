@@ -71,12 +71,22 @@ const { items, class: className = "" } = Astro.props as Props;
     display: none;
   }
 
-  .faq-item__q:hover {
-    color: var(--primary);
+  /* Hover and open live on the chevron and the rule, not on the question
+     text: a Montserrat Black question turning green read as a link. */
+  .faq-item:hover {
+    border-top-color: color-mix(in oklab, var(--foreground) 22%, transparent);
+  }
+
+  .faq-item:hover + .faq-item {
+    border-top-color: color-mix(in oklab, var(--foreground) 22%, transparent);
+  }
+
+  .faq-item__q:hover .faq-item__chevron {
+    color: var(--foreground);
   }
 
   .faq-item__q:focus-visible {
-    outline: 2px solid color-mix(in oklab, var(--primary) 50%, transparent);
+    outline: 2px solid color-mix(in oklab, var(--accent-strong) 60%, transparent);
     outline-offset: 3px;
     border-radius: 0.4rem;
   }
@@ -91,6 +101,7 @@ const { items, class: className = "" } = Astro.props as Props;
 
   .faq-item[open] .faq-item__chevron {
     transform: rotate(180deg);
+    color: var(--accent-strong);
   }
 
   .faq-item__a {

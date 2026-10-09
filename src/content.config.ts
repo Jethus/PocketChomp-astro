@@ -88,12 +88,17 @@ const landingSocialProof = defineCollection({
 
 const landingModularFeature = defineCollection({
   loader: glob({ pattern: "modular-feature.md", base: "./src/content/landing" }),
-  schema: z.object({
-    eyebrow: z.string(),
-    headline: z.string(),
-    description: z.string(),
-    bullets: z.array(z.string()),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      eyebrow: z.string(),
+      headline: z.string(),
+      description: z.string(),
+      bullets: z.array(z.string()),
+      /** Cropped piece of app UI shown in the "straight from the app" panel. */
+      panelLabel: z.string(),
+      image: image(),
+      imageAlt: z.string(),
+    }),
 });
 
 const landingValuePillars = defineCollection({

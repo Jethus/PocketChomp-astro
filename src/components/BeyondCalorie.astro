@@ -2,6 +2,7 @@
 import { getEntry } from "astro:content";
 import { Image } from "astro:assets";
 import SectionShell from "./ui/SectionShell.astro";
+import AppPanel from "./ui/AppPanel.astro";
 
 const beyondEntry = await getEntry("landingBeyondCalorie", "beyond-calorie");
 
@@ -10,46 +11,60 @@ if (!beyondEntry) {
 }
 
 const { headline, description, panelLabel, image, imageAlt } = beyondEntry.data;
+
+// The last word of the headline carries the accent colour. Orange used to be
+// the whole card's background with black type on it; now it is the one word
+// that matters and the card sits on the page surface like the pillars above.
+const words = headline.trim().split(" ");
+const lastWord = words.pop() ?? "";
+const leadWords = words.join(" ");
 ---
 
 <SectionShell
   class="pt-8"
-  innerClass="overflow-hidden rounded-[2.5rem] bg-accent px-6 py-10 text-accent-foreground shadow-[var(--shadow-elevated-lg)] md:px-10 md:py-14 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(15rem,0.7fr)] lg:items-center lg:gap-14"
+  innerClass="beyond-card overflow-hidden rounded-[2.5rem] px-6 py-10 md:px-10 md:py-14 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(15rem,0.7fr)] lg:items-center lg:gap-14"
   data-reveal-root
 >
   <div>
-    <h2 class="beyond-headline fs-xl leading-[1.02]">
-      {headline}
+    <h2 class="beyond-headline fs-xl leading-[1.02] text-foreground">
+      {leadWords}{leadWords ? " " : ""}<span class="beyond-headline__accent">{lastWord}</span>
     </h2>
-    <p class="beyond-body mt-6 max-w-2xl text-lg leading-relaxed text-black/80">
+    <p class="beyond-body mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
       {description}
     </p>
   </div>
 
-  <div
-    class="mx-auto mt-10 max-w-sm overflow-hidden rounded-[1.6rem] bg-black/92 p-4 text-white shadow-[var(--shadow-elevated)] lg:mt-0 lg:max-w-none"
-    data-reveal
-  >
-    <p class="text-sm uppercase tracking-[0.22em] text-white/62">{panelLabel}</p>
+  <AppPanel label={panelLabel} class="mx-auto mt-10 max-w-sm lg:mt-0 lg:max-w-none">
     <Image
       src={image}
       alt={imageAlt}
       widths={[480, 720, 960]}
       sizes="(max-width: 64rem) 80vw, 24rem"
-      class="mt-4 w-full rounded-[1rem]"
       loading="lazy"
       decoding="async"
     />
-  </div>
+  </AppPanel>
 </SectionShell>
 
 <style>
+  /* Same card shape as the green feature card, but on the page surface with
+     a hairline, so the two cards alternate loud / quiet instead of loud / loud. */
+  :global(.beyond-card) {
+    background: var(--surface-strong);
+    border: 1px solid color-mix(in oklab, var(--border) 80%, transparent);
+    box-shadow: var(--shadow-elevated);
+  }
+
   /* One line. nowrap alone ran the fluid heading past the card's clipped
      edge on narrow screens, so the size is clamped against the viewport
      instead: it fits on a single line at every width without overflowing. */
   .beyond-headline {
     white-space: nowrap;
     font-size: clamp(1.75rem, 0.9rem + 3.6vw, 4.2rem);
+  }
+
+  .beyond-headline__accent {
+    color: var(--accent);
   }
 
   /* Balanced so the last line keeps company; a lone trailing word was

@@ -7,4 +7,7 @@ bullets:
   - Up to eight micronutrients of your choosing on the dashboard
   - Your own calorie and macro targets, with separate training and rest days
   - Mindful mode hides calories across the whole app
+panelLabel: Straight from the app
+image: ../../assets/ui/ui-metrics-panel.webp
+imageAlt: PocketChomp metrics settings with Hide Calories switched on and protein chosen as the diary's hero number
 ---
