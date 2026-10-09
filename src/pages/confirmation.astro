@@ -6,16 +6,16 @@ import Footer from "../components/Footer.astro";
 import SectionShell from "../components/ui/SectionShell.astro";
 import Button from "../components/ui/Button.astro";
 
-const entry = await getEntry("landingThanks", "thanks");
+const entry = await getEntry("landingThanks", "confirmation");
 
 if (!entry) {
-  throw new Error("Could not find PocketChomp thanks content");
+  throw new Error("Could not find PocketChomp confirmation content");
 }
 
 const { headline, description, steps, ctaText, ctaLink } = entry.data;
 ---
 
-<BaseLayout title="You're in" description="Your spot on the PocketChomp beta list is confirmed.">
+<BaseLayout title="Check your inbox" description="Confirm your email to join the PocketChomp beta list.">
   <Fragment slot="head">
     <meta name="robots" content="noindex" />
   </Fragment>

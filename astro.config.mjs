@@ -42,8 +42,8 @@ export default defineConfig({
   ],
   integrations: [
     mdx(),
-    // /thanks is a post-signup page, disallowed in robots.txt; keep it out.
-    sitemap({ filter: (page) => !page.includes("/thanks") }),
+    // /confirmation and /thanks are post-signup pages, disallowed in robots.txt; keep them out.
+    sitemap({ filter: (page) => !page.includes("/thanks") && !page.includes("/confirmation") }),
   ],
   markdown: {
     syntaxHighlight: false,

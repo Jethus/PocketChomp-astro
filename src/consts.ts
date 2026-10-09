@@ -9,7 +9,8 @@ export const SITE_DESCRIPTION =
  * Beta signup list. The form posts straight to Kit (ConvertKit) with no
  * JavaScript, so it works under the strict CSP. The form id is public (it is
  * in the page HTML either way); PUBLIC_KIT_FORM_ID overrides it if the form
- * is ever recreated. Kit redirects to /thanks after submit.
+ * is ever recreated. Kit redirects to /confirmation after submit and to
+ * /thanks once the subscriber confirms.
  */
 const KIT_FORM_ID = (import.meta.env.PUBLIC_KIT_FORM_ID as string | undefined) || "9894910";
 export const SIGNUP_FORM_ACTION = `https://app.kit.com/forms/${KIT_FORM_ID}/subscriptions`;

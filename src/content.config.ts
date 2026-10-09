@@ -202,7 +202,7 @@ const landingFaq = defineCollection({
 });
 
 const landingThanks = defineCollection({
-  loader: glob({ pattern: "thanks.md", base: "./src/content/landing" }),
+  loader: glob({ pattern: "{thanks,confirmation}.md", base: "./src/content/landing" }),
   schema: z.object({
     headline: z.string(),
     description: z.string(),

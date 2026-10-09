@@ -1,10 +1,10 @@
 ---
-headline: Check your inbox.
-description: We just sent a confirmation link. Tap it and you're on the beta list.
+headline: You're in.
+description: Your email is confirmed and you're on the PocketChomp beta list.
 steps:
-  - Open the email from PocketChomp and confirm your address.
-  - If it isn't there in a minute, check spam or promotions.
-  - We only write when there's a beta build or launch news. No drip campaigns.
-ctaText: Back to the site
-ctaLink: /
+  - You'll hear from us when there's a beta build to try or launch news to share. Nothing else.
+  - PocketChomp is on Google Play today. If you're on Android, you can start logging now.
+  - Replies go straight to Josh. If something's broken or missing, say so.
+ctaText: Get it on Google Play
+ctaLink: https://play.google.com/store/apps/details?id=com.pixelboost.pocketchomp
 ---

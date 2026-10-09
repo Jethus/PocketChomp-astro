@@ -16,7 +16,8 @@ const { placeholder, buttonText, placement = "unknown" } = Astro.props;
 ---
 
 <!-- Plain HTML post to Kit; the field name `email_address` is what Kit expects.
-     Kit redirects to /thanks after submit (set in the form's settings).
+     Kit redirects to /confirmation after submit and to /thanks after the
+     subscriber confirms (both set in the form's settings).
      `data-signup-form` + `data-placement` are read by scripts/signup-view.ts. -->
 <form
   id="signup"
