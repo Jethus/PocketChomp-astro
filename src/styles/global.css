@@ -61,6 +61,7 @@
   --color-primary-dark: var(--primary-strong);
   --color-accent: var(--accent);
   --color-accent-strong: var(--accent-strong);
+  --color-accent-hover: var(--accent-hover);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent-tint: var(--accent-tint);
   --color-accent-text: var(--accent-text);
@@ -93,37 +94,38 @@
 @layer base {
   :root {
     color-scheme: light;
-    --background: oklch(0.949 0.0051 145.5); /* app paper #ECEFEC */
-    --foreground: oklch(0.2992 0.0088 159.5); /* app charcoal #2A2F2C */
-    --surface: oklch(1 0 89.88); /* app card #FFFFFF */
-    --surface-strong: oklch(0.9412 0.0075 151.9); /* app subtle #E8EDE9 */
-    --border: oklch(0.89 0.006 148);
-    --muted: oklch(0.9412 0.0075 151.9);
-    --muted-foreground: oklch(0.4495 0 90); /* app slate #555555 */
-    --primary: oklch(0.5089 0.0727 146); /* app sage #4A714C */
-    --primary-foreground: oklch(0.9741 0.0034 145.55);
-    --primary-soft: oklch(0.928 0.02 146);
-    --primary-strong: oklch(0.43 0.062 146);
-    /* Ember is rust in light mode, exactly as the app: one orange, used for
-       buttons, the "+" and data highlights. --accent is the lighter hover /
-       display-type step; --accent-strong is the resting button fill. */
-    --accent: oklch(0.6 0.17 44.5);
-    --accent-strong: oklch(0.5588 0.1611 44.5); /* app ember #BD4C00 */
-    --accent-foreground: oklch(1 0 0); /* app on-ember: white, 5.0:1 */
-    /* Selection tint and its label, straight from the app: the one place a
-       state is coloured. */
-    --accent-tint: oklch(0.907 0.044 52.6); /* app choice-selected #F9D9C6 */
-    --accent-text: oklch(0.49 0.14 48); /* app selected-text #A34100 */
+    /* Every colour below is the app's own token (PocketChomp/global.css),
+       converted exactly from its hex. Change the app first, then here. */
+    --background: oklch(0.9490 0.0051 145.54); /* paper #ECEFEC */
+    --foreground: oklch(0.2992 0.0088 159.54); /* charcoal #2A2F2C */
+    --surface: oklch(1 0 0); /* card #FFFFFF */
+    --surface-strong: oklch(0.9412 0.0075 151.89); /* subtle #E8EDE9 */
+    --border: oklch(0.9412 0.0075 151.89); /* subtle #E8EDE9: the app's hairline */
+    --muted: oklch(0.9412 0.0075 151.89); /* subtle #E8EDE9 */
+    --muted-foreground: oklch(0.4495 0 0); /* slate #555555 */
+    --primary: oklch(0.5089 0.0727 145.62); /* sage #4A714C */
+    --primary-foreground: oklch(1 0 0);
+    --primary-soft: oklch(0.9305 0.0113 141.26); /* sage-subtle #E4EAE3 */
+    --primary-strong: oklch(0.5089 0.0727 145.62); /* sage-text #4A714C */
+    /* Ember. --accent-strong is the app's ember (#BD4C00) and is the button
+       fill in BOTH themes, so a primary button is always white on orange
+       (5.0:1). --accent is the display-type ember: the same rust here, the
+       app's bright dark-mode ember in dark. */
+    --accent: oklch(0.5588 0.1611 44.53); /* ember #BD4C00 */
+    --accent-strong: oklch(0.5588 0.1611 44.53); /* ember #BD4C00 */
+    --accent-hover: oklch(0.5016 0.1439 44.79); /* selected-text #A34100 */
+    --accent-foreground: oklch(1 0 0); /* on-ember #FFFFFF */
+    --accent-tint: oklch(0.9070 0.0440 52.63); /* choice-selected #F9D9C6 */
+    --accent-text: oklch(0.5016 0.1439 44.79); /* selected-text #A34100 */
+    /* The app's dark ember slab (Plan's check-in hero), same in both themes. */
+    --ember-deep: oklch(0.2308 0.0327 44.65); /* ember-deep #2A1810 */
 
-    /* Macro palette — the canonical values from the app's global.css, converted
-       from its hex to OKLCH so they live in this token system. Keep these in
-       sync with PocketChomp/global.css — a user who sees carbs as amber in the
-       app and something else here stops trusting both. */
-    --color-calories: oklch(0.5588 0.1611 44.5); /* #BD4C00 */
-    --color-protein: oklch(0.5405 0.1873 30.7); /* #C4301E */
-    --color-carb: oklch(0.622 0.1407 64); /* #C07100 */
-    --color-fat: oklch(0.6279 0.1164 90.8); /* #A38523 */
-    --color-water: oklch(0.678 0.0704 239.7); /* #6F9EBF */
+    /* Macro palette, light values from the app. */
+    --color-calories: oklch(0.5588 0.1611 44.53); /* #BD4C00 */
+    --color-protein: oklch(0.5405 0.1873 30.70); /* #C4301E */
+    --color-carb: oklch(0.6220 0.1407 63.98); /* #C07100 */
+    --color-fat: oklch(0.6279 0.1164 90.82); /* #A38523 */
+    --color-water: oklch(0.6780 0.0704 239.73); /* #6F9EBF */
 
     --radius-card: 2rem; /* app card radius, 32px */
     --radius-pill: 9999px;
@@ -146,31 +148,30 @@
 
   html[data-theme="dark"] {
     color-scheme: dark;
-    --background: oklch(0.1902 0.0086 153.1); /* app dark paper #111512 */
-    --foreground: oklch(0.9551 0 90); /* app dark charcoal #F0F0F0 */
-    --surface: oklch(0.2579 0.0103 151.4); /* app dark card #202521 */
-    --surface-strong: oklch(0.2988 0.01 151.5); /* app dark subtle #2A2F2B */
-    --border: oklch(0.32 0.01 151.5);
-    --muted: oklch(0.2988 0.01 151.5);
-    --muted-foreground: oklch(0.6401 0 90); /* app dark slate #8C8C8C */
-    --primary: oklch(0.5089 0.0727 146);
-    --primary-foreground: oklch(0.965 0.004 145.55);
-    --primary-soft: oklch(0.34 0.038 146);
-    --primary-strong: oklch(0.58 0.078 146);
-    /* Dark ember is bright, and the app puts the dark paper label on it:
-       white is only 3.4:1 there. */
-    --accent: oklch(0.6589 0.185 40.5); /* app dark ember #EB6026 */
-    --accent-strong: oklch(0.6589 0.185 40.5);
-    --accent-foreground: oklch(0.1902 0.0086 153.1);
-    --accent-tint: oklch(0.28 0.06 45); /* app dark ember-muted #411E0E */
-    --accent-text: oklch(0.74 0.14 45); /* app dark on-ink-accent #F28552 */
+    --background: oklch(0.1902 0.0086 153.08); /* paper #111512 */
+    --foreground: oklch(0.9551 0 0); /* charcoal #F0F0F0 */
+    --surface: oklch(0.2579 0.0103 151.39); /* card #202521 */
+    --surface-strong: oklch(0.2988 0.0100 151.49); /* subtle #2A2F2B */
+    --border: oklch(0.2988 0.0100 151.49); /* subtle #2A2F2B */
+    --muted: oklch(0.2988 0.0100 151.49); /* subtle #2A2F2B */
+    --muted-foreground: oklch(0.6401 0 0); /* slate #8C8C8C */
+    --primary: oklch(0.5089 0.0727 145.62); /* sage #4A714C */
+    --primary-foreground: oklch(1 0 0);
+    --primary-soft: oklch(0.2958 0.0221 150.23); /* sage-subtle #253027 */
+    --primary-strong: oklch(0.7093 0.0659 147.57); /* sage-text #86AD8A */
+    --accent: oklch(0.6589 0.1850 40.49); /* ember #EB6026 */
+    --accent-strong: oklch(0.5588 0.1611 44.53); /* light ember #BD4C00: white button label */
+    --accent-hover: oklch(0.6589 0.1850 40.49); /* ember #EB6026 */
+    --accent-foreground: oklch(1 0 0);
+    --accent-tint: oklch(0.3215 0.0559 49.20); /* choice-selected #4A2A18 */
+    --accent-text: oklch(0.7272 0.1488 44.71); /* selected-text #F28552 */
 
-    /* Dark macro values from the app's dark block. */
-    --color-calories: oklch(0.6589 0.185 40.5); /* #EB6026 */
-    --color-protein: oklch(0.58 0.19 31); /* #CD3B25 */
-    --color-carb: oklch(0.7389 0.1348 64); /* #E49839 */
+    /* Macro palette, dark values from the app. */
+    --color-calories: oklch(0.6589 0.1850 40.49); /* #EB6026 */
+    --color-protein: oklch(0.5671 0.1864 31.53); /* #CD3B25 */
+    --color-carb: oklch(0.7397 0.1400 67.98); /* #E49839 */
     --color-fat: oklch(0.7665 0.1387 91.06); /* #D4AF37 */
-    --color-water: oklch(0.7517 0.0616 238.2); /* #8FB8D6 */
+    --color-water: oklch(0.7635 0.0616 240.33); /* #8FB8D6 */
 
     --shadow-elevated: 0 18px 38px -28px rgb(0 0 0 / 0.48);
     --shadow-elevated-lg: 0 24px 54px -32px rgb(0 0 0 / 0.56);
@@ -204,6 +205,25 @@
         (var(--fluid-preferred) * var(--variable-unit, 100vi)),
       (var(--fluid-max) / 16) * 1rem
     );
+  }
+
+  /* In-page links land below the sticky header (77px mobile, 93px desktop)
+     with a little air, instead of under it. */
+  html {
+    scroll-padding-top: 6rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  /* No stranded last word on any heading. */
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
   }
 
   /* Fluid type is for headings only. Body and UI text use a modest clamp

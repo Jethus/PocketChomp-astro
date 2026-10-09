@@ -96,6 +96,10 @@ const { items, class: className = "" } = Astro.props as Props;
     transition: color 150ms ease-out;
   }
 
+  .faq-item__q > span {
+    text-wrap: balance;
+  }
+
   .faq-item__q::-webkit-details-marker {
     display: none;
   }

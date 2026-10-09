@@ -64,11 +64,11 @@ const longestAccent = accents.reduce((a, b) => (b.text.length > a.text.length ? 
         {description}
       </p>
 
-      <div class="mt-7 flex flex-wrap gap-4">
-        <Button href={primaryCtaLink} variant="accent" size="lg" class="hero-cta">
+      <div class="hero-ctas mt-7 flex flex-wrap items-center gap-4">
+        <Button href={primaryCtaLink} variant="accent" size="lg" class="hero-cta hero-cta--primary">
           {primaryCtaText}
         </Button>
-        <Button href={secondaryCtaLink} variant="outline" size="lg" class="hero-cta">
+        <Button href={secondaryCtaLink} variant="outline" size="lg" class="hero-cta hero-cta--secondary">
           {secondaryCtaText}
         </Button>
       </div>
@@ -150,8 +150,28 @@ const longestAccent = accents.reduce((a, b) => (b.text.length > a.text.length ? 
 </script>
 
 <style>
-  .hero-cta {
+  .hero-ctas :global(.hero-cta) {
     min-width: 12rem;
+  }
+
+  /* Phones: one obvious action. The primary spans the column; the secondary
+     drops its outline and sits under it as a plain link, so the pair no
+     longer reads as two mismatched pills. */
+  @media (max-width: 40rem) {
+    .hero-ctas {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.25rem;
+    }
+
+    .hero-ctas :global(.hero-cta--secondary) {
+      border-color: transparent;
+      background: transparent;
+      height: 3rem;
+      text-decoration: underline;
+      text-underline-offset: 0.3em;
+      text-decoration-thickness: 1px;
+    }
   }
 
   /* Grid fills its column, height derived from aspect-ratio */
@@ -281,7 +301,7 @@ const longestAccent = accents.reduce((a, b) => (b.text.length > a.text.length ? 
   /* The protein red and the calories ember are tuned for bars on the app's
      dark surfaces; as display type on near-black they go muddy, so lift them */
   :global(html[data-theme="dark"]) .hero-accent[data-tint="protein"] {
-    color: oklch(0.66 0.2 28);
+    color: oklch(0.6690 0.1726 26.11); /* app dark protein-text #EC625A */
   }
 
   :global(html[data-theme="dark"]) .hero-accent[data-tint="calories"] {

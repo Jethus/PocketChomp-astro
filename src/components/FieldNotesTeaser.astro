@@ -38,12 +38,6 @@ const cards = (await getPublishedPosts()).slice(0, 4).map((post) => ({
         <p class="teaser-card__label">{card.meta}</p>
         <h3 class="teaser-card__title">{card.title}</h3>
         <p class="teaser-card__body">{card.description}</p>
-        <span class="teaser-card__more" aria-hidden="true">
-          Read
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="m9 6 6 6-6 6" />
-          </svg>
-        </span>
       </a>
     ))}
   </div>
@@ -70,9 +64,36 @@ const cards = (await getPublishedPosts()).slice(0, 4).map((post) => ({
     gap: 1rem;
   }
 
+  /* Newest post leads full width; the next three sit in a row under it.
+     The whole card is the link, so there is no separate "Read" control. */
   @media (min-width: 40rem) {
     .teaser-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .teaser-card[data-index="0"] {
+      grid-column: 1 / -1;
+      padding: 2rem;
+    }
+
+    .teaser-card[data-index="0"] .teaser-card__title {
+      font-size: clamp(1.5rem, 1.1rem + 1.2vw, 2.1rem);
+      max-width: 28ch;
+    }
+
+    .teaser-card[data-index="0"] .teaser-card__body {
+      -webkit-line-clamp: 3;
+      max-width: 62ch;
+    }
+  }
+
+  @media (min-width: 40rem) and (max-width: 63.99rem) {
+    .teaser-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .teaser-card[data-index="3"] {
+      display: none;
     }
   }
 
@@ -115,31 +136,15 @@ const cards = (await getPublishedPosts()).slice(0, 4).map((post) => ({
   }
 
   .teaser-card__body {
-    margin: 0.75rem 0 0;
+    margin: 0.6rem 0 0;
     max-width: 52ch;
     font-size: 1rem;
     line-height: 1.6;
     color: var(--muted-foreground);
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
-  }
-
-  .teaser-card__more {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.15rem;
-    margin-top: auto;
-    padding-top: 1.25rem;
-    font-weight: 700;
-    font-size: 0.95rem;
-    color: var(--accent-text);
-  }
-
-  .teaser-card__more svg {
-    width: 1.1rem;
-    height: 1.1rem;
   }
 
   /* Stagger in CSS; inline style attributes are blocked by the site CSP */

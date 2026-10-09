@@ -12,19 +12,19 @@ if (!ctaEntry) {
 const { headline, description, inputPlaceholder, buttonText, note, proof, compare } = ctaEntry.data;
 ---
 
-<SectionShell class="pb-10" data-reveal-root>
-  <div class="grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(22rem,36rem)]">
+<SectionShell class="pb-10" innerClass="cta-slab-wrap" data-reveal-root>
+  <div id="signup" class="cta-slab grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(22rem,36rem)]">
     <div data-reveal>
-      <h2 class="fs-xl leading-[1.05] text-foreground">
+      <h2 class="fs-xl leading-[1.05] text-white">
         {headline}
       </h2>
-      <p class="mt-3 max-w-xl text-lg leading-relaxed text-muted-foreground">
+      <p class="cta-slab__muted mt-3 max-w-xl text-lg leading-relaxed">
         {description}
       </p>
     </div>
 
     <div class="cta-form" data-reveal>
-      <SignupForm placeholder={inputPlaceholder} buttonText={buttonText} placement="closing-cta" />
+      <SignupForm placeholder={inputPlaceholder} buttonText={buttonText} placement="closing-cta" id="signup-form" />
 
       <!-- Proof sits beside the field, not at the bottom of the page: the
            doubt shows up at the button, so the answer has to be there too. -->
@@ -40,12 +40,60 @@ const { headline, description, inputPlaceholder, buttonText, note, proof, compar
         </p>
       )}
 
-      <p class="mt-4 text-sm leading-relaxed text-muted-foreground">{note}</p>
+      <p class="cta-slab__muted mt-4 text-sm leading-relaxed">{note}</p>
     </div>
   </div>
 </SectionShell>
 
 <style>
+  /* The app's dark ember slab (Plan's check-in card): one strong, warm block
+     to end the page on, the same in both themes. */
+  .cta-slab {
+    border-radius: 2rem;
+    background: var(--ember-deep);
+    padding: 2.5rem 1.5rem;
+    color: white;
+  }
+
+  @media (min-width: 48rem) {
+    .cta-slab {
+      padding: 3.5rem 3rem;
+    }
+  }
+
+  .cta-slab__muted {
+    color: oklch(1 0 0 / 0.72);
+  }
+
+  /* The form's white field reads as a field on the dark slab. */
+  .cta-slab :global(.signup-shell) {
+    background: white;
+  }
+
+  .cta-slab :global(.signup-shell input) {
+    background: transparent;
+    color: oklch(0.2992 0.0088 159.54);
+  }
+
+  .cta-slab :global(.signup-shell input::placeholder) {
+    color: oklch(0.4495 0 0);
+  }
+
+  @media (max-width: 40rem) {
+    .cta-slab :global(.signup-shell) {
+      background: transparent;
+    }
+
+    .cta-slab :global(.signup-shell input) {
+      background: white;
+      border-color: transparent;
+    }
+  }
+
+  .cta-slab .cta-proof {
+    color: white;
+  }
+
   /* Stagger in CSS — inline style attributes are blocked by the site CSP */
   .cta-form {
     --reveal-delay: 120ms;
@@ -59,7 +107,7 @@ const { headline, description, inputPlaceholder, buttonText, note, proof, compar
     gap: 0.5rem 1.5rem;
     font-size: 0.9rem;
     font-weight: 600;
-    color: var(--foreground);
+    color: white;
   }
 
   .cta-proof__item {
@@ -71,7 +119,7 @@ const { headline, description, inputPlaceholder, buttonText, note, proof, compar
   .cta-proof__item::before {
     content: "\2713";
     flex: none;
-    color: var(--accent);
+    color: oklch(0.7272 0.1488 44.71); /* app dark selected-text #F28552 */
     font-weight: 900;
   }
 

@@ -10,9 +10,11 @@ interface Props {
    * goal can be broken down by location.
    */
   placement?: string;
+  /** Element id; the homepage puts #signup on its section instead. */
+  id?: string;
 }
 
-const { placeholder, buttonText, placement = "unknown" } = Astro.props;
+const { placeholder, buttonText, placement = "unknown", id = "signup" } = Astro.props;
 ---
 
 <!-- Plain HTML post to Kit; the field name `email_address` is what Kit expects.
@@ -20,7 +22,7 @@ const { placeholder, buttonText, placement = "unknown" } = Astro.props;
      subscriber confirms (both set in the form's settings).
      `data-signup-form` + `data-placement` are read by scripts/signup-view.ts. -->
 <form
-  id="signup"
+  id={id}
   action={SIGNUP_FORM_ACTION}
   method={SIGNUP_FORM_METHOD}
   class="w-full"
@@ -40,7 +42,7 @@ const { placeholder, buttonText, placement = "unknown" } = Astro.props;
     />
     <button
       type="submit"
-      class="inline-flex h-12 shrink-0 cursor-pointer items-center justify-center rounded-full border border-transparent bg-accent-strong px-5 font-body text-[0.85rem] font-bold text-accent-foreground transition duration-200 ease-out hover:bg-accent-strong/92 sm:px-6"
+      class="inline-flex h-12 shrink-0 cursor-pointer items-center justify-center rounded-full border border-transparent bg-accent-strong px-5 font-body text-[0.95rem] font-bold text-accent-foreground transition duration-200 ease-out hover:bg-accent-hover active:opacity-75 sm:px-6"
     >
       {buttonText}
     </button>
@@ -54,21 +56,31 @@ const { placeholder, buttonText, placement = "unknown" } = Astro.props;
 <style>
   /* Very narrow viewports: pill stacks so the input keeps a usable width
      instead of crushing its placeholder against the button */
-  @media (max-width: 26rem) {
+  /* Phones: the combined pill gets too tight, so the field and the button
+     become two full-width controls, the way the app stacks a form field over
+     its primary button. Placeholder stays left-aligned like any input. */
+  @media (max-width: 40rem) {
     .signup-shell {
       flex-direction: column;
-      gap: 0.4rem;
-      border-radius: 1.4rem;
-      padding: 0.4rem;
+      gap: 0.6rem;
+      padding: 0;
+      background: transparent;
     }
 
+    /* A visible edge, because the form also sits inside white cards
+       (Plus, blog posts) where a white field would vanish. */
     .signup-shell input {
-      min-height: 2.75rem;
-      text-align: center;
+      min-height: 3.5rem;
+      border-radius: 999px;
+      background: var(--surface);
+      border: 1.5px solid color-mix(in oklab, var(--foreground) 22%, transparent);
+      padding-inline: 1.5rem;
     }
 
     .signup-shell button {
       width: 100%;
+      height: 3.5rem;
+      font-size: 1rem;
     }
   }
 </style>
