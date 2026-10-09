@@ -21,14 +21,11 @@ const { headline, items } = pillarsEntry.data;
        pillars are a statement, not a feature grid. -->
   <div class="pillar-grid">
     {
-      items.map((item, index) => (
+      items.map((item) => (
         <article class="pillar" data-reveal>
-          <div class="pillar__top">
-            <span class="pillar__num" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
-            <span class:list={["pillar__mark", `pillar__mark--${item.tone}`]}>
-              <PillarIcon name={item.icon} class="pillar__icon" />
-            </span>
-          </div>
+          <span class:list={["pillar__mark", `pillar__mark--${item.tone}`]}>
+            <PillarIcon name={item.icon} class="pillar__icon" />
+          </span>
           <h3 class="pillar__headline">{item.headline}</h3>
           <p class="pillar__body">{item.description}</p>
         </article>
@@ -54,33 +51,20 @@ const { headline, items } = pillarsEntry.data;
 
   .pillar {
     border-top: 2px solid var(--foreground);
-    padding-top: 1.5rem;
+    padding-top: 1.75rem;
   }
 
-  .pillar__top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .pillar__num {
-    font-family: var(--font-heading);
-    font-weight: 900;
-    font-size: clamp(2.5rem, 1.8rem + 2vw, 3.5rem);
-    line-height: 1;
-    letter-spacing: -0.03em;
-    color: var(--accent);
-  }
-
+  /* The icon leads each pillar: a large disc in its own hue, icon at
+     display size, so the three read at a glance before the words do. */
   .pillar__mark {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 3rem;
-    height: 3rem;
+    width: clamp(5.5rem, 4.6rem + 2.2vw, 7rem);
+    height: clamp(5.5rem, 4.6rem + 2.2vw, 7rem);
     border-radius: 999px;
     color: var(--mark-ink);
-    background: color-mix(in oklab, var(--mark-ink) 14%, transparent);
+    background: color-mix(in oklab, var(--mark-ink) 16%, transparent);
   }
 
   .pillar__mark--canadian { --mark-ink: var(--accent-text); }
@@ -88,12 +72,12 @@ const { headline, items } = pillarsEntry.data;
   .pillar__mark--private { --mark-ink: var(--color-water); }
 
   .pillar__mark :global(.pillar__icon) {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 52%;
+    height: 52%;
   }
 
   .pillar__headline {
-    margin: 1.75rem 0 0;
+    margin: 1.5rem 0 0;
     font-family: var(--font-heading);
     font-weight: 900;
     font-size: clamp(1.4rem, 1.1rem + 0.9vw, 1.9rem);
