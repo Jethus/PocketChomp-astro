@@ -27,18 +27,22 @@ const { headline, description, steps, ctaText, ctaLink } = entry.data;
         <p class="mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">{description}</p>
       </div>
 
-      <ol class="thanks-steps mt-10 space-y-4" data-reveal>
-        {
-          steps.map((step, index) => (
-            <li class="flex items-start gap-4 rounded-2xl border border-border bg-surface px-5 py-4 shadow-[var(--shadow-elevated)]">
-              <span class="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent-strong font-heading text-sm font-black text-white">
-                {index + 1}
-              </span>
-              <span class="leading-relaxed text-foreground">{step}</span>
-            </li>
-          ))
-        }
-      </ol>
+      {
+        steps && (
+        <ol class="thanks-steps mt-10 space-y-4" data-reveal>
+          {
+            steps.map((step, index) => (
+              <li class="flex items-start gap-4 rounded-2xl border border-border bg-surface px-5 py-4 shadow-[var(--shadow-elevated)]">
+                <span class="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent-strong font-heading text-sm font-black text-white">
+                  {index + 1}
+                </span>
+                <span class="leading-relaxed text-foreground">{step}</span>
+              </li>
+            ))
+          }
+        </ol>
+        )
+      }
 
       <div class="mt-10" data-reveal>
         <Button href={ctaLink} variant="outline" size="lg">{ctaText}</Button>

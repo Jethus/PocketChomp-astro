@@ -206,7 +206,7 @@ const landingThanks = defineCollection({
   schema: z.object({
     headline: z.string(),
     description: z.string(),
-    steps: z.array(z.string()).min(1),
+    steps: z.array(z.string()).min(1).optional(),
     ctaText: z.string(),
     ctaLink: z.string(),
   }),
