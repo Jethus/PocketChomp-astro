@@ -47,13 +47,16 @@ const { items } = entry.data;
     text-align: center;
     min-width: 0;
     padding-inline: 1rem;
+    container-type: inline-size;
   }
 
   .proof-item__value {
     margin: 0;
     font-family: var(--font-heading);
     font-weight: 900;
-    font-size: clamp(2.25rem, 1.5rem + 2.6vw, 3.75rem);
+    /* Capped to the column too, so an eight-character number like
+       "200,000+" never runs into the rule in the three-up layout. */
+    font-size: min(clamp(2.25rem, 1.5rem + 2.6vw, 3.75rem), 19cqi);
     line-height: 1;
     letter-spacing: -0.02em;
     color: var(--foreground);
@@ -65,6 +68,7 @@ const { items } = entry.data;
     font-size: clamp(1rem, 0.95rem + 0.2vw, 1.15rem);
     font-weight: 500;
     color: var(--muted-foreground);
+    text-wrap: balance;
   }
 
   /* Stagger in CSS — inline style attributes are blocked by the site CSP */

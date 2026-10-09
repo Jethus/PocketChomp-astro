@@ -54,8 +54,23 @@ const { placeholder, buttonText, placement = "unknown", id = "signup" } = Astro.
 </script>
 
 <style>
-  /* Very narrow viewports: pill stacks so the input keeps a usable width
-     instead of crushing its placeholder against the button */
+  /* The field's own colours, which a host section can override (the closing
+     CTA's field is white in both themes). */
+  .signup-shell {
+    --field-bg: var(--surface);
+    --field-fg: var(--foreground);
+  }
+
+  /* Browser autofill paints its own box (pale blue in light, slate in dark)
+     and its own text colour over the field. Keep ours: an inset shadow covers
+     the autofill background, and the long transition stops it fading back. */
+  .signup-shell input:-webkit-autofill {
+    -webkit-text-fill-color: var(--field-fg);
+    caret-color: var(--field-fg);
+    box-shadow: 0 0 0 100vmax var(--field-bg) inset;
+    transition: background-color 9999s ease-out 0s;
+  }
+
   /* Phones: the combined pill gets too tight, so the field and the button
      become two full-width controls, the way the app stacks a form field over
      its primary button. Placeholder stays left-aligned like any input. */
