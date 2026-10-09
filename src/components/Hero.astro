@@ -60,7 +60,7 @@ const longestAccent = accents.reduce((a, b) => (b.text.length > a.text.length ? 
         </span>
       </h1>
 
-      <p class="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+      <p class="hero-lede mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">
         {description}
       </p>
 
@@ -231,6 +231,10 @@ const longestAccent = accents.reduce((a, b) => (b.text.length > a.text.length ? 
     display: grid;
   }
 
+  .hero-lede {
+    text-wrap: pretty;
+  }
+
   .hero-accent-stack > *,
   .hero-accent-stack::before {
     grid-area: 1 / 1;
@@ -339,11 +343,25 @@ const longestAccent = accents.reduce((a, b) => (b.text.length > a.text.length ? 
     z-index: 1;
   }
 
-  /* The captures are dark-theme, so the shot panels keep the app's own
-     background in both themes; anything lighter halos around the extract */
+  /* The captures are the app's light theme, so the shot panels keep the
+     app's own paper in both site themes; anything else halos around the
+     extract. The bezel is a hairline, not the old black slab. */
   .hero-panel--shot,
   :global(html[data-theme="dark"]) .hero-panel--shot {
-    background: #111512;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+
+  /* The extracts are the app's own white cards on its paper, and the site's
+     background is that same paper, so they float on the page with no frame.
+     In dark mode the page is the app's dark paper, so give them its light
+     paper back as a soft slab. */
+  :global(html[data-theme="dark"]) .hero-panel--shot {
+    background: #ECEFEC;
+    border-radius: 1.9rem;
+    padding: 0.55rem;
   }
 
   /* One-shot sheen sweeping across the phone after it reveals */

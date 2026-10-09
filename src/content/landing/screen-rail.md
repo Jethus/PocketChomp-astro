@@ -6,7 +6,7 @@ screens:
   - title: "Today at a glance"
     caption: "Calories, macros, water and the micronutrients you chose."
     image: ../../assets/screens/screen-today.webp
-    alt: "PocketChomp diary for Wednesday the 16th showing 2,034 of 2,054 calories, protein, fat and carb bars, water, and progress for fibre, potassium, magnesium, sodium, calcium and iron"
+    alt: "PocketChomp diary for Friday the 9th showing 1,765 of 1,879 calories, protein, fat and carb bars, a nutrients card for fibre, potassium, magnesium, sodium, calcium and iron, and water"
     tier: free
   - title: "Barcode scanning stays free"
     caption: "Point, scan, logged. No scan limit, no upgrade."
@@ -26,7 +26,7 @@ screens:
   - title: "Build the plate first"
     caption: "Adjust portions, set the time, confirm. Nothing is written until you do."
     image: ../../assets/screens/screen-plate.webp
-    alt: "PocketChomp plate of four items totalling 606 calories, with portion steppers for sliced bread, egg whites, half an avocado and a banana, a 10:00 AM time and an Add to Diary button"
+    alt: "PocketChomp plate sheet holding nachos with cheese at half a serving, 194 calories, a 10:00 AM time, and Save as meal and Add to Diary buttons"
     tier: free
   - title: "Your data stays on your device"
     caption: "No account needed. Cloud sync is a choice, not a condition."
@@ -39,13 +39,13 @@ screens:
     alt: "PocketChomp add food screen in airplane mode with an offline notice, and a chicken search still returning Health Canada, USDA and Kirkland results"
     tier: free
   - title: "Hide calories entirely"
-    caption: "Hide calories everywhere. Make protein the big number."
+    caption: "Hide calories everywhere, or pick a different number to lead with."
     image: ../../assets/screens/screen-metrics.webp
-    alt: "PocketChomp metrics settings with Hide Calories switched on and Protein selected as the diary's hero metric"
+    alt: "PocketChomp metrics settings with Hide Calories switched on and no hero metric selected for the diary"
     tier: free
   - title: "Targets that adapt"
     caption: "A weekly check-in sets next week's target from your real expenditure."
     image: ../../assets/screens/screen-plan.webp
-    alt: "PocketChomp plan showing the next check-in in 5 days, on track, a 2,054 kcal daily target, 2,466 kcal expenditure and a 412 kcal deficit"
+    alt: "PocketChomp plan showing recipe and food counts, a 1,879 kcal daily target with protein, fat and carb targets, and the next check-in in 3 days, on track"
     tier: plus
 ---

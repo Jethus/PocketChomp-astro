@@ -52,12 +52,12 @@ const ERASE = {
 };
 
 const screens = [
-  { capture: "today", out: "screen-today", erase: [ERASE.burnedChip] },
+  { capture: "today", out: "screen-today" },
   { capture: "search", out: "screen-search" },
   { capture: "food-detail", out: "screen-food-detail" },
   { capture: "scan", out: "screen-scan" },
   { capture: "label-1", out: "screen-label" },
-  { capture: "add-sheet", out: "screen-add-sheet", erase: [ERASE.burnedChip] },
+  { capture: "add-sheet", out: "screen-add-sheet" },
   { capture: "plate", out: "screen-plate" },
   { capture: "diary-meal", out: "screen-diary-meal" },
   { capture: "metrics", out: "screen-metrics" },
@@ -71,9 +71,21 @@ const screens = [
 // Hero extracts: full-width slices of a capture, sized to the panel they fill
 // (see the grid-template-rows note in Hero.astro).
 const heroCrops = [
-  { src: "search", name: "hero-search", top: 500, height: 1055 },
-  { src: "metrics", name: "hero-metrics", top: 880, height: 508 },
-  { src: "plan", name: "hero-plan", top: 1105, height: 1045 },
+  // Offsets are for the 2026-10-09 light-theme captures (new app design).
+  { src: "search", name: "hero-search", top: 580, height: 1055 },
+  // The Hide Calories card alone: the headings above and below it are painted
+  // over with the paper so the 2.4:1 panel shows one card, not clipped text.
+  {
+    src: "metrics",
+    name: "hero-metrics",
+    top: 1055,
+    height: 561,
+    erase: [
+      { left: 0, top: 1000, width: 1344, height: 185, at: { x: 20, y: 1150 } },
+      { left: 0, top: 1485, width: 1344, height: 200, at: { x: 20, y: 1150 } },
+    ],
+  },
+  { src: "plan", name: "hero-plan", top: 905, height: 910 },
 ];
 
 async function pixelAt(image, x, y) {
@@ -134,8 +146,16 @@ async function buildPlate({ capture: captureName, out, erase = [] }, skin, outDi
   );
 }
 
-async function buildHeroCrop({ src, name, top, height }) {
-  await sharp(path.join(capturesDir, `${src}.png`))
+async function buildHeroCrop({ src, name, top, height, erase = [] }) {
+  const capture = sharp(path.join(capturesDir, `${src}.png`));
+  const patches = [];
+  for (const rect of erase) {
+    const colour = await pixelAt(capture, rect.at.x, rect.at.y);
+    patches.push({ input: solid(rect.width, rect.height, colour), left: rect.left, top: rect.top });
+  }
+  // Composite runs after extract in sharp's pipeline, so patch first.
+  const patched = await capture.clone().composite(patches).png().toBuffer();
+  await sharp(patched)
     .extract({ left: 0, top, width: CAPTURE.width, height })
     .webp(SITE_WEBP)
     .toFile(path.join(uiDir, `${name}.webp`));
@@ -188,7 +208,7 @@ async function buildFramedAll(skin, rawFiles) {
     rawFiles.map((file) => {
       const capture = file.replace(/\.png$/, "");
       const known = byCapture.get(capture);
-      const erase = known?.erase ?? (capture.startsWith("today") ? [ERASE.burnedChip] : []);
+      const erase = known?.erase ?? [];
       return buildPlate({ capture, out: capture, erase }, skin, framedDir);
     })
   );
