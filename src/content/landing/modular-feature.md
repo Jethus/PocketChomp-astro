@@ -9,5 +9,5 @@ bullets:
   - Mindful mode hides calories across the whole app
 panelLabel: Straight from the app
 image: ../../assets/ui/ui-metrics-panel.webp
-imageAlt: PocketChomp metrics settings with Hide Calories switched on and no hero metric chosen for the diary
+imageAlt: PocketChomp metrics settings with Hide Calories switched on and protein chosen as the diary's hero number
 ---
