@@ -8,7 +8,7 @@ export const OG_WIDTH = 1200;
 export const OG_HEIGHT = 630;
 
 export interface OgCard {
-  /** Small sage label above the title: "Blog", "Free calculator", "Comparison". */
+  /** Small label above the title: "Blog", "Free calculator", "Comparison". */
   eyebrow: string;
   title: string;
   subtitle?: string;

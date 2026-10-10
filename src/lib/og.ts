@@ -22,12 +22,11 @@ const satori = require("satori").default as typeof satoriType;
 
 export type { OgCard };
 
-// Light-theme tokens, converted from OKLCH to sRGB.
-const BACKGROUND = "#F6F8F6"; // --background
-const FOREGROUND = "#262B27"; // --foreground
-const MUTED = "#6A6F6B"; // --muted-foreground
-const SAGE = "#4A714C"; // --primary
-const EMBER = "#E4551C"; // --accent
+// Light-theme tokens: the app's own hex values, as in src/styles/global.css.
+const BACKGROUND = "#ECEFEC"; // --background (paper)
+const FOREGROUND = "#2A2F2C"; // --foreground (charcoal)
+const MUTED = "#555555"; // --muted-foreground (slate)
+const EMBER = "#BD4C00"; // --accent (ember)
 
 let fontsCache: ReturnType<typeof loadFonts> | undefined;
 let logoCache: string | undefined;
@@ -112,20 +111,24 @@ export async function renderOgCard(card: OgCard): Promise<Buffer> {
     h(
       "div",
       { style: { display: "flex", flexDirection: "column", flexGrow: 1, justifyContent: "center", paddingBottom: 24 } },
+      // Eyebrow as the site draws it: an ember rule, then the label in slate.
       h(
         "div",
         {
           style: {
+            display: "flex",
+            alignItems: "center",
             fontFamily: "Montserrat",
             fontWeight: 900,
             fontSize: 22,
             letterSpacing: 4,
             textTransform: "uppercase",
-            color: SAGE,
+            color: MUTED,
             marginBottom: 22,
           },
         },
-        card.eyebrow,
+        h("div", { style: { display: "flex", width: 44, height: 3, backgroundColor: EMBER, marginRight: 18 } }),
+        h("div", { style: { display: "flex" } }, card.eyebrow),
       ),
       h(
         "div",
