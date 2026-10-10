@@ -27,7 +27,7 @@ export function ogPath(slug: string) {
 export const OG_CARDS: Record<string, OgCard> = {
   default: {
     eyebrow: "Free calorie counter & macro tracker",
-    title: "Calorie counting, free. Built on Canadian shelves.",
+    title: "Calorie counting, Canadian.",
     subtitle:
       "Unlimited barcode scanning, every micronutrient, and a food log that stays on your phone. No ads, and the basics are never paywalled.",
   },

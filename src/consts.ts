@@ -3,7 +3,7 @@
 
 export const SITE_TITLE = "PocketChomp";
 export const SITE_DESCRIPTION =
-  "Free calorie counter and macro tracker built for Canada. Free barcode scanning, real Canadian grocery products, no ads, and your food log stays on your phone.";
+  "Free calorie counter and macro tracker, made in Canada for Canadians. Free barcode scanning, Canadian grocery brands, no ads, and your log stays on your phone.";
 
 /**
  * Beta signup list. The form posts straight to Kit (ConvertKit) with no
