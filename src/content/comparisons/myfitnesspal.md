@@ -54,7 +54,7 @@ rows:
     note: "An honest disadvantage, not a footnote — if you're on iPhone, PocketChomp isn't an option yet."
 faq:
   - q: "Is PocketChomp actually free, or is it free-for-now?"
-    a: "Barcode scanning, food search, logging, custom foods, recipes, micronutrients and your diary are free and intended to stay that way. PocketChomp+ is $39.99/year and adds depth — AI photo logging, adaptive TDEE that learns your real metabolism, insights, fasting and extra widgets. The commitment is that the things you need to track a day are not the things behind the paywall."
+    a: "Barcode scanning, food search, logging, custom foods, recipes, micronutrients and your diary are free and intended to stay that way. PocketChomp+ is $39.99/year and adds depth — AI photo and voice logging, adaptive TDEE that learns your real metabolism, insights past 30 days and quick-log buttons on the home-screen widget. The commitment is that the things you need to track a day are not the things behind the paywall."
   - q: "Can I import my MyFitnessPal data?"
     a: "Not automatically yet. MyFitnessPal lets you export your history as a CSV from its website, and an importer is on the roadmap, but today you'd be starting a fresh log. If years of history matter to you, that's a real cost of switching and worth weighing honestly."
   - q: "Is the food database as good as MyFitnessPal's?"
