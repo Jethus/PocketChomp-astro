@@ -1,12 +1,12 @@
 ---
 eyebrow: Built around you
-headline: Your numbers, or none at all.
-description: Pick a nutrient profile or build your own, put what you care about at the top of the diary, and hide calories everywhere if seeing them isn't good for you.
+headline: Your numbers, your way.
+description: Use the guided setup, or build your own profile with exactly the nutrients you want to track. You can even hide calories if you'd rather not see them.
 bullets:
-  - Six nutrient profiles, or fully custom
-  - Separate targets for training and rest days
+  - Five nutrient profiles, or fully custom
   - Up to eight micronutrients on the dashboard
-  - Mindful mode hides calories across the whole app
+  - Daily target can follow your Health Connect workouts
+  - Mindful mode options for intuitive eating
 panelLabel: Straight from the app
 image: ../../assets/ui/ui-metrics-panel.webp
 imageAlt: PocketChomp metrics settings with Hide Calories switched on and protein chosen as the diary's hero number

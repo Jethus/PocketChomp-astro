@@ -4,7 +4,7 @@ headline: Free where it counts. Pay only for the extras.
 description: The full logging loop is free forever, including the parts other apps started charging for. PocketChomp+ adds the pieces that do the work for you. It never holds your food log hostage.
 funding: PocketChomp is paid for by PocketChomp+ subscribers, not by advertisers. That is why there are no ads on either tier, and why your food log is never the product.
 freeTitle: Free
-freeNote: No account needed.
+freeNote: No account required.
 premiumTitle: PocketChomp+
 premiumNote: $6.99 a month or $39.99 a year, with a 14-day free trial.
 comparison:

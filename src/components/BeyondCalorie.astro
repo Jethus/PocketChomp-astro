@@ -12,12 +12,6 @@ if (!beyondEntry) {
 
 const { headline, description, panelLabel, image, imageAlt } = beyondEntry.data;
 
-// The last word of the headline carries the accent colour. Orange used to be
-// the whole card's background with black type on it; now it is the one word
-// that matters and the card sits on the page surface like the pillars above.
-const words = headline.trim().split(" ");
-const lastWord = words.pop() ?? "";
-const leadWords = words.join(" ");
 ---
 
 <SectionShell
@@ -27,7 +21,7 @@ const leadWords = words.join(" ");
 >
   <div>
     <h2 class="beyond-headline fs-xl leading-[1.02]">
-      {leadWords}{leadWords ? " " : ""}<span class="beyond-headline__accent">{lastWord}</span>
+      {headline}
     </h2>
     <p class="beyond-body mt-6 max-w-2xl text-lg leading-relaxed">
       {description}
@@ -64,11 +58,6 @@ const leadWords = words.join(" ");
 
   .beyond-headline {
     color: white;
-  }
-
-  /* The app's selection tint, the one warm light that holds up on rust. */
-  .beyond-headline__accent {
-    color: oklch(0.9070 0.0440 52.63); /* choice-selected #F9D9C6 */
   }
 
   /* Balanced so the last line keeps company; a lone trailing word was

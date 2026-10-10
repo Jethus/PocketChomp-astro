@@ -1,7 +1,7 @@
 ---
 eyebrow: "Inside the app"
 headline: "What logging looks like."
-description: "Search, scan a barcode, scan a label, take a photo, say it, type it, or quick-add the numbers. Everything below is in the free app unless it carries a Plus badge."
+description: "Search, scan a barcode, scan a label, take a photo, say it, type it, or quickly add the numbers."
 screens:
   - title: "Today at a glance"
     caption: "Calories, macros, water and the micronutrients you chose."
@@ -29,7 +29,7 @@ screens:
     alt: "PocketChomp plate of four items totalling 606 calories, with portion steppers for sliced bread, egg whites, half an avocado and a banana, a 10:00 AM time and an Add to Diary button"
     tier: free
   - title: "Your data stays on your device"
-    caption: "No account needed. Cloud sync is a choice, not a condition."
+    caption: "No account required, and syncing is always optional."
     image: ../../assets/screens/screen-guest.webp
     alt: "PocketChomp setup screen titled Your Data, Your Choice, explaining that data is stored on the device, cloud sync is optional and analytics are off by default"
     tier: free
