@@ -8,11 +8,11 @@ accents:
     tint: water
   - text: private.
     tint: sage
-  - text: ad-free.
+  - text: no ads.
     tint: carb
-  - text: no catch.
+  - text: free.
     tint: ember
-description: Scan what's in your cart and it comes up, house brand and all. Every nutrient against your targets, and the log stays on your phone.
+description: Scan a barcode and it comes up, house brand and all. Calories, macros and every nutrient against your targets, and the log stays on your phone.
 primaryCtaText: Join the beta
 primaryCtaLink: "#signup"
 secondaryCtaText: See how it works
