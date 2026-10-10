@@ -50,7 +50,9 @@ function loadFonts() {
 
 function logoDataUri() {
   if (!logoCache) {
-    const svg = readFileSync(root("src/assets/svgs/logo-light.svg"), "utf8");
+    // The card draws the wordmark in charcoal, keeping the ember "o", so the
+    // only colour on the card is the brand orange.
+    const svg = readFileSync(root("src/assets/svgs/logo-light.svg"), "utf8").replaceAll("#4A714C", FOREGROUND);
     logoCache = `data:image/svg+xml;base64,${Buffer.from(svg).toString("base64")}`;
   }
   return logoCache;
