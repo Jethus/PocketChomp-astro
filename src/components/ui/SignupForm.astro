@@ -30,7 +30,7 @@ const { placeholder, buttonText, placement = "unknown", id = "signup" } = Astro.
   data-placement={placement}
 >
   <label class="sr-only" for="signup-email">Email address</label>
-  <div class="signup-shell flex w-full rounded-full bg-surface p-1">
+  <div class="signup-shell flex w-full rounded-full p-1">
     <input
       id="signup-email"
       type="email"
@@ -38,7 +38,7 @@ const { placeholder, buttonText, placement = "unknown", id = "signup" } = Astro.
       autocomplete="email"
       required
       placeholder={placeholder}
-      class="min-w-0 flex-1 bg-transparent px-5 text-base text-foreground placeholder:text-muted-foreground focus:outline-none"
+      class="min-w-0 flex-1 bg-transparent px-5 text-base focus:outline-none"
     />
     <button
       type="submit"
@@ -54,11 +54,23 @@ const { placeholder, buttonText, placement = "unknown", id = "signup" } = Astro.
 </script>
 
 <style>
-  /* The field's own colours, which a host section can override (the closing
-     CTA's field is white in both themes). */
+  /* The field's own colours. A host section overrides these variables only
+     (the closing CTA's field is white in both themes); every rule that uses
+     them lives here, so the outcome never depends on stylesheet order. */
   .signup-shell {
     --field-bg: var(--surface);
     --field-fg: var(--foreground);
+    --field-placeholder: var(--muted-foreground);
+    --field-border: color-mix(in oklab, var(--foreground) 22%, transparent);
+    background: var(--field-bg);
+  }
+
+  .signup-shell input {
+    color: var(--field-fg);
+  }
+
+  .signup-shell input::placeholder {
+    color: var(--field-placeholder);
   }
 
   /* Browser autofill paints its own box (pale blue in light, slate in dark)
@@ -87,8 +99,8 @@ const { placeholder, buttonText, placement = "unknown", id = "signup" } = Astro.
     .signup-shell input {
       min-height: 3.5rem;
       border-radius: 999px;
-      background: var(--surface);
-      border: 1.5px solid color-mix(in oklab, var(--foreground) 22%, transparent);
+      background: var(--field-bg);
+      border: 1.5px solid var(--field-border);
       padding-inline: 1.5rem;
     }
 

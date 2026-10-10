@@ -65,31 +65,15 @@ const { headline, description, inputPlaceholder, buttonText, note, proof, compar
     color: oklch(1 0 0 / 0.72);
   }
 
-  /* The form's white field reads as a field on the dark slab. */
+  /* The form's white field reads as a field on the dark slab, in both
+     themes. Only the field variables are set here: SignupForm owns every
+     rule that uses them, so the result never depends on which component's
+     CSS the production bundle happens to emit last. */
   .cta-slab :global(.signup-shell) {
-    background: white;
     --field-bg: white;
-    --field-fg: oklch(0.2992 0.0088 159.54);
-  }
-
-  .cta-slab :global(.signup-shell input) {
-    background: transparent;
-    color: oklch(0.2992 0.0088 159.54);
-  }
-
-  .cta-slab :global(.signup-shell input::placeholder) {
-    color: oklch(0.4495 0 0);
-  }
-
-  @media (max-width: 40rem) {
-    .cta-slab :global(.signup-shell) {
-      background: transparent;
-    }
-
-    .cta-slab :global(.signup-shell input) {
-      background: white;
-      border-color: transparent;
-    }
+    --field-fg: oklch(0.2992 0.0088 159.54); /* light charcoal #2A2F2C */
+    --field-placeholder: oklch(0.4495 0 0); /* light slate #555555 */
+    --field-border: transparent;
   }
 
   .cta-slab .cta-proof {
