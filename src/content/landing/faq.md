@@ -5,7 +5,7 @@ contactLabel: Ask me directly
 contactHref: /support
 items:
   - q: Is PocketChomp really free?
-    a: Yes. Barcode scanning, label scanning, search, voice and typed logging, every micronutrient, custom goals, custom foods and recipes, offline use and CSV export are all free, with no ads and no scan limit. PocketChomp+ is an optional subscription that adds AI photo logging, adaptive targets and longer-range insights. It never takes the basics away.
+    a: Yes. Barcode scanning, label scanning, search, typed meal descriptions, every micronutrient, custom goals, custom foods and recipes, offline use and CSV export are all free, with no ads and no scan limit. PocketChomp+ is an optional subscription that adds AI photo and voice logging, adaptive targets and longer-range insights. It never takes the basics away.
   - q: Do I need an account?
     a: No. You can use the entire app as a guest. Cloud sync is something you turn on, not a condition of using it, and your log is written to your phone first either way.
   - q: Does it work without a connection?

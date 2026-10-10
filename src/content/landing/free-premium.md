@@ -14,7 +14,7 @@ comparison:
   - feature: Label scanning
     free: true
     plus: true
-  - feature: Search, voice and typed logging
+  - feature: Search and typed logging
     free: true
     plus: true
   - feature: Micronutrient tracking
@@ -39,6 +39,9 @@ comparison:
     free: Default portion
     plus: Your saved portion
   - feature: AI photo logging
+    free: false
+    plus: true
+  - feature: AI voice logging
     free: false
     plus: true
   - feature: Recipe import from a URL
