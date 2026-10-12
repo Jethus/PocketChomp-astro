@@ -10,7 +10,7 @@ updatedDate: "2026-09-10"
 
 I had three apps installed. One wanted $79.99 a year to use its barcode scanner. One didn't exist on Android, so I couldn't actually recommend it to anyone I know. One showed me an ad for a protein powder I'd already rejected three times, in the middle of logging an apple.
 
-Closed all three. Opened a text file. Started typing what I wanted instead.
+Closed all three. Opened a text file. Started typing what I wanted instead. That file turned into [PocketChomp, a Canadian calorie counter](/) that doesn't do any of the above.
 
 ## The frustration that started it
 

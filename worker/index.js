@@ -1,7 +1,8 @@
 /**
  * Entry for the Cloudflare Worker that serves the static site.
  *
- * It sends www.pocketchomp.com to the apex with a 301, redirects retired
+ * It sends http:// and www.pocketchomp.com to https://pocketchomp.com with a
+ * 301, redirects retired
  * pages, upgrades the asset layer's trailing-slash 307 to a permanent 308,
  * and otherwise passes requests straight through to the static assets. It runs before
  * the asset lookup (`run_worker_first` in wrangler.jsonc) because otherwise a
@@ -17,7 +18,15 @@ const RETIRED_PATHS = new Map([
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    if (url.hostname === `www.${CANONICAL_HOST}`) {
+    // One hop to the canonical origin: https on the bare domain. Search
+    // Console showed Google indexing http://pocketchomp.com/ alongside the
+    // https URL, splitting the homepage's signals across two addresses.
+    // Limited to the production hosts so `wrangler dev` on localhost still
+    // serves plain http.
+    const isProdHost =
+      url.hostname === CANONICAL_HOST || url.hostname === `www.${CANONICAL_HOST}`;
+    if (isProdHost && (url.protocol === "http:" || url.hostname !== CANONICAL_HOST)) {
+      url.protocol = "https:";
       url.hostname = CANONICAL_HOST;
       return Response.redirect(url.toString(), 301);
     }
