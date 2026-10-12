@@ -1,5 +1,5 @@
 ---
-eyebrow: ""
+eyebrow: The free Canadian calorie counter
 headline: Scan every barcode.
 accents:
   - text: no limits.

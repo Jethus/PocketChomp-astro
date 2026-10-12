@@ -2,6 +2,7 @@
 import { getEntry } from "astro:content";
 import { getImage } from "astro:assets";
 import Button from "./ui/Button.astro";
+import EyebrowPill from "./ui/EyebrowPill.astro";
 import SectionShell from "./ui/SectionShell.astro";
 import uiDashboard from "../assets/screens/screen-today.webp";
 import uiSearchCrop from "../assets/ui/hero-search.webp";
@@ -26,6 +27,7 @@ if (!heroEntry) {
 }
 
 const {
+  eyebrow,
   headline,
   accents,
   description,
@@ -49,6 +51,13 @@ const longestAccent = accents.reduce((a, b) => (b.text.length > a.text.length ? 
   >
     <div class="pt-2">
       <h1 class="fs-xxl uppercase leading-[1.05] text-foreground">
+        {/* The eyebrow sits inside the H1 so the page's one heading names what
+            the product is ("Canadian calorie counter") as well as the pitch. */}
+        {eyebrow && (
+          <span class="mb-5 flex">
+            <EyebrowPill>{eyebrow}</EyebrowPill>
+          </span>
+        )}
         {headline}{" "}
         <span class="hero-accent-stack" data-longest={longestAccent}>
           <span
