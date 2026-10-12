@@ -1,7 +1,7 @@
 ---
 title: "How to read a Canadian nutrition label"
 description: "A line-by-line guide to the Canadian Nutrition Facts table and the new magnifying-glass \"High in\" symbol: what % Daily Value means, which numbers matter when you count calories, how to spot a US label in your app, and the rounding that quietly adds up."
-pubDate: "2026-10-12"
+pubDate: "2026-10-16"
 tags: ["Guide"]
 faq:
   - q: "What does % Daily Value mean on a Canadian label?"
@@ -26,7 +26,7 @@ Every number in the table is for the amount at the very top. "Per 1 cup (55 g)".
 
 Health Canada's 2016 label changes made serving sizes more consistent between similar foods and closer to what people actually eat, which is why the top line now shows a household measure and a metric amount together. That helps when you compare two boxes of cereal. It doesn't mean the serving matches your bowl.
 
-When you log, use the gram figure in brackets. A cup is a guess. Fifty-five grams is a fact. If you pour 80 g of that cereal, you ate 80 ÷ 55 = about 1.45 servings, and every number on the label goes up by the same amount. A food scale makes this a two-second job, and it is the single biggest accuracy upgrade in calorie counting. ([The guide to counting calories in Canada](/blog/how-to-count-calories-in-canada) covers the rest of the process.)
+When you log, use the gram figure in brackets. A cup is a guess. Fifty-five grams is a fact. If you pour 80 g of that cereal, you ate 80 ÷ 55 = about 1.45 servings, and every number on the label goes up by the same amount. A food scale makes this a two-second job, and it is the single biggest accuracy upgrade in calorie counting.
 
 ## Calories
 

@@ -1,7 +1,7 @@
 ---
 title: "How to count calories in Canada"
 description: "A practical guide to calorie counting with Canadian food: finding your number, logging groceries without US data getting in the way, using calories on Ontario menus and Canadian nutrition guides, and where Canada's Food Guide fits when it gives no calorie numbers at all."
-pubDate: "2026-10-12"
+pubDate: "2026-10-23"
 tags: ["Guide"]
 faq:
   - q: "How many calories should a Canadian adult eat a day?"
