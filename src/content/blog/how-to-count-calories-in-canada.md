@@ -98,6 +98,6 @@ Your starting target is an estimate. The only way to find out whether it's right
 
 ## Where PocketChomp fits
 
-I'm building [PocketChomp as a free Canadian calorie counter](/) because steps 2 and 3 were the hardest parts with the apps I'd used. Its database starts with products from Canadian shelves and Health Canada's Canadian Nutrient File. Barcode scanning is free and unlimited, and when a product isn't in the database, the label scanner reads the Canadian Nutrition Facts table off the package in English or French. It shows every nutrient, including fibre, has no ads, and works without an account. It's on Android now, in beta.
+Step 3 is personal for me. MyFitnessPal used to struggle with barcode scanning on Canadian products, so I slowly stopped using it. By the time I came back, barcode scanning was behind Premium. That's when I started building [PocketChomp as a free Canadian calorie counter](/). Its database starts with products from Canadian shelves and Health Canada's Canadian Nutrient File. Barcode scanning is free and unlimited, and when a product isn't in the database, the label scanner reads the Canadian Nutrition Facts table off the package in English or French. It shows every nutrient, including fibre, has no ads, and works without an account. It's on Android now, in beta.
 
 *Ontario menu labelling details are from the Healthy Menu Choices Act, 2015. Fibre intakes are from Health Canada's Dietary Reference Intakes. Food guide proportions are from Canada's Food Guide, 2019. All checked October 12, 2026.*

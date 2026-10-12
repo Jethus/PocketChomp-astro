@@ -1,5 +1,5 @@
 ---
-eyebrow: The free Canadian calorie counter
+eyebrow: ""
 headline: Scan every barcode.
 accents:
   - text: no limits.
@@ -12,7 +12,7 @@ accents:
     tint: protein
   - text: free, forever.
     tint: ember
-description: The calorie counter that actually has your Canadian groceries. Unlimited barcode scanning, every micronutrient, and a food log that stays on your phone unless you decide otherwise. No ads, and the basics are never paywalled.
+description: The Canadian calorie counter that actually has your groceries. Unlimited barcode scanning, every micronutrient, and a food log that stays on your phone unless you decide otherwise. No ads, and the basics are never paywalled.
 primaryCtaText: Join the beta
 primaryCtaLink: "#signup"
 secondaryCtaText: See how it works
