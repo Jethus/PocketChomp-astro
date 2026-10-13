@@ -13,6 +13,8 @@ faq:
     a: "A day with nothing logged is left out, not counted as zero. Your estimate is based on the days you did log. You can also mark a day as complete or leave it out yourself."
 ---
 
+Between May and August this year, I averaged 2,298 kcal a day on the days I fully logged, and my trend weight dropped 2.33 kg over 98 days. Work that through by hand and it says I burned about 2,480 a day. PocketChomp's estimate, which I never had to work out myself, was 2,466. I only fully logged 42 of those 98 days.
+
 PocketChomp works out what you burn by comparing the food you log with what your weight does, once a week, and working backward. The formula you fill in at setup is only the first guess. After a few weeks your own numbers take over. The feature is called Dynamic TDEE, and this post is the plain version of how it works, including the parts I deliberately made slow.
 
 ## The starting guess
@@ -77,7 +79,11 @@ Light days need a bit more care, because a half-logged Tuesday looks a lot like 
 
 At check-in time, any days from the past week you haven't marked are shown so you can settle them before the numbers run.
 
-## The thing that surprises people
+## Why it never judges you
+
+The check-in never calls a day good or bad, never says you ate too much, and never guesses that you forgot to log something. That's on purpose. People in my life have dealt with eating disorders, and I don't want PocketChomp to contribute to that problem. It gives you the numbers and leaves the judging out.
+
+## Skipping the same thing every day mostly cancels out
 
 If you always skip the same thing, it mostly doesn't matter.
 
