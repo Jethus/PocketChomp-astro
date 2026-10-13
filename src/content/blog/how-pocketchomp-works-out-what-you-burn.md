@@ -61,9 +61,11 @@ It also needs enough logged days in that window before it changes anything. If t
 
 ## It moves slowly on purpose
 
-This is the part people sometimes find frustrating, so I'll explain it. Each check-in can move your estimate by **at most 175 kcal**, and never more than 20% of the current number. If the math says your maintenance is 600 higher than the app thought, it gets there over a few weeks, not in one jump.
+Each check-in can move your estimate by **at most 175 kcal**. If the math says your maintenance is 600 lower than the app thought, it gets there over a few weeks, not in one jump.
 
-The reason is that one week of data can be weird. A holiday, a cold, a week of eating out. If the target swung by 600 every time something weird happened, you'd spend half your time chasing it. If the gap is real, it keeps showing up week after week, and the estimate keeps closing it.
+Imagine you put in a solid week of logging everything, and the app's response is to tell you to eat 600 fewer calories a day, starting tomorrow. That's unreasonable, and honestly a bit rude. It's the kind of thing that makes people give up. Small steps are easier to live with, and if the gap is real, it keeps showing up week after week and the estimate keeps closing it.
+
+It also means one weird week, a holiday, a cold, a week of eating out, can't throw your target around.
 
 You also don't have to take the update. Every check-in ends with **Apply Update** or **Keep Current Target**, and it's your call.
 
@@ -81,15 +83,7 @@ At check-in time, any days from the past week you haven't marked are shown so yo
 
 ## Why it never judges you
 
-The check-in never calls a day good or bad, never says you ate too much, and never guesses that you forgot to log something. That's on purpose. People in my life have dealt with eating disorders, and I don't want PocketChomp to contribute to that problem. It gives you the numbers and leaves the judging out.
-
-## Skipping the same thing every day mostly cancels out
-
-If you always skip the same thing, it mostly doesn't matter.
-
-Say you never log the oil you cook with, and it's about 150 kcal a day. Your logged intake reads 150 low, so your estimated burn reads 150 low too. But your target comes from that same estimate, and you keep logging the same way. The target you're aiming at has the same gap built in. Your weight ends up doing what you planned.
-
-What makes the estimate wobble is changing how you log. A careful week followed by a loose week looks to the math like your metabolism changed. Consistent beats perfect.
+The check-in never calls a day good or bad, never says you ate too much, and never guesses that you forgot to log something. That's on purpose. I don't want PocketChomp to contribute to eating disorders or harm anyone. I want it to be reasonable for a lot of different people. It gives you the numbers and leaves the judging out.
 
 ## Do you need to log exercise?
 
