@@ -18,5 +18,5 @@ primaryCtaText: Join the beta
 primaryCtaLink: "#signup"
 secondaryCtaText: See how it works
 secondaryCtaLink: "#screens"
-ctaNote: No account required · Android beta
+ctaNote: No account required · Android beta, iOS later
 ---

@@ -1,7 +1,7 @@
 ---
 import LegalLayout from "../layouts/LegalLayout.astro";
 
-const LAST_UPDATED = "October 1, 2026";
+const LAST_UPDATED = "October 13, 2026";
 ---
 
 <LegalLayout
@@ -122,21 +122,24 @@ const LAST_UPDATED = "October 1, 2026";
     <p>
       On Android you can optionally connect PocketChomp to Health Connect. If you grant
       permission, the app reads the following data types: steps, exercise sessions, heart rate,
-      weight, height and active calories burned. Access is read-only. PocketChomp never writes
+      weight, height, active calories burned and total calories burned. Access is read-only. PocketChomp never writes
       to Health Connect.
     </p>
     <p>We use this data only to:</p>
     <ul>
-      <li>estimate your daily activity level and, if you choose, add exercise calories back to your target;</li>
+      <li>estimate your daily activity level and, if you choose, adjust your calorie target for the workouts you log;</li>
+      <li>measure the calories a workout burned (when your device records only total calories, we subtract your resting energy for the workout's duration);</li>
       <li>pre-fill your weight and height so you do not have to type them.</li>
     </ul>
     <p>
-      Raw Health Connect records stay on your phone. If you are signed in, a summary (your
-      computed activity level, average daily steps and average active calories) is synced with
-      your profile so your targets match across devices. Health Connect data is never used for
-      advertising, never sold, and never shared with third parties except as part of that synced
-      summary in our database. You can revoke access at any time in Android settings or in
-      Health Connect, and deleting your account removes the synced summary.
+      Other Health Connect records (steps, heart rate and the raw calorie readings) stay on your
+      phone. If you are signed in, two things are synced with your profile so your diary and
+      targets match across devices: a summary (your computed activity level, average daily steps
+      and average active calories) and your workouts as diary entries (type, name, start time,
+      duration, calories and the app that recorded them). Health Connect data is never used for
+      advertising, never sold, and never shared with third parties. It is stored only in our own
+      database. You can revoke access at any time in Android settings or in Health Connect, and
+      deleting your account removes the synced summary and workouts.
     </p>
   </section>
 
@@ -189,7 +192,8 @@ const LAST_UPDATED = "October 1, 2026";
     <h2 class="fs-s">The beta email list</h2>
     <p>
       If you join the list on this website, we collect your email address through <a href="https://kit.com/privacy" rel="noopener">Kit</a> and use it only for PocketChomp
-      beta and launch news. You confirm your address before you are added. Every email has an
+      beta and launch news. We also record whether you signed up from an iPhone, an Android phone
+      or a computer, read from your browser, so iPhone users get the iOS launch email. You confirm your address before you are added. Every email has an
       unsubscribe link, and unsubscribing removes you from the list.
     </p>
   </section>

@@ -62,9 +62,9 @@ faq:
   - q: "Why should I trust a smaller app not to do the same thing later?"
     a: "Fair question, and no answer from us settles it — MyFitnessPal was also free once. What can be checked rather than promised: there's no ad SDK in the app, logging works without an account, your data stays on-device unless you turn on sync, and you can delete your account and data from a link in the app. Those are structural, not policy statements."
   - q: "Is there an iPhone version?"
-    a: "Not yet. PocketChomp is Android-only today; iOS is planned but no build exists. If you're on iPhone, MyFitnessPal or another iOS tracker is genuinely your better option right now."
+    a: "Not yet. PocketChomp is Android-only today; iOS is planned but no build exists. If you need a tracker on iPhone right now, MyFitnessPal or another iOS app is your better option. If you'd rather wait, the list will tell you when it's ready."
 ctaHeadline: "Free barcode scanning, no ads, no account needed."
-ctaNote: "PocketChomp is in beta on Android. Join the list and we'll tell you when it's ready — no spam, unsubscribe any time."
+ctaNote: "PocketChomp is in beta on Android. Join the list and we'll tell you when it's ready, iPhone included — no spam, unsubscribe any time."
 ---
 
 ## Why people leave MyFitnessPal

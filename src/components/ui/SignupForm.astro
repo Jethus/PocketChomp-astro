@@ -20,7 +20,9 @@ const { placeholder, buttonText, placement = "unknown", id = "signup" } = Astro.
 <!-- Plain HTML post to Kit; the field name `email_address` is what Kit expects.
      Kit redirects to /confirmation after submit and to /thanks after the
      subscriber confirms (both set in the form's settings).
-     `data-signup-form` + `data-placement` are read by scripts/signup-view.ts. -->
+     `data-signup-form` + `data-placement` are read by scripts/signup-view.ts.
+     `fields[platform]` is a Kit custom field (key `platform`) that
+     scripts/signup-platform.ts fills with ios / android / desktop. -->
 <form
   id={id}
   action={SIGNUP_FORM_ACTION}
@@ -29,6 +31,7 @@ const { placeholder, buttonText, placement = "unknown", id = "signup" } = Astro.
   data-signup-form
   data-placement={placement}
 >
+  <input type="hidden" name="fields[platform]" value="" data-platform-field />
   <label class="sr-only" for="signup-email">Email address</label>
   <div class="signup-shell flex w-full rounded-full p-1">
     <input
@@ -51,6 +54,7 @@ const { placeholder, buttonText, placement = "unknown", id = "signup" } = Astro.
 
 <script>
   import "../../scripts/signup-view";
+  import "../../scripts/signup-platform";
 </script>
 
 <style>
