@@ -198,7 +198,6 @@ const META =
   .matrix__mark--free {
     --mark-ink: var(--primary);
     background: color-mix(in oklab, var(--mark-ink) 18%, var(--surface));
-    border: 1px solid color-mix(in oklab, var(--mark-ink) 32%, var(--border));
     color: var(--mark-ink);
   }
 
@@ -213,20 +212,17 @@ const META =
   .matrix__mark--plus {
     --mark-ink: var(--accent-strong);
     background: color-mix(in oklab, var(--accent) 18%, var(--surface));
-    border: 1px solid color-mix(in oklab, var(--accent) 34%, var(--border));
     color: var(--mark-ink);
   }
 
   .matrix__mark--off {
     background: transparent;
-    border: 1px solid var(--border);
     color: var(--muted-foreground);
   }
 
   :global(html[data-theme="dark"]) .matrix__mark--plus {
     --mark-ink: oklch(0.8 0.15 40);
     background: color-mix(in oklab, var(--accent) 20%, var(--surface));
-    border-color: color-mix(in oklab, var(--accent) 38%, var(--border));
   }
 
   /* Stated plainly rather than as a badge: the business model IS the proof. */

@@ -105,6 +105,8 @@ const landingStatement = defineCollection({
     lead: z.string(),
     /** Muted. The why, read straight after the claim. */
     rest: z.string(),
+    /** Ember. The answer, closing the paragraph. */
+    accent: z.string().optional(),
   }),
 });
 
@@ -273,9 +275,12 @@ const landingBlogMasthead = defineCollection({
   }),
 });
 
+/** The status card beside the blog masthead. Written to stay true for months,
+ *  not weeks: where the app stands, not what shipped this week. */
 const landingBlogNow = defineCollection({
   loader: glob({ pattern: "blog-now.md", base: "./src/content/landing" }),
   schema: z.object({
+    eyebrow: z.string(),
     headline: z.string(),
     body: z.string(),
     items: z.array(z.string()),

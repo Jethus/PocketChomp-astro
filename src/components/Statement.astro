@@ -8,15 +8,16 @@ if (!entry) {
   throw new Error("Could not find PocketChomp statement content");
 }
 
-const { lead, rest } = entry.data;
+const { lead, rest, accent } = entry.data;
 ---
 
 <!-- The problem, once, at display size: the claim in ink, the reason in the
-     muted tone straight after it, read as one paragraph. -->
+     muted tone straight after it, the answer in ember, read as one paragraph. -->
 <SectionShell data-reveal-root>
   <p class="statement" data-reveal>
     <span class="statement__lead">{lead}</span>{" "}
     <span class="statement__rest">{rest}</span>
+    {accent && <>{" "}<span class="statement__accent">{accent}</span></>}
   </p>
 </SectionShell>
 
@@ -38,5 +39,9 @@ const { lead, rest } = entry.data;
 
   .statement__rest {
     color: color-mix(in oklab, var(--foreground) 55%, var(--background)); /* >= 3:1 large text, both themes */
+  }
+
+  .statement__accent {
+    color: var(--accent); /* display ember, AA in both themes */
   }
 </style>
