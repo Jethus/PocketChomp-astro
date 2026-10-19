@@ -3,7 +3,6 @@ title: "How PocketChomp works out what you actually burn"
 description: "The plain version of Dynamic TDEE: why the setup formula is only a guess, how the app learns from your food and weight, why it moves slowly on purpose, and how I check it against what the scale actually did."
 pubDate: "2026-10-19"
 tags: ["Guide", "Devlog"]
-draft: true
 faq:
   - q: "How does PocketChomp estimate my maintenance calories?"
     a: "It starts with the Mifflin-St Jeor formula and your activity answers. After that, once a week, it compares what you logged with how your trend weight moved and works backward to what you burned. The formula is only the first guess."
