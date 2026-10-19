@@ -23,15 +23,15 @@ Everything starts with a formula, because there is nothing else to go on yet. Po
 
 I don't pretend the split makes the formula more accurate. Self-reported activity is off by 10 to 20% no matter how you ask it. It's just easier to answer honestly.
 
-Here's how much that one answer matters. For my body in May, the formula says:
+Here's how much that one answer matters. For me today, at 97.8 kg, the formula says:
 
 | Activity answer | What the formula says I burn |
 | :--- | :--- |
-| Sedentary | 2,419 kcal a day |
-| Active, two workouts a week (what's on my profile) | 3,246 kcal a day |
-| What my food and weight actually showed | about 2,480 kcal a day |
+| Sedentary | 2,393 kcal a day |
+| Active, two workouts a week (what's on my profile) | 3,210 kcal a day |
+| What my food and weight have actually shown lately | about 2,197 kcal a day |
 
-Same body, same formula, about 800 kcal apart depending on which box I ticked. One answer was close and one was way off, and there's no way to know which until you've eaten through a few weeks of it. That's the problem the rest of this post is about.
+Same body, same formula, about 800 kcal apart depending on which box I ticked. Even the lower answer is about 200 too high, and the one on my profile is over 1,000 too high. There's no way to know which until you've eaten through a few weeks of it. That's the problem the rest of this post is about.
 
 ## How it learns
 
