@@ -1,9 +1,8 @@
 ---
 title: "How PocketChomp works out what you actually burn"
 description: "The plain version of Dynamic TDEE: what it reads, the one line of math, why it moves slowly on purpose, what it does with missed days, and where it falls short."
-pubDate: "2026-10-13"
+pubDate: "2026-10-19"
 tags: ["Guide", "Devlog"]
-draft: true
 faq:
   - q: "How does PocketChomp estimate my maintenance calories?"
     a: "It starts with the Mifflin-St Jeor formula and your activity answers. After that, once a week, it compares what you logged with how your trend weight moved and works backward to what you burned. The formula is only the first guess."
@@ -93,7 +92,7 @@ No. The check-in only reads food and weight. If you start training more, you'll 
 
 I test the check-in against a simulation: thousands of made-up people with a known, hidden burn rate and realistic noise in their weigh-ins and logging, and the real check-in code trying to find that hidden number week by week. That tells me how close it gets and how bumpy the ride feels. It isn't the same as measuring real people in a lab, and I won't pretend it is.
 
-In that simulation, for people who log consistently, the estimate is within about 6 to 7% of the hidden number by weeks four to six, and within about 3% on average once it has settled. A typical week moves the target by under 40 kcal.
+In that simulation, for people who log accurately, the estimate is within about 7% of the hidden number by weeks four to six, and within about 3% on average once it has settled. A typical week moves the target by under 40 kcal.
 
 One thing I checked recently: the 7,700 figure assumes every kilogram you lose is the same mix of fat and everything else. It isn't. Leaner people lose a bit more non-fat tissue, which holds less energy. When I made the simulated bodies work that way, the estimate for lean people cutting read about 3% high, so a slightly smaller deficit than planned. For everyone else it made no real difference. That's small enough that I've kept 7,700 for now, and it errs in the gentle direction.
 
@@ -109,4 +108,4 @@ And it's an estimate. Bodies aren't calculators. The point isn't to be exact to 
 
 ## Where it lives
 
-Dynamic TDEE is part of PocketChomp+, and there's a 14-day trial, partly so you can see a couple of check-ins happen before deciding. Logging, scanning, your targets and the full nutrient breakdown are free and stay free. If that sounds useful, [sign up for updates](#signup) and I'll let you know when it's on Play.
+Dynamic TDEE is part of PocketChomp+, and there's a 14-day trial, partly so you can see a couple of check-ins happen before deciding. Logging, scanning, your targets and the full nutrient breakdown are free and stay free. If that sounds useful, [sign up for updates](#signup) and I'll let you know when it's public on Play.
