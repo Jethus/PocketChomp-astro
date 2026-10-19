@@ -1,6 +1,6 @@
 ---
 title: "How PocketChomp works out what you actually burn"
-description: "The plain version of Dynamic TDEE: what it reads, the one line of math, why it moves slowly on purpose, what it does with missed days, and where it falls short."
+description: "The plain version of Dynamic TDEE: why the setup formula is only a guess, how the app learns from your food and weight, why it moves slowly on purpose, and how I check it against what the scale actually did."
 pubDate: "2026-10-19"
 tags: ["Guide", "Devlog"]
 draft: true
@@ -13,17 +13,27 @@ faq:
     a: "A day with nothing logged is left out, not counted as zero. Your estimate is based on the days you did log. You can also mark a day as complete or leave it out yourself."
 ---
 
-Between May and August this year, I averaged 2,298 kcal a day on the days I fully logged, and my trend weight dropped 2.33 kg over 98 days. Work that through by hand and it says I burned about 2,480 a day. PocketChomp's estimate, which I never had to work out myself, was 2,466. I only fully logged 42 of those 98 days.
+Between May and August this year, I averaged 2,298 kcal a day on the days I fully logged, and my weight dropped 2.33 kg over 98 days. Work that through by hand and it says I burned about 2,480 a day. PocketChomp's estimate, which I never had to work out myself, was 2,466. I only fully logged 42 of those 98 days.
 
-PocketChomp works out what you burn by comparing the food you log with what your weight does, once a week, and working backward. The formula you fill in at setup is only the first guess. After a few weeks your own numbers take over. The feature is called Dynamic TDEE, and this post is the plain version of how it works, including the parts I deliberately made slow.
+PocketChomp works out what you burn by comparing the food you log with what your weight does, once a week, and working backward. The formula you fill in at setup is only the first guess. After a few weeks your own numbers take over. The feature is called Dynamic TDEE, and this post is the plain version of how it works and how I check it.
 
 ## The starting guess
 
 Everything starts with a formula, because there is nothing else to go on yet. PocketChomp uses Mifflin-St Jeor: weight, height, age and sex give a resting number, and an activity factor scales it up. The activity factor comes from two questions instead of one, how active you are outside of exercise and how many days a week you train, because a desk worker who lifts four times a week does not fit any single option on the usual list.
 
-I don't pretend the split makes the formula more accurate. Self-reported activity is off by 10 to 20% no matter how you ask it. It's just easier to answer honestly. The real fix is the next part.
+I don't pretend the split makes the formula more accurate. Self-reported activity is off by 10 to 20% no matter how you ask it. It's just easier to answer honestly.
 
-## The one line of math
+Here's how much that one answer matters. For my body in May, the formula says:
+
+| Activity answer | What the formula says I burn |
+| :--- | :--- |
+| Sedentary | 2,419 kcal a day |
+| Active, two workouts a week (what's on my profile) | 3,246 kcal a day |
+| What my food and weight actually showed | about 2,480 kcal a day |
+
+Same body, same formula, about 800 kcal apart depending on which box I ticked. One answer was close and one was way off, and there's no way to know which until you've eaten through a few weeks of it. That's the problem the rest of this post is about.
+
+## How it learns
 
 Every Monday, PocketChomp looks back over your recent weeks and does this:
 
@@ -42,26 +52,19 @@ Here's an example over four weeks:
 
 Your eating target is then that number plus your goal. If you're losing half a kilo a week, the goal part takes about 550 off. If you're maintaining, it takes nothing off.
 
+That's the idea. The real thing has more care in it: how much history to look at, how to smooth the scale, how to treat light days, and how fast to move. I tuned those against a lot of testing, and I'm keeping the exact settings to myself. What matters for using it is below.
+
 ## Trend weight, not today's weight
 
-The scale on any one morning is mostly noise. Salt, water, a late dinner, a hard workout and where you are in your cycle all move it by more than a day's worth of fat ever could. So the check-in never uses a single weigh-in. It uses a **trend weight**, a running average that each new weigh-in nudges instead of replaces.
+The scale on any one morning is mostly noise. Salt, water, a late dinner, a hard workout and where you are in your cycle all move it by more than a day's worth of fat ever could. So the check-in never uses a single weigh-in. It uses a **trend weight**, a running average that each new weigh-in nudges instead of replaces. One odd morning barely registers, and one weigh-in after a long gap can't yank it around.
 
-Two details about how that average behaves:
+You don't have to weigh in every day. The check-in does need a recent weigh-in around the end of the week. If your latest one is too old, the check-in asks you to log today's weight and leaves your target where it is until you do.
 
-- **It's quicker when you're new and steadier later.** In your first week a new weigh-in moves the trend more, so the estimate can react while it's still learning. Over about seven weeks that settles down, so one odd morning barely registers.
-- **One weigh-in after a long gap can't jump the trend.** If you haven't weighed in for a month, the next one counts as at most a week's worth of movement.
-
-You don't have to weigh in every day. The check-in does need a weigh-in near the end of the week, within a couple of days of Monday, either side. If your latest one is older than that, the check-in asks you to log today's weight and leaves your target where it is until you do.
-
-## How much history it uses
-
-The window grows with you. Your first check-in looks at one week. The second looks at two. From the fourth week on, it always looks at the last four weeks. A longer window means more days to average and less noise, but four weeks is still short enough to notice when your life changes.
-
-It also needs enough logged days in that window before it changes anything. If there aren't enough, the check-in says "No change this week" and your target doesn't move. Nothing is wrong. There just isn't enough to go on yet.
+It also needs enough logged days before it changes anything. If there aren't enough, the check-in says "No change this week" and your target doesn't move. Nothing is wrong. There just isn't enough to go on yet.
 
 ## It moves slowly on purpose
 
-Each check-in can move your estimate by **at most 175 kcal**. If the math says your maintenance is 600 lower than the app thought, it gets there over a few weeks, not in one jump.
+Each check-in can only move your estimate so far. If the math says your maintenance is 600 lower than the app thought, it gets there over a few weeks, not in one jump.
 
 Imagine you put in a solid week of logging everything, and the app's response is to tell you to eat 600 fewer calories a day, starting tomorrow. That's unreasonable, and honestly a bit rude. It's the kind of thing that makes people give up. Small steps are easier to live with, and if the gap is real, it keeps showing up week after week and the estimate keeps closing it.
 
@@ -73,9 +76,9 @@ You also don't have to take the update. Every check-in ends with **Apply Update*
 
 A day with nothing logged is left out. It isn't treated as a day you ate nothing. If you logged 20 of the last 28 days, the average is worked out from those 20, and the check-in tells you how many days had no logs.
 
-Light days need a bit more care, because a half-logged Tuesday looks a lot like a light Tuesday. If you don't mark a day, it counts once it reaches a floor: 1,000 kcal or half your current estimate, whichever is higher. You can also settle a day yourself from the diary:
+Light days need a bit more care, because a half-logged Tuesday looks a lot like a light Tuesday. If you don't mark a day, a very light one isn't counted. You can also settle a day yourself from the diary:
 
-- **That's everything** counts the day as it is, even if it's light. If it's under the floor, the app asks once more before counting it.
+- **That's everything** counts the day as it is, even if it's light. If it's very light, the app asks once more before counting it.
 - **Add an estimate** lets you put in a rough number for a meal you didn't log properly.
 - **Leave it out** takes the day out of your averages entirely.
 
@@ -89,19 +92,29 @@ The check-in never calls a day good or bad, never says you ate too much, and nev
 
 No. The check-in only reads food and weight. If you start training more, you'll lose a bit faster on the same food, the weight trend shows it, and the estimate goes up. You don't have to trust a watch's calorie number, and you don't have to decide whether to eat it back.
 
-## How accurate is it?
+## How I check it
 
-I test the check-in against a simulation: thousands of made-up people with a known, hidden burn rate and realistic noise in their weigh-ins and logging, and the real check-in code trying to find that hidden number week by week. That tells me how close it gets and how bumpy the ride feels. It isn't the same as measuring real people in a lab, and I won't pretend it is.
+An estimate of what you burn is really a prediction. If the app says you burn 2,466 and you eat 2,298, it's saying you should lose a certain amount of weight. So the test is simple: take what you logged, take the estimate, work out how much weight you should have lost, and compare it with what the scale did.
 
-In that simulation, for people who log accurately, the estimate is within about 7% of the hidden number by weeks four to six, and within about 3% on average once it has settled. A typical week moves the target by under 40 kcal.
+Here's that check on my own 98 days:
 
-One thing I checked recently: the 7,700 figure assumes every kilogram you lose is the same mix of fat and everything else. It isn't. Leaner people lose a bit more non-fat tissue, which holds less energy. When I made the simulated bodies work that way, the estimate for lean people cutting read about 3% high, so a slightly smaller deficit than planned. For everyone else it made no real difference. That's small enough that I've kept 7,700 for now, and it errs in the gentle direction.
+| Estimate | Weight it predicts I'd lose | What I actually lost | Off by |
+| :--- | :--- | :--- | :--- |
+| Formula, sedentary | 1.5 kg | 2.33 kg | 0.8 kg |
+| Formula, my profile answers | 12.1 kg | 2.33 kg | 9.7 kg |
+| Dynamic TDEE | 2.1 kg | 2.33 kg | 0.2 kg |
+
+In calories, that's about 60 a day off for the sedentary guess, about 765 a day for the one matching my profile, and about 15 a day for Dynamic TDEE.
+
+Two honest caveats. This is one person, me. And it's not a fair fight, because Dynamic TDEE learned from some of those same weeks while the formula never gets to learn anything. That's sort of the point, but it means this is a sanity check, not proof. It also counts what I logged, not what I ate, so if I under-log a little the estimate quietly absorbs it. For hitting a goal that's what you want: the target that works with how you actually log.
+
+The proper version of this check is the same math across lots of people, month by month. When there are enough people using PocketChomp to do that, I'll do it and post the results, including the parts that don't look good.
 
 ## Where it falls short
 
 It needs weigh-ins. Without a recent one the check-in can't do anything, and that's deliberate, because guessing would be worse.
 
-It's slow to catch a big change. If your life changes a lot, a new job on your feet or an injury, the 175 kcal limit means it takes a few weeks to catch up. If you know your situation changed, you can always set your target by hand.
+It's slow to catch a big change. If your life changes a lot, a new job on your feet or an injury, the limit on each check-in means it takes a few weeks to catch up. If you know your situation changed, you can always set your target by hand.
 
 It's only as good as the logging is consistent. It doesn't need perfect logging, but a few weeks of logging one way and then another will move the estimate around until things settle.
 
