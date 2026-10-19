@@ -56,7 +56,7 @@ A 75 kg adult is used for the worked examples. Swap in your own weight.
 
 **1.0 to 1.2 g/kg after 65.** Older adults get less muscle-building response from the same protein, so the [PROT-AGE group](https://pubmed.ncbi.nlm.nih.gov/23867520/) (2013) recommends at least 1.0 to 1.2 g/kg, and 1.2 g/kg or more for those who exercise. People over 65 with an illness may need 1.2 to 1.5 g/kg.
 
-**More when losing weight.** In a calorie deficit, protein is what keeps the weight you lose from being muscle. [Leidy and colleagues](https://pubmed.ncbi.nlm.nih.gov/25926512/) (2015) put the useful range at 1.2 to 1.6 g/kg with 25 to 30 g per meal. For already lean, resistance-trained people on a hard cut, [Helms and colleagues](https://pubmed.ncbi.nlm.nih.gov/24092765/) (2014) estimated 2.3 to 3.1 g per kilogram of fat-free mass, scaled up with how lean you are and how big the deficit is. That last one is for the end of a contest prep, not a normal diet.
+**More when losing weight.** In a [calorie deficit](/blog/how-many-calories-to-lose-weight), protein is what keeps the weight you lose from being muscle. [Leidy and colleagues](https://pubmed.ncbi.nlm.nih.gov/25926512/) (2015) put the useful range at 1.2 to 1.6 g/kg with 25 to 30 g per meal. For already lean, resistance-trained people on a hard cut, [Helms and colleagues](https://pubmed.ncbi.nlm.nih.gov/24092765/) (2014) estimated 2.3 to 3.1 g per kilogram of fat-free mass, scaled up with how lean you are and how big the deficit is. That last one is for the end of a contest prep, not a normal diet.
 
 The [PocketChomp macro calculator](/tools/macro-calculator) uses 1.2 to 1.6 g/kg as its default range and 1.6 to 2.0 g/kg for the high-protein split, for the reasons above.
 

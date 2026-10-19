@@ -61,7 +61,7 @@ I respect that more than a free tier that's really a demo. If you're going to pa
 
 Free gets you unlimited barcode scanning, nutrition label scanning, the Canadian food database, custom foods and recipes, every nutrient, your own targets, sync, no ads and no account. The full free and paid split is on the [Plus page](/plus).
 
-PocketChomp+ is $6.99 a month or $39.99 a year with a 14-day trial. It covers the things that cost me money per use, like photo and voice logging and recipe import, plus adaptive targets and insights past 30 days. Android only right now, which is a real limitation and not a footnote.
+PocketChomp+ is $6.99 a month or $39.99 a year with a 14-day trial. It covers the things that cost me money per use, like photo and voice logging and recipe import, plus [adaptive targets](/blog/how-pocketchomp-works-out-what-you-burn) and insights past 30 days. Android only right now, which is a real limitation and not a footnote.
 
 ## What it adds up to
 

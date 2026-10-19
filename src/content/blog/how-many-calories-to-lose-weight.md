@@ -49,7 +49,7 @@ The thing nobody tells you is that the smaller deficit usually wins. Not because
 
 ## 1,200 is a floor, not a target
 
-Somewhere along the way 1,200 calories became the internet's default diet number. It is not a target. It is roughly the point below which most women cannot get enough protein and nutrients from real food, and hunger takes over. For men that line is around 1,500.
+Somewhere along the way 1,200 calories became the internet's default diet number. It is not a target. It is roughly the point below which most women cannot get [enough protein](/blog/how-much-protein-carbs-fat-fibre) and nutrients from real food, and hunger takes over. For men that line is around 1,500.
 
 If a calculator hands you a number under those, the fix is not to eat 1,200 and push through. The fix is a slower pace. A target you can hold beats one you white-knuckle for a fortnight and then overeat your way out of. The [deficit calculator](/tools/calorie-deficit-calculator) flags this and refuses to headline a number below the floor, which is deliberately annoying.
 
@@ -84,6 +84,6 @@ If the activity level you picked already includes your training, they are counte
 
 None of this needs an app. A notebook works. What an app does is make the two-week rule cheap enough that you actually do it: log a meal in a few seconds, see the weekly average rather than today's number, and compare it against your weight trend without doing the spreadsheet yourself.
 
-That is what [PocketChomp](/) is built for. Logging, barcode scanning, the full Canadian food database and every nutrient are free and stay free. It runs without an account, keeps your log on your phone, and does not show ads. If you want it to work out your real maintenance from your own data instead of a formula, that is the paid part, and you can decide about that once the free version has earned it.
+That is what [PocketChomp](/) is built for. Logging, barcode scanning, the full Canadian food database and every nutrient are free and stay free. It runs without an account, keeps your log on your phone, and does not show ads. If you want it to [work out your real maintenance from your own data](/blog/how-pocketchomp-works-out-what-you-burn) instead of a formula, that is the paid part, and you can decide about that once the free version has earned it.
 
 Start with the [calorie deficit calculator](/tools/calorie-deficit-calculator), take the middle of the range, and give it two weeks.

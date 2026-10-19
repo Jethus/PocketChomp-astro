@@ -12,7 +12,7 @@ faq:
     a: "A day with nothing logged is left out, not counted as zero. Your estimate is based on the days you did log. You can also mark a day as complete or leave it out yourself."
 ---
 
-Between May and August this year, I averaged 2,298 kcal a day on the days I fully logged, and my weight dropped 2.33 kg over 98 days. Work that through by hand and it says I burned about 2,480 a day. PocketChomp's estimate, which I never had to work out myself, was 2,466. I only fully logged 42 of those 98 days.
+If I answer PocketChomp's setup questions honestly, the formula says I burn 3,210 kcal a day. Going by my actual food and weigh-ins, I burn about 2,197. That's over 1,000 a day of difference. If I'd trusted the formula and aimed for a 500 kcal deficit, I'd be eating about 500 over maintenance and wondering why the scale was going up.
 
 PocketChomp works out what you burn by comparing the food you log with what your weight does, once a week, and working backward. The formula you fill in at setup is only the first guess. After a few weeks your own numbers take over. The feature is called Dynamic TDEE, and this post is the plain version of how it works and how I check it.
 
@@ -30,7 +30,7 @@ Here's how much that one answer matters. For me today, at 97.8 kg, the formula s
 | Active, two workouts a week (what's on my profile) | 3,210 kcal a day |
 | What my food and weight have actually shown lately | about 2,197 kcal a day |
 
-Same body, same formula, about 800 kcal apart depending on which box I ticked. Even the lower answer is about 200 too high, and the one on my profile is over 1,000 too high. There's no way to know which until you've eaten through a few weeks of it. That's the problem the rest of this post is about.
+Same body, same formula, about 800 kcal apart depending on which box I ticked. Even the lower answer is about 200 too high. There's no way to know which until you've eaten through a few weeks of it. That's the problem the rest of this post is about. (You can run the same formula on yourself with the [TDEE calculator](/tools/tdee-calculator).)
 
 ## How it learns
 
@@ -49,7 +49,9 @@ Here's an example over four weeks:
 | Energy that came from your body (1.2 × 7,700 ÷ 28) | 330 kcal a day |
 | What you burned | about 2,430 kcal a day |
 
-Your eating target is then that number plus your goal. If you're losing half a kilo a week, the goal part takes about 550 off. If you're maintaining, it takes nothing off.
+Your eating target is then that number plus your goal. If you're losing half a kilo a week, the goal part takes about 550 off. If you're maintaining, it takes nothing off. ([How to pick that pace](/blog/how-many-calories-to-lose-weight) is its own post.)
+
+None of this needs an app. The [two-week rule](/blog/how-many-calories-to-lose-weight#the-two-week-rule) is the same idea done by hand. The app just does it every week so you don't have to.
 
 That's the idea. The real thing has more care in it: how much history to look at, how to smooth the scale, how to treat light days, and how fast to move. I tuned those against a lot of testing, and I'm keeping the exact settings to myself. What matters for using it is below.
 
@@ -95,7 +97,7 @@ No. The check-in only reads food and weight. If you start training more, you'll 
 
 An estimate of what you burn is really a prediction. If the app says you burn 2,466 and you eat 2,298, it's saying you should lose a certain amount of weight. So the test is simple: take what you logged, take the estimate, work out how much weight you should have lost, and compare it with what the scale did.
 
-Here's that check on my own 98 days:
+Between May and August this year, I averaged 2,298 kcal a day on the days I fully logged, and my weight dropped 2.33 kg over 98 days. I only fully logged 42 of those days. Work that through by hand and it says I burned about 2,480 a day. Here's what each estimate predicted for those 98 days:
 
 | Estimate | Weight it predicts I'd lose | What I actually lost | Off by |
 | :--- | :--- | :--- | :--- |
