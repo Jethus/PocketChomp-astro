@@ -8,10 +8,15 @@ screens:
     image: ../../assets/screens/screen-diary.webp
     alt: "PocketChomp diary for Tuesday the 20th showing 2,113 of 1,806 calories, protein, carb, fat and fibre bars, iron, calcium, vitamin D and sodium, and 3 L of water"
     tier: free
-  - title: "Foods you can trust"
-    caption: "Canadian grocery products with their serving, calories and macros."
-    image: ../../assets/screens/screen-search-yogurt.webp
-    alt: "PocketChomp food search for greek yogurt listing Oikos and Kirkland Signature yogurts with a serving size, calories, protein, carbs and fat for each, and a verified-only filter"
+  - title: "Canadian house brands"
+    caption: "President's Choice, straight from the label."
+    image: ../../assets/screens/screen-search-pc.webp
+    alt: "PocketChomp food search for President's Choice listing edamame, raw shrimp, sticky rice and gouda, each marked with a maple leaf, with a serving size, calories, protein, carbs and fat for each, and a verified-only filter"
+    tier: free
+  - title: "Compliments too"
+    caption: "Sobeys' house brand, with its own servings."
+    image: ../../assets/screens/screen-search-compliments.webp
+    alt: "PocketChomp food search for Compliments listing canola oil, carrots, spring water and sliced bologna, each marked with a maple leaf, with a serving size, calories, protein, carbs and fat for each"
     tier: free
   - title: "Type what you ate"
     caption: "Describe a meal in plain words and PocketChomp finds the foods."

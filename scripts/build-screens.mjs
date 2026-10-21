@@ -55,7 +55,8 @@ const ERASE = {
 // older capture.
 const screens = [
   { capture: "diary", out: "screen-diary" },
-  { capture: "search-yogurt", out: "screen-search-yogurt" },
+  { capture: "search-pc", out: "screen-search-pc" },
+  { capture: "search-compliments", out: "screen-search-compliments" },
   { capture: "describe", out: "screen-describe" },
   { capture: "plate-yogurt", out: "screen-plate-yogurt" },
   { capture: "hide-calories", out: "screen-hide-calories" },
@@ -73,7 +74,7 @@ const screens = [
 // (see the grid-template-rows note in Hero.astro). Section panels below them
 // are single cards, so they also take `left` and `width`.
 const heroCrops = [
-  { src: "search-yogurt", name: "hero-search", top: 500, height: 1055 },
+  { src: "search-pc", name: "hero-search", top: 500, height: 1055 },
   { src: "plate-yogurt", name: "hero-plate", top: 1738, height: 508 },
   { src: "insights", name: "hero-week", top: 406, height: 1045 },
   { src: "plan-goals-body", name: "ui-fibre-goal", top: 336, height: 646, left: 24, width: 1296 },
