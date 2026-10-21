@@ -6,7 +6,7 @@ funding: PocketChomp is paid for by PocketChomp+ subscribers, not by advertisers
 freeTitle: Free
 freeNote: No account required.
 premiumTitle: PocketChomp+
-premiumNote: $6.99 a month or $39.99 a year, with a 14-day free trial.
+premiumNote: $6.99 a month, or $39.99 a year with a 14-day free trial.
 comparison:
   - feature: Barcode scanning
     free: Unlimited

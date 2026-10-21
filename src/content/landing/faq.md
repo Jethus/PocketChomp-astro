@@ -17,5 +17,5 @@ items:
   - q: Which phones does it run on?
     a: Android only for now. An iOS version is planned. Join the list and you'll get an email when it's ready.
   - q: What does PocketChomp+ cost?
-    a: $6.99 a month or $39.99 a year, with a 14-day free trial. It is optional, and the free tier is a complete logging app rather than a trial of a paid one.
+    a: $6.99 a month, or $39.99 a year with a 14-day free trial. It is optional, and the free tier is a complete logging app rather than a trial of a paid one.
 ---
