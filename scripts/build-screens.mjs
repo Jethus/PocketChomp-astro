@@ -51,29 +51,33 @@ const ERASE = {
   burnedChip: { left: 966, top: 588, width: 318, height: 77, at: { x: 960, y: 625 } },
 };
 
+// The 2026-10-20 light-theme reshoot (app 0.8.8). Nothing on the site uses an
+// older capture.
 const screens = [
-  { capture: "today", out: "screen-today", erase: [ERASE.burnedChip] },
-  { capture: "search", out: "screen-search" },
-  { capture: "food-detail", out: "screen-food-detail" },
-  { capture: "scan", out: "screen-scan" },
-  { capture: "label-1", out: "screen-label" },
-  { capture: "add-sheet", out: "screen-add-sheet", erase: [ERASE.burnedChip] },
-  { capture: "plate", out: "screen-plate" },
-  { capture: "diary-meal", out: "screen-diary-meal" },
-  { capture: "metrics", out: "screen-metrics" },
-  { capture: "plan", out: "screen-plan" },
-  { capture: "food-insights", out: "screen-food-insights" },
-  { capture: "trends", out: "screen-trends" },
-  { capture: "offline", out: "screen-offline" },
-  { capture: "guest", out: "screen-guest" },
+  { capture: "diary", out: "screen-diary" },
+  { capture: "search-yogurt", out: "screen-search-yogurt" },
+  { capture: "describe", out: "screen-describe" },
+  { capture: "plate-yogurt", out: "screen-plate-yogurt" },
+  { capture: "hide-calories", out: "screen-hide-calories" },
+  { capture: "macro-split", out: "screen-macro-split" },
+  { capture: "insights", out: "screen-insights" },
+  { capture: "nutrient-detail", out: "screen-nutrient-detail" },
+  // PocketChomp+ screens: the /plus page only, never the home rail.
+  { capture: "dynamic-tdee", out: "screen-dynamic-tdee" },
+  { capture: "weekly-budget", out: "screen-weekly-budget" },
+  { capture: "weekly-budget-editor", out: "screen-weekly-budget-editor" },
+  { capture: "insights-90d", out: "screen-insights-90d" },
 ];
 
 // Hero extracts: full-width slices of a capture, sized to the panel they fill
-// (see the grid-template-rows note in Hero.astro).
+// (see the grid-template-rows note in Hero.astro). Section panels below them
+// are single cards, so they also take `left` and `width`.
 const heroCrops = [
-  { src: "search", name: "hero-search", top: 500, height: 1055 },
-  { src: "metrics", name: "hero-metrics", top: 880, height: 508 },
-  { src: "plan", name: "hero-plan", top: 1105, height: 1045 },
+  { src: "search-yogurt", name: "hero-search", top: 500, height: 1055 },
+  { src: "plate-yogurt", name: "hero-plate", top: 1738, height: 508 },
+  { src: "insights", name: "hero-week", top: 406, height: 1045 },
+  { src: "plan-goals-body", name: "ui-fibre-goal", top: 336, height: 646, left: 24, width: 1296 },
+  { src: "macro-split", name: "ui-macro-split", top: 1500, height: 1425 },
 ];
 
 async function pixelAt(image, x, y) {
@@ -134,9 +138,9 @@ async function buildPlate({ capture: captureName, out, erase = [] }, skin, outDi
   );
 }
 
-async function buildHeroCrop({ src, name, top, height }) {
+async function buildHeroCrop({ src, name, top, height, left = 0, width = CAPTURE.width }) {
   await sharp(path.join(capturesDir, `${src}.png`))
-    .extract({ left: 0, top, width: CAPTURE.width, height })
+    .extract({ left, top, width, height })
     .webp(SITE_WEBP)
     .toFile(path.join(uiDir, `${name}.webp`));
 }

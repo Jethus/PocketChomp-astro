@@ -3,21 +3,23 @@ import { getEntry } from "astro:content";
 import { getImage } from "astro:assets";
 import Button from "./ui/Button.astro";
 import SectionShell from "./ui/SectionShell.astro";
-import uiDashboard from "../assets/screens/screen-today.webp";
+import uiDashboard from "../assets/screens/screen-diary.webp";
 import uiSearchCrop from "../assets/ui/hero-search.webp";
-import uiPlanCrop from "../assets/ui/hero-plan.webp";
-import uiMetricsCrop from "../assets/ui/hero-metrics.webp";
+import uiPlanCrop from "../assets/ui/hero-week.webp";
+import uiMetricsCrop from "../assets/ui/hero-plate.webp";
 
 // The plate (capture already inside the Pixel 8 Pro skin) and the UI
-// extracts are full-resolution, built by scripts/build-screens.mjs. Emit sized
-// WebP renditions (quality 85 keeps UI text crisp); the largest panel renders
-// well under 640 CSS px even on wide screens.
+// extracts are full-resolution, built by scripts/build-screens.mjs. Emit a
+// srcset of WebP renditions (quality 85 keeps UI text crisp) that tops out at
+// the source's own width, so a high-density screen never upscales them.
 const [shotSearch, shotPlan, shotMetrics, shotDashboard] = await Promise.all([
-  getImage({ src: uiSearchCrop, width: 900, format: "webp", quality: 85 }),
-  getImage({ src: uiPlanCrop, width: 900, format: "webp", quality: 85 }),
-  getImage({ src: uiMetricsCrop, width: 900, format: "webp", quality: 85 }),
-  getImage({ src: uiDashboard, width: 1000, format: "webp", quality: 85 }),
+  getImage({ src: uiSearchCrop, widths: [640, 960, 1344], format: "webp", quality: 85 }),
+  getImage({ src: uiPlanCrop, widths: [640, 960, 1344], format: "webp", quality: 85 }),
+  getImage({ src: uiMetricsCrop, widths: [640, 960, 1344], format: "webp", quality: 85 }),
+  getImage({ src: uiDashboard, widths: [640, 1000, 1469], format: "webp", quality: 85 }),
 ]);
+const shotSizes = "(max-width: 64rem) 50vw, 40rem";
+const phoneSizes = "(max-width: 40rem) 20rem, 22rem";
 
 const heroEntry = await getEntry("landingHero", "hero");
 
@@ -80,19 +82,21 @@ const longestAccent = accents.reduce((a, b) => (b.text.length > a.text.length ? 
 
     <div class="hero-grid" aria-hidden="true" data-reveal-root>
       <article class="hero-panel hero-panel--shot hero-panel--tl" data-reveal>
-        <img src={shotSearch.src} width={shotSearch.attributes.width} height={shotSearch.attributes.height} alt="" class="hero-shot__img" loading="eager" />
+        <img src={shotSearch.src} srcset={shotSearch.srcSet.attribute} sizes={shotSizes} width={shotSearch.attributes.width} height={shotSearch.attributes.height} alt="" class="hero-shot__img" loading="eager" />
       </article>
 
       <article class="hero-panel hero-panel--shot hero-panel--bl" data-reveal>
-        <img src={shotMetrics.src} width={shotMetrics.attributes.width} height={shotMetrics.attributes.height} alt="" class="hero-shot__img" loading="eager" />
+        <img src={shotMetrics.src} srcset={shotMetrics.srcSet.attribute} sizes={shotSizes} width={shotMetrics.attributes.width} height={shotMetrics.attributes.height} alt="" class="hero-shot__img" loading="eager" />
       </article>
 
       <div class="hero-panel hero-panel--phone hero-panel--center" data-reveal>
         <img
           src={shotDashboard.src}
+          srcset={shotDashboard.srcSet.attribute}
+          sizes={phoneSizes}
           width={shotDashboard.attributes.width}
           height={shotDashboard.attributes.height}
-          alt="PocketChomp diary showing today's calories, protein, fat and carbs, water, and six micronutrients"
+          alt="PocketChomp diary showing today's calories, protein, carbs, fat and fibre, four micronutrients, and water"
           class="hero-phone__screen"
           loading="eager"
         />
@@ -100,7 +104,7 @@ const longestAccent = accents.reduce((a, b) => (b.text.length > a.text.length ? 
       </div>
 
       <article class="hero-panel hero-panel--shot hero-panel--tr" data-reveal>
-        <img src={shotPlan.src} width={shotPlan.attributes.width} height={shotPlan.attributes.height} alt="" class="hero-shot__img" loading="eager" />
+        <img src={shotPlan.src} srcset={shotPlan.srcSet.attribute} sizes={shotSizes} width={shotPlan.attributes.width} height={shotPlan.attributes.height} alt="" class="hero-shot__img" loading="eager" />
       </article>
     </div>
   </SectionShell>
@@ -178,8 +182,8 @@ const longestAccent = accents.reduce((a, b) => (b.text.length > a.text.length ? 
 
   /* Grid fills its column, height derived from aspect-ratio */
   /* Three rows, weighted so each right-hand panel's inner box has the exact
-     ratio of the UI extract it holds (search 1344x1055, metrics 1344x508,
-     plan 1344x1045). Worked at a 640px column with the 1rem gap and 0.55rem
+     ratio of the UI extract it holds (search 1344x1055, plate 1344x508,
+     week 1344x1045). Worked at a 640px column with the 1rem gap and 0.55rem
      panel padding; other widths drift by a percent or two, which `cover`
      absorbs at the extract's padding rather than its content. */
   .hero-grid {
@@ -315,8 +319,8 @@ const longestAccent = accents.reduce((a, b) => (b.text.length > a.text.length ? 
   }
 
   /* Composition: the phone is the subject and gets half the width. Three UI
-     extracts stack beside it — search results (Canadian shelves), the Hide
-     Calories toggle from Custom Setup, and the Plan's current-targets card. Full screenshots at this size were
+     extracts stack beside it — search results, the plate sheet, and the
+     Insights week chart. All free-tier screens; Plus lives on /plus. Full screenshots at this size were
      unreadable; an extract shows one real piece of UI at a legible scale. */
   .hero-panel--tl {
     grid-column: 6 / span 5;
@@ -369,11 +373,12 @@ const longestAccent = accents.reduce((a, b) => (b.text.length > a.text.length ? 
     z-index: 1;
   }
 
-  /* The captures are dark-theme, so the shot panels keep the app's own
-     background in both themes; anything lighter halos around the extract */
+  /* The captures are light-theme, so the shot panels keep the app's own page
+     background (sampled from the captures) in both themes; anything else
+     halos around the extract */
   .hero-panel--shot,
   :global(html[data-theme="dark"]) .hero-panel--shot {
-    background: #111512;
+    background: #ecefec;
   }
 
   /* One-shot sheen sweeping across the phone after it reveals */

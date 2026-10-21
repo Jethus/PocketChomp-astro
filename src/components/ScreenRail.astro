@@ -4,205 +4,245 @@ import { getEntry } from "astro:content";
 import SectionShell from "./ui/SectionShell.astro";
 import PhoneFrame from "./ui/PhoneFrame.astro";
 
-const railEntry = await getEntry("landingScreenRail", "screen-rail");
+import type { ImageMetadata } from "astro";
 
-if (!railEntry) {
-  throw new Error("Could not find PocketChomp screen-rail content");
+// The home page's row reads screen-rail.md. Another page (/plus) passes its
+// own copy and screens, and a section id so the two never share an anchor.
+interface Props {
+  id?: string;
+  eyebrow?: string;
+  headline?: string;
+  description?: string;
+  screens?: { image: ImageMetadata; alt: string; tier?: "free" | "plus" }[];
 }
 
-const { eyebrow, headline, description, screens } = railEntry.data;
+const props = Astro.props as Props;
+let { id = "screens", eyebrow, headline, description, screens } = props;
 
-// The track is rendered twice so the marquee can loop seamlessly: the
-// animation slides exactly one copy's width, then restarts on the identical
-// second copy. Only the first copy is exposed to assistive tech.
-const copies = [
-  { key: "a", hidden: false },
-  { key: "b", hidden: true },
-];
+if (!screens) {
+  const railEntry = await getEntry("landingScreenRail", "screen-rail");
+  if (!railEntry) {
+    throw new Error("Could not find PocketChomp screen-rail content");
+  }
+  ({ eyebrow, headline, description, screens } = railEntry.data);
+}
+
+// Renditions stop at the plate's own 1469 px width, and the widest card asks
+// for at most ~1,000 device pixels (21rem at 3x), so a phone is never drawn
+// above its native resolution.
+const widths = [320, 480, 640, 800, 960, 1200];
 ---
 
-<section id="screens" class="border-b border-border">
+<section id={id} class="border-b border-border">
   <SectionShell innerClass="max-w-[90rem]" data-reveal-root>
-    <div class="max-w-2xl">
-      <p class="font-heading text-xs font-black uppercase tracking-[0.18em] text-muted-foreground">
-        {eyebrow}
-      </p>
-      <h2 class="fs-xl mt-3 leading-[1.05] text-foreground">{headline}</h2>
-      <p class="mt-5 text-lg leading-relaxed text-muted-foreground">
-        {description}
-      </p>
-    </div>
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <div class="max-w-2xl">
+        {eyebrow && (
+          <p class="font-heading text-xs font-black uppercase tracking-[0.18em] text-muted-foreground">
+            {eyebrow}
+          </p>
+        )}
+        {headline && <h2 class="fs-xl mt-3 leading-[1.05] text-foreground">{headline}</h2>}
+        {description && (
+          <p class="mt-5 text-lg leading-relaxed text-muted-foreground">
+            {description}
+          </p>
+        )}
+      </div>
 
-  </SectionShell>
-
-  <div class="marquee pb-10 sm:pb-12 lg:pb-14" data-marquee>
-    <div class="marquee__viewport">
-      <div class="marquee__track">
-        {
-          copies.map((copy) => (
-            <ul class="marquee__group" role="list" aria-hidden={copy.hidden} aria-label={copy.hidden ? undefined : "PocketChomp app screens"}>
-              {screens.map((screen) => (
-                <li class="marquee__item">
-                  <figure class="marquee__card">
-                    <div class="marquee__shot">
-                      <PhoneFrame class="marquee__phone">
-                        <Image
-                          src={screen.image}
-                          alt={copy.hidden ? "" : screen.alt}
-                          width={480}
-                          widths={[240, 360, 480]}
-                          quality={82}
-                          sizes="(max-width: 40rem) 58vw, 15rem"
-                          loading="lazy"
-                          decoding="async"
-                          draggable="false"
-                        />
-                      </PhoneFrame>
-                      {screen.tier === "plus" && <span class="marquee__badge">PocketChomp+</span>}
-                    </div>
-                  </figure>
-                </li>
-              ))}
-            </ul>
-          ))
-        }
+      <div class="rail__nav" data-rail-nav>
+        <button type="button" class="rail__btn" data-rail-prev aria-label="Previous screens" disabled>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
+        </button>
+        <button type="button" class="rail__btn" data-rail-next aria-label="More screens">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
+        </button>
       </div>
     </div>
+  </SectionShell>
+
+  <div class="rail" data-rail>
+    <ul class="rail__list" role="list" aria-label="PocketChomp app screens">
+      {
+        screens.map((screen) => (
+          <li class="rail__item">
+            <figure class="rail__card">
+              <div class="rail__shot">
+                <PhoneFrame>
+                  <Image
+                    src={screen.image}
+                    alt={screen.alt}
+                    widths={widths}
+                    sizes="(max-width: 47.99rem) min(72vw, 21rem), 20rem"
+                    quality={82}
+                    loading="lazy"
+                    decoding="async"
+                    draggable="false"
+                  />
+                </PhoneFrame>
+                {screen.tier === "plus" && <span class="rail__badge">PocketChomp+</span>}
+              </div>
+            </figure>
+          </li>
+        ))
+      }
+    </ul>
   </div>
 </section>
 
+<script>
+  // Arrow buttons for mouse users: page the strip by roughly two cards and
+  // disable each arrow at its end. Touch and trackpads scroll it natively.
+  for (const rail of document.querySelectorAll<HTMLElement>("[data-rail]")) {
+    const section = rail.closest("section");
+    const prev = section?.querySelector<HTMLButtonElement>("[data-rail-prev]");
+    const next = section?.querySelector<HTMLButtonElement>("[data-rail-next]");
+    if (!prev || !next) continue;
+
+    const step = () => {
+      const card = rail.querySelector<HTMLElement>(".rail__item");
+      return card ? card.offsetWidth * 2 : rail.clientWidth * 0.6;
+    };
+    const update = () => {
+      prev.disabled = rail.scrollLeft <= 4;
+      next.disabled = rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 4;
+    };
+
+    prev.addEventListener("click", () => rail.scrollBy({ left: -step(), behavior: "smooth" }));
+    next.addEventListener("click", () => rail.scrollBy({ left: step(), behavior: "smooth" }));
+    rail.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update, { passive: true });
+    update();
+  }
+</script>
+
 <style>
-  /* Full-bleed viewport. The track is wider than the screen on purpose: cards
-     run off both edges and fade out, so the section reads as a moving strip
-     rather than a boxed carousel. */
-  .marquee__viewport {
-    overflow: hidden;
-    /* Bottom padding covers the offset cards' extra 1.75rem plus shadow. */
-    padding-block: 1.5rem 3.5rem;
-    mask-image: linear-gradient(
-      to right,
-      transparent,
-      black 6rem,
-      black calc(100% - 6rem),
-      transparent
-    );
+  /* A still, swipeable strip. It used to be an auto-scrolling marquee; phones
+     stuttered tiling the moving track, so nothing here animates. The strip
+     starts in line with the section text and runs off the right edge. */
+  .rail {
+    --rail-gutter: max(1rem, calc((100vw - 90rem) / 2 + 1.5rem));
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: var(--rail-gutter);
+    scrollbar-width: none;
+    padding-block: 2rem 4rem;
   }
 
-  .marquee__track {
+  .rail::-webkit-scrollbar {
+    display: none;
+  }
+
+  .rail__list {
     display: flex;
-    width: max-content;
-    animation: marquee-scroll 70s linear infinite;
-    will-change: transform;
-    backface-visibility: hidden;
-  }
-
-  /* Off-screen the rail should cost nothing. The compositor keeps ticking a
-     running animation even when it is scrolled out of view, so the section
-     drives the animation only while it actually intersects the viewport. */
-  :global(html.js-marquee) .marquee:not([data-visible]) .marquee__track {
-    animation-play-state: paused;
-  }
-
-  .marquee__group {
-    display: flex;
-    flex: none;
-    /* flex-start so the even-card margin offset reads as a vertical stagger
-       rather than stretching those cards taller than their neighbours. */
     align-items: flex-start;
-    gap: 1.5rem;
-    padding-inline-end: 1.5rem;
+    gap: clamp(1.25rem, 2.5vw, 2.25rem);
+    width: max-content;
+    margin: 0;
+    padding: 0 var(--rail-gutter);
     list-style: none;
-    margin: 0;
-    padding-block: 0;
-    padding-inline-start: 0;
   }
 
-  /* Layout containment only. Paint containment clipped the phones' drop
-     shadows to the item box. */
-  .marquee__item {
+  .rail__item {
     flex: none;
-    width: min(58vw, 15rem);
-    contain: layout;
+    width: 20rem;
+    scroll-snap-align: start;
   }
 
-  /* Alternate cards ride slightly lower so the strip has a rhythm instead of
-     a flat row of identical phones. */
-  .marquee__item:nth-child(even) {
-    margin-block-start: 1.75rem;
+  /* A four-step wave instead of a flat row of identical phones. */
+  .rail__item:nth-child(4n + 2) {
+    margin-block-start: 3.5rem;
   }
 
-  .marquee__card {
+  .rail__item:nth-child(4n + 3) {
+    margin-block-start: 1.25rem;
+  }
+
+  .rail__item:nth-child(4n + 4) {
+    margin-block-start: 4.75rem;
+  }
+
+  .rail__card {
     margin: 0;
   }
 
-  .marquee__shot {
+  .rail__shot {
     position: relative;
   }
 
-  /* A drop-shadow filter here re-rasterizes the blurred alpha of every phone
-     on every animation frame, which is what made the rail stutter. The plate
-     is an opaque rounded rectangle, so a plain box-shadow on the image is
-     visually equivalent and composites for free. */
-  .marquee__shot :global(img) {
-    border-radius: 1.6rem;
-    box-shadow: 0 22px 30px rgb(0 0 0 / 0.22);
+  .rail__shot :global(img) {
+    border-radius: 2rem;
+    box-shadow: 0 24px 40px rgb(0 0 0 / 0.18);
   }
 
-  .marquee__phone {
-    width: 100%;
-  }
-
-  .marquee__badge {
+  .rail__badge {
     position: absolute;
-    top: 0.9rem;
-    right: 0.75rem;
-    padding: 0.25rem 0.55rem;
+    top: 1.1rem;
+    right: 0.9rem;
+    padding: 0.3rem 0.6rem;
     border-radius: 999px;
     background: var(--accent-strong);
     color: white;
     font-family: var(--font-heading);
-    font-size: 0.5rem;
+    font-size: 0.6rem;
     font-weight: 900;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     box-shadow: var(--shadow-elevated);
   }
 
-  @keyframes marquee-scroll {
-    from {
-      transform: translate3d(0, 0, 0);
-    }
-    to {
-      transform: translate3d(-50%, 0, 0);
+  .rail__nav {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .rail__btn {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--foreground);
+    cursor: pointer;
+    transition: opacity 0.15s ease;
+  }
+
+  .rail__btn:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+
+  .rail__btn svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* Touch screens swipe; the arrows are for mice. */
+  @media (hover: none) {
+    .rail__nav {
+      display: none;
     }
   }
 
-  /* Reduced motion: no auto-scroll. The strip becomes an ordinary horizontal
-     scroller and the duplicate copy is dropped so nothing repeats. */
-  @media (prefers-reduced-motion: reduce) {
-    .marquee__viewport {
-      overflow-x: auto;
-      scroll-snap-type: x proximity;
-      scrollbar-width: none;
-      mask-image: none;
-      padding-inline: 1.5rem;
+  @media (max-width: 47.99rem) {
+    .rail__item {
+      width: min(72vw, 21rem);
     }
 
-    .marquee__viewport::-webkit-scrollbar {
-      display: none;
+    .rail__item:nth-child(4n + 2) {
+      margin-block-start: 2.25rem;
     }
 
-    .marquee__track {
-      animation: none;
+    .rail__item:nth-child(4n + 4) {
+      margin-block-start: 3rem;
     }
-
-    .marquee__group[aria-hidden="true"] {
-      display: none;
-    }
-
-    .marquee__item {
-      scroll-snap-align: start;
-    }
-
   }
 </style>

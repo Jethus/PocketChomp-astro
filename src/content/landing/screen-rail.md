@@ -4,48 +4,43 @@ headline: "What logging looks like."
 description: "Search, scan a barcode, scan a label, take a photo, say it, type it, or quickly add the numbers."
 screens:
   - title: "Today at a glance"
-    caption: "Calories, macros, water and the micronutrients you chose."
-    image: ../../assets/screens/screen-today.webp
-    alt: "PocketChomp diary for Wednesday the 16th showing 2,034 of 2,054 calories, protein, fat and carb bars, water, and progress for fibre, potassium, magnesium, sodium, calcium and iron"
-    tier: free
-  - title: "Barcode scanning stays free"
-    caption: "Point, scan, logged. No scan limit, no upgrade."
-    image: ../../assets/screens/screen-scan.webp
-    alt: "PocketChomp barcode scanner over a milk carton with a Logged toast reading Added UltraPur 1% Milk Ultra-Filtered Chocolate, 160 kcal"
-    tier: free
-  - title: "Scan the label too"
-    caption: "Point at a nutrition facts panel and watch the values fill in."
-    image: ../../assets/screens/screen-label.webp
-    alt: "PocketChomp label scanner reading a nutrition facts panel on a green jar, with calories 160, protein, carbs, fat and serving ticking in and 13 more nutrients captured"
+    caption: "Calories, macros, fibre, water and the micronutrients you chose."
+    image: ../../assets/screens/screen-diary.webp
+    alt: "PocketChomp diary for Tuesday the 20th showing 2,113 of 1,806 calories, protein, carb, fat and fibre bars, iron, calcium, vitamin D and sodium, and 3 L of water"
     tier: free
   - title: "Foods you can trust"
-    caption: "Health Canada's nutrient file and Canadian house brands rank first."
-    image: ../../assets/screens/screen-search.webp
-    alt: "PocketChomp food search for President's Choice listing edamame, raw shrimp, sticky rice, gouda and honey mustard with a serving size and calories for each, and a verified-only filter"
+    caption: "Canadian grocery products with their serving, calories and macros."
+    image: ../../assets/screens/screen-search-yogurt.webp
+    alt: "PocketChomp food search for greek yogurt listing Oikos and Kirkland Signature yogurts with a serving size, calories, protein, carbs and fat for each, and a verified-only filter"
+    tier: free
+  - title: "Type what you ate"
+    caption: "Describe a meal in plain words and PocketChomp finds the foods."
+    image: ../../assets/screens/screen-describe.webp
+    alt: "PocketChomp Describe tab with the sentence 2 eggs, toast with peanut butter and a coffee with milk, a Find Foods button, and a plate of 5 items at 409 kcal"
     tier: free
   - title: "Build the plate first"
     caption: "Adjust portions, set the time, confirm. Nothing is written until you do."
-    image: ../../assets/screens/screen-plate.webp
-    alt: "PocketChomp plate of four items totalling 606 calories, with portion steppers for sliced bread, egg whites, half an avocado and a banana, a 10:00 AM time and an Add to Diary button"
-    tier: free
-  - title: "Your data stays on your device"
-    caption: "No account required, and syncing is always optional."
-    image: ../../assets/screens/screen-guest.webp
-    alt: "PocketChomp setup screen titled Your Data, Your Choice, explaining that data is stored on the device, cloud sync is optional and analytics are off by default"
-    tier: free
-  - title: "Works fully offline"
-    caption: "Search, log and review with no connection at all."
-    image: ../../assets/screens/screen-offline.webp
-    alt: "PocketChomp add food screen in airplane mode with an offline notice, and a chicken search still returning Health Canada, USDA and Kirkland results"
+    image: ../../assets/screens/screen-plate-yogurt.webp
+    alt: "PocketChomp plate of three items totalling 400 calories, with portion steppers for a blueberry Greek yogurt, a chocolate ultra-filtered milk and eggs, a 9:30 AM time, and Save as meal and Add to Diary buttons"
     tier: free
   - title: "Hide calories entirely"
-    caption: "Hide calories everywhere. Make protein the big number."
-    image: ../../assets/screens/screen-metrics.webp
-    alt: "PocketChomp metrics settings with Hide Calories switched on and Protein selected as the diary's hero metric"
+    caption: "Make protein the big number instead."
+    image: ../../assets/screens/screen-hide-calories.webp
+    alt: "PocketChomp diary with calories hidden and protein as the headline number at 171 of 158 g, followed by carbs, fat, fibre, micronutrients and water"
     tier: free
-  - title: "Targets that adapt"
-    caption: "A weekly check-in sets next week's target from your real expenditure."
-    image: ../../assets/screens/screen-plan.webp
-    alt: "PocketChomp plan showing the next check-in in 5 days, on track, a 2,054 kcal daily target, 2,466 kcal expenditure and a 412 kcal deficit"
-    tier: plus
+  - title: "Your macro split"
+    caption: "Set protein by bodyweight, then slide carbs against fat."
+    image: ../../assets/screens/screen-macro-split.webp
+    alt: "PocketChomp Goals and Macros with the Custom nutrition style selected, protein set by bodyweight at 1.6 g per kg for 158 g, and a carbs-to-fat slider at 68 to 32 percent giving 202 g carbs and 43 g fat"
+    tier: free
+  - title: "See the week"
+    caption: "Daily averages against your targets, over 7 or 30 days."
+    image: ../../assets/screens/screen-insights.webp
+    alt: "PocketChomp Insights showing a 2,328 kcal weekly average with a bar per day against a 1,806 kcal goal, and 30-day daily averages for calories, protein and carbs against their targets"
+    tier: free
+  - title: "Every nutrient, explained"
+    caption: "Your average, your target, and everyday foods that supply it."
+    image: ../../assets/screens/screen-nutrient-detail.webp
+    alt: "PocketChomp fibre detail for Sep 21 to Oct 20 with a 20 g daily average against a 28 g target, a short explanation linking to Health Canada, and everyday sources led by white, pinto and black beans"
+    tier: free
 ---
