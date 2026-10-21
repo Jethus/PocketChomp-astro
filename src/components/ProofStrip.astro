@@ -1,5 +1,6 @@
 ---
 import { getEntry } from "astro:content";
+import { fillFoodStats } from "../lib/foodStats";
 
 const entry = await getEntry("landingProofStrip", "proof-strip");
 
@@ -15,7 +16,7 @@ const { items } = entry.data;
     {
       items.map((item, index) => (
         <div class="proof-item" data-reveal data-index={index}>
-          <p class="proof-item__value">{item.value}</p>
+          <p class="proof-item__value">{fillFoodStats(item.value)}</p>
           {item.label && <p class="proof-item__label">{item.label}</p>}
         </div>
       ))

@@ -58,7 +58,7 @@ faq:
   - q: "Can I import my MyFitnessPal data?"
     a: "Not automatically yet. MyFitnessPal lets you export your history as a CSV from its website, and an importer is on the roadmap, but today you'd be starting a fresh log. If years of history matter to you, that's a real cost of switching and worth weighing honestly."
   - q: "Is the food database as good as MyFitnessPal's?"
-    a: "No, and it would be strange to claim otherwise — MyFitnessPal has had over a decade and millions of users adding entries. PocketChomp has over 140,000 foods, more than 70,000 of them Canadian. The bet is that a smaller, cleaner, more Canadian database resolves your actual groceries more often than a vast one full of duplicates. If you shop somewhere ours doesn't cover well, MyFitnessPal will beat us there."
+    a: "No, and it would be strange to claim otherwise — MyFitnessPal has had over a decade and millions of users adding entries. PocketChomp has over {foods} foods, more than {canadianFoods} of them Canadian. The bet is that a smaller, cleaner, more Canadian database resolves your actual groceries more often than a vast one full of duplicates. If you shop somewhere ours doesn't cover well, MyFitnessPal will beat us there."
   - q: "Why should I trust a smaller app not to do the same thing later?"
     a: "Fair question, and no answer from us settles it — MyFitnessPal was also free once. What can be checked rather than promised: there's no ad SDK in the app, logging works without an account, your data stays on-device unless you turn on sync, and you can delete your account and data from a link in the app. Those are structural, not policy statements."
   - q: "Is there an iPhone version?"

@@ -1,0 +1,167 @@
+{
+  "countedAt": "2026-10-21",
+  "total": 140461,
+  "canadian": 66462,
+  "groups": {
+    "reference": {
+      "count": 12790,
+      "sources": [
+        {
+          "name": "USDA",
+          "count": 7217
+        },
+        {
+          "name": "Health Canada CNF",
+          "count": 5573
+        }
+      ]
+    },
+    "grocery": {
+      "count": 38310,
+      "sources": [
+        {
+          "name": "Compliments",
+          "count": 20505
+        },
+        {
+          "name": "President's Choice",
+          "count": 11401
+        },
+        {
+          "name": "Metro",
+          "count": 2425
+        },
+        {
+          "name": "Farm Boy",
+          "count": 1329
+        },
+        {
+          "name": "Bulk Barn",
+          "count": 824
+        },
+        {
+          "name": "Walmart",
+          "count": 735
+        },
+        {
+          "name": "SAQ",
+          "count": 343
+        },
+        {
+          "name": "Super C",
+          "count": 266
+        },
+        {
+          "name": "Food Basics",
+          "count": 262
+        },
+        {
+          "name": "Costco",
+          "count": 220
+        }
+      ]
+    },
+    "restaurants": {
+      "count": 3770,
+      "sources": [
+        {
+          "name": "Tim Hortons",
+          "count": 568
+        },
+        {
+          "name": "Boston Pizza",
+          "count": 339
+        },
+        {
+          "name": "McDonald's",
+          "count": 303
+        },
+        {
+          "name": "Quiznos",
+          "count": 283
+        },
+        {
+          "name": "Mr. Sub",
+          "count": 264
+        },
+        {
+          "name": "Burger King",
+          "count": 244
+        },
+        {
+          "name": "East Side Mario's",
+          "count": 239
+        },
+        {
+          "name": "Kelsey's",
+          "count": 207
+        },
+        {
+          "name": "St-Hubert",
+          "count": 196
+        },
+        {
+          "name": "Harvey's",
+          "count": 179
+        },
+        {
+          "name": "Earls",
+          "count": 178
+        },
+        {
+          "name": "Swiss Chalet",
+          "count": 176
+        },
+        {
+          "name": "Montana's",
+          "count": 160
+        },
+        {
+          "name": "Subway",
+          "count": 155
+        },
+        {
+          "name": "COBS Bread",
+          "count": 102
+        },
+        {
+          "name": "Booster Juice",
+          "count": 72
+        },
+        {
+          "name": "Mary Brown's",
+          "count": 67
+        },
+        {
+          "name": "Five Guys",
+          "count": 38
+        }
+      ]
+    },
+    "community": {
+      "count": 85591,
+      "sources": [
+        {
+          "name": "OpenFoodFacts US",
+          "count": 41132
+        },
+        {
+          "name": "OpenFoodFacts UK",
+          "count": 18431
+        },
+        {
+          "name": "OpenFoodFacts Canada",
+          "count": 18263
+        },
+        {
+          "name": "Other",
+          "count": 5742
+        },
+        {
+          "name": "OpenFoodFacts Australia",
+          "count": 2023
+        }
+      ]
+    }
+  }
+}

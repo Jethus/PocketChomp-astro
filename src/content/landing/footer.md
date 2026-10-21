@@ -15,6 +15,8 @@ groups:
     links:
       - label: PocketChomp+
         href: /plus
+      - label: Food database
+        href: /database
       - label: vs MyFitnessPal
         href: /vs/myfitnesspal
       - label: Field Notes

@@ -1,8 +1,8 @@
 ---
 items:
-  - value: 140,000+
+  - value: "{foods}+"
     label: foods in the database
-  - value: 70,000+
+  - value: "{canadianFoods}+"
     label: from Canadian sources
   - value: Offline
     label: search and log with no signal

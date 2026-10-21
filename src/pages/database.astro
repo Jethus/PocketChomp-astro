@@ -1,0 +1,143 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import SectionShell from "../components/ui/SectionShell.astro";
+import { canadianFoodsFigure, countedOn, foodStats, foodsFigure, formatCount, type SourceCount } from "../lib/foodStats";
+
+// Every number here comes from src/data/food-database.json (see src/lib/foodStats.ts);
+// every claim about checks traces to the import gate, the one-food-per-barcode
+// trigger, the post-load sweep and the donor fill. Keep it that way.
+const TITLE = "What's in the food database";
+const META = `${foodsFigure}+ foods, ${canadianFoodsFigure}+ from Canadian sources: where PocketChomp's nutrition data comes from, how it is checked, and what is not covered well yet.`;
+
+const { groups } = foodStats;
+const label = (name: string) =>
+  ({
+    "Health Canada CNF": "Health Canada's Canadian Nutrient File",
+    "OpenFoodFacts US": "Open Food Facts, United States",
+    "OpenFoodFacts UK": "Open Food Facts, United Kingdom",
+    "OpenFoodFacts Canada": "Open Food Facts, Canada",
+    "OpenFoodFacts Australia": "Open Food Facts, Australia",
+    Other: "National databases (UK, Australia, Denmark) and other sources",
+  })[name] ?? name;
+
+const sections: { heading: string; body: string; count: number; sources: SourceCount[] }[] = [
+  {
+    heading: "Government reference data",
+    body: "Generic foods from Health Canada's Canadian Nutrient File and the USDA's databases: produce, meat, dairy, grains and cooked dishes.",
+    ...groups.reference,
+  },
+  {
+    heading: "Canadian grocery labels",
+    body: "Products sold by Canadian grocers, house brands included, taken from the Nutrition Facts table on each product as the store publishes it.",
+    ...groups.grocery,
+  },
+  {
+    heading: "Canadian restaurant menus",
+    body: "From each chain's published Canadian nutrition information.",
+    ...groups.restaurants,
+  },
+  {
+    heading: "Open Food Facts and other databases",
+    body: "Products contributed to Open Food Facts, plus national food databases from other countries. These come after the sources above in search.",
+    ...groups.community,
+  },
+];
+
+const countOf = (name: string) => groups.grocery.sources.find((s) => s.name === name)?.count ?? 0;
+---
+
+<BaseLayout title={TITLE} description={META}>
+  <Header />
+  <main id="main">
+    <SectionShell innerClass="max-w-3xl">
+      <p class="font-heading text-[0.7rem] font-black uppercase tracking-[0.16em] text-muted-foreground">Food database</p>
+      <h1 class="fs-xl mt-4 leading-[1.05] text-foreground">{TITLE}</h1>
+      <p class="mt-5 text-lg leading-relaxed text-muted-foreground">
+        {foodsFigure}+ foods anyone can search, {canadianFoodsFigure}+ of them from Canadian sources. Counted {countedOn}; the
+        headline figures are rounded down to the nearest thousand.
+      </p>
+
+      <h2 class="fs-m mt-14 text-foreground">Where the foods come from</h2>
+      {
+        sections.map((section) => (
+          <section class="db-group">
+            <div class="flex items-baseline justify-between gap-4">
+              <h3 class="font-heading text-lg font-black text-foreground">{section.heading}</h3>
+              <p class="font-heading font-black text-foreground">{formatCount(section.count)}</p>
+            </div>
+            <p class="mt-2 leading-relaxed text-muted-foreground">{section.body}</p>
+            <ul class="db-sources mt-4" role="list">
+              {section.sources.map((source) => (
+                <li>
+                  <span>{label(source.name)}</span>
+                  <span class="tabular-nums">{formatCount(source.count)}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
+
+      <h2 class="fs-m mt-14 text-foreground">How entries are checked</h2>
+      <ul class="db-list mt-5" role="list">
+        <li>Nutrition is stored per 100 g, scaled from the source's own figures.</li>
+        <li>
+          Every import runs the same checks. Calories have to fit the protein, carbs and fat. Nothing can hold more than
+          100 g of nutrients per 100 g. A value past a physical limit, like milligrams typed as grams, is stored as
+          unknown rather than guessed.
+        </li>
+        <li>A value the source leaves out stays unknown. It is never filled in as zero.</li>
+        <li>
+          When a store label leaves a nutrient out, the app can borrow it from a closely matched Health Canada or USDA
+          food, and marks it as an estimate.
+        </li>
+        <li>One visible food per barcode, so a scan never turns up duplicates.</li>
+        <li>After every load, a sweep re-checks every visible food against the same rules.</li>
+      </ul>
+
+      <h2 class="fs-m mt-14 text-foreground">What isn't covered well yet</h2>
+      <ul class="db-list mt-5" role="list">
+        <li>
+          Costco ({formatCount(countOf("Costco"))} foods) and Walmart ({formatCount(countOf("Walmart"))}) are thin. Their
+          other products come from Open Food Facts when someone has added them there.
+        </li>
+        <li>US store brands are thinner than Canadian ones.</li>
+        <li>Restaurant menus cover {groups.restaurants.sources.length} chains.</li>
+        <li>
+          Gum, spices, instant coffee and other products with a serving of a gram or two print rounded numbers for that
+          tiny serving. Logged by the serving they match the package; logged by weight they are approximate.
+        </li>
+        <li>Missing something? Scan its nutrition label in the app to add it for yourself.</li>
+      </ul>
+    </SectionShell>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .db-group {
+    margin-top: 2rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid color-mix(in oklab, var(--border) 65%, transparent);
+  }
+
+  .db-sources li {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.4rem 0;
+    color: var(--muted-foreground);
+    border-bottom: 1px dashed color-mix(in oklab, var(--border) 50%, transparent);
+  }
+
+  .db-list {
+    display: grid;
+    gap: 0.9rem;
+    padding-left: 1.1rem;
+    list-style: disc;
+    color: var(--muted-foreground);
+    line-height: 1.65;
+  }
+</style>

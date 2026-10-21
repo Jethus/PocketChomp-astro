@@ -1,4 +1,5 @@
 ---
+import { fillFoodStats } from "../../lib/foodStats";
 import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { ogPath } from "../../lib/og-cards";
@@ -27,10 +28,10 @@ const {
   verified,
   verdict,
   rows,
-  faq,
   ctaHeadline,
   ctaNote,
 } = entry.data;
+const faq = entry.data.faq.map((item) => ({ ...item, a: fillFoodStats(item.a) }));
 
 const { Content } = await render(entry);
 

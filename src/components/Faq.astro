@@ -2,6 +2,7 @@
 import { getEntry } from "astro:content";
 import SectionShell from "./ui/SectionShell.astro";
 import FaqList from "./ui/FaqList.astro";
+import { fillFoodStats } from "../lib/foodStats";
 
 const entry = await getEntry("landingFaq", "faq");
 
@@ -9,7 +10,8 @@ if (!entry) {
   throw new Error("Could not find PocketChomp FAQ content");
 }
 
-const { headline, intro, contactLabel, contactHref, items } = entry.data;
+const { headline, intro, contactLabel, contactHref } = entry.data;
+const items = entry.data.items.map((item) => ({ ...item, a: fillFoodStats(item.a) }));
 
 // Same shape the blog and tools pages emit, so the homepage finally carries
 // structured data too.
