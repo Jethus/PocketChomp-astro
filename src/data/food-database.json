@@ -1,10 +1,10 @@
 {
   "countedAt": "2026-10-21",
-  "total": 140461,
+  "total": 140462,
   "canadian": 66462,
   "groups": {
     "reference": {
-      "count": 12790,
+      "count": 17960,
       "sources": [
         {
           "name": "USDA",
@@ -13,6 +13,18 @@
         {
           "name": "Health Canada CNF",
           "count": 5573
+        },
+        {
+          "name": "UK CoFID",
+          "count": 2648
+        },
+        {
+          "name": "AFCD Australia",
+          "count": 1443
+        },
+        {
+          "name": "FCDB Denmark",
+          "count": 1079
         }
       ]
     },
@@ -139,7 +151,7 @@
       ]
     },
     "community": {
-      "count": 85591,
+      "count": 80422,
       "sources": [
         {
           "name": "OpenFoodFacts US",
@@ -154,12 +166,12 @@
           "count": 18263
         },
         {
-          "name": "Other",
-          "count": 5742
-        },
-        {
           "name": "OpenFoodFacts Australia",
           "count": 2023
+        },
+        {
+          "name": "Other",
+          "count": 573
         }
       ]
     }

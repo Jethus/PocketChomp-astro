@@ -19,13 +19,16 @@ const label = (name: string) =>
     "OpenFoodFacts UK": "Open Food Facts, United Kingdom",
     "OpenFoodFacts Canada": "Open Food Facts, Canada",
     "OpenFoodFacts Australia": "Open Food Facts, Australia",
-    Other: "National databases (UK, Australia, Denmark) and other sources",
+    "UK CoFID": "UK Composition of Foods Integrated Dataset",
+    "AFCD Australia": "Australian Food Composition Database",
+    "FCDB Denmark": "Danish Food Composition Databank",
+    Other: "Other sources",
   })[name] ?? name;
 
 const sections: { heading: string; body: string; count: number; sources: SourceCount[] }[] = [
   {
     heading: "Government reference data",
-    body: "Generic foods from Health Canada's Canadian Nutrient File and the USDA's databases: produce, meat, dairy, grains and cooked dishes.",
+    body: "Generic foods from government food composition tables: Health Canada's Canadian Nutrient File, the USDA's databases, and the national tables of the UK, Australia and Denmark. Produce, meat, dairy, grains and cooked dishes.",
     ...groups.reference,
   },
   {
@@ -39,8 +42,8 @@ const sections: { heading: string; body: string; count: number; sources: SourceC
     ...groups.restaurants,
   },
   {
-    heading: "Open Food Facts and other databases",
-    body: "Products contributed to Open Food Facts, plus national food databases from other countries. These come after the sources above in search.",
+    heading: "Open Food Facts",
+    body: "Products contributed to Open Food Facts, the open community database. These come after the sources above in search.",
     ...groups.community,
   },
 ];
@@ -111,12 +114,146 @@ const countOf = (name: string) => groups.grocery.sources.find((s) => s.name === 
         </li>
         <li>Missing something? Scan its nutrition label in the app to add it for yourself.</li>
       </ul>
+
+      <section id="request" class="request-panel mt-14">
+        <h2 class="fs-m text-foreground">Request a store or restaurant</h2>
+        <p class="mt-2 leading-relaxed text-muted-foreground">
+          Have a suggestion for a specific store or restaurant? Request it below and I'll see what I can do.
+        </p>
+        <form class="request-form mt-5" action="/api/food-request" method="post" data-request-form>
+          <label class="sr-only" for="request-text">Store or restaurant</label>
+          <input
+            id="request-text"
+            name="request"
+            type="text"
+            required
+            minlength="2"
+            maxlength="50"
+            autocomplete="off"
+            placeholder="e.g. Sobeys, A&W, Loblaws"
+          />
+          <!-- Honeypot: hidden from people, filled by bots. -->
+          <div class="request-hp" aria-hidden="true">
+            <label for="request-website">Website</label>
+            <input id="request-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+          <button type="submit">Send</button>
+        </form>
+        <p class="request-status mt-3" role="status" aria-live="polite" data-request-status></p>
+        <p class="mt-3 text-sm text-muted-foreground">Only what you type is kept. No name, email or IP address.</p>
+      </section>
     </SectionShell>
   </main>
   <Footer />
 </BaseLayout>
 
+<script>
+  // Submits in place and reports the result; without JS the form posts and
+  // the worker redirects back with ?requested=ok|limit|error.
+  const MESSAGES: Record<string, string> = {
+    ok: "Thanks, got it.",
+    limit: "That's a few in a row. Try again in a minute.",
+    error: "That didn't send. Try again in a moment.",
+  };
+  const form = document.querySelector<HTMLFormElement>("[data-request-form]");
+  const status = document.querySelector<HTMLElement>("[data-request-status]");
+
+  const show = (outcome: string) => {
+    if (status) status.textContent = MESSAGES[outcome] ?? MESSAGES.error;
+  };
+
+  const fromRedirect = new URLSearchParams(location.search).get("requested");
+  if (fromRedirect) show(fromRedirect);
+
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const button = form.querySelector("button");
+    if (button) button.disabled = true;
+    try {
+      const res = await fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { Accept: "application/json" },
+      });
+      const body = (await res.json().catch(() => ({}))) as { outcome?: string };
+      show(body.outcome ?? "error");
+      if (body.outcome === "ok") form.reset();
+    } catch {
+      show("error");
+    } finally {
+      if (button) button.disabled = false;
+    }
+  });
+</script>
+
 <style>
+  .request-panel {
+    border-radius: var(--radius-card);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    padding: 1.75rem;
+  }
+
+  .request-form {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.25rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--background);
+  }
+
+  .request-form input[name="request"] {
+    flex: 1;
+    min-width: 0;
+    padding: 0 1.1rem;
+    background: transparent;
+    color: var(--foreground);
+    font-size: 1rem;
+  }
+
+  .request-form input[name="request"]:focus {
+    outline: none;
+  }
+
+  .request-form:focus-within {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .request-form button {
+    flex: none;
+    height: 3rem;
+    padding: 0 1.4rem;
+    border-radius: 999px;
+    background: var(--accent-strong);
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .request-form button:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+
+  .request-hp {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .request-status:empty {
+    display: none;
+  }
+
+  .request-status {
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
   .db-group {
     margin-top: 2rem;
     padding-top: 1.75rem;

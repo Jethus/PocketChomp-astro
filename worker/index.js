@@ -3,10 +3,13 @@
  *
  * It sends www.pocketchomp.com to the apex with a 301, redirects retired
  * pages, upgrades the asset layer's trailing-slash 307 to a permanent 308,
+ * takes store/restaurant requests at /api/food-request (foodRequests.js),
  * and otherwise passes requests straight through to the static assets. It runs before
  * the asset lookup (`run_worker_first` in wrangler.jsonc) because otherwise a
  * matching asset is served without ever invoking this code.
  */
+import { handleFoodRequest } from "./foodRequests.js";
+
 const CANONICAL_HOST = "pocketchomp.com";
 
 // Pages that were published and later removed. Keep old links working.
@@ -20,6 +23,9 @@ export default {
     if (url.hostname === `www.${CANONICAL_HOST}`) {
       url.hostname = CANONICAL_HOST;
       return Response.redirect(url.toString(), 301);
+    }
+    if (url.pathname === "/api/food-request") {
+      return handleFoodRequest(request, env, url);
     }
     const retired = RETIRED_PATHS.get(url.pathname.replace(/\/$/, ""));
     if (retired) {

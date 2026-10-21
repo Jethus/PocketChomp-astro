@@ -7,7 +7,10 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "test": "vitest run"
+    "test": "vitest run",
+    "requests": "npx wrangler d1 execute pocketchomp-requests --remote --command \"SELECT created_at, text FROM food_requests ORDER BY id DESC LIMIT 30\"",
+    "requests:top": "npx wrangler d1 execute pocketchomp-requests --remote --command \"SELECT lower(text) AS request, count(*) AS n, max(created_at) AS latest FROM food_requests GROUP BY lower(text) ORDER BY n DESC, latest DESC LIMIT 30\"",
+    "requests:migrate": "npx wrangler d1 migrations apply pocketchomp-requests --remote"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.9",

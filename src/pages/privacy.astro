@@ -1,7 +1,7 @@
 ---
 import LegalLayout from "../layouts/LegalLayout.astro";
 
-const LAST_UPDATED = "October 13, 2026";
+const LAST_UPDATED = "October 21, 2026";
 ---
 
 <LegalLayout
@@ -199,6 +199,16 @@ const LAST_UPDATED = "October 13, 2026";
   </section>
 
   <section>
+    <h2 class="fs-s">Store and restaurant requests</h2>
+    <p>
+      If you request a store or restaurant on the food database page, we keep only the text you
+      type and the time you sent it, on Cloudflare. No name, email or IP address is stored with
+      it. Cloudflare reads your IP address in passing to stop repeat submissions, and does not
+      save it.
+    </p>
+  </section>
+
+  <section>
     <h2 class="fs-s">Where data is processed</h2>
     <p>
       Some of the providers above store or process data outside Canada, including in the United
@@ -217,6 +227,7 @@ const LAST_UPDATED = "October 13, 2026";
       <li>Voice and typed meal descriptions (analytics on only): kept with no account or device id, so they cannot be traced to you or singled out for deletion.</li>
       <li>Crash and analytics events: retained by PostHog under our account, tied to the device id only.</li>
       <li>Email list: until you unsubscribe.</li>
+      <li>Store and restaurant requests: kept with nothing that identifies you, so they cannot be traced to you.</li>
     </ul>
   </section>
 
