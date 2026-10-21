@@ -18,7 +18,7 @@ faq:
 
 I went looking for a plain list of what the calorie counting apps cost in Canadian dollars and couldn't find one. Every article was in USD. Half of them quoted prices from two years ago. None of them said which features you lose on the free tier, which is the part that actually matters when you're deciding whether to pay.
 
-So I opened the Canadian App Store on September 25, 2026 and wrote down what each one charges. Prices change, sometimes quietly, so treat this as a snapshot. I make PocketChomp, so read the last row with that in mind.
+So I opened the Canadian App Store on September 25, 2026 and wrote down what each one charges. Prices change, sometimes quietly, so treat this as a snapshot. I make [PocketChomp, a free Canadian calorie counter](/), so read the last row with that in mind.
 
 ## The table
 

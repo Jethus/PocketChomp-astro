@@ -1,7 +1,7 @@
 ---
 eyebrow: Built around you
 headline: Your numbers, your way.
-description: Use the guided setup, or build your own profile with exactly the nutrients you want to track. You can even hide calories if you'd rather not see them.
+description: Use the guided setup, or build your own profile with exactly the nutrients you want to track. Turn calories off entirely and make protein the headline number.
 bullets:
   - Five nutrient profiles, or fully custom
   - Up to eight micronutrients on the dashboard

@@ -13,6 +13,8 @@ groups:
         href: /tools/bmr-calculator
   - heading: Learn
     links:
+      - label: Canadian calorie counter
+        href: /
       - label: PocketChomp+
         href: /plus
       - label: Food database
