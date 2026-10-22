@@ -381,6 +381,17 @@ const longestAccent = accents.reduce((a, b) => (b.text.length > a.text.length ? 
     background: #ecefec;
   }
 
+  /* On light paper that fill is the page's own colour and the app hairline
+     (#E8EDE9) vanishes, so the panels' only edge is a firmer one (#CDD2CE).
+     Dark mode keeps the hairline; a light panel already stands off near-black. */
+  .hero-panel--shot {
+    border-color: color-mix(in oklab, var(--foreground) 16%, var(--background));
+  }
+
+  :global(html[data-theme="dark"]) .hero-panel--shot {
+    border-color: var(--border);
+  }
+
   /* One-shot sheen sweeping across the phone after it reveals */
   /* Inset to the plate's screen: 1344x2992 at (58,58) on a 1469x3104 plate */
   .hero-phone__sheen {
