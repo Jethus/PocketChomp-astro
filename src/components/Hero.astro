@@ -213,8 +213,10 @@ const longestAccent = accents.reduce((a, b) => (b.text.length > a.text.length ? 
     border: 1px solid var(--border);
     border-radius: 1.6rem;
     background: var(--surface);
-    box-shadow: var(--shadow-elevated);
     overflow: hidden;
+    /* Own layers for good: when the reveal ended they were flattened and
+       re-rastered on the first scroll, a ~50ms hitch. */
+    will-change: transform;
   }
 
   /* Frameless UI extracts fill their panel edge-to-edge */
