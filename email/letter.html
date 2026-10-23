@@ -3,8 +3,8 @@
 </style>
 <style>
   :root { color-scheme: light dark; supported-color-schemes: light dark; }
-  body { margin: 0; padding: 0; background: #ECEFEC; -webkit-text-size-adjust: 100%; }
-  .pc-body { background: #ECEFEC; }
+  body { margin: 0; padding: 0; background: #FFFFFF; -webkit-text-size-adjust: 100%; }
+  .pc-body { background: #FFFFFF; }
   .message-content { font-family: Geist, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.6; color: #2A2F2C; }
   .message-content div { font-family: inherit; }
   .message-content p { margin: 0 0 16px; }
@@ -23,12 +23,10 @@
   .pc-footer a { color: #555555; text-decoration: underline; }
   .pc-logo-dark { display: none; mso-hide: all; max-height: 0; overflow: hidden; }
   @media (max-width: 620px) {
-    .pc-gutter { padding-left: 12px !important; padding-right: 12px !important; }
-    .pc-card { padding: 28px 22px !important; }
+    .pc-gutter { padding-left: 20px !important; padding-right: 20px !important; }
   }
   @media (prefers-color-scheme: dark) {
     body, .pc-body { background: #111512 !important; }
-    .pc-card { background: #202521 !important; }
     .message-content, .message-content h1, .message-content h2, .message-content h3 { color: #F0F0F0 !important; }
     .message-content a { color: #F28552 !important; }
     .message-content blockquote { background: #2A1810 !important; border-left-color: #E4551C !important; }
@@ -39,7 +37,7 @@
     .pc-logo-dark { display: block !important; max-height: none !important; overflow: visible !important; }
   }
 </style>
-<div class="pc-body" style="margin: 0; padding: 0; background: #ECEFEC;">
+<div class="pc-body" style="margin: 0; padding: 0; background: #FFFFFF;">
   <!--[if mso]><table role="presentation" width="600" align="center" cellpadding="0" cellspacing="0" border="0"><tr><td><![endif]-->
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 600px; margin: 0 auto;">
     <tr>
@@ -54,7 +52,7 @@
       <td class="pc-gutter" style="padding: 0 24px;">
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
           <tr>
-            <td class="pc-card" style="background: #FFFFFF; border-radius: 16px; padding: 36px 40px;">
+            <td style="padding: 8px 0 12px;">
               <div class="message-content" style="font-family: Geist, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.6; color: #2A2F2C;">
                 {{ message_content }}
               </div>
@@ -64,7 +62,7 @@
       </td>
     </tr>
     <tr>
-      <td class="pc-footer pc-gutter" align="center" style="padding: 28px 24px 44px; font-family: Geist, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 12px; line-height: 1.7; color: #555555;">
+      <td class="pc-footer pc-gutter" align="center" style="padding: 36px 24px 44px; font-family: Geist, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 12px; line-height: 1.7; color: #555555;">
         <img src="https://pocketchomp.com/email/donut.png" width="24" height="24" alt="" style="display: block; margin: 0 auto 12px; border: 0;">
         <a href="https://pocketchomp.com" style="color: #555555;">pocketchomp.com</a> &middot;
         <a href="{{ subscriber_preferences_url }}" style="color: #555555;">Email preferences</a> &middot;
