@@ -1,7 +1,7 @@
 ---
 import LegalLayout from "../layouts/LegalLayout.astro";
 
-const LAST_UPDATED = "October 21, 2026";
+const LAST_UPDATED = "October 25, 2026";
 ---
 
 <LegalLayout
@@ -65,10 +65,25 @@ const LAST_UPDATED = "October 21, 2026";
     <h2 class="fs-s">Features that use a server</h2>
     <p>Each of these sends a small, specific request. None of them upload your diary.</p>
 
+    <h3 class="fs-xs">Food search</h3>
+    <p>
+      Your phone searches its own copy of the food tables first. When it finds fewer than 10
+      matches, the words you typed are sent to our server to search the full database. Our
+      server does not save them. With usage analytics on, search words are also recorded as
+      described under <a href="#analytics">Analytics</a>.
+    </p>
+
     <h3 class="fs-xs">Barcode lookup</h3>
     <p>
-      If a barcode is not in our database, the barcode number is sent to <a href="https://world.openfoodfacts.org/privacy" rel="noopener">Open Food Facts</a> to
-      find the product. Only the barcode is sent.
+      The barcode number is sent to our server to find the product. If it is not in our
+      database, our server asks <a href="https://world.openfoodfacts.org/privacy" rel="noopener">Open Food Facts</a>. Only the barcode is sent.
+    </p>
+
+    <h3 class="fs-xs">Abuse limits</h3>
+    <p>
+      To stop one person flooding the server, each search and food lookup records the IP
+      address it came from (or your account id, if you are signed in), the kind of request and
+      the time. Nothing else is stored with it, and it is deleted after about a week.
     </p>
 
     <h3 class="fs-xs">AI photo logging (PocketChomp+)</h3>
@@ -143,7 +158,7 @@ const LAST_UPDATED = "October 21, 2026";
     </p>
   </section>
 
-  <section>
+  <section id="analytics">
     <h2 class="fs-s">Analytics and crash reports</h2>
     <p>
       We use <a href="https://posthog.com/privacy" rel="noopener">PostHog</a>, identified by a
@@ -172,8 +187,11 @@ const LAST_UPDATED = "October 21, 2026";
       Turning analytics off removes it from RevenueCat.
     </p>
     <p>
-      The website itself sets no cookies and runs no analytics or tracking scripts. Your theme
-      choice is stored in your browser only.
+      The website sets no cookies. It counts visits with two cookieless tools: <a href="https://plausible.io/data-policy" rel="noopener">Plausible Analytics</a>,
+      which we host ourselves, and <a href="https://www.cloudflare.com/web-analytics/" rel="noopener">Cloudflare Web Analytics</a>. Neither builds a
+      profile of you or follows you to other sites. We also count a few anonymous events, such
+      as a calculator being used or the signup form being sent. Your theme choice is stored in
+      your browser only.
     </p>
   </section>
 
@@ -185,6 +203,10 @@ const LAST_UPDATED = "October 21, 2026";
       the subscription is active. RevenueCat receives your account id and purchase status. If you
       have an account, it also holds your email so we can find you for a receipt, a refund or a
       billing dispute. Guests are never asked for one. Your name is never sent.
+    </p>
+    <p>
+      Each time the app opens, it asks RevenueCat whether this phone has PocketChomp+. If you
+      have never signed in, RevenueCat knows the phone only by a random id it creates itself.
     </p>
   </section>
 
@@ -214,8 +236,10 @@ const LAST_UPDATED = "October 21, 2026";
       Some of the providers above store or process data outside Canada, including in the United
       States. We choose providers with published privacy commitments and send them the minimum
       each feature needs. In guest mode with analytics off, the only data that ever leaves your
-      phone is a barcode number, a crash report, an anonymous app-open count, and whatever you
-      send when you use a Plus feature.
+      phone is a barcode number, the words of a search your phone cannot answer on its own, a
+      crash report, an anonymous app-open count, a subscription check with RevenueCat, and
+      whatever you send when you use a Plus feature. Like any server, ours also sees the IP
+      address a request comes from (see <em>Abuse limits</em> above).
     </p>
   </section>
 
@@ -226,6 +250,7 @@ const LAST_UPDATED = "October 21, 2026";
       <li>Photos and recipe pages sent to Plus features: not stored.</li>
       <li>Voice and typed meal descriptions (analytics on only): kept with no account or device id, so they cannot be traced to you or singled out for deletion.</li>
       <li>Crash and analytics events: retained by PostHog under our account, tied to the device id only.</li>
+      <li>IP address or account id recorded for abuse limits: about a week.</li>
       <li>Email list: until you unsubscribe.</li>
       <li>Store and restaurant requests: kept with nothing that identifies you, so they cannot be traced to you.</li>
     </ul>

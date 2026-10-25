@@ -33,7 +33,7 @@ rows:
     theirs: "CA$114.99/year Premium, CA$144.99/year Premium+"
     note: "Canadian pricing taken from MyFitnessPal's own page on 11 September 2026. Prices change; check before you decide."
   - feature: "Works offline"
-    ours: "Yes — a food database ships with the app"
+    ours: "Logging, yes — Health Canada and USDA foods ship with the app, and foods you've used stay on your phone"
     theirs: "Largely needs a connection"
   - feature: "Account required"
     ours: "No — start logging immediately"
@@ -93,7 +93,7 @@ Worth saying clearly, because a comparison page that pretends its competitor has
 
 **No ads.** Not a lighter ad load — none. There's no ad SDK in the app.
 
-**It works offline.** A food database ships with the app, so your diary doesn't need a signal at the grocery store or on a plane.
+**It works offline.** Your diary lives on your phone, along with the Health Canada and USDA food tables and every food you've logged before, so logging doesn't need a signal on a plane. Looking up a store product you've never scanned does.
 
 **No account required.** Open it and start logging. Cloud sync exists if you want it and is off unless you turn it on.
 
