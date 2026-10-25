@@ -1,4 +1,4 @@
-//   node scripts/build-logos.mjs
+//   node scripts/build-logos.mjs [path to the app's PocketChomp logo.svg]
 //
 // Derives the site's two wordmarks from the app's source logo
 // (assets/PocketChomp logo.svg: 10 sage glyph paths + 1 ember donut).
@@ -7,10 +7,10 @@
 // P3 style attributes are stripped; sRGB hex only.
 import { readFileSync, writeFileSync } from "node:fs";
 
-const src = readFileSync("C:/repos/PocketChomp/assets/PocketChomp logo.svg", "utf8");
+const src = readFileSync(process.argv[2] ?? "C:/repos/PocketChomp/assets/PocketChomp logo.svg", "utf8");
 const SAGE = "#3D7358";
-const EMBER = "#BD4C00";
-const EMBER_DARK = "#E4551C";
+const EMBER = "#FF4000";
+const EMBER_DARK = "#FF4000";
 
 function variant(glyph, donut) {
   // Inline fill styles (sRGB and P3) would override the fill attribute

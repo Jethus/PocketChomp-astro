@@ -15,10 +15,10 @@ mkdirSync(out, { recursive: true });
 const light = readFileSync(svgs + "logo-light.svg", "utf8");
 const dark = readFileSync(svgs + "logo-dark.svg", "utf8");
 
-// Wordmark viewBox is 600x93; the donut sits at roughly x 412..472, y 14..74.
+// Wordmark viewBox is 600x93; the donut sits at roughly x 414..470, y 17..73.
 // The neighbouring glyphs touch that box, so they are dropped, not cropped.
-const donut = light.replace(/<path[^>]*fill="#4A714C"[^>]*\/>/g, "")
-  .replace(/viewBox="[^"]*"/, 'viewBox="411 13 63 63"')
+const donut = light.replace(/<path[^>]*fill="#3D7358"[^>]*\/>/g, "")
+  .replace(/viewBox="[^"]*"/, 'viewBox="410.3 13.2 63 63"')
   .replace(/width="600" height="93"/, 'width="63" height="63"');
 
 const jobs = [

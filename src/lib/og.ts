@@ -52,7 +52,7 @@ function logoDataUri() {
   if (!logoCache) {
     // The card draws the wordmark in charcoal, keeping the ember "o", so the
     // only colour on the card is the brand orange.
-    const svg = readFileSync(root("src/assets/svgs/logo-light.svg"), "utf8").replaceAll("#4A714C", FOREGROUND);
+    const svg = readFileSync(root("src/assets/svgs/logo-light.svg"), "utf8").replaceAll("#3D7358", FOREGROUND);
     logoCache = `data:image/svg+xml;base64,${Buffer.from(svg).toString("base64")}`;
   }
   return logoCache;
