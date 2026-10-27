@@ -66,4 +66,4 @@ Crash reports are always on. I need them to fix what breaks, and they carry no f
 
 The full detail, including every third party and how long each thing is kept, is on the [privacy page](/privacy). If something on this page and that one ever disagree, that one wins and this one is a bug.
 
-If an app that doesn't need your email sounds right, sign up below and I'll let you know when PocketChomp launches.
+If an app that doesn't need your email sounds right, PocketChomp is in open beta [on Google Play](https://play.google.com/store/apps/details?id=com.pocketchomp.app).
