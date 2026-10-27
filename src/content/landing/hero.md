@@ -14,9 +14,7 @@ accents:
   - text: Canadian.
     tint: protein
 description: Scan a barcode and it comes up, house brand and all. Count calories, track macros, or hide the numbers you'd rather not see. Your log stays on your phone.
-primaryCtaText: Join the beta
-primaryCtaLink: "#signup"
 secondaryCtaText: See how it works
 secondaryCtaLink: "#screens"
-ctaNote: No account required · Android beta, iOS later
+ctaNote: Free · Android open beta · No account required
 ---

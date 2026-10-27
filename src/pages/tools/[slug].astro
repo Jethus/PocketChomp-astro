@@ -5,7 +5,7 @@ import { ogPath } from "../../lib/og-cards";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import SectionShell from "../../components/ui/SectionShell.astro";
-import SignupForm from "../../components/ui/SignupForm.astro";
+import AppCta from "../../components/ui/AppCta.astro";
 import FaqList from "../../components/ui/FaqList.astro";
 import CalorieCalculator from "../../components/tools/CalorieCalculator.astro";
 
@@ -135,7 +135,7 @@ const schema = {
         <h2 class="fs-m text-foreground">{ctaHeadline}</h2>
         <p class="mt-2 max-w-xl text-muted-foreground">{ctaNote}</p>
         <div class="mt-5 max-w-xl">
-          <SignupForm placeholder="you@email.com" buttonText="Join the beta" placement="tool" />
+          <AppCta placement="tool" />
         </div>
       </div>
 

@@ -64,7 +64,7 @@ faq:
   - q: "Is there an iPhone version?"
     a: "Not yet. PocketChomp is Android-only today; iOS is planned but no build exists. If you need a tracker on iPhone right now, MyFitnessPal or another iOS app is your better option. If you'd rather wait, the list will tell you when it's ready."
 ctaHeadline: "Free barcode scanning, no ads, no account needed."
-ctaNote: "PocketChomp is in beta on Android. Join the list and we'll tell you when it's ready, iPhone included — no spam, unsubscribe any time."
+ctaNote: "PocketChomp is in open beta on Android. iPhone users can join the list and hear when iOS is ready — no spam, unsubscribe any time."
 ---
 
 ## Why people leave MyFitnessPal

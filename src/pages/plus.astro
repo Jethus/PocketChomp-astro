@@ -5,7 +5,7 @@ import { ogPath } from "../lib/og-cards";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import SectionShell from "../components/ui/SectionShell.astro";
-import SignupForm from "../components/ui/SignupForm.astro";
+import AppCta from "../components/ui/AppCta.astro";
 import ScreenRail from "../components/ScreenRail.astro";
 import shotDynamicTdee from "../assets/screens/screen-dynamic-tdee.webp";
 import shotWeeklyBudget from "../assets/screens/screen-weekly-budget.webp";
@@ -127,11 +127,11 @@ const META =
       <div class="cta-panel mt-14">
         <h2 class="fs-m text-foreground">Try it before you pay for it.</h2>
         <p class="mt-2 max-w-xl text-muted-foreground">
-          The free tier is the whole logging loop, not a trial. Join the beta and
+          The free tier is the whole logging loop, not a trial. Install the open beta and
           decide about Plus later.
         </p>
         <div class="mt-5 max-w-xl">
-          <SignupForm placeholder="you@email.com" buttonText="Join the beta" placement="plus" />
+          <AppCta placement="plus" />
         </div>
       </div>
     </SectionShell>

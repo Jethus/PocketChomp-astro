@@ -24,7 +24,7 @@ realityCheck:
   - condition: Struggling to log consistently
     adjustment: Fix logging before changing numbers — trends beat precision.
 ctaHeadline: Your TDEE is a starting estimate. Test it.
-ctaNote: PocketChomp tracks your intake against your real weight trend — free, no ads, no account required. Get it at launch.
+ctaNote: PocketChomp tracks your intake against your real weight trend — free, no ads, no account required. Open beta on Android now.
 related:
   label: Planning weight loss? Use the Calorie Deficit Calculator
   href: /tools/calorie-deficit-calculator

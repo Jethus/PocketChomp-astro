@@ -37,8 +37,6 @@ const landingHero = defineCollection({
       )
       .min(2),
     description: z.string(),
-    primaryCtaText: z.string(),
-    primaryCtaLink: z.string(),
     secondaryCtaText: z.string(),
     secondaryCtaLink: z.string(),
     ctaNote: z.string(),
@@ -126,9 +124,7 @@ const landingValuePillars = defineCollection({
           })
         )
         .length(3),
-      /** Mid-page CTA under the pillars, so nobody scrolls nine screens to act. */
-      ctaText: z.string().optional(),
-      ctaLink: z.string().optional(),
+      /** Note beside the mid-page Play badge, so nobody scrolls nine screens to act. */
       ctaNote: z.string().optional(),
     }),
 });
@@ -150,6 +146,8 @@ const landingSignupCta = defineCollection({
   schema: z.object({
     headline: z.string(),
     description: z.string(),
+    /** Line above the email form, for people not ready to install. */
+    emailLead: z.string(),
     inputPlaceholder: z.string(),
     buttonText: z.string(),
     note: z.string(),

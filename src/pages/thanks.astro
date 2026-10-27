@@ -5,6 +5,7 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import SectionShell from "../components/ui/SectionShell.astro";
 import Button from "../components/ui/Button.astro";
+import PlayBadge from "../components/ui/PlayBadge.astro";
 
 const entry = await getEntry("landingThanks", "thanks");
 
@@ -15,7 +16,7 @@ if (!entry) {
 const { headline, description, steps, ctaText, ctaLink } = entry.data;
 ---
 
-<BaseLayout title="You're in" description="Your spot on the PocketChomp beta list is confirmed.">
+<BaseLayout title="You're in" description="Your spot on the PocketChomp list is confirmed.">
   <Fragment slot="head">
     <meta name="robots" content="noindex" />
   </Fragment>
@@ -40,7 +41,8 @@ const { headline, description, steps, ctaText, ctaLink } = entry.data;
         }
       </ol>
 
-      <div class="mt-10" data-reveal>
+      <div class="mt-10 flex flex-wrap items-center gap-4" data-reveal>
+        <PlayBadge />
         <Button href={ctaLink} variant="outline" size="lg">{ctaText}</Button>
       </div>
     </SectionShell>

@@ -2,6 +2,7 @@
 import { getEntry } from "astro:content";
 import SectionShell from "./ui/SectionShell.astro";
 import SignupForm from "./ui/SignupForm.astro";
+import PlayBadge from "./ui/PlayBadge.astro";
 
 const ctaEntry = await getEntry("landingSignupCta", "signup-cta");
 
@@ -9,7 +10,7 @@ if (!ctaEntry) {
   throw new Error("Could not find PocketChomp signup CTA content");
 }
 
-const { headline, description, inputPlaceholder, buttonText, note, proof, compare } = ctaEntry.data;
+const { headline, description, emailLead, inputPlaceholder, buttonText, note, proof, compare } = ctaEntry.data;
 ---
 
 <SectionShell class="pb-10" innerClass="cta-slab-wrap" data-reveal-root>
@@ -21,9 +22,11 @@ const { headline, description, inputPlaceholder, buttonText, note, proof, compar
       <p class="cta-slab__muted mt-3 max-w-xl text-lg leading-relaxed">
         {description}
       </p>
+      <PlayBadge class="mt-6" />
     </div>
 
     <div class="cta-form" data-reveal>
+      <p class="cta-slab__muted mb-3 text-base leading-relaxed">{emailLead}</p>
       <SignupForm placeholder={inputPlaceholder} buttonText={buttonText} placement="closing-cta" id="signup-form" />
 
       <!-- Proof sits beside the field, not at the bottom of the page: the

@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { SITE_DESCRIPTION } from "../consts";
+import { PLAY_STORE_URL, SITE_DESCRIPTION } from "../consts";
 import Header from "../components/Header.astro";
 import Hero from "../components/Hero.astro";
 import ProofStrip from "../components/ProofStrip.astro";
@@ -41,6 +41,7 @@ const appLd = {
   operatingSystem: "Android",
   description: PAGE_DESCRIPTION,
   url: new URL("/", Astro.site).toString(),
+  installUrl: PLAY_STORE_URL,
   image: logoURL,
   screenshot: screenshots,
   offers: [

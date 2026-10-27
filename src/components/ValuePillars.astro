@@ -2,7 +2,7 @@
 import { getEntry } from "astro:content";
 import SectionShell from "./ui/SectionShell.astro";
 import PillarIcon from "./ui/PillarIcon.astro";
-import Button from "./ui/Button.astro";
+import PlayBadge from "./ui/PlayBadge.astro";
 
 const pillarsEntry = await getEntry("landingValuePillars", "value-pillars");
 
@@ -10,7 +10,7 @@ if (!pillarsEntry) {
   throw new Error("Could not find PocketChomp value pillars content");
 }
 
-const { headline, items, ctaText, ctaLink, ctaNote } = pillarsEntry.data;
+const { headline, items, ctaNote } = pillarsEntry.data;
 ---
 
 <SectionShell innerClass="space-y-10" data-reveal-root>
@@ -34,12 +34,10 @@ const { headline, items, ctaText, ctaLink, ctaNote } = pillarsEntry.data;
     }
   </div>
 
-  {ctaText && ctaLink && (
-    <div class="pillar-cta" data-reveal>
-      <Button href={ctaLink} variant="accent" size="lg">{ctaText}</Button>
-      {ctaNote && <p class="pillar-cta__note">{ctaNote}</p>}
-    </div>
-  )}
+  <div class="pillar-cta" data-reveal>
+    <PlayBadge />
+    {ctaNote && <p class="pillar-cta__note">{ctaNote}</p>}
+  </div>
 </SectionShell>
 
 <style>
@@ -60,7 +58,7 @@ const { headline, items, ctaText, ctaLink, ctaNote } = pillarsEntry.data;
   @media (max-width: 40rem) {
     .pillar-cta {
       flex-direction: column;
-      align-items: stretch;
+      align-items: center;
       text-align: center;
     }
   }

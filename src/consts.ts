@@ -6,7 +6,13 @@ export const SITE_DESCRIPTION =
   "Free calorie counter and macro tracker, made in Canada for Canadians. Free barcode scanning, Canadian grocery brands, no ads, and your log stays on your phone.";
 
 /**
- * Beta signup list. The form posts straight to Kit (ConvertKit) with no
+ * Google Play listing. The app is in open testing, so the listing installs it
+ * directly with no opt-in page. Markdown CTAs carry the same URL as a literal.
+ */
+export const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.pocketchomp.app";
+
+/**
+ * Email list for news and the iOS launch. The form posts straight to Kit (ConvertKit) with no
  * JavaScript, so it works under the strict CSP. The form id is public (it is
  * in the page HTML either way); PUBLIC_KIT_FORM_ID overrides it if the form
  * is ever recreated. Kit redirects to /confirmation after submit and to

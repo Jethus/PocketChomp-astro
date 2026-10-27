@@ -1,0 +1,46 @@
+---
+import badge from "../../assets/badges/google-play.svg";
+import { PLAY_STORE_URL } from "../../consts";
+
+/**
+ * Google's official "Get it on Google Play" badge, unmodified (English web
+ * SVG from the Play badge kit). Google's rules: don't recolour, crop or
+ * restyle it, and keep the trademark line in the footer. 56px tall to match
+ * the site's large buttons.
+ */
+interface Props {
+  class?: string;
+}
+
+const { class: className = "" } = Astro.props;
+---
+
+<a href={PLAY_STORE_URL} class:list={["play-badge", className]}>
+  <img src={badge.src} width="189" height="56" alt="Get it on Google Play" />
+</a>
+
+<style>
+  /* fit-content so a stretching flex parent never widens the link past the
+     badge, which would leave a clickable gap beside it. */
+  .play-badge {
+    display: inline-flex;
+    width: fit-content;
+    border-radius: 0.5rem;
+    transition: opacity 200ms ease-out;
+  }
+
+  .play-badge:hover {
+    opacity: 0.85;
+  }
+
+  .play-badge:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+  }
+
+  .play-badge img {
+    display: block;
+    height: 3.5rem;
+    width: auto;
+  }
+</style>

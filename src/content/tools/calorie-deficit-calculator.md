@@ -24,7 +24,7 @@ realityCheck:
   - condition: Protein hard to hit within the budget
     adjustment: Rebuild meals protein-first before cutting calories further.
 ctaHeadline: A target is a guess until you test it.
-ctaNote: PocketChomp checks your target against your real weight trend — free, no ads, no account required. Get it at launch.
+ctaNote: PocketChomp checks your target against your real weight trend — free, no ads, no account required. Open beta on Android now.
 related:
   label: Just finding your maintenance calories? Use the TDEE Calculator
   href: /tools/tdee-calculator

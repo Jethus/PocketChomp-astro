@@ -123,4 +123,4 @@ And it's an estimate. Bodies aren't calculators. The point isn't to be exact to 
 
 ## Where it lives
 
-Dynamic TDEE is part of PocketChomp+, and the annual plan has a 14-day trial, partly so you can see a couple of check-ins happen before deciding. Logging, scanning, your targets and the full nutrient breakdown are free and stay free. If that sounds useful, [sign up for updates](#signup) and I'll let you know when it's public on Play.
+Dynamic TDEE is part of PocketChomp+, and the annual plan has a 14-day trial, partly so you can see a couple of check-ins happen before deciding. Logging, scanning, your targets and the full nutrient breakdown are free and stay free. If that sounds useful, the open beta is [on Google Play](https://play.google.com/store/apps/details?id=com.pocketchomp.app).

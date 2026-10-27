@@ -7,6 +7,7 @@ import type { APIRoute } from "astro";
 import { getCollection } from "astro:content";
 import { getPublishedPosts } from "../lib/blog";
 import { canadianFoodsFigure, countedOn, foodsFigure } from "../lib/foodStats";
+import { PLAY_STORE_URL } from "../consts";
 
 export const GET: APIRoute = async ({ site }) => {
   const base = (site ?? new URL("https://pocketchomp.com")).href.replace(/\/$/, "");
@@ -24,7 +25,7 @@ export const GET: APIRoute = async ({ site }) => {
 
 Key facts:
 
-- Platform: Android (in beta). iOS is planned, not available.
+- Platform: Android, in open beta on Google Play (${PLAY_STORE_URL}). iOS is planned, not available.
 - Outside Canada: works in the US too. USDA foods ship in the app and barcode lookups fall back to Open Food Facts worldwide; US store-brand coverage is thinner than Canadian. Google Play availability includes the US.
 - Food database: ${foodsFigure}+ foods, ${canadianFoodsFigure}+ of them Canadian (counted ${countedOn}), built on Health Canada's Canadian Nutrient File, USDA, Canadian store and house brands, Canadian restaurant menus, and Open Food Facts. Breakdown by source: ${base}/database
 - Free tier: barcode scanning, label scanning, all micronutrients, offline logging, custom goals. No ads on any tier.
@@ -33,7 +34,7 @@ Key facts:
 
 ## Pages
 
-${line("/", "Home", "What PocketChomp is and the beta signup.")}
+${line("/", "Home", "What PocketChomp is, the Google Play link, and the email list for news and iOS.")}
 ${line("/database", "What's in the food database", "Counts by source, how entries are checked, and what is not covered well yet.")}
 ${line("/plus", "Free vs PocketChomp+", "Feature-by-feature comparison of the free tier and the paid tier. Pricing is answered in the FAQ.")}
 ${line("/support", "Support", "Contact, subscription management, data export and deletion.")}

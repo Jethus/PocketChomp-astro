@@ -15,7 +15,7 @@ items:
   - q: Is my food log private?
     a: Your log is stored on your device by default, and you can use the app without an account at all. If you turn on cloud sync, it is backed up to our server so it can follow you between devices. You can export everything to CSV or delete it, including the server copy, whenever you want. We do not sell your data.
   - q: Which phones does it run on?
-    a: Android only for now. An iOS version is planned. Join the list and you'll get an email when it's ready.
+    a: Android, as an open beta on Google Play. An iOS version is planned. Join the email list and you'll hear when it's ready.
   - q: Does it work outside Canada?
     a: Yes. USDA foods ship inside the app next to Health Canada's, and barcode lookups fall back to Open Food Facts' worldwide database. Canadian groceries have the deepest coverage; US store brands are thinner. It will be on Google Play in the US too, priced in your local currency.
   - q: What does PocketChomp+ cost?

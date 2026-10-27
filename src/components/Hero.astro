@@ -2,6 +2,7 @@
 import { getEntry } from "astro:content";
 import { getImage } from "astro:assets";
 import Button from "./ui/Button.astro";
+import PlayBadge from "./ui/PlayBadge.astro";
 import SectionShell from "./ui/SectionShell.astro";
 import uiDashboard from "../assets/screens/screen-diary.webp";
 import uiSearchCrop from "../assets/ui/hero-search.webp";
@@ -31,8 +32,6 @@ const {
   headline,
   accents,
   description,
-  primaryCtaText,
-  primaryCtaLink,
   secondaryCtaText,
   secondaryCtaLink,
   ctaNote,
@@ -67,9 +66,7 @@ const longestAccent = accents.reduce((a, b) => (b.text.length > a.text.length ? 
       </p>
 
       <div class="hero-ctas mt-7 flex flex-wrap items-center gap-4">
-        <Button href={primaryCtaLink} variant="accent" size="lg" class="hero-cta hero-cta--primary">
-          {primaryCtaText}
-        </Button>
+        <PlayBadge />
         <Button href={secondaryCtaLink} variant="outline" size="lg" class="hero-cta hero-cta--secondary">
           {secondaryCtaText}
         </Button>
@@ -160,17 +157,19 @@ const longestAccent = accents.reduce((a, b) => (b.text.length > a.text.length ? 
     min-width: 12rem;
   }
 
-  /* Phones: one obvious action. The primary spans the column; the secondary
-     drops its outline and sits under it as a plain link, so the pair no
-     longer reads as two mismatched pills. */
+  /* Phones: one obvious action. The Play badge leads; the secondary drops
+     its outline and sits under it as a plain link, left-aligned with the
+     badge, so the pair no longer reads as two mismatched pills. */
   @media (max-width: 40rem) {
     .hero-ctas {
       flex-direction: column;
-      align-items: stretch;
+      align-items: flex-start;
       gap: 0.25rem;
     }
 
     .hero-ctas :global(.hero-cta--secondary) {
+      min-width: 0;
+      padding-inline: 0;
       border-color: transparent;
       background: transparent;
       height: 3rem;

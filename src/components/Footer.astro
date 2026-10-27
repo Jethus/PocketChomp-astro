@@ -43,6 +43,8 @@ const currentYear = new Date().getFullYear();
 
   <div class="footer-legal">
     <p>&copy; {currentYear} PocketChomp. All rights reserved.</p>
+    <!-- Required wherever the Google Play badge appears. -->
+    <p>Google Play and the Google Play logo are trademarks of Google LLC.</p>
   </div>
 </footer>
 
@@ -185,6 +187,15 @@ const currentYear = new Date().getFullYear();
     padding-block: 1.35rem;
     font-size: 0.85rem;
     color: var(--footer-text-faint);
+  }
+
+  /* The trademark line sits under the copyright as one block. */
+  .footer-legal p:not(:last-child) {
+    padding-bottom: 0;
+  }
+
+  .footer-legal p + p {
+    padding-top: 0.35rem;
   }
 
 </style>

@@ -5,7 +5,7 @@ import { ogPath } from "../../lib/og-cards";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import SectionShell from "../../components/ui/SectionShell.astro";
-import SignupForm from "../../components/ui/SignupForm.astro";
+import AppCta from "../../components/ui/AppCta.astro";
 
 // Same order the calculator pages use for their cross-links.
 const TOOL_ORDER = [
@@ -69,10 +69,10 @@ const listLd = {
       <div class="cta-panel">
         <h2 class="fs-m text-foreground">A calculator gets you close. Tracking gets you exact.</h2>
         <p class="mt-2 max-w-xl text-muted-foreground">
-          PocketChomp checks your intake against your real weight trend. Free, no ads, no account needed. Android beta.
+          PocketChomp checks your intake against your real weight trend. Free, no ads, no account needed. Open beta on Google Play.
         </p>
         <div class="mt-5 max-w-xl">
-          <SignupForm placeholder="you@email.com" buttonText="Join the beta" placement="tools-index" />
+          <AppCta placement="tools-index" />
         </div>
       </div>
     </SectionShell>
