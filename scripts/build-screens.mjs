@@ -51,14 +51,14 @@ const ERASE = {
   burnedChip: { left: 966, top: 588, width: 318, height: 77, at: { x: 960, y: 625 } },
 };
 
-// The 2026-10-20 light-theme reshoot (app 0.8.8). Nothing on the site uses an
-// older capture.
+// The 2026-10-28 light-theme reshoot (app 0.9.1, admin details hidden), with
+// the 2026-10-21 searches retaken. Nothing on the site uses an older capture.
 const screens = [
   { capture: "diary", out: "screen-diary" },
   { capture: "search-pc", out: "screen-search-pc" },
   { capture: "search-compliments", out: "screen-search-compliments" },
   { capture: "describe", out: "screen-describe" },
-  { capture: "plate-yogurt", out: "screen-plate-yogurt" },
+  { capture: "plate", out: "screen-plate" },
   { capture: "hide-calories", out: "screen-hide-calories" },
   { capture: "macro-split", out: "screen-macro-split" },
   { capture: "insights", out: "screen-insights" },
@@ -75,10 +75,10 @@ const screens = [
 // are single cards, so they also take `left` and `width`.
 const heroCrops = [
   { src: "search-pc", name: "hero-search", top: 500, height: 1055 },
-  { src: "plate-yogurt", name: "hero-plate", top: 1738, height: 508 },
-  { src: "insights", name: "hero-week", top: 406, height: 1045 },
-  { src: "plan-goals-body", name: "ui-fibre-goal", top: 336, height: 646, left: 24, width: 1296 },
-  { src: "macro-split", name: "ui-macro-split", top: 1500, height: 1425 },
+  { src: "plate", name: "hero-plate", top: 1738, height: 508 },
+  { src: "insights", name: "hero-week", top: 356, height: 1045 },
+  { src: "plan-goals-body", name: "ui-fibre-goal", top: 755, height: 646, left: 24, width: 1296 },
+  { src: "macro-split", name: "ui-macro-split", top: 1278, height: 1425 },
 ];
 
 async function pixelAt(image, x, y) {

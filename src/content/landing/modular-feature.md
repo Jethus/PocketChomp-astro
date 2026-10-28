@@ -9,5 +9,5 @@ bullets:
   - Mindful mode options for intuitive eating
 panelLabel: Straight from the app
 image: ../../assets/ui/ui-macro-split.webp
-imageAlt: PocketChomp macro settings with protein set by bodyweight at 1.6 g per kg for 158 g, and a carbs-to-fat slider at 68 to 32 percent giving 202 g carbs and 43 g fat
+imageAlt: PocketChomp macro settings with protein set by bodyweight at 1.6 g per kg for 158 g, and a carbs-to-fat slider giving 224 g carbs and 47 g fat
 ---
