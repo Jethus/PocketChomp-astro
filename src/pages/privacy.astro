@@ -1,7 +1,7 @@
 ---
 import LegalLayout from "../layouts/LegalLayout.astro";
 
-const LAST_UPDATED = "October 25, 2026";
+const LAST_UPDATED = "October 28, 2026";
 ---
 
 <LegalLayout
@@ -104,6 +104,20 @@ const LAST_UPDATED = "October 25, 2026";
     <p>
       Nutrition-label scanning runs entirely on your phone using Google ML Kit. The image never
       leaves the device.
+    </p>
+
+    <h3 class="fs-xs">Adding foods to the shared database (signed in)</h3>
+    <p>
+      If you are signed in and scan a barcode we don't have, the product is added to the shared
+      food database so the next person finds it: the name and nutrition from Open Food Facts, or
+      the name you type and the values from your label scan. If you scan the label of a food
+      that is already shared, the values you read are compared with the stored food to check it.
+    </p>
+    <p>
+      For each label scan of a shared food we record your account id and the values read, so one
+      person can't check the same food twice. Other people see the food and how many scans
+      matched, never who scanned it. Deleting your account deletes these records; the shared
+      food stays. In guest mode, scanned foods stay on your phone.
     </p>
 
     <h3 class="fs-xs">Voice and typed logging</h3>
@@ -247,6 +261,7 @@ const LAST_UPDATED = "October 25, 2026";
     <h2 class="fs-s">How long we keep data</h2>
     <ul>
       <li>Synced account data: until you delete your account, then removed immediately.</li>
+      <li>Which account scanned a shared food's label: until you delete your account. The food itself stays in the shared database.</li>
       <li>Photos and recipe pages sent to Plus features: not stored.</li>
       <li>Voice and typed meal descriptions (analytics on only): kept with no account or device id, so they cannot be traced to you or singled out for deletion.</li>
       <li>Crash and analytics events: retained by PostHog under our account, tied to the device id only.</li>
