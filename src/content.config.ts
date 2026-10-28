@@ -9,6 +9,8 @@ const blog = defineCollection({
     z.object({
       title: z.string(),
       description: z.string(),
+      /** Search snippet when `description` (the on-page deck) is too long or buries the query. */
+      metaDescription: z.string().optional(),
       // Transform string to Date object
       pubDate: z.coerce.date(),
       updatedDate: z.coerce.date().optional(),

@@ -1,6 +1,6 @@
 ---
-title: "BMR Calculator — Your Basal Metabolic Rate, Honestly Explained"
-metaDescription: "Free BMR calculator using the Mifflin-St Jeor equation. Find the calories your body burns at complete rest — and learn why BMR is not the number you should eat. No ads, no signup wall."
+title: "BMR Calculator — Your Basal Metabolic Rate"
+metaDescription: "Free BMR calculator using the Mifflin-St Jeor equation. Find the calories your body burns at complete rest, and why BMR is not the number to eat. No signup."
 eyebrow: "What does your body burn at rest?"
 h1: "BMR Calculator"
 intro: "Your basal metabolic rate is what you'd burn lying still in bed all day — the engine idling. It's the foundation every calorie target is built on, and it is not the number you should eat."

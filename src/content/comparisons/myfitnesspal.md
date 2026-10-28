@@ -1,6 +1,6 @@
 ---
-title: "PocketChomp vs MyFitnessPal — An Honest Comparison"
-metaDescription: "A factual, side-by-side comparison of PocketChomp and MyFitnessPal: barcode scanning, ads, pricing in Canadian dollars, offline use and privacy. Including where MyFitnessPal is still the better choice."
+title: "PocketChomp vs MyFitnessPal in Canada"
+metaDescription: "PocketChomp and MyFitnessPal side by side: barcode scanning, ads, prices in Canadian dollars, offline use, privacy, and where MyFitnessPal still wins."
 eyebrow: "Thinking of switching?"
 h1: "PocketChomp vs MyFitnessPal"
 intro: "If you're here, you probably already track — and something about MyFitnessPal stopped being worth it. Here's a straight comparison, including the parts where MyFitnessPal still wins."

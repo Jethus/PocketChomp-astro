@@ -1,6 +1,6 @@
 ---
-title: "Macro Calculator — Protein, Carbs and Fat Targets That Fit Your Goal"
-metaDescription: "Free macro calculator with five evidence-based splits — balanced, high protein, lower carb, low fat and keto. Get protein, carb and fat targets in grams for your calorie goal. No ads, no signup wall."
+title: "Macro Calculator — Protein, Carb and Fat Targets"
+metaDescription: "Free macro calculator with five splits: balanced, high protein, lower carb, low fat and keto. Protein, carb and fat targets in grams for your goal. No signup."
 eyebrow: "How should your calories be divided?"
 h1: "Macro Calculator"
 intro: "Calories decide whether your weight moves. Macros decide how you feel, train and hold on to muscle while it happens. Set your targets in grams, with the reasoning shown."

@@ -1,17 +1,19 @@
 ---
 title: "What the calorie counters cost in Canada"
 description: "Every pricing article I could find was in US dollars and half of them were out of date. So I checked the Canadian prices for MyFitnessPal, Cronometer, Lose It, MacroFactor and PocketChomp myself, and wrote down what the free version of each one actually lets you do."
+metaDescription: "MyFitnessPal, Cronometer, Lose It and MacroFactor prices in Canadian dollars, checked on the Canadian App Store, and what each free version lets you do."
 pubDate: "2026-09-25"
+updatedDate: "2026-10-28"
 tags: ["Guide"]
 faq:
   - q: "How much is MyFitnessPal Premium in Canada?"
-    a: "On the Canadian App Store on 25 September 2026, Premium was CA$27.99 a month or CA$114.99 a year. Premium+ was CA$36.99 a month or CA$144.99 a year. The free version still works but barcode scanning, macro targets in grams and an ad-free diary all need Premium."
+    a: "On the Canadian App Store on 28 October 2026, Premium was CA$27.99 a month or CA$114.99 a year. Premium+ was CA$36.99 a month or CA$144.99 a year. The free version still works but barcode scanning, macro targets in grams and an ad-free diary all need Premium."
   - q: "Which calorie counter has a free barcode scanner?"
     a: "Of the five apps here, Cronometer and PocketChomp scan barcodes for free with no limit. MyFitnessPal moved scanning to Premium in 2022. Lose It has moved it to Premium for new accounts in 2026. MacroFactor has no free version at all."
   - q: "How much does Cronometer Gold cost in Canada?"
-    a: "CA$14.99 a month or CA$79.99 a year on the Canadian App Store as of 25 September 2026. The free version has ads and limits reports to the last 7 days, but logging, the barcode scanner, custom targets and all 84 nutrients are free."
+    a: "CA$14.99 a month or CA$79.99 a year on the Canadian App Store as of 28 October 2026. The free version has ads and limits reports to the last 7 days, but logging, the barcode scanner, custom targets and all 84 nutrients are free."
   - q: "Is Lose It free in Canada?"
-    a: "There is a free version with ads. It covers a calorie budget, manual food search, basic macros and weight logging. Premium is CA$107.99 a year, billed annually only, and that is where the barcode scanner, photo logging, macros in grams and the ad-free diary live for most new accounts."
+    a: "There is a free version with ads. It covers a calorie budget, manual food search, basic macros and weight logging. Premium is CA$109.99 a year, billed annually only, and that is where the barcode scanner, photo logging, macros in grams and the ad-free diary live for most new accounts."
   - q: "Does MacroFactor have a free version?"
     a: "No, and the developers say it never will. You get a 7-day trial, then it is CA$15.49 a month, CA$59.99 for six months or CA$90.99 a year on the Canadian App Store."
 ---
@@ -27,11 +29,11 @@ So I opened the Canadian App Store on September 25, 2026 and wrote down what eac
 | MyFitnessPal Premium | Yes | $27.99 | $114.99 | No | Yes |
 | MyFitnessPal Premium+ | | $36.99 | $144.99 | | |
 | Cronometer Gold | Yes | $14.99 | $79.99 | Yes | Yes |
-| Lose It Premium | Yes | none | $107.99 | No, for new accounts | Yes |
+| Lose It Premium | Yes | none | $109.99 | No, for new accounts | Yes |
 | MacroFactor | No, 7-day trial | $15.49 | $90.99 | No free tier | No |
 | PocketChomp+ | Yes | $6.99 | $39.99 | Yes | No |
 
-All prices in Canadian dollars, taken from the Canadian App Store on September 25, 2026. MacroFactor also sells six months for $59.99. Where an app shows several prices for the same plan, which happens when older subscribers are kept on an old rate, I've used the one a new subscriber pays today.
+All prices in Canadian dollars, taken from the Canadian App Store on September 25, 2026 and rechecked on October 28, 2026, when Lose It had gone up from $107.99 to $109.99. MacroFactor also sells six months for $59.99. Where an app shows several prices for the same plan, which happens when older subscribers are kept on an old rate, I've used the one a new subscriber pays today.
 
 ## MyFitnessPal
 
@@ -47,7 +49,7 @@ Gold is $79.99 a year and removes the ads, unlocks the full history, and adds ph
 
 ## Lose It
 
-This one changed the most in 2026. Premium used to be about US$40 a year with a free barcode scanner. Now it's $107.99 Canadian, there's no monthly plan, and new free accounts don't get the scanner. Existing users seem to have kept it, which is how most of these changes go.
+This one changed the most in 2026. Premium used to be about US$40 a year with a free barcode scanner. Now it's $109.99 Canadian, there's no monthly plan, and new free accounts don't get the scanner. Existing users seem to have kept it, which is how most of these changes go.
 
 The free version still gives you a calorie budget, manual search, basic macros and weight logging, with ads. Premium adds the scanner, photo logging, macros in grams, extra nutrients and the ad-free diary.
 
@@ -72,11 +74,11 @@ If the only thing you want is to scan a barcode and log what you ate, this is wh
 | Cronometer | $0 |
 | PocketChomp | $0 |
 | MacroFactor | $90.99 |
-| Lose It | $107.99 |
+| Lose It | $109.99 |
 | MyFitnessPal | $114.99 |
 
 Two of the five charge you over a hundred dollars a year for a feature both of them used to give away. MyFitnessPal took it away in 2022, Lose It this year. That's the whole reason I started building this thing.
 
 Check the prices yourself before you decide anything. App Store, search the app, scroll to In-App Purchases. It takes 30 seconds and it's the only number that counts.
 
-*Prices checked on the Canadian App Store on September 25, 2026. Feature lists come from each company's own pricing page or support site on the same day. PocketChomp is not affiliated with any of the apps named here.*
+*Prices checked on the Canadian App Store on September 25, 2026 and again on October 28, 2026. Feature lists come from each company's own pricing page or support site on September 25. PocketChomp is not affiliated with any of the apps named here.*
