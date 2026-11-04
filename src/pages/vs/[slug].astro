@@ -1,6 +1,7 @@
 ---
 import { fillFoodStats } from "../../lib/foodStats";
 import { getCollection, render } from "astro:content";
+import { Image } from "astro:assets";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { ogPath } from "../../lib/og-cards";
 import Header from "../../components/Header.astro";
@@ -26,7 +27,8 @@ const {
   intro,
   competitor,
   verified,
-  verdict,
+  theyWin,
+  features,
   rows,
   ctaHeadline,
   ctaNote,
@@ -93,37 +95,13 @@ const schema = {
       <div>
         <p class="font-heading text-[0.7rem] font-black uppercase tracking-[0.16em] text-muted-foreground">{eyebrow}</p>
         <h1 class="fs-xl mt-4 leading-[1.02] text-foreground">{h1}</h1>
-        <p class="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+        <p class="mt-4 max-w-2xl text-lg leading-relaxed text-foreground-soft">
           {intro}
         </p>
       </div>
 
-      <div class="verdict">
-        <h2 class="fs-m text-foreground">{verdict.headline}</h2>
-        <p class="mt-2 max-w-2xl text-muted-foreground">{verdict.body}</p>
-
-        <div class="verdict__cols">
-          <div>
-            <h3 class="verdict__label">Stay with {competitor} if…</h3>
-            <ul class="verdict__list">
-              {verdict.chooseThemIf.map((item) => <li>{item}</li>)}
-            </ul>
-          </div>
-          <div>
-            <h3 class="verdict__label">Try PocketChomp if…</h3>
-            <ul class="verdict__list verdict__list--ours">
-              {verdict.chooseUsIf.map((item) => <li>{item}</li>)}
-            </ul>
-          </div>
-        </div>
-      </div>
-
       <div>
-        <h2 class="fs-m text-foreground">Side by side</h2>
-        <p class="mt-2 text-sm text-muted-foreground">
-          {competitor} details verified {verifiedLabel}.
-        </p>
-        <div class="mt-5 overflow-x-auto">
+        <div class="overflow-x-auto">
           <table class="vs-table">
             <thead>
               <tr>
@@ -148,15 +126,42 @@ const schema = {
             </tbody>
           </table>
         </div>
+        <div class="vs-footnote">
+          <p>{competitor} details checked {verifiedLabel}.</p>
+          <Content />
+        </div>
       </div>
 
-      <article class="prose-body">
-        <Content />
-      </article>
+      <div class="vs-features">
+        {features.map((feature) => (
+          <section class="vs-feature">
+            <div>
+              <h2 class="fs-l text-foreground">{feature.headline}</h2>
+              <p class="mt-3 text-lg text-foreground/80">{feature.line}</p>
+            </div>
+            <Image
+              src={feature.image}
+              alt={feature.imageAlt}
+              widths={[320, 480, 640]}
+              sizes="(max-width: 44rem) 70vw, 18rem"
+              loading="lazy"
+              decoding="async"
+              class="vs-feature__screen"
+            />
+          </section>
+        ))}
+      </div>
+
+      <div>
+        <h2 class="fs-m text-foreground">Where {competitor} is better</h2>
+        <ul class="they-win">
+          {theyWin.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
 
       <div class="cta-panel">
         <h2 class="fs-m text-foreground">{ctaHeadline}</h2>
-        <p class="mt-2 max-w-xl text-muted-foreground">{ctaNote}</p>
+        <p class="mt-2 max-w-xl text-foreground-soft">{ctaNote}</p>
         <div class="mt-5 max-w-xl">
           <AppCta placement="vs" />
         </div>
@@ -198,77 +203,17 @@ const schema = {
 </BaseLayout>
 
 <style>
-  .verdict {
-    border-radius: 1.6rem;
-    border: 1px solid var(--border);
-    background: var(--surface);
-    box-shadow: var(--shadow-elevated);
-    padding: 1.75rem;
-  }
-
-  .verdict__cols {
-    display: grid;
-    gap: 1.5rem;
-    margin-top: 1.5rem;
-  }
-
-  @media (min-width: 44rem) {
-    .verdict__cols {
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-    }
-  }
-
-  .verdict__label {
-    font-family: var(--font-heading);
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--muted-foreground);
-  }
-
-  .verdict__list {
-    margin: 0.75rem 0 0;
-    padding: 0;
-    list-style: none;
-    display: grid;
-    gap: 0.6rem;
-  }
-
-  .verdict__list li {
-    position: relative;
-    padding-left: 1.4rem;
-    line-height: 1.55;
-    color: var(--muted-foreground);
-  }
-
-  .verdict__list li::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0.55em;
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: 999px;
-    background: var(--muted-foreground);
-  }
-
-  .verdict__list--ours li::before {
-    background: var(--primary);
-  }
-
   .vs-table {
     width: 100%;
     border-collapse: collapse;
-    min-width: 40rem;
+    font-size: 1.05rem;
   }
 
   .vs-table th,
   .vs-table td {
     text-align: left;
     padding: 0.95rem 1rem;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--divider);
     vertical-align: top;
     line-height: 1.5;
   }
@@ -288,7 +233,7 @@ const schema = {
   }
 
   .vs-table td {
-    color: var(--muted-foreground);
+    color: var(--foreground);
   }
 
   .vs-table__ours {
@@ -299,54 +244,97 @@ const schema = {
   .vs-table__note {
     display: block;
     margin-top: 0.35rem;
-    font-size: 0.82rem;
+    font-size: 0.9rem;
     line-height: 1.45;
-    opacity: 0.85;
+    color: var(--muted-foreground);
   }
 
-  /* Below 46rem the three-column table stacks into labelled rows rather than
-     scrolling sideways with the feature name clipped off the left edge. */
+  .vs-footnote {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .vs-footnote :global(p) {
+    margin-top: 0.25rem;
+  }
+
+  .vs-features {
+    display: grid;
+    gap: 3.5rem;
+    max-width: 50rem;
+  }
+
+  .vs-feature {
+    display: grid;
+    gap: 1.5rem;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .vs-feature h2 {
+    text-wrap: balance;
+  }
+
+  .vs-feature__screen {
+    width: min(70vw, 17rem);
+    height: auto;
+  }
+
+  @media (min-width: 44rem) {
+    .vs-feature {
+      grid-template-columns: 1fr 17rem;
+      align-items: center;
+      justify-items: start;
+      text-align: left;
+      gap: 3rem;
+    }
+
+    .vs-feature:nth-child(even) > div {
+      order: 2;
+    }
+  }
+
+  .they-win {
+    margin: 1rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.6rem;
+    font-size: 1.05rem;
+    color: var(--foreground);
+  }
+
+  .they-win li {
+    position: relative;
+    padding-left: 1.4rem;
+  }
+
+  .they-win li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 999px;
+    background: var(--muted-foreground);
+  }
+
+  /* Cells are a word or two, so the table stays three columns on a phone. */
   @media (max-width: 46rem) {
     .vs-table {
-      min-width: 0;
+      font-size: 0.95rem;
     }
 
-    .vs-table thead {
-      display: none;
-    }
-
-    .vs-table tr {
-      display: block;
-      padding: 1rem 0;
-      border-bottom: 1px solid var(--border);
-    }
-
+    .vs-table th,
     .vs-table td {
-      display: block;
-      padding: 0;
-      border-bottom: 0;
+      padding: 0.8rem 0.5rem;
     }
 
-    .vs-table td:not(:first-child) {
-      margin-top: 0.4rem;
-      padding-left: 0.9rem;
-      border-left: 2px solid var(--border);
-    }
-
-    .vs-table td:not(:first-child)::before {
-      content: attr(data-label);
-      display: block;
-      font-family: var(--font-heading);
-      font-size: 0.64rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted-foreground);
-      margin-bottom: 0.15rem;
-    }
-
-    .vs-table__ours {
-      border-left-color: var(--primary) !important;
+    .vs-table th {
+      letter-spacing: 0.06em;
     }
   }
 
@@ -356,24 +344,6 @@ const schema = {
     background: color-mix(in oklab, var(--primary) 9%, var(--surface));
     box-shadow: var(--shadow-elevated);
     padding: 2.25rem 2rem;
-  }
-
-  .prose-body :global(h2) {
-    --fl: 1;
-    font-size: var(--fluid-type);
-    margin-top: 2.25rem;
-  }
-
-  .prose-body :global(p) {
-    margin-top: 0.8rem;
-    line-height: 1.65;
-    color: var(--muted-foreground);
-    max-width: 65ch;
-  }
-
-  .prose-body :global(em) {
-    font-size: 0.88rem;
-    opacity: 0.85;
   }
 
   .tool-links ul {

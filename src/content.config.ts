@@ -319,7 +319,7 @@ const tools = defineCollection({
  */
 const comparisons = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/comparisons" }),
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(),
     metaDescription: z.string(),
     eyebrow: z.string(),
@@ -328,13 +328,12 @@ const comparisons = defineCollection({
     competitor: z.string(),
     /** When the competitor's pricing/features were last checked. */
     verified: z.coerce.date(),
-    verdict: z.object({
-      headline: z.string(),
-      body: z.string(),
-      /** Who the competitor genuinely suits better. Keeps the page honest. */
-      chooseThemIf: z.array(z.string()).min(1),
-      chooseUsIf: z.array(z.string()).min(1),
-    }),
+    /** Where the competitor is genuinely better. Keeps the page honest. */
+    theyWin: z.array(z.string()).min(1),
+    /** One headline, one short line, one screenshot each. */
+    features: z
+      .array(z.object({ headline: z.string(), line: z.string(), image: image(), imageAlt: z.string() }))
+      .min(1),
     rows: z
       .array(
         z.object({

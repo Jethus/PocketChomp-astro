@@ -3,106 +3,62 @@ title: "PocketChomp vs MyFitnessPal in Canada"
 metaDescription: "PocketChomp and MyFitnessPal side by side: barcode scanning, ads, prices in Canadian dollars, offline use, privacy, and where MyFitnessPal still wins."
 eyebrow: "Thinking of switching?"
 h1: "PocketChomp vs MyFitnessPal"
-intro: "If you're here, you probably already track — and something about MyFitnessPal stopped being worth it. Here's a straight comparison, including the parts where MyFitnessPal still wins."
+intro: "Free barcode scanning, no ads, and Canadian groceries."
 competitor: "MyFitnessPal"
 verified: 2026-09-11
-verdict:
-  headline: "The short version"
-  body: "MyFitnessPal is a mature, enormously capable app with the largest food database in the category and a decade of features behind it. PocketChomp is smaller, Android-only, and newer — but barcode scanning is free, there are no ads, and the core stays free. If you left MyFitnessPal because the basics got paywalled, that's the whole difference in one line."
-  chooseThemIf:
-    - "You're on iPhone — PocketChomp is Android-only right now, so MyFitnessPal is your option, not a preference."
-    - "You rely on its recipe importer, meal planner, or the connected-app ecosystem it's built up over years."
-    - "You have years of history there and don't want to start a new log."
-    - "You want the biggest possible food database and don't mind paying for the convenience features."
-  chooseUsIf:
-    - "You resent paying to scan a barcode — the thing that used to be free."
-    - "You want to log without ads or upsells in the middle of your day."
-    - "You want your data to stay on your device by default."
-    - "You shop in Canada and want your actual groceries to resolve."
 rows:
   - feature: "Barcode scanning"
-    ours: "Free, unlimited"
+    ours: "Free"
     theirs: "Premium only"
-    note: "MyFitnessPal lists barcode scan under its paid tiers. This is the single most cited reason people look for an alternative."
   - feature: "Ads"
-    ours: "None, ever"
-    theirs: "Ad-free logging is a paid feature"
-    note: "Which means the free tier carries ads."
-  - feature: "Price to remove the paywall"
-    ours: "$39.99/year for PocketChomp+ — the core stays free either way"
-    theirs: "CA$114.99/year Premium, CA$144.99/year Premium+"
-    note: "Canadian pricing taken from MyFitnessPal's own page on 11 September 2026. Prices change; check before you decide."
-  - feature: "Works offline"
-    ours: "Logging, yes — Health Canada and USDA foods ship with the app, and foods you've used stay on your phone"
-    theirs: "Largely needs a connection"
+    ours: "None"
+    theirs: "On the free tier"
+  - feature: "Price"
+    ours: "Core free. Plus $39.99/year"
+    theirs: "CA$114.99/year"
   - feature: "Account required"
-    ours: "No — start logging immediately"
+    ours: "No"
     theirs: "Yes"
-  - feature: "Where your data lives"
-    ours: "On your device. Cloud sync is opt-in."
-    theirs: "Account-based, synced to their servers"
-  - feature: "Canadian foods"
-    ours: "70,000+ Canadian entries, including the house brands from the major Canadian grocery chains"
-    theirs: "Very large global database with Canadian items"
-    note: "MyFitnessPal's database is far bigger overall. Ours is more specifically Canadian."
+  - feature: "Works offline"
+    ours: "Yes"
+    theirs: "Mostly no"
   - feature: "Micronutrients"
-    ours: "Every micronutrient, free"
-    theirs: "Limited on free; fuller breakdown on paid"
+    ours: "All, free"
+    theirs: "More on paid"
   - feature: "Platforms"
-    ours: "Android only"
+    ours: "Android"
     theirs: "iOS, Android, web"
-    note: "An honest disadvantage, not a footnote — if you're on iPhone, PocketChomp isn't an option yet."
+features:
+  - headline: "Canadian groceries are in it."
+    line: "Store brands like President's Choice and Compliments."
+    image: "../../assets/screens/screen-search-pc.webp"
+    imageAlt: "PocketChomp search results for President's Choice products"
+  - headline: "No ads. Anywhere."
+    line: "There's no ad SDK in the app."
+    image: "../../assets/screens/screen-diary.webp"
+    imageAlt: "PocketChomp diary showing calories, macros, nutrients and water"
+  - headline: "Every nutrient, free."
+    line: "Micronutrients aren't behind the paywall."
+    image: "../../assets/screens/screen-nutrient-detail.webp"
+    imageAlt: "PocketChomp fibre detail with daily average and top food sources"
+theyWin:
+  - "iPhone and web apps"
+  - "A bigger food database"
+  - "Meal planning and connected apps"
+  - "Your years of history are already there"
 faq:
-  - q: "Is PocketChomp actually free, or is it free-for-now?"
-    a: "Barcode scanning, food search, logging, custom foods, recipes, micronutrients and your diary are free and intended to stay that way. PocketChomp+ is $39.99/year and adds depth — AI photo and voice logging, adaptive TDEE that learns your real metabolism, insights past 30 days and quick-log buttons on the home-screen widget. The commitment is that the things you need to track a day are not the things behind the paywall."
+  - q: "Is PocketChomp actually free?"
+    a: "Barcode scanning, food search, logging, custom foods, recipes, micronutrients and your diary are free. PocketChomp+ is $39.99/year and adds AI photo and voice logging, adaptive TDEE, insights past 30 days and quick-log buttons on the home-screen widget."
   - q: "Can I import my MyFitnessPal data?"
-    a: "Not automatically yet. MyFitnessPal lets you export your history as a CSV from its website, and an importer is on the roadmap, but today you'd be starting a fresh log. If years of history matter to you, that's a real cost of switching and worth weighing honestly."
+    a: "Not yet. An importer is on the roadmap. Today you'd start a fresh log."
   - q: "Is the food database as good as MyFitnessPal's?"
-    a: "No, and it would be strange to claim otherwise — MyFitnessPal has had over a decade and millions of users adding entries. PocketChomp has over {foods} foods, more than {canadianFoods} of them Canadian. The bet is that a smaller, cleaner, more Canadian database resolves your actual groceries more often than a vast one full of duplicates. If you shop somewhere ours doesn't cover well, MyFitnessPal will beat us there."
-  - q: "Why should I trust a smaller app not to do the same thing later?"
-    a: "Fair question, and no answer from us settles it — MyFitnessPal was also free once. What can be checked rather than promised: there's no ad SDK in the app, logging works without an account, your data stays on-device unless you turn on sync, and you can delete your account and data from a link in the app. Those are structural, not policy statements."
+    a: "It's smaller: over {foods} foods, more than {canadianFoods} of them Canadian. Canadian groceries are more likely to resolve. For everything else, MyFitnessPal's is bigger."
+  - q: "Why trust a smaller app not to do the same thing later?"
+    a: "Check what's built in rather than what's promised: no ad SDK, no account needed, your data stays on your phone unless you turn on sync, and you can delete your account and data from the app."
   - q: "Is there an iPhone version?"
-    a: "Not yet. PocketChomp is Android-only today; iOS is planned but no build exists. If you need a tracker on iPhone right now, MyFitnessPal or another iOS app is your better option. If you'd rather wait, the list will tell you when it's ready."
+    a: "Not yet. Join the list to hear when it's ready."
 ctaHeadline: "Free barcode scanning, no ads, no account needed."
-ctaNote: "PocketChomp is in open beta on Android. iPhone users can join the list and hear when iOS is ready — no spam, unsubscribe any time."
+ctaNote: "Open beta on Android. On iPhone? Join the list to hear when iOS is ready."
 ---
 
-## Why people leave MyFitnessPal
-
-It's rarely that tracking stopped working. It's that the app changed underneath them.
-
-Barcode scanning — the feature that made logging fast enough to actually keep up — moved behind the paywall. Ads arrived in the middle of a daily habit. Features that used to be included became reasons to upgrade. For someone who'd been logging for years, it read less like a product improving and more like a product monetising the habit they'd already built.
-
-That's a reasonable thing to be annoyed about, and it's most of why PocketChomp exists.
-
-## What MyFitnessPal genuinely does better
-
-Worth saying clearly, because a comparison page that pretends its competitor has no strengths isn't useful to anyone making a decision.
-
-**The food database is bigger.** Over a decade of user contributions is not something a newer app matches, and for obscure or regional items MyFitnessPal will often find something when we don't.
-
-**It runs everywhere.** iOS, Android, web. PocketChomp is Android-only, which for a lot of people ends the conversation.
-
-**The ecosystem is deep.** Recipe import, meal planning, integrations with a long list of fitness apps and devices. Some of that we have, some is on the roadmap, and some we may never build.
-
-**Your history is already there.** Years of logs have real value, and starting over is a genuine cost.
-
-## What PocketChomp does differently
-
-**Barcode scanning is free and unlimited.** Not a trial, not a monthly quota. It's the feature that makes tracking sustainable, so putting it behind a paywall never made sense to us.
-
-**No ads.** Not a lighter ad load — none. There's no ad SDK in the app.
-
-**It works offline.** Your diary lives on your phone, along with the Health Canada and USDA food tables and every food you've logged before, so logging doesn't need a signal on a plane. Looking up a store product you've never scanned does.
-
-**No account required.** Open it and start logging. Cloud sync exists if you want it and is off unless you turn it on.
-
-**Canadian groceries resolve.** More than 70,000 Canadian entries, including Compliments, President's Choice, Metro and Walmart house brands. If you shop at a Canadian supermarket, the thing in your hand is more likely to be in the database.
-
-## The honest summary
-
-If MyFitnessPal is working for you, there's no strong reason to move — and if you're on iPhone, you can't yet.
-
-But if you quit because scanning a barcode started costing CA$114.99 a year, PocketChomp is built for exactly that grievance. Free barcode scanning, no ads, no account, and a core that stays free.
-
-*Comparison details verified against MyFitnessPal's published pricing on 11 September 2026. Their pricing and features change — check current details before deciding. PocketChomp is not affiliated with or endorsed by MyFitnessPal, which is a trademark of its respective owner.*
+*Prices change. PocketChomp is not affiliated with MyFitnessPal, a trademark of its owner.*
