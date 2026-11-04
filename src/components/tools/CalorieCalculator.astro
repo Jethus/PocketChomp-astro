@@ -174,6 +174,7 @@ const defaultGoal = mode === "deficit" || mode === "macro" ? "lose" : "maintain"
     </p>
 
     <div class="calc__numbers" data-numbers hidden>
+      <p class="calc__example" data-example hidden>Example for the grey values. Enter yours to update.</p>
       <p class="calc__summary-label" data-out="target-label">Your daily target</p>
       <p class="calc__summary-value"><span data-out="target">—</span></p>
       <p class="calc__summary-unit">kcal/day</p>
@@ -294,10 +295,14 @@ const defaultGoal = mode === "deficit" || mode === "macro" ? "lose" : "maintain"
     const maintenanceRow = root.querySelector<HTMLElement>('[data-row="maintenance"]')!;
     const paceRow = root.querySelector<HTMLElement>("[data-pace-row]")!;
     const timelineEl = root.querySelector<HTMLElement>("[data-timeline]");
+    const exampleEl = root.querySelector<HTMLElement>("[data-example]")!;
 
+    // Until the visitor types anything about themselves, the result shows the
+    // placeholder values worked through, so the panel explains itself on load.
+    let example = false;
     const num = (name: string): number => {
       const el = form.elements.namedItem(name) as HTMLInputElement | null;
-      const v = parseFloat(el?.value ?? "");
+      const v = parseFloat(el?.value || (example ? el?.placeholder : "") || "");
       return Number.isFinite(v) ? v : NaN;
     };
     const val = (name: string): string =>
@@ -319,6 +324,10 @@ const defaultGoal = mode === "deficit" || mode === "macro" ? "lose" : "maintain"
       // call stays on one path and no deficit is ever applied to a resting figure.
       const goal = (isBmr ? "maintain" : val("goal")) as Goal;
       paceRow.hidden = isBmr || goal === "maintain";
+
+      const personal = metric ? ["age", "heightCm", "weightKg"] : ["age", "heightFt", "heightIn", "weightLbs"];
+      example = personal.every((n) => !(form.elements.namedItem(n) as HTMLInputElement).value);
+      exampleEl.hidden = !example;
 
       const age = num("age");
       const heightCm = metric
@@ -645,11 +654,17 @@ const defaultGoal = mode === "deficit" || mode === "macro" ? "lose" : "maintain"
 
   /* The headline is a calorie figure, so it carries the app's calories colour
      rather than the generic accent — same number, same colour, both products. */
+  /* A range reads as one figure: it never breaks at the dash. Sized to the
+     result card, not the viewport, so it fits the card at every width. */
+  .calc__summary {
+    container-type: inline-size;
+  }
+
   .calc__summary-value {
-    --fl: 3;
     margin: 0.35rem 0 0;
     font-family: var(--font-heading);
-    font-size: var(--fluid-type);
+    font-size: clamp(1.5rem, 13.5cqi, 3rem);
+    white-space: nowrap;
     font-weight: 900;
     line-height: 1.05;
     color: var(--color-calories);
@@ -701,7 +716,7 @@ const defaultGoal = mode === "deficit" || mode === "macro" ? "lose" : "maintain"
     width: 100%;
     margin-top: 1.25rem;
     padding-top: 1rem;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid var(--divider);
   }
 
   .breakdown__title,
@@ -757,7 +772,7 @@ const defaultGoal = mode === "deficit" || mode === "macro" ? "lose" : "maintain"
     width: 100%;
     margin-top: 1.25rem;
     padding-top: 1rem;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid var(--divider);
     text-align: center;
   }
 
@@ -865,7 +880,7 @@ const defaultGoal = mode === "deficit" || mode === "macro" ? "lose" : "maintain"
   .calc__rows {
     margin: 1.25rem 0 0;
     padding-top: 0.5rem;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid var(--divider);
     width: 100%;
     justify-self: stretch;
   }
@@ -898,6 +913,17 @@ const defaultGoal = mode === "deficit" || mode === "macro" ? "lose" : "maintain"
     font-weight: 700;
     line-height: 1.5;
     font-size: 0.9rem;
+  }
+
+  .calc__example {
+    margin: 0 0 1rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.75rem;
+    background: var(--muted);
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: var(--foreground-soft);
+    text-align: center;
   }
 
   .calc__privacy {
