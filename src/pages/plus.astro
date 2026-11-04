@@ -43,9 +43,16 @@ const {
   description,
   funding,
   freeTitle,
+  freeNote,
   premiumTitle,
   comparison,
 } = entry.data;
+
+// The matrix rows sorted by what a reader is deciding: what both tiers get,
+// what only Plus has, and where Plus lifts a free limit.
+const shared = comparison.filter((r) => r.free === true || (typeof r.free === "string" && r.free === r.plus));
+const plusOnly = comparison.filter((r) => r.free === false);
+const raised = comparison.filter((r) => typeof r.free === "string" && r.free !== r.plus);
 
 const TITLE = "PocketChomp+ — what's free and what's paid";
 const META =
@@ -58,71 +65,50 @@ const META =
     <SectionShell>
       <div class="plus-head">
         <h1 class="fs-xl mt-4 leading-[1.05] text-foreground">{headline}</h1>
-        <p class="mt-5 text-lg leading-relaxed text-muted-foreground">
+        <p class="mt-5 text-lg leading-relaxed text-foreground-soft">
           {description}
         </p>
       </div>
     </SectionShell>
 
+    <SectionShell class="!pt-0">
+      <div class="tiers">
+        <section class="tier">
+          <h2 class="tier__name">{freeTitle}</h2>
+          <p class="tier__note">{freeNote}</p>
+          <ul class="tier__list" role="list">
+            {shared.map((row) => (
+              <li>
+                {row.feature}
+                {typeof row.free === "string" && <span class="tier__detail">{row.free}</span>}
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section class="tier tier--plus">
+          <h2 class="tier__name">{premiumTitle}</h2>
+          <p class="tier__note">Everything in {freeTitle}, plus:</p>
+          <ul class="tier__list" role="list">
+            {plusOnly.map((row) => <li>{row.feature}</li>)}
+          </ul>
+          <h3 class="tier__sub">Higher limits</h3>
+          <ul class="tier__list" role="list">
+            {raised.map((row) => (
+              <li>
+                {row.feature}: {row.plus.toString().toLowerCase()}
+                <span class="tier__detail">{freeTitle}: {row.free.toString().toLowerCase()}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
+    </SectionShell>
+
     <ScreenRail id="plus-screens" eyebrow="Inside PocketChomp+" screens={plusScreens} />
 
-    <SectionShell>
-      <div class="matrix">
-        <table class="matrix__table">
-          <caption class="sr-only">
-            PocketChomp features compared between the free tier and PocketChomp+
-          </caption>
-          <thead>
-            <tr>
-              <th scope="col" class="matrix__rowhead-col">
-                <span class="sr-only">Feature</span>
-              </th>
-              <th scope="col" class="matrix__tier">
-                <span class="matrix__tier-name">{freeTitle}</span>
-              </th>
-              <th scope="col" class="matrix__tier matrix__tier--plus">
-                <span class="matrix__tier-name">{premiumTitle}</span>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              comparison.map((row) => (
-                <tr>
-                  <th scope="row" class="matrix__feature">{row.feature}</th>
-                  {[row.free, row.plus].map((cell, i) => (
-                    <td
-                      class:list={["matrix__cell", i === 1 && "matrix__cell--plus"]}
-                      data-tier={i === 1 ? premiumTitle : freeTitle}
-                    >
-                      {typeof cell === "string" ? (
-                        <span class="matrix__value">{cell}</span>
-                      ) : cell ? (
-                        <>
-                          <span
-                            class:list={["matrix__mark", i === 1 ? "matrix__mark--plus" : "matrix__mark--free"]}
-                            aria-hidden="true"
-                          >
-                            ✓
-                          </span>
-                          <span class="sr-only">Included</span>
-                        </>
-                      ) : (
-                        <>
-                          <span class="matrix__mark matrix__mark--off" aria-hidden="true">–</span>
-                          <span class="sr-only">Not included</span>
-                        </>
-                      )}
-                    </td>
-                  ))}
-                </tr>
-              ))
-            }
-          </tbody>
-        </table>
-      </div>
-
-      <p class="funding-note mt-10">{funding}</p>
+    <SectionShell class="!pt-0">
+      <p class="funding-note">{funding}</p>
 
       <div class="cta-panel mt-14">
         <h2 class="fs-m text-foreground">Try it before you pay for it.</h2>
@@ -144,124 +130,103 @@ const META =
      and a centre line, rather than the table hugging the left edge of a
      much wider shell. */
   .plus-head,
-  .matrix,
   .funding-note,
   .cta-panel {
     max-width: 46rem;
     margin-inline: auto;
   }
 
-  .matrix {
-    /* The sr-only caption is absolutely positioned; anchor it here so it
-       cannot widen the page. */
-    position: relative;
+  /* Two cards, not a matrix: most features are in both tiers, so a table
+     spent most of its rows on ticks in both columns. */
+  .tiers {
+    display: grid;
+    gap: 1rem;
+    max-width: 56rem;
+    margin-inline: auto;
   }
 
-  .matrix__table {
-    width: 100%;
-    border-collapse: collapse;
-    text-align: left;
+  @media (min-width: 44rem) {
+    .tiers {
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
   }
 
-  .matrix__rowhead-col {
-    width: 46%;
+  .tier {
+    border-radius: var(--radius-card);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    padding: 1.75rem;
   }
 
-  .matrix__tier {
-    width: 27%;
-    padding: 0 1rem 1rem;
-    vertical-align: top;
-    text-align: center;
-    border-bottom: 1px solid var(--border);
+  .tier--plus {
+    border-color: color-mix(in oklab, var(--accent) 45%, var(--border));
+    background: color-mix(in oklab, var(--accent) 7%, var(--surface));
   }
 
-  .matrix__tier-name {
-    display: block;
-    font-family: var(--font-heading);
-    font-weight: 900;
-    font-size: 1.2rem;
+  .tier__name {
+    font-size: 1.6rem;
     color: var(--foreground);
   }
 
-
-  /* The paid column is tinted end to end so the eye can follow it down the
-     table without re-reading the header. */
-  /* No column fill: the marks and their colours carry the distinction, so
-     both tiers sit on the page background and the rows read as one table. */
-
-  .matrix__feature {
-    padding: 1.05rem 1rem 1.05rem 0;
-    font-family: var(--font-heading);
-    font-weight: 900;
-    font-size: 1.05rem;
-    color: var(--foreground);
-    border-bottom: 1px solid color-mix(in oklab, var(--border) 65%, transparent);
+  .tier--plus .tier__name {
+    color: var(--accent-text);
   }
 
-  .matrix__cell {
-    padding: 1.05rem 1rem;
-    text-align: center;
-    vertical-align: middle;
-    border-bottom: 1px solid color-mix(in oklab, var(--border) 65%, transparent);
+  .tier__note {
+    margin-top: 0.25rem;
+    color: var(--muted-foreground);
   }
 
-  .matrix__value {
+  .tier__sub {
+    margin-top: 1.5rem;
     font-size: 1rem;
+    color: var(--foreground);
+  }
+
+  .tier__list {
+    display: grid;
+    gap: 0.7rem;
+    margin-top: 1rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .tier__list li {
+    position: relative;
+    padding-left: 1.75rem;
     line-height: 1.4;
-    color: var(--muted-foreground);
+    font-weight: 600;
+    color: var(--foreground);
   }
 
-  .matrix__mark {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.75rem;
-    height: 1.75rem;
-    border-radius: 999px;
-    font-family: var(--font-heading);
-    font-size: 0.95rem;
+  .tier__list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 0;
     font-weight: 900;
-    line-height: 1;
+    color: var(--primary-strong);
   }
 
-  .matrix__mark--free {
-    --mark-ink: var(--primary);
-    background: color-mix(in oklab, var(--mark-ink) 18%, var(--surface));
-    color: var(--mark-ink);
+  .tier--plus .tier__list li::before {
+    color: var(--accent-text);
   }
 
-  /* --primary is the same value in both themes, so on the dark surface the
-     mid sage fell to about 2:1. Lift it for dark. */
-  :global(html[data-theme="dark"]) .matrix__mark--free {
-    --mark-ink: oklch(0.76 0.09 164);
-  }
-
-  /* --accent on its own tint fails AA in the light theme; --accent-strong
-     clears it. The dark theme override sits below. */
-  .matrix__mark--plus {
-    --mark-ink: var(--accent-strong);
-    background: color-mix(in oklab, var(--accent) 18%, var(--surface));
-    color: var(--mark-ink);
-  }
-
-  .matrix__mark--off {
-    background: transparent;
+  .tier__detail {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 400;
     color: var(--muted-foreground);
-  }
-
-  :global(html[data-theme="dark"]) .matrix__mark--plus {
-    --mark-ink: oklch(0.8 0.15 40);
-    background: color-mix(in oklab, var(--accent) 20%, var(--surface));
   }
 
   /* Stated plainly rather than as a badge: the business model IS the proof. */
   .funding-note {
-    max-width: 46rem;
     padding-left: 1rem;
     border-left: 2px solid color-mix(in oklab, var(--primary) 45%, transparent);
     font-size: 1rem;
     line-height: 1.65;
-    color: var(--muted-foreground);
+    color: var(--foreground-soft);
   }
 
   .cta-panel {
@@ -272,64 +237,4 @@ const META =
     box-shadow: var(--shadow-elevated);
   }
 
-  /* Narrow screens: each row becomes a small card. Feature name on top,
-     the two tiers side by side beneath it, each labelled with its tier via
-     data-tier so the header row can be hidden without losing the labels. */
-  @media (max-width: 40rem) {
-    .matrix__table thead {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      overflow: hidden;
-      clip: rect(0 0 0 0);
-      white-space: nowrap;
-    }
-
-    .matrix__table,
-    .matrix__table tbody {
-      display: block;
-    }
-
-    .matrix__table tr {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      padding-block: 0.9rem;
-      border-bottom: 1px solid color-mix(in oklab, var(--border) 65%, transparent);
-    }
-
-    .matrix__feature {
-      grid-column: 1 / -1;
-      padding: 0 0 0.5rem;
-      border-bottom: 0;
-    }
-
-    /* Label above value, not beside it: "POCKETCHOMP+" and a phrase like
-       "Your saved portion" cannot share half a phone row without one of them
-       shredding into a vertical stack of letters. */
-    .matrix__cell {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.25rem;
-      min-width: 0;
-      padding: 0.5rem 0.75rem 0.5rem 0;
-      text-align: left;
-      border-bottom: 0;
-    }
-
-    .matrix__value {
-      min-width: 0;
-    }
-
-    .matrix__cell::before {
-      content: attr(data-tier);
-      font-family: var(--font-heading);
-      font-size: 0.72rem;
-      font-weight: 900;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted-foreground);
-    }
-
-  }
 </style>
