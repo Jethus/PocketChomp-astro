@@ -47,7 +47,7 @@ const listLd = {
       <div>
         <p class="font-heading text-[0.7rem] font-black uppercase tracking-[0.16em] text-muted-foreground">Free tools</p>
         <h1 class="fs-xl mt-4 leading-[1.02] text-foreground">Work out your numbers.</h1>
-        <p class="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+        <p class="mt-4 max-w-2xl text-lg leading-relaxed text-foreground-soft">
           Four calculators, each one honest about how precise a formula can be. Nothing is stored or sent anywhere.
         </p>
       </div>
@@ -57,9 +57,9 @@ const listLd = {
           tools.map((t) => (
             <li>
               <a href={`/tools/${t.id}`} class="tool-card">
-                <span class="tool-card__eyebrow">{t.data.eyebrow}</span>
                 <span class="tool-card__name">{t.data.h1}</span>
-                <span class="tool-card__desc">{t.data.intro}</span>
+                <span class="tool-card__desc">{t.data.eyebrow}</span>
+                <span class="tool-card__go" aria-hidden="true">→</span>
               </a>
             </li>
           ))
@@ -68,7 +68,7 @@ const listLd = {
 
       <div class="cta-panel">
         <h2 class="fs-m text-foreground">A calculator gets you close. Tracking gets you exact.</h2>
-        <p class="mt-2 max-w-xl text-muted-foreground">
+        <p class="mt-2 max-w-xl text-foreground-soft">
           PocketChomp checks your intake against your real weight trend. Free, no ads, no account needed. Open beta on Google Play.
         </p>
         <div class="mt-5 max-w-xl">
@@ -122,27 +122,25 @@ const listLd = {
     outline-offset: 2px;
   }
 
-  .tool-card__eyebrow {
-    font-family: var(--font-heading);
-    font-size: 0.68rem;
-    font-weight: 900;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--muted-foreground);
-  }
-
   .tool-card__name {
     font-family: var(--font-heading);
-    font-size: 1.25rem;
+    font-size: 1.35rem;
     font-weight: 900;
     line-height: 1.2;
     color: var(--foreground);
   }
 
   .tool-card__desc {
-    font-size: 0.95rem;
-    line-height: 1.55;
-    color: var(--muted-foreground);
+    font-size: 1rem;
+    line-height: 1.45;
+    color: var(--foreground-soft);
+  }
+
+  .tool-card__go {
+    margin-top: auto;
+    padding-top: 0.75rem;
+    font-weight: 700;
+    color: var(--accent-text);
   }
 
   .cta-panel {

@@ -55,6 +55,8 @@
   --color-border: var(--border);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
+  --color-foreground-soft: var(--foreground-soft);
+  --color-divider: var(--divider);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   --color-primary-light: var(--primary-soft);
@@ -103,6 +105,12 @@
     --border: oklch(0.9412 0.0075 151.89); /* subtle #E8EDE9: the app's hairline */
     --muted: oklch(0.9412 0.0075 151.89); /* subtle #E8EDE9 */
     --muted-foreground: oklch(0.4495 0 0); /* slate #555555 */
+    /* Reading text: paragraphs people read in full. Slate is for captions;
+       a paragraph in slate on paper (or on the dark paper) reads as fine print. */
+    --foreground-soft: color-mix(in oklab, var(--foreground) 84%, var(--background));
+    /* Lines between rows and sections. --border is the app's card hairline and
+       all but vanishes on light paper; this is the FAQ list's rule, named. */
+    --divider: color-mix(in oklab, var(--foreground) 16%, transparent);
     --primary: oklch(0.5089 0.0727 145.62); /* sage #4A714C */
     --primary-foreground: oklch(1 0 0);
     --primary-soft: oklch(0.9305 0.0113 141.26); /* sage-subtle #E4EAE3 */

@@ -101,7 +101,7 @@ const schema = {
       <div>
         <p class="font-heading text-[0.7rem] font-black uppercase tracking-[0.16em] text-muted-foreground">{eyebrow}</p>
         <h1 class="fs-xl mt-4 leading-[1.02] text-foreground">{h1}</h1>
-        <p class="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+        <p class="mt-4 max-w-2xl text-lg leading-relaxed text-foreground-soft">
           {intro}
         </p>
       </div>
@@ -110,9 +110,8 @@ const schema = {
 
       <div>
         <h2 class="fs-m text-foreground">After 14 days of tracking</h2>
-        <p class="mt-2 max-w-2xl text-muted-foreground">
-          A calculator gets you close; your real trend gets you exact. Compare
-          your two-week result against this table:
+        <p class="mt-2 max-w-2xl text-foreground-soft">
+          Log for two weeks, then check your weight trend here.
         </p>
         <div class="mt-5 overflow-x-auto">
           <table class="reality-table">
@@ -133,7 +132,7 @@ const schema = {
 
       <div class="cta-panel">
         <h2 class="fs-m text-foreground">{ctaHeadline}</h2>
-        <p class="mt-2 max-w-xl text-muted-foreground">{ctaNote}</p>
+        <p class="mt-2 max-w-xl text-foreground-soft">{ctaNote}</p>
         <div class="mt-5 max-w-xl">
           <AppCta placement="tool" />
         </div>
@@ -183,7 +182,7 @@ const schema = {
   .reality-table td {
     text-align: left;
     padding: 0.85rem 1rem;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--divider);
     vertical-align: top;
     line-height: 1.45;
   }
@@ -201,8 +200,12 @@ const schema = {
     color: var(--foreground);
   }
 
+  .reality-table td:first-child {
+    font-weight: 600;
+  }
+
   .reality-table td:last-child {
-    color: var(--muted-foreground);
+    color: var(--foreground-soft);
   }
 
   /* Under 40rem the two-column table stacks into observation/adjustment
@@ -219,7 +222,7 @@ const schema = {
     .reality-table tr {
       display: block;
       padding: 0.9rem 0;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--divider);
     }
 
     .reality-table td {
@@ -250,10 +253,11 @@ const schema = {
     margin-top: 2.25rem;
   }
 
-  .prose-body :global(p) {
+  .prose-body :global(p),
+  .prose-body :global(li) {
     margin-top: 0.8rem;
     line-height: 1.65;
-    color: var(--muted-foreground);
+    color: var(--foreground-soft);
     max-width: 65ch;
   }
 

@@ -31,7 +31,7 @@ const faqLd = {
     <!-- Heading column stays in view beside the list on wide screens. -->
     <div class="faq-head">
       <h2 class="fs-xl leading-[1.02] text-foreground">{headline}</h2>
-      {intro && <p class="mt-4 max-w-sm text-lg leading-relaxed text-muted-foreground">{intro}</p>}
+      {intro && <p class="mt-4 max-w-sm text-lg leading-relaxed text-foreground-soft">{intro}</p>}
       {contactLabel && contactHref && (
         <a href={contactHref} class="faq-contact mt-6">
           {contactLabel}

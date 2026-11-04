@@ -33,7 +33,7 @@ if (!screens) {
 const widths = [320, 480, 640, 800, 960, 1200];
 ---
 
-<section id={id} class="border-b border-border">
+<section id={id} class="border-b border-divider">
   <SectionShell innerClass="max-w-[90rem]" data-reveal-root>
     <div class="flex flex-wrap items-end justify-between gap-6">
       <div class="max-w-2xl">
@@ -44,7 +44,7 @@ const widths = [320, 480, 640, 800, 960, 1200];
         )}
         {headline && <h2 class="fs-xl mt-3 leading-[1.05] text-foreground">{headline}</h2>}
         {description && (
-          <p class="mt-5 text-lg leading-relaxed text-muted-foreground">
+          <p class="mt-5 text-lg leading-relaxed text-foreground-soft">
             {description}
           </p>
         )}

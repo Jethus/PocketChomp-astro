@@ -30,9 +30,8 @@ const stuckParts = splitOnEmail(stuckBody);
   <Header />
   <main id="main">
     <SectionShell innerClass="max-w-3xl">
-      <p class="font-heading text-[0.7rem] font-black uppercase tracking-[0.16em] text-muted-foreground">{eyebrow}</p>
-      <h1 class="fs-xl mt-4 leading-[1.05] text-foreground">{headline}</h1>
-      <p class="mt-5 text-lg leading-relaxed text-muted-foreground">
+      <h1 class="fs-xl leading-[1.05] text-foreground">{headline}</h1>
+      <p class="mt-5 text-lg leading-relaxed text-foreground-soft">
         {introParts.map((part, i) => (
           <>{i > 0 && <a class="support-link" href={`mailto:${email}`}>{email}</a>}{part}</>
         ))}
@@ -43,7 +42,7 @@ const stuckParts = splitOnEmail(stuckBody);
           topics.map((topic) => (
             <li class="support-topic">
               <h2 class="font-heading text-lg font-black text-foreground">{topic.heading}</h2>
-              <p class="mt-2 leading-relaxed text-muted-foreground">{topic.body}</p>
+              <p class="mt-2 leading-relaxed text-foreground-soft">{topic.body}</p>
             </li>
           ))
         }
@@ -51,7 +50,7 @@ const stuckParts = splitOnEmail(stuckBody);
 
       <div class="support-panel mt-14">
         <h2 class="fs-m text-foreground">{stuckHeadline}</h2>
-        <p class="mt-2 text-muted-foreground">
+        <p class="mt-2 text-foreground-soft">
           {stuckParts.map((part, i) => (
             <>{i > 0 && <a class="support-link" href={`mailto:${email}`}>{email}</a>}{part}</>
           ))}
@@ -68,7 +67,7 @@ const stuckParts = splitOnEmail(stuckBody);
 <style>
   .support-topic {
     padding-top: 1.75rem;
-    border-top: 1px solid color-mix(in oklab, var(--border) 65%, transparent);
+    border-top: 1px solid var(--divider);
   }
 
   .support-topic:first-child {
