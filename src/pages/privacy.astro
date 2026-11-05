@@ -1,7 +1,7 @@
 ---
 import LegalLayout from "../layouts/LegalLayout.astro";
 
-const LAST_UPDATED = "October 28, 2026";
+const LAST_UPDATED = "November 5, 2026";
 ---
 
 <LegalLayout
@@ -75,8 +75,17 @@ const LAST_UPDATED = "October 28, 2026";
 
     <h3 class="fs-xs">Barcode lookup</h3>
     <p>
-      The barcode number is sent to our server to find the product. If it is not in our
-      database, our server asks <a href="https://world.openfoodfacts.org/privacy" rel="noopener">Open Food Facts</a>. Only the barcode is sent.
+      Your phone looks a scanned barcode up in its own copy of the food tables first. If it
+      isn't there, the barcode number is sent to our server to find the product. If it is not
+      in our database either, our server asks <a href="https://world.openfoodfacts.org/privacy" rel="noopener">Open Food Facts</a>. Only the barcode is sent.
+    </p>
+
+    <h3 class="fs-xs">Food corrections</h3>
+    <p>
+      Once a day, the app sends our server the ids of the foods saved on your phone (the ones
+      you have searched, scanned or logged) so that a food we have corrected, or given a better
+      icon, is updated in your diary. The ids say which foods are on your phone. They do not
+      say when or how much you ate, and our server does not keep them.
     </p>
 
     <h3 class="fs-xs">Abuse limits</h3>
@@ -89,15 +98,18 @@ const LAST_UPDATED = "October 28, 2026";
     <h3 class="fs-xs">AI photo logging (PocketChomp+)</h3>
     <p>
       The photo you take is sent to our server and then to the Gemini API from Google, which
-      returns a list of foods and estimated portions. We do not store the photo. The request is
-      tagged with the app's anonymous device id so we can measure cost and accuracy, never with
-      your name or account. Google describes its handling of API requests in the <a href="https://ai.google.dev/gemini-api/terms" rel="noopener">Gemini API terms</a>.
+      returns a list of foods and estimated portions. We do not store the photo. Our server
+      records the size and cost of each AI request with PostHog (token counts, never the photo
+      or the result). If usage analytics are on, that record carries the app's anonymous device
+      id; with them off, it carries none. Google describes its handling of API requests in the <a href="https://ai.google.dev/gemini-api/terms" rel="noopener">Gemini API terms</a>.
     </p>
 
     <h3 class="fs-xs">Recipe import from a URL (PocketChomp+)</h3>
     <p>
-      The web address you paste is fetched by our server and the ingredient list is sent to
-      the Gemini API to estimate nutrition. We do not keep the page or the address.
+      Your phone opens the recipe page itself, the way a browser would, so the recipe site sees
+      your phone's internet address. The recipe's name, ingredient list and number of servings
+      are then sent to our server and on to the Gemini API to estimate the nutrition the page
+      doesn't publish. The web address is not sent to us, and we do not keep the ingredients.
     </p>
 
     <h3 class="fs-xs">Label scanning</h3>
@@ -137,6 +149,13 @@ const LAST_UPDATED = "October 28, 2026";
     <p>
       Exporting your food log generates a file from the data on your device or, when signed in,
       from your synced data. The file is handed to you and not kept by us.
+    </p>
+
+    <h3 class="fs-xs">App updates</h3>
+    <p>
+      Each time the app opens, it asks Expo, the service that delivers app updates, whether a
+      newer version is available. The request carries the app's version and platform, not
+      anything you have logged.
     </p>
 
     <h3 class="fs-xs">PocketChomp+ verification</h3>
@@ -187,7 +206,8 @@ const LAST_UPDATED = "October 28, 2026";
         <strong>Usage analytics are off by default.</strong> If you turn on "Share usage
         analytics" in Settings, we also record which features you use, how the app performs, the
         words you type into food search, and (described above) your voice and typed meal descriptions.
-        Turning it off stops collection immediately.
+        If you are also signed in, the names of foods you created may be sent to the Gemini API so
+        the app can pick a better icon for them. Turning it off stops collection immediately.
       </li>
       <li>
         <strong>We count app opens.</strong> Each launch sends one event carrying only the
@@ -250,9 +270,10 @@ const LAST_UPDATED = "October 28, 2026";
       Some of the providers above store or process data outside Canada, including in the United
       States. We choose providers with published privacy commitments and send them the minimum
       each feature needs. In guest mode with analytics off, the only data that ever leaves your
-      phone is a barcode number, the words of a search your phone cannot answer on its own, a
-      crash report, an anonymous app-open count, a subscription check with RevenueCat, and
-      whatever you send when you use a Plus feature. Like any server, ours also sees the IP
+      phone is a barcode number or the words of a search your phone cannot answer on its own,
+      the ids of your saved foods once a day, a crash report, an anonymous app-open count, a
+      subscription check with RevenueCat, an update check with Expo, and whatever you send when
+      you use a Plus feature. Like any server, ours also sees the IP
       address a request comes from (see <em>Abuse limits</em> above).
     </p>
   </section>

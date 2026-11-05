@@ -54,7 +54,7 @@ faq:
   - q: "Is the food database as good as MyFitnessPal's?"
     a: "It's smaller: over {foods} foods, more than {canadianFoods} of them Canadian. Canadian groceries are more likely to resolve. For everything else, MyFitnessPal's is bigger."
   - q: "Why trust a smaller app not to do the same thing later?"
-    a: "Check what's built in rather than what's promised: no ad SDK, no account needed, your data stays on your phone unless you turn on sync, and you can delete your account and data from the app."
+    a: "Check what's built in rather than what's promised: no ad SDK, no account needed, your food log stays on your phone unless you turn on sync, and you can delete your account and data from the app."
   - q: "Is there an iPhone version?"
     a: "Not yet. Join the list to hear when it's ready."
 ctaHeadline: "Free barcode scanning, no ads, no account needed."

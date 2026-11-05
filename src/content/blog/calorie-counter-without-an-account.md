@@ -2,6 +2,7 @@
 title: "A calorie counter you can use without an account"
 description: "PocketChomp works with no account, no email and no sign-in. Here is what stays on your phone, what leaves it, and why, one line at a time."
 pubDate: "2026-10-25"
+updatedDate: "2026-11-05"
 tags: ["Privacy"]
 faq:
   - q: "Can I use PocketChomp without an account?"
@@ -31,14 +32,16 @@ Uninstall the app and it's gone. There is no copy anywhere else unless you make 
 | What | When | Why |
 |---|---|---|
 | Your search words | When your phone has fewer than 10 matches for a search | To look through the full food database on my server. The words aren't saved. |
-| A barcode number | When you scan a barcode | To find the product. If it's not in my database, the number goes to Open Food Facts. |
+| A barcode number | When you scan a barcode your phone doesn't already know | To find the product. If it's not in my database, the number goes to Open Food Facts. |
+| The ids of your saved foods | Once a day | So a food I've corrected reaches your diary. The ids say which foods are on your phone, not when or how much you ate, and they aren't saved. |
 | A crash report | When the app crashes | The error, the app version and the phone model. Never your food log. |
 | One app-open count | Each time you open the app | A random id made on install, so I know how many people use it. Nothing else rides along. |
 | A subscription check | Each time you open the app | RevenueCat, which handles PocketChomp+, checks whether this phone has it. It gets a random id it made itself, not your name or email. |
+| An update check | Each time you open the app | Expo, which delivers app updates, is asked whether there's a newer version. It gets the app's version, not anything you logged. |
 
 Like any server, mine sees the internet address of whatever phone is asking. For searches and lookups I keep that address and the time for about a week, so one person can't flood the server, and then it's deleted. It isn't stored with what you searched.
 
-Two Plus features send more, because they can't work otherwise. Photo logging sends the photo to Google's Gemini API to identify the food. Recipe import sends the recipe page you pasted. Neither the photo nor the page is kept. Nutrition-label scanning runs on the phone and the image never leaves it.
+Two Plus features send more, because they can't work otherwise. Photo logging sends the photo to Google's Gemini API to identify the food. Recipe import opens the page from your phone, like a browser would, and sends the ingredient list to Gemini to estimate the nutrition. Neither the photo nor the ingredients are kept. Nutrition-label scanning runs on the phone and the image never leaves it.
 
 ## What's off unless you turn it on
 
