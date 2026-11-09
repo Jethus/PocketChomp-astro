@@ -47,9 +47,20 @@ I'm signed in with backup on, and I share usage analytics, so mine is about as b
 
 The second-biggest line is analytics, which is off unless you turn it on. Take out backup and analytics and mine would be about 150 KB, most of it the daily check for corrected foods. With both off, the headline ends "None of it was your diary."
 
-Below the headline are the places it went: PocketChomp's server (Supabase, hosted in Canada), PostHog (crash reports and analytics, in the United States), Open Food Facts (only a barcode my database doesn't have), and Google Gemini if you use photo logging or recipe import.
+Below the headline is every place it went, and what for:
 
-Some requests go to my server and get passed on, like a photo going to Gemini. Those come back with a note saying what was forwarded, so the receipt lists "Google Gemini, through our server" as its own line. That's counted before the photo is sent on, so it still shows up if Gemini then fails.
+- PocketChomp server: Supabase, hosted in Canada
+- Analytics (PostHog): crash reports and usage analytics, in the United States
+- Open Food Facts: only a barcode my database doesn't have
+- Google Gemini (AI): only if you use photo logging or recipe import
+
+Some requests go to my server and get passed on, like a photo going to Gemini. Those come back with a note saying what was forwarded, so the receipt lists "Google Gemini (AI), through our server" as its own line. That's counted before the photo is sent on, so it still shows up if Gemini then fails.
+
+## Off means off
+
+Building the receipt turned up one more thing. With analytics switched off, PostHog still got crash reports and a count each time the app opened. Both were tiny and carried nothing you logged, but the receipt showed a PostHog line right under a switch that said no.
+
+So the app-open count is gone, and crash reports have their own switch next to analytics. Turn both off and the app never talks to PostHog. There's no line for it on the receipt, because there's nothing to count.
 
 ## What it can't count
 
