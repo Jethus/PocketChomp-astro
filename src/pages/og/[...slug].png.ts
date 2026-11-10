@@ -8,12 +8,14 @@ import { getCollection } from "astro:content";
 import { getPublishedPosts } from "../../lib/blog";
 import { renderOgCard, type OgCard } from "../../lib/og";
 import { OG_CARDS } from "../../lib/og-cards";
+import { fillMenu, getMenu } from "../../lib/restaurants";
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const [posts, tools, comparisons] = await Promise.all([
+  const [posts, tools, comparisons, restaurants] = await Promise.all([
     getPublishedPosts(),
     getCollection("tools"),
     getCollection("comparisons"),
+    getCollection("restaurants"),
   ]);
 
   const cards: Array<{ slug: string; card: OgCard }> = [
@@ -29,6 +31,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
     ...comparisons.map((c) => ({
       slug: `vs/${c.id}`,
       card: { eyebrow: "Comparison", title: c.data.h1, subtitle: c.data.intro },
+    })),
+    ...restaurants.map((r) => ({
+      slug: `restaurants/${r.id}`,
+      card: { eyebrow: "Restaurant nutrition", title: r.data.h1, subtitle: fillMenu(r.data.intro, getMenu(r.id)) },
     })),
   ];
 

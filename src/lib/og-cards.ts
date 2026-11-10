@@ -37,6 +37,11 @@ export const OG_CARDS: Record<string, OgCard> = {
     subtitle:
       "Barcode scanning, label scanning, micronutrients and offline logging are free forever. No ads on either tier.",
   },
+  restaurants: {
+    eyebrow: "Restaurant nutrition",
+    title: "Canadian menus, by the numbers.",
+    subtitle: "Per-serving nutrition for Canadian chains, from each chain's own published numbers.",
+  },
   tools: {
     eyebrow: "Free calculators",
     title: "Calorie, macro and TDEE calculators.",

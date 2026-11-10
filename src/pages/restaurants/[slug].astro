@@ -1,0 +1,335 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { ogPath } from "../../lib/og-cards";
+import { fillMenu, getMenu, sectionId, type MenuItem } from "../../lib/restaurants";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import SectionShell from "../../components/ui/SectionShell.astro";
+import AppCta from "../../components/ui/AppCta.astro";
+import FaqList from "../../components/ui/FaqList.astro";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("restaurants");
+  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry, others: entries.filter((e) => e.id !== entry.id) } }));
+}
+
+const { entry, others } = Astro.props;
+const menu = getMenu(entry.id);
+const fill = (text: string) => fillMenu(text, menu);
+const { chain, sourceUrl, checked, h1 } = entry.data;
+const title = fill(entry.data.title);
+const metaDescription = fill(entry.data.metaDescription);
+const intro = fill(entry.data.intro);
+const faq = entry.data.faq.map((item) => ({ q: fill(item.q), a: fill(item.a) }));
+
+// UTC: a bare 2026-11-10 parses as UTC midnight, which is the 9th in Toronto.
+const checkedLabel = checked.toLocaleDateString("en-CA", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
+
+const num = (value: number | null) => (value === null ? "–" : value.toLocaleString("en-CA"));
+const columns: { key: keyof MenuItem; label: string; unit: string }[] = [
+  { key: "calories", label: "Calories", unit: "" },
+  { key: "protein", label: "Protein", unit: "g" },
+  { key: "carbs", label: "Carbs", unit: "g" },
+  { key: "fat", label: "Fat", unit: "g" },
+  { key: "sugar", label: "Sugar", unit: "g" },
+  { key: "sodium", label: "Sodium", unit: "mg" },
+];
+
+const site = Astro.site ?? Astro.url;
+const canonical = new URL(`/restaurants/${entry.id}`, site).href;
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    { "@type": "WebPage", "@id": canonical, name: h1, url: canonical, description: metaDescription, dateModified: checked.toISOString().slice(0, 10) },
+    {
+      "@type": "FAQPage",
+      "@id": `${canonical}#faq`,
+      mainEntity: faq.map((item) => ({ "@type": "Question", name: item.q, acceptedAnswer: { "@type": "Answer", text: item.a } })),
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${canonical}#breadcrumb`,
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: new URL("/", site).href },
+        { "@type": "ListItem", position: 2, name: "Restaurant nutrition", item: new URL("/restaurants", site).href },
+        { "@type": "ListItem", position: 3, name: chain, item: canonical },
+      ],
+    },
+  ],
+};
+---
+
+<BaseLayout title={title} description={metaDescription} image={ogPath(`restaurants/${entry.id}`)}>
+  <Header />
+  <main id="main">
+    <SectionShell innerClass="max-w-5xl space-y-10">
+      <div>
+        <a href="/restaurants" class="font-heading text-[0.7rem] font-black uppercase tracking-[0.16em] text-muted-foreground">Restaurant nutrition</a>
+        <h1 class="fs-xl mt-4 leading-[1.02] text-foreground">{h1}</h1>
+        <p class="mt-4 max-w-2xl text-lg leading-relaxed text-foreground-soft">{intro}</p>
+      </div>
+
+      <div class="menu-tools">
+        <label class="menu-filter">
+          <span class="sr-only">Find an item</span>
+          <input type="search" placeholder="Find an item" autocomplete="off" data-menu-filter />
+        </label>
+        <nav aria-label="Menu sections">
+          <ul class="menu-jump" role="list">
+            {menu.sections.map((s) => <li><a href={`#${sectionId(s.name)}`}>{s.name}</a></li>)}
+          </ul>
+        </nav>
+      </div>
+
+      <div class="menu-sections">
+        {menu.sections.map((section) => (
+          <section class="menu-section" id={sectionId(section.name)} data-menu-section>
+            <h2 class="fs-m text-foreground">{section.name}</h2>
+            <div class="menu-scroll">
+              <table class="menu-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Item</th>
+                    {columns.map((c) => <th scope="col" class="num">{c.label}{c.unit && <span class="unit"> ({c.unit})</span>}</th>)}
+                    <th scope="col">Serving</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {section.items.map((item) => (
+                    <tr data-name={item.name.toLowerCase()}>
+                      <th scope="row">{item.name}</th>
+                      {columns.map((c) => <td class="num">{num(item[c.key] as number | null)}</td>)}
+                      <td class="serving">{item.serving}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        ))}
+        <p class="menu-empty" hidden data-menu-empty>No item on this page matches that.</p>
+      </div>
+
+      <p class="menu-source">
+        {chain} Canada's own numbers, per serving as served. Checked against <a href={sourceUrl} rel="nofollow noopener">{chain}'s site</a> on {checkedLabel}. Menus change, and seasonal items come and go.
+        {entry.data.sourceNote}
+      </p>
+
+      <div class="cta-panel">
+        <h2 class="fs-m text-foreground">{entry.data.ctaHeadline}</h2>
+        <p class="mt-2 max-w-xl text-foreground-soft">{entry.data.ctaNote}</p>
+        <div class="mt-5 max-w-xl">
+          <AppCta placement="restaurant" />
+        </div>
+      </div>
+
+      <div>
+        <h2 class="fs-m text-foreground">Frequently asked questions</h2>
+        <FaqList items={faq} class="mt-5" />
+      </div>
+
+      <nav class="more-links" aria-label="More">
+        <h2 class="fs-s text-foreground">More</h2>
+        <ul role="list">
+          {others.map((o) => (
+            <li><a href={`/restaurants/${o.id}`}>{o.data.h1}</a></li>
+          ))}
+          <li><a href="/blog/how-to-count-calories-in-canada">How to count calories in Canada</a></li>
+          <li><a href="/tools/tdee-calculator">TDEE calculator</a></li>
+        </ul>
+      </nav>
+    </SectionShell>
+  </main>
+  <Footer />
+
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+</BaseLayout>
+
+<script>
+  const input = document.querySelector<HTMLInputElement>("[data-menu-filter]");
+  const sections = [...document.querySelectorAll<HTMLElement>("[data-menu-section]")];
+  const empty = document.querySelector<HTMLElement>("[data-menu-empty]");
+
+  input?.addEventListener("input", () => {
+    const words = input.value.toLowerCase().split(/\s+/).filter(Boolean);
+    let shown = 0;
+    for (const section of sections) {
+      let inSection = 0;
+      for (const row of section.querySelectorAll<HTMLElement>("tbody tr")) {
+        const name = row.dataset.name ?? "";
+        const match = words.every((w) => name.includes(w));
+        row.hidden = !match;
+        if (match) inSection++;
+      }
+      section.hidden = inSection === 0;
+      shown += inSection;
+    }
+    if (empty) empty.hidden = shown > 0;
+  });
+</script>
+
+<style>
+  .menu-tools {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .menu-filter input {
+    width: 100%;
+    max-width: 26rem;
+    padding: 0.8rem 1.1rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--foreground);
+    font-size: 1rem;
+  }
+
+  .menu-filter input:focus-visible {
+    outline: 2px solid color-mix(in oklab, var(--primary) 45%, transparent);
+    outline-offset: 2px;
+  }
+
+  .menu-jump {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .menu-jump a {
+    display: inline-block;
+    padding: 0.35rem 0.85rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--surface);
+    font-size: 0.85rem;
+    color: var(--foreground-soft);
+  }
+
+  .menu-jump a:hover {
+    border-color: var(--primary);
+    color: var(--foreground);
+  }
+
+  /* minmax(0, 1fr) and min-width: 0 keep a wide table scrolling inside its box instead of widening the page. */
+  .menu-sections {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3rem;
+  }
+
+  .menu-section {
+    min-width: 0;
+    scroll-margin-top: 6rem;
+  }
+
+  .menu-scroll {
+    margin-top: 1rem;
+    overflow-x: auto;
+  }
+
+  .menu-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+
+  .menu-table th,
+  .menu-table td {
+    padding: 0.6rem 0.75rem;
+    border-bottom: 1px solid var(--divider);
+    text-align: left;
+    vertical-align: top;
+    line-height: 1.4;
+    color: var(--foreground);
+  }
+
+  .menu-table thead th {
+    font-family: var(--font-heading);
+    font-size: 0.65rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+    white-space: nowrap;
+  }
+
+  .menu-table .unit {
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  .menu-table tbody th {
+    font-weight: 600;
+    min-width: 11rem;
+  }
+
+  .menu-table .num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .menu-table .serving {
+    white-space: nowrap;
+    color: var(--muted-foreground);
+  }
+
+  /* The item name stays put while the numbers scroll on a phone. */
+  @media (max-width: 46rem) {
+    .menu-table {
+      font-size: 0.875rem;
+    }
+
+    .menu-table th,
+    .menu-table td {
+      padding: 0.55rem 0.5rem;
+    }
+
+    .menu-table tbody th,
+    .menu-table thead th:first-child {
+      position: sticky;
+      left: 0;
+      z-index: 1;
+      background: var(--background);
+      min-width: 9rem;
+      max-width: 9rem;
+    }
+  }
+
+  .menu-empty,
+  .menu-source {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .menu-source a {
+    text-decoration: underline;
+  }
+
+  .cta-panel {
+    border-radius: 1.6rem;
+    border: 1px solid color-mix(in oklab, var(--primary) 30%, var(--border));
+    background: color-mix(in oklab, var(--primary) 9%, var(--surface));
+    box-shadow: var(--shadow-elevated);
+    padding: 2.25rem 2rem;
+  }
+
+  .more-links ul {
+    display: grid;
+    gap: 0.5rem;
+    margin: 0.75rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .more-links a {
+    font-weight: 700;
+    color: var(--primary);
+  }
+</style>

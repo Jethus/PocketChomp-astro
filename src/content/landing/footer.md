@@ -19,6 +19,8 @@ groups:
         href: /database
       - label: vs MyFitnessPal
         href: /vs/myfitnesspal
+      - label: Restaurant nutrition
+        href: /restaurants
       - label: Counting calories in Canada
         href: /blog/how-to-count-calories-in-canada
       - label: Canadian nutrition labels

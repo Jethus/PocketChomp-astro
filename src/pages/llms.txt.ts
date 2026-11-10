@@ -8,13 +8,15 @@ import { getCollection } from "astro:content";
 import { getPublishedPosts } from "../lib/blog";
 import { canadianFoodsFigure, countedOn, foodsFigure } from "../lib/foodStats";
 import { PLAY_STORE_URL } from "../consts";
+import { fillMenu, getMenu } from "../lib/restaurants";
 
 export const GET: APIRoute = async ({ site }) => {
   const base = (site ?? new URL("https://pocketchomp.com")).href.replace(/\/$/, "");
-  const [posts, tools, comparisons] = await Promise.all([
+  const [posts, tools, comparisons, restaurants] = await Promise.all([
     getPublishedPosts(),
     getCollection("tools"),
     getCollection("comparisons"),
+    getCollection("restaurants"),
   ]);
 
   const line = (path: string, title: string, note: string) => `- [${title}](${base}${path}): ${note}`;
@@ -48,6 +50,11 @@ ${tools.map((t) => line(`/tools/${t.id}`, t.data.h1, t.data.metaDescription)).jo
 ## Comparisons
 
 ${comparisons.map((c) => line(`/vs/${c.id}`, c.data.h1, c.data.metaDescription)).join("\n")}
+
+## Restaurant nutrition
+
+${line("/restaurants", "Canadian restaurant nutrition", "Per-serving nutrition for Canadian chains, from each chain's own published numbers.")}
+${restaurants.map((r) => line(`/restaurants/${r.id}`, r.data.h1, fillMenu(r.data.metaDescription, getMenu(r.id)))).join("\n")}
 
 ## Blog
 

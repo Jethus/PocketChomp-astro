@@ -1,0 +1,124 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { ogPath } from "../../lib/og-cards";
+import { getMenu } from "../../lib/restaurants";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import SectionShell from "../../components/ui/SectionShell.astro";
+
+const chains = (await getCollection("restaurants"))
+  .map((entry) => ({ entry, menu: getMenu(entry.id) }))
+  .sort((a, b) => a.entry.data.chain.localeCompare(b.entry.data.chain));
+
+const TITLE = "Canadian restaurant nutrition";
+const META = "Calories, protein, carbs, fat, sugar and sodium for Canadian restaurant menus, per serving, from each chain's own numbers.";
+
+const canonical = new URL("/restaurants", Astro.site ?? Astro.url).href;
+const listLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: TITLE,
+  url: canonical,
+  itemListElement: chains.map(({ entry }, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    name: entry.data.h1,
+    url: new URL(`/restaurants/${entry.id}`, Astro.site ?? Astro.url).href,
+  })),
+};
+---
+
+<BaseLayout title={TITLE} description={META} image={ogPath("restaurants")}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(listLd)} />
+  </Fragment>
+  <Header />
+  <main id="main">
+    <SectionShell innerClass="max-w-4xl space-y-10">
+      <div>
+        <p class="font-heading text-[0.7rem] font-black uppercase tracking-[0.16em] text-muted-foreground">Restaurant nutrition</p>
+        <h1 class="fs-xl mt-4 leading-[1.02] text-foreground">Canadian menus, by the numbers.</h1>
+        <p class="mt-4 max-w-2xl text-lg leading-relaxed text-foreground-soft">
+          Per-serving nutrition for Canadian chains, from each chain's own published numbers.
+        </p>
+      </div>
+
+      <ul class="chain-grid" role="list">
+        {chains.map(({ entry, menu }) => (
+          <li>
+            <a href={`/restaurants/${entry.id}`} class="chain-card">
+              <span class="chain-card__name">{entry.data.chain}</span>
+              <span class="chain-card__desc">{menu.itemCount} items</span>
+              <span class="chain-card__go" aria-hidden="true">→</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </SectionShell>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .chain-grid {
+    list-style: none;
+    margin-block-start: 0;
+    padding: 0;
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 40rem) {
+    .chain-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .chain-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    height: 100%;
+    padding: 1.5rem;
+    border-radius: var(--radius-card);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    box-shadow: var(--shadow-elevated);
+    text-decoration: none;
+    transition:
+      border-color 0.2s ease-out,
+      box-shadow 0.2s ease-out;
+  }
+
+  .chain-card:hover,
+  .chain-card:focus-visible {
+    border-color: color-mix(in oklab, var(--primary) 40%, var(--border));
+    box-shadow: var(--shadow-elevated-lg);
+  }
+
+  .chain-card:focus-visible {
+    outline: 2px solid color-mix(in oklab, var(--primary) 45%, transparent);
+    outline-offset: 2px;
+  }
+
+  .chain-card__name {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 900;
+    line-height: 1.2;
+    color: var(--foreground);
+  }
+
+  .chain-card__desc {
+    font-size: 1rem;
+    color: var(--foreground-soft);
+  }
+
+  .chain-card__go {
+    margin-top: auto;
+    padding-top: 0.75rem;
+    font-weight: 700;
+    color: var(--accent-text);
+  }
+</style>

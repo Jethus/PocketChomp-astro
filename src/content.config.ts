@@ -350,6 +350,31 @@ const comparisons = defineCollection({
   }),
 });
 
+/**
+ * One entry per restaurant chain at /restaurants/<id>. The copy lives here;
+ * the menu numbers come from src/data/restaurants/<id>.json (src/lib/restaurants.ts).
+ * "{count}" and "{Item name|field}" in any string are filled from that data.
+ */
+const restaurants = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/restaurants" }),
+  schema: z.object({
+    chain: z.string(),
+    title: z.string(),
+    metaDescription: z.string(),
+    h1: z.string(),
+    intro: z.string(),
+    /** The chain's own nutrition page, linked as the source. */
+    sourceUrl: z.string().url(),
+    /** When the numbers were last compared against the chain's own site. */
+    checked: z.coerce.date(),
+    /** Anything the check did not cover, said plainly under the tables. */
+    sourceNote: z.string().optional(),
+    faq: z.array(z.object({ q: z.string(), a: z.string() })).min(3),
+    ctaHeadline: z.string(),
+    ctaNote: z.string(),
+  }),
+});
+
 const landingScreenRail = defineCollection({
   loader: glob({ pattern: "screen-rail.md", base: "./src/content/landing" }),
   schema: ({ image }) =>
@@ -374,6 +399,7 @@ const landingScreenRail = defineCollection({
 export const collections = {
   tools,
   comparisons,
+  restaurants,
   blog,
   landingHero,
   landingProofStrip,
