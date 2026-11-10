@@ -1,7 +1,9 @@
 ---
-title: "How to read a Canadian nutrition label"
+title: "How to read a Canadian nutrition label (Nutrition Facts table)"
 description: "A line-by-line guide to the Canadian Nutrition Facts table and the new magnifying-glass \"High in\" symbol: what % Daily Value means, which numbers matter when you count calories, how to spot a US label in your app, and the rounding that quietly adds up."
+metaDescription: "The Canadian Nutrition Facts table line by line: serving size, % Daily Value, the High in symbol, and how to tell a Canadian label from a US one."
 pubDate: "2026-10-21"
+updatedDate: "2026-11-10"
 tags: ["Guide"]
 faq:
   - q: "What does % Daily Value mean on a Canadian label?"
@@ -19,6 +21,20 @@ faq:
 Every packaged food in Canada carries the same black-and-white Nutrition Facts table, in English and French, and most people read exactly one line of it. Calories. That's fine as far as it goes, but the table holds the answer to most of the questions people ask me about logging food, like why their app says something different, or why a "low fat" yogurt still blew their day.
 
 This is the label line by line, from the point of view of someone who wants to log what they ate accurately. It covers the Nutrition Facts table, the new magnifying-glass symbol on the front of the box, and a few habits that make your numbers line up with reality.
+
+## The Canadian Nutrition Facts table at a glance
+
+![Example of a bilingual Canadian Nutrition Facts table for a cereal, per 1 cup (55 g), with seven numbered parts explained below](../../assets/blog/canadian-nutrition-facts-table.svg)
+
+*An example I drew for a made-up cereal. The numbers are for illustration. The layout is the standard bilingual one.*
+
+1. **Serving size.** Every number below it is for this amount.
+2. **Calories.** Per serving, not per package.
+3. **% Daily Value.** How much of a day's reference amount one serving gives you.
+4. **Fibre and sugars.** Indented because they're part of the carbohydrate total.
+5. **Protein.** Grams only. Carbohydrate and protein have no % DV on a Canadian label.
+6. **Potassium, calcium and iron.** The three that Canadian labels list at the bottom.
+7. **The footnote.** 5% or less is a little, 15% or more is a lot.
 
 ## Start with the serving size, not the calories
 
@@ -116,6 +132,8 @@ For one serving it doesn't matter. It starts to matter for foods you use often i
 4. **Remember carbohydrate includes fibre.** Subtract it yourself if you count net carbs.
 5. **Check your app's entry is the Canadian label.** Look for the US tells above.
 6. **Measure the small stuff once.** Oils, dressings and creamers are where rounding and guessing pile up.
+
+The label is one part of it. For the rest, from finding your calorie target to restaurant meals, see [how to count calories in Canada](/blog/how-to-count-calories-in-canada).
 
 ## Where PocketChomp fits
 

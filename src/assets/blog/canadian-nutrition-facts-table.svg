@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 510" width="880" height="1020" role="img" aria-labelledby="t d" font-family="Helvetica, Arial, sans-serif">
+  <title id="t">Example of a Canadian Nutrition Facts table</title>
+  <desc id="d">A bilingual Canadian Nutrition Facts table for a cereal, per 1 cup (55 g), with seven numbered markers: serving size, calories, % Daily Value, fibre and sugars under carbohydrate, protein with no % Daily Value, the potassium, calcium and iron section, and the 5% and 15% footnote.</desc>
+
+  <!-- The label -->
+  <rect x="10" y="10" width="360" height="490" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+  <g fill="#000000">
+    <text x="22" y="42" font-size="26" font-weight="700">Nutrition Facts</text>
+    <text x="22" y="70" font-size="26" font-weight="700">Valeur nutritive</text>
+    <text x="22" y="92" font-size="13">Per 1 cup (55 g)</text>
+    <text x="22" y="108" font-size="13">pour 1 tasse (55 g)</text>
+    <rect x="22" y="116" width="336" height="6"/>
+
+    <text x="22" y="146" font-size="22" font-weight="700">Calories 200</text>
+    <text x="358" y="134" font-size="10" font-weight="700" text-anchor="end">% Daily Value*</text>
+    <text x="358" y="146" font-size="10" font-weight="700" text-anchor="end">% valeur quotidienne*</text>
+    <rect x="22" y="153" width="336" height="3"/>
+
+    <g font-size="13">
+      <text x="22" y="174"><tspan font-weight="700">Fat / Lipides</tspan> 3 g</text>
+      <text x="358" y="174" text-anchor="end">4 %</text>
+      <text x="38" y="198">Saturated / saturés 0.5 g</text>
+      <text x="38" y="222">+ Trans / trans 0 g</text>
+      <text x="358" y="222" text-anchor="end">3 %</text>
+      <text x="22" y="246"><tspan font-weight="700">Carbohydrate / Glucides</tspan> 40 g</text>
+      <text x="38" y="270">Fibre / Fibres 6 g</text>
+      <text x="358" y="270" text-anchor="end">21 %</text>
+      <text x="38" y="294">Sugars / Sucres 9 g</text>
+      <text x="358" y="294" text-anchor="end">9 %</text>
+      <text x="22" y="318"><tspan font-weight="700">Protein / Protéines</tspan> 6 g</text>
+      <text x="22" y="342"><tspan font-weight="700">Cholesterol / Cholestérol</tspan> 0 mg</text>
+      <text x="22" y="366"><tspan font-weight="700">Sodium</tspan> 190 mg</text>
+      <text x="358" y="366" text-anchor="end">8 %</text>
+      <text x="22" y="398">Potassium 250 mg</text>
+      <text x="358" y="398" text-anchor="end">7 %</text>
+      <text x="22" y="422">Calcium 30 mg</text>
+      <text x="358" y="422" text-anchor="end">2 %</text>
+      <text x="22" y="446">Iron / Fer 2.5 mg</text>
+      <text x="358" y="446" text-anchor="end">14 %</text>
+    </g>
+
+    <!-- Row rules -->
+    <g>
+      <rect x="22" y="181" width="336" height="1"/>
+      <rect x="38" y="229" width="320" height="1"/>
+      <rect x="22" y="253" width="336" height="1"/>
+      <rect x="38" y="277" width="320" height="1"/>
+      <rect x="38" y="301" width="320" height="1"/>
+      <rect x="22" y="325" width="336" height="1"/>
+      <rect x="22" y="349" width="336" height="1"/>
+      <rect x="22" y="374" width="336" height="5"/>
+      <rect x="22" y="405" width="336" height="1"/>
+      <rect x="22" y="429" width="336" height="1"/>
+      <rect x="22" y="454" width="336" height="3"/>
+    </g>
+
+    <text x="22" y="474" font-size="10">*5% or less is <tspan font-weight="700">a little</tspan>, 15% or more is <tspan font-weight="700">a lot</tspan></text>
+    <text x="22" y="488" font-size="10">*5 % ou moins c’est <tspan font-weight="700">peu</tspan>, 15 % ou plus c’est <tspan font-weight="700">beaucoup</tspan></text>
+  </g>
+
+  <!-- Numbered markers -->
+  <g stroke="#E4551C" stroke-width="2" fill="none">
+    <path d="M372 96 H392"/>
+    <path d="M372 140 H392"/>
+    <path d="M372 170 H392"/>
+    <path d="M376 262 H382 V298 H376 M382 280 H392"/>
+    <path d="M372 314 H392"/>
+    <path d="M376 388 H382 V448 H376 M382 418 H392"/>
+    <path d="M372 478 H392"/>
+  </g>
+  <g fill="#E4551C">
+    <circle cx="406" cy="96" r="13"/>
+    <circle cx="406" cy="140" r="13"/>
+    <circle cx="406" cy="170" r="13"/>
+    <circle cx="406" cy="280" r="13"/>
+    <circle cx="406" cy="314" r="13"/>
+    <circle cx="406" cy="418" r="13"/>
+    <circle cx="406" cy="478" r="13"/>
+  </g>
+  <g fill="#ffffff" font-size="14" font-weight="700" text-anchor="middle">
+    <text x="406" y="101">1</text>
+    <text x="406" y="145">2</text>
+    <text x="406" y="175">3</text>
+    <text x="406" y="285">4</text>
+    <text x="406" y="319">5</text>
+    <text x="406" y="423">6</text>
+    <text x="406" y="483">7</text>
+  </g>
+</svg>

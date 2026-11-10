@@ -19,6 +19,10 @@ groups:
         href: /database
       - label: vs MyFitnessPal
         href: /vs/myfitnesspal
+      - label: Counting calories in Canada
+        href: /blog/how-to-count-calories-in-canada
+      - label: Canadian nutrition labels
+        href: /blog/how-to-read-a-canadian-nutrition-label
       - label: Field Notes
         href: /blog
       - label: Support

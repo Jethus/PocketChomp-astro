@@ -81,4 +81,6 @@ Two of the five charge you over a hundred dollars a year for a feature both of t
 
 Check the prices yourself before you decide anything. App Store, search the app, scroll to In-App Purchases. It takes 30 seconds and it's the only number that counts.
 
+Whichever one you pick, [how to count calories in Canada](/blog/how-to-count-calories-in-canada) is the process I'd follow, and [how to read a Canadian nutrition label](/blog/how-to-read-a-canadian-nutrition-label) covers the label itself.
+
 *Prices checked on the Canadian App Store on September 25, 2026 and again on October 28, 2026. Feature lists come from each company's own pricing page or support site on September 25. PocketChomp is not affiliated with any of the apps named here.*

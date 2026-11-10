@@ -294,6 +294,14 @@ function tagClass(tag: string): string {
     color: var(--color-muted-foreground);
   }
 
+  .post-body :global(img) {
+    display: block;
+    width: 100%;
+    max-width: 26rem;
+    height: auto;
+    margin: 2rem auto 1rem;
+  }
+
   .post-body :global(hr) {
     border: none;
     border-top: 1px solid var(--divider);
