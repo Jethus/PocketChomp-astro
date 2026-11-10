@@ -3,7 +3,7 @@
   "slug": "tim-hortons",
   "exportedAt": "2026-11-10",
   "dataUpdatedAt": "2026-11-10",
-  "itemCount": 576,
+  "itemCount": 575,
   "sections": [
     {
       "name": "Iced Capps",
@@ -2170,18 +2170,6 @@
           "sugar": 41,
           "protein": 14,
           "sodium": 290
-        },
-        {
-          "name": "Medium Peppermint Mocha",
-          "serving": "414 mL",
-          "calories": 417,
-          "fat": 15.6,
-          "saturatedFat": 11.6,
-          "carbs": 37.8,
-          "fibre": 0.7,
-          "sugar": 34.3,
-          "protein": 10.5,
-          "sodium": 268
         },
         {
           "name": "Small Peppermint Mocha Latte",
