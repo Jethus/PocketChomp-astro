@@ -8,7 +8,7 @@ sourceUrl: "https://www.timhortons.ca/nutrition-explorer"
 checked: 2026-11-10
 ctaHeadline: "Log your Tims order in PocketChomp."
 ctaNote: "Every item on this page is in the app's food database. Search the name to log it. Free, no ads, no account needed."
-sourceNote: "A few items where Tims' printed guide and its website disagree are left off until they match."
+sourceNote: "Where Tims' August 2025 printed guide and its current website disagree, the website's numbers are used. Three items whose listed weight looks wrong are left off."
 faq:
   - q: "How many calories are in a medium Iced Capp?"
     a: "A medium Original Iced Capp is {Medium Original Iced Capp|calories} calories, with {Medium Original Iced Capp|sugar} g of sugar and {Medium Original Iced Capp|fat} g of fat."
@@ -17,5 +17,5 @@ faq:
   - q: "How many calories are in a Timbit?"
     a: "An Old Fashioned Glazed Timbit is {Old Fashioned Glazed Timbit|calories} calories and a Honey Dip Timbit is {Honey Dip Timbit|calories}. A Honey Dip Donut is {Honey Dip Donut|calories}."
   - q: "Where do these numbers come from?"
-    a: "From Tim Hortons' own Canadian nutrition information: its printed nutrition guide and the menu data behind timhortons.ca. A handful of items where those two disagree are left off this page until they match."
+    a: "From Tim Hortons' own Canadian nutrition information: the menu data behind timhortons.ca, and its August 2025 printed nutrition guide where the two agree. Where they disagree, the current website wins."
 ---

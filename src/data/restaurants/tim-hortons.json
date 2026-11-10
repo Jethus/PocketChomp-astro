@@ -2,8 +2,8 @@
   "chain": "Tim Hortons",
   "slug": "tim-hortons",
   "exportedAt": "2026-11-10",
-  "dataUpdatedAt": "2026-11-07",
-  "itemCount": 551,
+  "dataUpdatedAt": "2026-11-10",
+  "itemCount": 576,
   "sections": [
     {
       "name": "Iced Capps",
@@ -1615,6 +1615,42 @@
           "sodium": 91
         },
         {
+          "name": "Small Strawberry Creamy Chill",
+          "serving": "296 mL",
+          "calories": 403,
+          "fat": 16.5,
+          "saturatedFat": 12.3,
+          "carbs": 63.5,
+          "fibre": 0.3,
+          "sugar": 57.7,
+          "protein": 2.1,
+          "sodium": 118
+        },
+        {
+          "name": "Medium Strawberry Creamy Chill",
+          "serving": "414 mL",
+          "calories": 519,
+          "fat": 21.6,
+          "saturatedFat": 15.4,
+          "carbs": 81.3,
+          "fibre": 0.4,
+          "sugar": 74.1,
+          "protein": 2.9,
+          "sodium": 158
+        },
+        {
+          "name": "Large Strawberry Creamy Chill",
+          "serving": "591 mL",
+          "calories": 655,
+          "fat": 26.7,
+          "saturatedFat": 18.6,
+          "carbs": 103.7,
+          "fibre": 0.5,
+          "sugar": 94.7,
+          "protein": 3.8,
+          "sodium": 202
+        },
+        {
           "name": "Small Strawberry Soda Swirl",
           "serving": "296 mL",
           "calories": 310,
@@ -1860,6 +1896,30 @@
           "sodium": 260
         },
         {
+          "name": "Small Coffee Mocha",
+          "serving": "296 mL",
+          "calories": 90,
+          "fat": 1,
+          "saturatedFat": 1,
+          "carbs": 20,
+          "fibre": 1,
+          "sugar": 14,
+          "protein": 1,
+          "sodium": 75
+        },
+        {
+          "name": "Medium Coffee Mocha",
+          "serving": "414 mL",
+          "calories": 110,
+          "fat": 2,
+          "saturatedFat": 1.5,
+          "carbs": 25,
+          "fibre": 1,
+          "sugar": 17,
+          "protein": 1,
+          "sodium": 95
+        },
+        {
           "name": "Large Coffee Mocha",
           "serving": "591 mL",
           "calories": 150,
@@ -1870,6 +1930,18 @@
           "sugar": 23,
           "protein": 1,
           "sodium": 125
+        },
+        {
+          "name": "Extra Large Coffee Mocha",
+          "serving": "710 mL",
+          "calories": 200,
+          "fat": 3,
+          "saturatedFat": 2.5,
+          "carbs": 44,
+          "fibre": 1,
+          "sugar": 31,
+          "protein": 1,
+          "sodium": 160
         },
         {
           "name": "Small Decaf Americano",
@@ -2098,6 +2170,18 @@
           "sugar": 41,
           "protein": 14,
           "sodium": 290
+        },
+        {
+          "name": "Medium Peppermint Mocha",
+          "serving": "414 mL",
+          "calories": 417,
+          "fat": 15.6,
+          "saturatedFat": 11.6,
+          "carbs": 37.8,
+          "fibre": 0.7,
+          "sugar": 34.3,
+          "protein": 10.5,
+          "sodium": 268
         },
         {
           "name": "Small Peppermint Mocha Latte",
@@ -3265,6 +3349,30 @@
           "sugar": 5.7,
           "protein": 10,
           "sodium": 822
+        },
+        {
+          "name": "Large Potato Bacon Soup",
+          "serving": "459 g",
+          "calories": 473,
+          "fat": 21.5,
+          "saturatedFat": 9,
+          "carbs": 46.1,
+          "fibre": 2.8,
+          "sugar": 7.3,
+          "protein": 12.3,
+          "sodium": 1151
+        },
+        {
+          "name": "Large Spicy Thai Soup",
+          "serving": "459 g",
+          "calories": 470,
+          "fat": 24.4,
+          "saturatedFat": 9.4,
+          "carbs": 52.1,
+          "fibre": 2.1,
+          "sugar": 7.1,
+          "protein": 11.4,
+          "sodium": 1561
         }
       ]
     },
@@ -3524,6 +3632,18 @@
           "sodium": 65
         },
         {
+          "name": "PB & J Donut",
+          "serving": "91 g",
+          "calories": 350,
+          "fat": 19,
+          "saturatedFat": 5,
+          "carbs": 39,
+          "fibre": 2,
+          "sugar": 15,
+          "protein": 8,
+          "sodium": 260
+        },
+        {
           "name": "Powdered Strawberry Filled Timbit",
           "serving": "14 g",
           "calories": 50,
@@ -3546,6 +3666,18 @@
           "sugar": 25,
           "protein": 4,
           "sodium": 200
+        },
+        {
+          "name": "Reindeer Donut",
+          "serving": "90 g",
+          "calories": 250,
+          "fat": 9,
+          "saturatedFat": 4,
+          "carbs": 38,
+          "fibre": 1,
+          "sugar": 14,
+          "protein": 5,
+          "sodium": 220
         },
         {
           "name": "Slytherin Chocolate Pistachio Donut",
@@ -3624,6 +3756,30 @@
     {
       "name": "Breakfast",
       "items": [
+        {
+          "name": "Avocado Double Stacked Farmers Wrap",
+          "serving": "266 g",
+          "calories": 800,
+          "fat": 50,
+          "saturatedFat": 15,
+          "carbs": 62,
+          "fibre": 6,
+          "sugar": 4,
+          "protein": 28,
+          "sodium": 1240
+        },
+        {
+          "name": "Avocado Double Stacked Scrambled Farmers Wrap",
+          "serving": "283 g",
+          "calories": 810,
+          "fat": 50,
+          "saturatedFat": 15,
+          "carbs": 64,
+          "fibre": 6,
+          "sugar": 5,
+          "protein": 28,
+          "sodium": 1320
+        },
         {
           "name": "Bacon & No Egg Grilled Breakfast Wrap",
           "serving": "98 g",
@@ -3923,6 +4079,18 @@
           "sugar": 6.4,
           "protein": 28.8,
           "sodium": 1830
+        },
+        {
+          "name": "Bacon Farmer's Wrap",
+          "serving": "210 g",
+          "calories": 534,
+          "fat": 28.7,
+          "saturatedFat": 8.1,
+          "carbs": 51.4,
+          "fibre": 2.5,
+          "sugar": 3.4,
+          "protein": 18.4,
+          "sodium": 1122
         },
         {
           "name": "Bacon Four Cheese Bagel BELT",
@@ -4981,6 +5149,18 @@
           "sodium": 1239
         },
         {
+          "name": "Sausage & Bacon Breakfast Wrap",
+          "serving": "210 g",
+          "calories": 655,
+          "fat": 44.5,
+          "saturatedFat": 15.3,
+          "carbs": 37.4,
+          "fibre": 1.6,
+          "sugar": 3,
+          "protein": 26.5,
+          "sodium": 1292
+        },
+        {
           "name": "Sausage & Bacon Cinnamon Raisin Grilled Bagel Breakfast Sandwich",
           "serving": "245 g",
           "calories": 708,
@@ -5423,6 +5603,18 @@
           "sugar": 6.2,
           "protein": 26.6,
           "sodium": 1588
+        },
+        {
+          "name": "Sausage Farmer's Wrap",
+          "serving": "240 g",
+          "calories": 655,
+          "fat": 41,
+          "saturatedFat": 12.4,
+          "carbs": 52.4,
+          "fibre": 2.9,
+          "sugar": 3.4,
+          "protein": 20,
+          "sodium": 1091
         },
         {
           "name": "Sausage Four Cheese Bagel BELT",
@@ -5999,6 +6191,30 @@
           "sugar": 4.2,
           "protein": 17.5,
           "sodium": 932
+        },
+        {
+          "name": "Steak Bagel BELT",
+          "serving": "253 g",
+          "calories": 490,
+          "fat": 14,
+          "saturatedFat": 6,
+          "carbs": 65,
+          "fibre": 3,
+          "sugar": 10,
+          "protein": 26,
+          "sodium": 880
+        },
+        {
+          "name": "Steak Farmer's Breakfast Wrap",
+          "serving": "251 g",
+          "calories": 560,
+          "fat": 25,
+          "saturatedFat": 7,
+          "carbs": 59,
+          "fibre": 4,
+          "sugar": 4,
+          "protein": 24,
+          "sodium": 1020
         }
       ]
     },
@@ -6054,6 +6270,18 @@
           "sodium": 280
         },
         {
+          "name": "Cheese Tea Biscuit",
+          "serving": "80 g",
+          "calories": 250,
+          "fat": 11,
+          "saturatedFat": 4,
+          "carbs": 31,
+          "fibre": 1,
+          "sugar": 4,
+          "protein": 8,
+          "sodium": 610
+        },
+        {
           "name": "Cherry Cheese Danish",
           "serving": "93 g",
           "calories": 330,
@@ -6088,6 +6316,18 @@
           "sugar": 18,
           "protein": 6,
           "sodium": 120
+        },
+        {
+          "name": "Chocolate Hazelnut Muffin",
+          "serving": "115 g",
+          "calories": 430,
+          "fat": 21,
+          "saturatedFat": 4.5,
+          "carbs": 55,
+          "fibre": 2,
+          "sugar": 30,
+          "protein": 7,
+          "sodium": 490
         },
         {
           "name": "Cinnamon Raisin Bagel",
@@ -6304,6 +6544,18 @@
           "sugar": 20,
           "protein": 6,
           "sodium": 790
+        },
+        {
+          "name": "Wild Blueberry Muffin",
+          "serving": "115 g",
+          "calories": 380,
+          "fat": 12,
+          "saturatedFat": 2,
+          "carbs": 57,
+          "fibre": 2,
+          "sugar": 26,
+          "protein": 6,
+          "sodium": 590
         }
       ]
     },
@@ -6335,6 +6587,18 @@
           "sodium": 1091
         },
         {
+          "name": "Bacon Grilled Cheese Melt",
+          "serving": "184 g",
+          "calories": 650,
+          "fat": 32,
+          "saturatedFat": 16,
+          "carbs": 60,
+          "fibre": 4,
+          "sugar": 2,
+          "protein": 35,
+          "sodium": 1920
+        },
+        {
           "name": "BLT Artisan Sandwich",
           "serving": "173 g",
           "calories": 490,
@@ -6357,6 +6621,18 @@
           "sugar": 2.8,
           "protein": 27.9,
           "sodium": 1769
+        },
+        {
+          "name": "BLT Croissant Sandwich",
+          "serving": "148 g",
+          "calories": 460,
+          "fat": 29,
+          "saturatedFat": 11,
+          "carbs": 38,
+          "fibre": 2,
+          "sugar": 6,
+          "protein": 13,
+          "sodium": 690
         },
         {
           "name": "Chili & Cheese Potato Wedges",
@@ -6467,6 +6743,18 @@
           "sodium": 660
         },
         {
+          "name": "Grilled Cheese Melt",
+          "serving": "164 g",
+          "calories": 560,
+          "fat": 25,
+          "saturatedFat": 14,
+          "carbs": 59,
+          "fibre": 3,
+          "sugar": 2,
+          "protein": 28,
+          "sodium": 1550
+        },
+        {
           "name": "Grilled Chicken Caesar Wrap",
           "serving": "211 g",
           "calories": 471,
@@ -6513,6 +6801,18 @@
           "sugar": 4.6,
           "protein": 37.4,
           "sodium": 3943
+        },
+        {
+          "name": "Ham & Cheddar Croissant Sandwich",
+          "serving": "216 g",
+          "calories": 500,
+          "fat": 28,
+          "saturatedFat": 13,
+          "carbs": 39,
+          "fibre": 2,
+          "sugar": 6,
+          "protein": 22,
+          "sodium": 1080
         },
         {
           "name": "Ham Melt",
