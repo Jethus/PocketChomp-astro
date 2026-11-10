@@ -16,7 +16,7 @@ if (!masthead || !nowCard) {
   throw new Error("Missing blog content collection entries");
 }
 
-const { eyebrow, headlinePrefix, headlineAccent, lede } = masthead.data;
+const { eyebrow, headlinePrefix, headlineAccent, lede, metaDescription } = masthead.data;
 const { eyebrow: nowEyebrow, headline: nowHeadline, body: nowBody, items: nowItems } = nowCard.data;
 
 // Collect unique tags across all posts, preserving insertion order
@@ -48,7 +48,7 @@ function readTime(body: string): string {
 }
 ---
 
-<BaseLayout title="Blog" description={lede} image={ogPath("blog")}>
+<BaseLayout title="Blog" description={metaDescription ?? lede}image={ogPath("blog")}>
   <Header />
   <main>
 

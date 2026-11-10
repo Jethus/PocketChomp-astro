@@ -1,6 +1,8 @@
 ---
 title: "Everyone wants your data"
 description: "Login to this, accept our cookies, we won't sell your data, we promise"
+metaTitle: "Why I built a privacy-first calorie tracker"
+metaDescription: "Why I built PocketChomp: a calorie tracker you can start without an account, with no ads, metric first and built around Canadian food."
 pubDate: "2026-04-16"
 tags: ["Philosophy", "Devlog"]
 updatedDate: "2026-10-25"

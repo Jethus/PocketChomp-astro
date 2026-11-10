@@ -1,6 +1,7 @@
 ---
 title: "How many calories should I eat to lose weight?"
 description: "A straight answer with a worked example: how to find your maintenance calories, how big a deficit actually makes sense, why 1,200 is a floor not a target, and what to do when the scale ignores the math."
+metaDescription: "A straight answer with a worked example: find your maintenance, pick a sensible deficit, why 1,200 is a floor, and what to do when the scale stalls."
 pubDate: "2026-09-09"
 tags: ["Guide"]
 faq:

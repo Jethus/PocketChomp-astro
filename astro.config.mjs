@@ -2,9 +2,45 @@ import { defineConfig, fontProviders } from "astro/config";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
+import { readdirSync, readFileSync } from "node:fs";
+
+const SITE = "https://pocketchomp.com";
+
+// <lastmod> for the pages that carry a real date: blog posts (updatedDate,
+// else pubDate) and restaurant pages (checked), plus their hubs at the newest
+// of those. Everything else gets none, since a build date would change on
+// every deploy and teach Google to ignore the field.
+function frontmatterDates(dir, fields) {
+  const dates = new Map();
+  for (const file of readdirSync(dir)) {
+    if (file.startsWith("_") || !/\.mdx?$/.test(file)) continue;
+    const text = readFileSync(`${dir}/${file}`, "utf8");
+    if (/^draft:\s*true/m.test(text)) continue;
+    for (const field of fields) {
+      const m = text.match(new RegExp(`^${field}:\\s*"?(\\d{4}-\\d{2}-\\d{2})`, "m"));
+      if (m) {
+        dates.set(file.replace(/\.mdx?$/, ""), m[1]);
+        break;
+      }
+    }
+  }
+  return dates;
+}
+
+function lastmodByUrl() {
+  const byUrl = new Map();
+  for (const [section, fields] of [["blog", ["updatedDate", "pubDate"]], ["restaurants", ["checked"]]]) {
+    const dates = frontmatterDates(`./src/content/${section}`, fields);
+    for (const [slug, date] of dates) byUrl.set(`${SITE}/${section}/${slug}`, date);
+    const newest = [...dates.values()].sort().at(-1);
+    if (newest) byUrl.set(`${SITE}/${section}`, newest);
+  }
+  return byUrl;
+}
+const lastmod = lastmodByUrl();
 
 export default defineConfig({
-  site: "https://pocketchomp.com",
+  site: SITE,
   // Canonical URLs carry no trailing slash (/tools, not /tools/), matching the
   // internal links and JSON-LD. Cloudflare Assets (html_handling
   // "drop-trailing-slash" in wrangler.jsonc) 308s the slash form to the bare
@@ -43,7 +79,14 @@ export default defineConfig({
   integrations: [
     mdx(),
     // /confirmation and /thanks are post-signup pages, disallowed in robots.txt; keep them out.
-    sitemap({ filter: (page) => !page.includes("/thanks") && !page.includes("/confirmation") }),
+    sitemap({
+      filter: (page) => !page.includes("/thanks") && !page.includes("/confirmation"),
+      serialize(item) {
+        const date = lastmod.get(item.url.replace(/\/$/, ""));
+        if (date) item.lastmod = date;
+        return item;
+      },
+    }),
   ],
   markdown: {
     syntaxHighlight: false,

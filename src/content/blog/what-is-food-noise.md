@@ -1,6 +1,7 @@
 ---
 title: "What is food noise?"
 description: "Food noise is the constant, unwanted thinking about food that isn't hunger. Here's where the term came from, what the research says drives it, what actually turns it down, and the honest limits of what a tracking app can do about it."
+metaDescription: "Food noise is constant thinking about food that isn't hunger: where the term came from, what drives it, what turns it down, and what an app can't do."
 pubDate: "2026-10-09"
 tags: ["Guide"]
 faq:

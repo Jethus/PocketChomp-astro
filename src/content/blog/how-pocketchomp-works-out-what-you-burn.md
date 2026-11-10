@@ -1,6 +1,7 @@
 ---
 title: "How PocketChomp works out what you actually burn"
 description: "The plain version of Dynamic TDEE: why the setup formula is only a guess, how the app learns from your food and weight, why it moves slowly on purpose, and how I check it against what the scale actually did."
+metaDescription: "How Dynamic TDEE works: why the setup formula is only a guess, how the app learns from your food and weight, and why it moves slowly on purpose."
 pubDate: "2026-10-19"
 tags: ["Guide", "Devlog"]
 faq:

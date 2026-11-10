@@ -11,6 +11,8 @@ const blog = defineCollection({
       description: z.string(),
       /** Search snippet when `description` (the on-page deck) is too long or buries the query. */
       metaDescription: z.string().optional(),
+      /** Search-result title when `title` (the on-page headline) doesn't say what the post is about. */
+      metaTitle: z.string().optional(),
       // Transform string to Date object
       pubDate: z.coerce.date(),
       updatedDate: z.coerce.date().optional(),
@@ -271,6 +273,8 @@ const landingBlogMasthead = defineCollection({
     eyebrow: z.string(),
     headlinePrefix: z.string(),
     headlineAccent: z.string(),
+    /** Search snippet; the lede runs past what Google shows. */
+    metaDescription: z.string().optional(),
     lede: z.string(),
   }),
 });

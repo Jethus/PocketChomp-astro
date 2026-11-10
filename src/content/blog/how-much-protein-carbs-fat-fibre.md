@@ -1,6 +1,7 @@
 ---
 title: "How much protein, carbs, fat and fibre adults need"
 description: "The reference numbers for protein, carbohydrate, fat, fibre, sodium and sugar, in grams per kilo where that's how the research states them. Every figure is linked to Health Canada, the WHO or the paper it came from."
+metaDescription: "Reference numbers for protein, carbs, fat, fibre, sodium and sugar, each linked to Health Canada, the WHO or the paper it came from."
 pubDate: "2026-10-02"
 tags: ["Guide"]
 faq:

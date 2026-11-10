@@ -61,7 +61,7 @@ function tagClass(tag: string): string {
 ---
 
 <BaseLayout
-  title={post.data.title}
+  title={post.data.metaTitle ?? post.data.title}
   description={post.data.metaDescription ?? post.data.description}
   ogType="article"
   image={ogPath(`blog/${post.id}`)}
