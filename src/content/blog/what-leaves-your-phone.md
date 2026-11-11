@@ -1,14 +1,14 @@
 ---
 title: "What actually leaves your phone when you use PocketChomp"
 description: "I used to say your data never leaves your phone. It wasn't quite true. So the app now keeps a receipt of everything it sends, and you can read it."
-pubDate: "2026-11-09"
+pubDate: "2026-11-11"
 tags: ["Devlog"]
-draft: true
+draft: false
 faq:
   - q: "Does PocketChomp send my food diary anywhere?"
     a: "Only if you sign in and turn on backup. Without that, your diary stays on your phone. Some other things do leave, like searches your phone can't answer and crash reports, and the data receipt in Settings shows all of it."
   - q: "Where do I find the data receipt?"
-    a: "Settings, then Privacy & Data. The card at the top says what left the phone and where it went. Tap See the full receipt for every request."
+    a: "Settings, then Privacy & Data. Tap See what left this phone. It says how much left, where it went and what for, down to each request."
 ---
 
 PocketChomp now keeps a receipt of everything it sends off your phone. It's in Settings › Privacy & Data, and it shows where each request went, what it was for and how big it was.
@@ -29,23 +29,27 @@ Every request the app's own code sends is measured on its way out. Each one beco
 
 The receipt keeps 30 days, stays on the phone, and is deleted along with the rest of your local data.
 
-The top of the card is one sentence. Here's mine, three days after I installed the update:
+The receipt opens with one sentence. Here's mine, five days after I installed the update:
 
-> About 742 KB left this phone since Nov 6, 362 KB of it your diary backup.
+> About 1.8 MB left this phone since Nov 6, 741 KB of it your diary backup.
 
-I'm signed in with backup on, and I share usage analytics, so mine is about as busy as it gets:
+![The data receipt in PocketChomp: about 1.8 MB left this phone since Nov 6, 741 KB of it the diary backup, followed by what went to the PocketChomp server, from backup and sync at 741 KB down to barcode lookups at 3.8 KB](../../assets/blog/data-receipt.webp)
+
+I'm signed in with backup on, I share usage analytics, and I log some meals by photo, so mine is about as busy as it gets:
 
 | What | Requests | Size |
 |---|---:|---:|
-| Backup and sync | 171 | 362 KB |
-| Usage analytics | 85 | 231 KB |
-| Food updates | 39 | 134 KB |
-| Foods I shared to the database | 4 | 3.9 KB |
-| Food search | 19 | 3.3 KB |
-| Barcode lookups | 12 | 1.8 KB |
-| Sign-in and account | 14 | 1.5 KB |
+| Backup and sync | 333 | 741 KB |
+| Usage analytics | 154 | 429 KB |
+| Food data refresh | 69 | 225 KB |
+| Photo logging, passed on to Gemini | 2 | 217 KB |
+| Photo logging | 4 | 203 KB |
+| Food search | 56 | 9.8 KB |
+| Foods I shared to the database | 7 | 6.7 KB |
+| Sign-in and account | 47 | 5.1 KB |
+| Barcode lookups | 27 | 3.8 KB |
 
-The second-biggest line is analytics, which is off unless you turn it on. Take out backup and analytics and mine would be about 150 KB, most of it the daily check for corrected foods. With both off, the headline ends "None of it was your diary."
+The second-biggest line is analytics, which is off unless you turn it on. Take out backup, analytics and photo logging and mine would be about 250 KB, most of it the daily check for corrected foods. With both off, the headline ends "None of it was your diary."
 
 Below the headline is every place it went, and what for:
 

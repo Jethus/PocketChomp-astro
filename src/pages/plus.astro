@@ -11,9 +11,16 @@ import shotDynamicTdee from "../assets/screens/screen-dynamic-tdee.webp";
 import shotWeeklyBudget from "../assets/screens/screen-weekly-budget.webp";
 import shotBudgetEditor from "../assets/screens/screen-weekly-budget-editor.webp";
 import shotInsights90d from "../assets/screens/screen-insights-90d.webp";
+import shotPhotoCamera from "../assets/screens/screen-photo-camera.webp";
+import shotEnergyBalance from "../assets/screens/screen-insights-energy.webp";
+import shotOftenUnder from "../assets/screens/screen-insights-under.webp";
 
 // Plus screens live here, never in the home page's row.
 const plusScreens = [
+  {
+    image: shotPhotoCamera,
+    alt: "PocketChomp Add Food on the Photo tab, the camera pointed at a quiche with the prompt Point at your meal and tap to identify, and a Choose from album button",
+  },
   {
     image: shotDynamicTdee,
     alt: "PocketChomp plan showing the next check-in in 5 days on Monday, November 2, a 2,323 kcal expenditure, a 374 kcal deficit, and this week's 6,660 of 13,643 calories",
@@ -29,6 +36,14 @@ const plusScreens = [
   {
     image: shotInsights90d,
     alt: "PocketChomp Insights over 90 days with a weekly calorie trend from Jul 31 to Oct 28 against a 1,949 kcal target, the most logged foods, and the weekly rhythm",
+  },
+  {
+    image: shotEnergyBalance,
+    alt: "PocketChomp Insights with the weekly rhythm by weekday, an energy balance of minus 26 kcal a day from an intake of 2,297 against a TDEE of 2,323, and a weight trend at 217.8 lb",
+  },
+  {
+    image: shotOftenUnder,
+    alt: "PocketChomp Insights with carbs, fat and fibre averages against their targets, an Often under target card showing potassium under on 8 of 9 days, and a calorie trend from Sep 29 to Oct 28",
   },
 ];
 
@@ -113,7 +128,7 @@ const META =
       <div class="cta-panel mt-14">
         <h2 class="fs-m text-foreground">Try it before you pay for it.</h2>
         <p class="mt-2 max-w-xl text-muted-foreground">
-          The free tier is the whole logging loop, not a trial. Install the open beta and
+          The free tier is the whole logging loop, not a trial. Install the app and
           decide about Plus later.
         </p>
         <div class="mt-5 max-w-xl">

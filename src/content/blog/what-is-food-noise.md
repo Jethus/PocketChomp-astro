@@ -81,7 +81,7 @@ What a tracker **can** do is avoid making it louder, and help with the one lever
 
 It won't work for everyone. For some people the noise is mostly biology, and for them the drug is the answer and an app is bookkeeping. For a lot of people it's partly a restriction problem and partly a decisions problem, and both of those are fixable without a prescription.
 
-If you want to try it, PocketChomp is in open beta on Android, and the basics are free. [Get it on Google Play](https://play.google.com/store/apps/details?id=com.pocketchomp.app).
+If you want to try it, PocketChomp is on Android, and the basics are free. [Get it on Google Play](https://play.google.com/store/apps/details?id=com.pocketchomp.app).
 
 ## Sources
 

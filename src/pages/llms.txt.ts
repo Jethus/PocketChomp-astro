@@ -27,7 +27,7 @@ export const GET: APIRoute = async ({ site }) => {
 
 Key facts:
 
-- Platform: Android, in open beta on Google Play (${PLAY_STORE_URL}). iOS is planned, not available.
+- Platform: Android, on Google Play (${PLAY_STORE_URL}). iOS is planned, not available.
 - Outside Canada: works in the US too. USDA foods ship in the app and barcode lookups fall back to Open Food Facts worldwide; US store-brand coverage is thinner than Canadian. Google Play availability includes the US.
 - Food database: ${foodsFigure}+ foods, ${canadianFoodsFigure}+ of them Canadian (counted ${countedOn}), built on Health Canada's Canadian Nutrient File, USDA, Canadian store and house brands, Canadian restaurant menus, and Open Food Facts. Breakdown by source: ${base}/database
 - Free tier: barcode scanning, label scanning, all micronutrients, offline logging, custom goals. No ads on any tier.

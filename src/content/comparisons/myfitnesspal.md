@@ -58,7 +58,7 @@ faq:
   - q: "Is there an iPhone version?"
     a: "Not yet. Join the list to hear when it's ready."
 ctaHeadline: "Free barcode scanning, no ads, no account needed."
-ctaNote: "Open beta on Android. On iPhone? Join the list to hear when iOS is ready."
+ctaNote: "On Android now. On iPhone? Join the list to hear when iOS is ready."
 ---
 
 *Prices change. PocketChomp is not affiliated with MyFitnessPal, a trademark of its owner.*

@@ -68,6 +68,9 @@ const screens = [
   { capture: "weekly-budget", out: "screen-weekly-budget" },
   { capture: "weekly-budget-editor", out: "screen-weekly-budget-editor" },
   { capture: "insights-90d", out: "screen-insights-90d" },
+  { capture: "photo-camera", out: "screen-photo-camera" },
+  { capture: "insights-energy", out: "screen-insights-energy" },
+  { capture: "insights-under", out: "screen-insights-under" },
 ];
 
 // Hero extracts: full-width slices of a capture, sized to the panel they fill

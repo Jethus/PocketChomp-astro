@@ -16,5 +16,5 @@ accents:
 description: Scan a barcode and it comes up, house brand and all. Count calories, track macros, or hide the numbers you'd rather not see. Your log stays on your phone.
 secondaryCtaText: See how it works
 secondaryCtaLink: "#screens"
-ctaNote: Free · Android open beta · No account required
+ctaNote: Free · On Android · No account required
 ---
