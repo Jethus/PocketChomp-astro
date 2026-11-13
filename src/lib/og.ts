@@ -1,18 +1,22 @@
 /**
  * Open Graph card renderer. Builds a 1200×630 PNG at build time from the
- * page's eyebrow, title and subtitle, so every shared link gets a card in the
- * brand type instead of a bare text preview.
+ * page's eyebrow, title and subtitle, beside the app's Diary on a phone, so
+ * a shared link shows the product and not only words. Search engines pick a
+ * page's preview image from og:image and prefer one that shows the subject.
+ *
+ * The look follows the Google Play feature graphic: the ember field, a disc
+ * one shade lighter behind the phone, the wordmark and type in white.
  *
  * Rendering is satori (element tree → SVG) followed by resvg (SVG → PNG).
  * Fonts are passed in as buffers, so the result is identical on every machine;
- * no system fonts are involved. The colours are the sRGB equivalents of the
- * light-theme OKLCH tokens in src/styles/global.css.
+ * no system fonts are involved.
  */
 import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { resolve } from "node:path";
 import type satoriType from "satori";
 import { Resvg } from "@resvg/resvg-js";
+import sharp from "sharp";
 import { OG_WIDTH, OG_HEIGHT, type OgCard } from "./og-cards";
 
 const require = createRequire(import.meta.url);
@@ -22,14 +26,20 @@ const satori = require("satori").default as typeof satoriType;
 
 export type { OgCard };
 
-// Light-theme tokens: the app's own hex values, as in src/styles/global.css.
-const BACKGROUND = "#ECEFEC"; // --background (paper)
-const FOREGROUND = "#2A2F2C"; // --foreground (charcoal)
-const MUTED = "#555555"; // --muted-foreground (slate)
-const EMBER = "#BD4C00"; // --accent (ember)
+// The feature graphic's colours.
+const FIELD_TOP = "#C4500A";
+const FIELD_BOTTOM = "#A94204";
+const DISC = "#D9691F";
+const WHITE = "#FFFFFF";
+const CREAM = "#FCE9DC";
+
+// The phone runs off the bottom edge; the text column stops short of it.
+const PHONE = { width: 360, left: 772, top: 64 };
+const TEXT_WIDTH = 630;
 
 let fontsCache: ReturnType<typeof loadFonts> | undefined;
 let logoCache: string | undefined;
+let phoneCache: Promise<{ uri: string; height: number }> | undefined;
 
 // Paths resolve from the project root: the build bundles this module under
 // dist/.prerender, so import.meta.url is no use, and geist's package exports
@@ -50,12 +60,23 @@ function loadFonts() {
 
 function logoDataUri() {
   if (!logoCache) {
-    // The card draws the wordmark in charcoal, keeping the ember "o", so the
-    // only colour on the card is the brand orange.
-    const svg = readFileSync(root("src/assets/svgs/logo-light.svg"), "utf8").replaceAll("#3D7358", FOREGROUND);
+    // Both of the wordmark's colours go to white so it holds on the ember field.
+    const svg = readFileSync(root("src/assets/svgs/logo-light.svg"), "utf8")
+      .replaceAll("#3D7358", WHITE)
+      .replaceAll("#FF4000", WHITE);
     logoCache = `data:image/svg+xml;base64,${Buffer.from(svg).toString("base64")}`;
   }
   return logoCache;
+}
+
+/** The framed Diary capture, scaled once to the size it is drawn at. */
+function phoneImage() {
+  phoneCache ??= sharp(root("src/assets/product/captures-native/framed/diary.png"))
+    .resize({ width: PHONE.width })
+    .png()
+    .toBuffer({ resolveWithObject: true })
+    .then(({ data, info }) => ({ uri: `data:image/png;base64,${data.toString("base64")}`, height: info.height }));
+  return phoneCache;
 }
 
 /**
@@ -76,12 +97,12 @@ function clip(text: string, max: number) {
   return `${cut.replace(/[,;:.\s—-]+$/, "")}…`;
 }
 
-/** Shorter titles get bigger type; nothing wraps past three lines. */
+/** Shorter titles get bigger type; the column beside the phone is narrow. */
 function titleSize(title: string) {
-  if (title.length <= 28) return 84;
-  if (title.length <= 44) return 72;
-  if (title.length <= 64) return 60;
-  return 52;
+  if (title.length <= 28) return 66;
+  if (title.length <= 44) return 56;
+  if (title.length <= 64) return 48;
+  return 42;
 }
 
 function h(type: string, props: Record<string, unknown>, ...children: unknown[]) {
@@ -90,85 +111,88 @@ function h(type: string, props: Record<string, unknown>, ...children: unknown[])
 
 export async function renderOgCard(card: OgCard): Promise<Buffer> {
   fontsCache ??= loadFonts();
-  const subtitle = card.subtitle ? clip(card.subtitle, 190) : undefined;
+  const subtitle = card.subtitle ? clip(card.subtitle, 120) : undefined;
+  const phone = await phoneImage();
 
   const tree = h(
     "div",
     {
       style: {
+        position: "relative",
         width: OG_WIDTH,
         height: OG_HEIGHT,
         display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-        padding: "64px 72px 0",
-        backgroundColor: BACKGROUND,
-        color: FOREGROUND,
+        overflow: "hidden",
+        backgroundImage: `linear-gradient(to bottom, ${FIELD_TOP}, ${FIELD_BOTTOM})`,
+        color: WHITE,
         fontFamily: "Geist",
       },
     },
-    // Wordmark
-    h("div", { style: { display: "flex" } }, h("img", { src: logoDataUri(), width: 348, height: 54 })),
-    // Eyebrow, title, subtitle
+    // Disc and phone, to the right of the text so every word sits on the plain field.
+    h("div", {
+      style: { display: "flex", position: "absolute", left: 660, top: 70, width: 700, height: 700, borderRadius: 350, backgroundColor: DISC },
+    }),
+    h("img", {
+      src: phone.uri,
+      width: PHONE.width,
+      height: phone.height,
+      style: { position: "absolute", left: PHONE.left, top: PHONE.top },
+    }),
     h(
       "div",
-      { style: { display: "flex", flexDirection: "column", flexGrow: 1, justifyContent: "center", paddingBottom: 24 } },
-      // Eyebrow as the site draws it: an ember rule, then the label in slate.
+      {
+        style: {
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          width: TEXT_WIDTH + 72,
+          height: OG_HEIGHT,
+          padding: "60px 0 44px 72px",
+        },
+      },
+      // Wordmark
+      h("div", { style: { display: "flex" } }, h("img", { src: logoDataUri(), width: 300, height: 47 })),
+      // Eyebrow, title, subtitle
       h(
         "div",
-        {
-          style: {
-            display: "flex",
-            alignItems: "center",
-            fontFamily: "Montserrat",
-            fontWeight: 900,
-            fontSize: 22,
-            letterSpacing: 4,
-            textTransform: "uppercase",
-            color: MUTED,
-            marginBottom: 22,
+        { style: { display: "flex", flexDirection: "column", flexGrow: 1, justifyContent: "center" } },
+        h(
+          "div",
+          {
+            style: {
+              display: "flex",
+              alignItems: "center",
+              fontFamily: "Montserrat",
+              fontWeight: 900,
+              fontSize: 19,
+              letterSpacing: 3,
+              textTransform: "uppercase",
+              color: CREAM,
+              marginBottom: 20,
+            },
           },
-        },
-        h("div", { style: { display: "flex", width: 44, height: 3, backgroundColor: EMBER, marginRight: 18 } }),
-        h("div", { style: { display: "flex" } }, card.eyebrow),
-      ),
-      h(
-        "div",
-        {
-          style: {
-            fontFamily: "Montserrat",
-            fontWeight: 900,
-            fontSize: titleSize(card.title),
-            lineHeight: 1.04,
-            letterSpacing: -1.5,
-            color: FOREGROUND,
+          h("div", { style: { display: "flex", width: 40, height: 3, backgroundColor: WHITE, marginRight: 16 } }),
+          h("div", { style: { display: "flex" } }, card.eyebrow),
+        ),
+        h(
+          "div",
+          {
+            style: {
+              fontFamily: "Montserrat",
+              fontWeight: 900,
+              fontSize: titleSize(card.title),
+              lineHeight: 1.06,
+              letterSpacing: -1,
+              color: WHITE,
+            },
           },
-        },
-        card.title,
+          card.title,
+        ),
+        subtitle
+          ? h("div", { style: { marginTop: 22, fontSize: 26, lineHeight: 1.4, color: CREAM } }, subtitle)
+          : h("div", {}),
       ),
-      subtitle
-        ? h("div", { style: { marginTop: 26, fontSize: 30, lineHeight: 1.4, color: MUTED, maxWidth: 980 } }, subtitle)
-        : h("div", {}),
-    ),
-    // Footer line and ember rule
-    h(
-      "div",
-      { style: { display: "flex", flexDirection: "column" } },
-      h(
-        "div",
-        {
-          style: {
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            fontSize: 24,
-            paddingBottom: 30,
-          },
-        },
-        h("div", { style: { fontWeight: 700, color: FOREGROUND } }, "pocketchomp.com"),
-        h("div", { style: { color: MUTED } }, "Free calorie counter · Built for Canadians · Android"),
-      ),
-      h("div", { style: { display: "flex", height: 10, backgroundColor: EMBER } }),
+      h("div", { style: { display: "flex", fontSize: 24, fontWeight: 700, color: WHITE } }, "pocketchomp.com"),
     ),
   );
 

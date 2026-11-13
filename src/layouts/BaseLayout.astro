@@ -64,6 +64,8 @@ Astro.csp?.insertScriptHash(
     <title>{pageTitle}</title>
     <meta name="title" content={pageTitle} />
     <meta name="description" content={description} />
+    <!-- Lets search results show the page's image at full width, not a thumbnail. -->
+    <meta name="robots" content="max-image-preview:large" />
 
     <meta property="og:type" content={ogType} />
     {pubDate && (
