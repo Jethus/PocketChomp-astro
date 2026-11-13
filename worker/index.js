@@ -31,6 +31,11 @@ export default {
     if (retired) {
       return Response.redirect(new URL(retired, url).toString(), 301);
     }
+    // Crawlers guess /sitemap.xml; the build writes sitemap-index.xml. Serve
+    // the same index at both so there is no second file to keep in sync.
+    if (url.pathname === "/sitemap.xml") {
+      return env.ASSETS.fetch(new Request(new URL("/sitemap-index.xml", url), request));
+    }
     const response = await env.ASSETS.fetch(request);
 
     // Cloudflare Assets (html_handling "drop-trailing-slash") answers /tools/
