@@ -41,6 +41,8 @@ The free version lets you search the database and log food, and that's about whe
 
 Premium is $114.99 a year. Premium+ adds meal scanning, voice logging and meal planning for $144.99. For context, that's almost three years of PocketChomp+.
 
+The rest of the differences, feature by feature, are on the [PocketChomp vs MyFitnessPal](/vs/myfitnesspal) page.
+
 ## Cronometer
 
 Cronometer is the fair one in this group. The barcode scanner is free. Custom calorie and macro targets are free. All 84 nutrients it tracks are free. The catch is that the free version has ads and only shows reports for the last 7 days.

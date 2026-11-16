@@ -33,14 +33,28 @@ const screenshots = await Promise.all(
   })),
 );
 const logoURL = new URL("/web-app-manifest-512x512.png", Astro.site).toString();
+const homeURL = new URL("/", Astro.site).toString();
+// Who makes the app, so answer engines tie the brand, the site and the Play listing
+// to one entity. Matches "Who we are" on /privacy and /terms.
+const orgLd = {
+  "@type": "Organization",
+  "@id": `${homeURL}#organization`,
+  name: "PocketChomp",
+  url: homeURL,
+  logo: logoURL,
+  email: "josh@pocketchomp.com",
+  founder: { "@type": "Person", name: "Josh Del Vecchio" },
+  address: { "@type": "PostalAddress", addressRegion: "ON", addressCountry: "CA" },
+  sameAs: [PLAY_STORE_URL],
+};
 const appLd = {
-  "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   name: "PocketChomp",
+  publisher: { "@id": orgLd["@id"] },
   applicationCategory: "HealthApplication",
   operatingSystem: "Android",
   description: PAGE_DESCRIPTION,
-  url: new URL("/", Astro.site).toString(),
+  url: homeURL,
   installUrl: PLAY_STORE_URL,
   image: logoURL,
   screenshot: screenshots,
@@ -66,7 +80,7 @@ const appLd = {
 
 <BaseLayout title={PAGE_TITLE} description={PAGE_DESCRIPTION}>
   <Fragment slot="head">
-    <script type="application/ld+json" set:html={JSON.stringify(appLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify({ "@context": "https://schema.org", "@graph": [orgLd, appLd] })} />
   </Fragment>
   <Header />
   <main>

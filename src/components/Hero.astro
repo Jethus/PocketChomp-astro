@@ -79,11 +79,11 @@ const longestAccent = accents.reduce((a, b) => (b.text.length > a.text.length ? 
 
     <div class="hero-grid" aria-hidden="true" data-reveal-root>
       <article class="hero-panel hero-panel--shot hero-panel--tl" data-reveal>
-        <img src={shotSearch.src} srcset={shotSearch.srcSet.attribute} sizes={shotSizes} width={shotSearch.attributes.width} height={shotSearch.attributes.height} alt="PocketChomp food search for President's Choice, with Edamame marked Canadian at 90 calories per 85 g serving" class="hero-shot__img" loading="eager" />
+        <img src={shotSearch.src} srcset={shotSearch.srcSet.attribute} sizes={shotSizes} width={shotSearch.attributes.width} height={shotSearch.attributes.height} alt="PocketChomp food search for President's Choice, with Edamame marked Canadian at 90 calories per 85 g serving" class="hero-shot__img" loading="lazy" />
       </article>
 
       <article class="hero-panel hero-panel--shot hero-panel--bl" data-reveal>
-        <img src={shotMetrics.src} srcset={shotMetrics.srcSet.attribute} sizes={shotSizes} width={shotMetrics.attributes.width} height={shotMetrics.attributes.height} alt="PocketChomp plate of three items totalling 399 calories, with portion steppers for wild coho salmon and broccoli" class="hero-shot__img" loading="eager" />
+        <img src={shotMetrics.src} srcset={shotMetrics.srcSet.attribute} sizes={shotSizes} width={shotMetrics.attributes.width} height={shotMetrics.attributes.height} alt="PocketChomp plate of three items totalling 399 calories, with portion steppers for wild coho salmon and broccoli" class="hero-shot__img" loading="lazy" />
       </article>
 
       <div class="hero-panel hero-panel--phone hero-panel--center" data-reveal>
@@ -101,7 +101,7 @@ const longestAccent = accents.reduce((a, b) => (b.text.length > a.text.length ? 
       </div>
 
       <article class="hero-panel hero-panel--shot hero-panel--tr" data-reveal>
-        <img src={shotPlan.src} srcset={shotPlan.srcSet.attribute} sizes={shotSizes} width={shotPlan.attributes.width} height={shotPlan.attributes.height} alt="PocketChomp This week chart of daily calories, averaging 2,332 kcal across 5 complete days" class="hero-shot__img" loading="eager" />
+        <img src={shotPlan.src} srcset={shotPlan.srcSet.attribute} sizes={shotSizes} width={shotPlan.attributes.width} height={shotPlan.attributes.height} alt="PocketChomp This week chart of daily calories, averaging 2,332 kcal across 5 complete days" class="hero-shot__img" loading="lazy" />
       </article>
     </div>
   </SectionShell>
@@ -122,21 +122,28 @@ const longestAccent = accents.reduce((a, b) => (b.text.length > a.text.length ? 
       const SWAP = 200;
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
       let next = 0;
+      // Each swap re-lays out the headline, so it waits while the hero is off screen
+      // or the tab is hidden instead of working under a scroll.
+      let onScreen = true;
+      let waiting = false;
 
       const show = () => {
         const isPunchline = next === words.length - 1;
         rotator.textContent = words[next].text;
         rotator.dataset.tint = words[next].tint;
-        // Jump to the left, unanimated, then let the transition carry it in
+        // Jump to the left, unanimated, then let the transition carry it in on the next frame
         rotator.classList.remove("is-swapping");
         rotator.classList.add("is-entering");
-        void rotator.offsetWidth;
-        rotator.classList.remove("is-entering");
+        requestAnimationFrame(() => requestAnimationFrame(() => rotator.classList.remove("is-entering")));
         next = (next + 1) % words.length;
         setTimeout(swap, isPunchline ? HOLD_PUNCHLINE : HOLD);
       };
 
       const swap = () => {
+        if (!onScreen || document.hidden) {
+          waiting = true;
+          return;
+        }
         if (reduceMotion.matches) {
           // Reduced motion: still rotate, but hard-cut — no fade/translate
           show();
@@ -145,6 +152,18 @@ const longestAccent = accents.reduce((a, b) => (b.text.length > a.text.length ? 
           setTimeout(show, SWAP);
         }
       };
+
+      const resume = () => {
+        if (waiting && onScreen && !document.hidden) {
+          waiting = false;
+          swap();
+        }
+      };
+      new IntersectionObserver(([entry]) => {
+        onScreen = entry.isIntersecting;
+        resume();
+      }).observe(rotator);
+      document.addEventListener("visibilitychange", resume);
 
       // Punchline is rendered statically, so open on its long hold
       setTimeout(swap, HOLD_PUNCHLINE);
@@ -473,6 +492,17 @@ const longestAccent = accents.reduce((a, b) => (b.text.length > a.text.length ? 
     .hero-panel--tl,
     .hero-panel--bl,
     .hero-panel--tr {
+      display: none;
+    }
+
+    /* Phones: no permanent GPU layer or clipped sheen for the full-width device (the
+       hero lagged on phones where the rail, which has neither, did not). The extracts
+       are lazy, so hiding them also skips their download. */
+    .hero-panel {
+      will-change: auto;
+    }
+
+    .hero-phone__sheen {
       display: none;
     }
   }

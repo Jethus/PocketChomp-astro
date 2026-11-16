@@ -1,30 +1,16 @@
 ---
 tagline: Created by a Canadian, for Canadians.
 groups:
-  - heading: Free tools
-    links:
-      - label: TDEE Calculator
-        href: /tools/tdee-calculator
-      - label: Calorie Deficit Calculator
-        href: /tools/calorie-deficit-calculator
-      - label: Macro Calculator
-        href: /tools/macro-calculator
-      - label: BMR Calculator
-        href: /tools/bmr-calculator
-  - heading: Learn
+  - heading: PocketChomp
     links:
       - label: PocketChomp+
         href: /plus
       - label: Food database
         href: /database
-      - label: vs MyFitnessPal
-        href: /vs/myfitnesspal
       - label: Restaurant nutrition
         href: /restaurants
-      - label: Counting calories in Canada
-        href: /blog/how-to-count-calories-in-canada
-      - label: Canadian nutrition labels
-        href: /blog/how-to-read-a-canadian-nutrition-label
+      - label: Calculators
+        href: /tools
       - label: Field Notes
         href: /blog
       - label: Support

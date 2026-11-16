@@ -1,5 +1,6 @@
 ---
 title: "How to read a Canadian nutrition label (Nutrition Facts table)"
+metaTitle: "How to read a Canadian Nutrition Facts table"
 description: "A line-by-line guide to the Canadian Nutrition Facts table and the new magnifying-glass \"High in\" symbol: what % Daily Value means, which numbers matter when you count calories, how to spot a US label in your app, and the rounding that quietly adds up."
 metaDescription: "The Canadian Nutrition Facts table line by line: serving size, % Daily Value, the High in symbol, and how to tell a Canadian label from a US one."
 pubDate: "2026-10-21"
