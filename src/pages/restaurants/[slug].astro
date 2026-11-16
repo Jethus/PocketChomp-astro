@@ -120,7 +120,7 @@ const schema = {
         <h2 class="fs-m text-foreground">{entry.data.ctaHeadline}</h2>
         <p class="mt-2 max-w-xl text-foreground-soft">{entry.data.ctaNote}</p>
         <div class="mt-5 max-w-xl">
-          <AppCta placement="restaurant" />
+          <AppCta placement="restaurant" content={entry.id} />
         </div>
       </div>
 

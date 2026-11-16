@@ -1,7 +1,7 @@
 ---
 import Button from "./ui/Button.astro";
 import ThemeToggle from "./ui/ThemeToggle.astro";
-import { PLAY_STORE_URL } from "../consts";
+import { playStoreUrl } from "../consts";
 import logoLight from "../assets/svgs/logo-light.svg";
 import logoDark from "../assets/svgs/logo-dark.svg";
 
@@ -51,7 +51,7 @@ const isCurrent = (href: string) =>
         <ThemeToggle />
       </span>
       <span class="cta-flair">
-        <Button href={PLAY_STORE_URL} size="md" variant="accent">Get the app</Button>
+        <Button href={playStoreUrl("header")} size="md" variant="accent" data-play-link data-placement="header">Get the app</Button>
       </span>
 
       <!-- Phone menu. A native <details> so it opens and closes with no

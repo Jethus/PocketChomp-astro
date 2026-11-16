@@ -1,6 +1,6 @@
 ---
 import badge from "../../assets/badges/google-play.svg";
-import { PLAY_STORE_URL } from "../../consts";
+import { playStoreUrl } from "../../consts";
 
 /**
  * Google's official "Get it on Google Play" badge, unmodified (English web
@@ -10,14 +10,28 @@ import { PLAY_STORE_URL } from "../../consts";
  */
 interface Props {
   class?: string;
+  /** Where the badge sits; tags the install referrer and the click event. */
+  placement: string;
+  /** The page within a placement, e.g. a restaurant chain's slug. */
+  content?: string;
 }
 
-const { class: className = "" } = Astro.props;
+const { class: className = "", placement, content } = Astro.props;
 ---
 
-<a href={PLAY_STORE_URL} class:list={["play-badge", className]}>
+<a
+  href={playStoreUrl(placement, content)}
+  class:list={["play-badge", className]}
+  data-play-link
+  data-placement={placement}
+  data-content={content}
+>
   <img src={badge.src} width="189" height="56" alt="Get it on Google Play" />
 </a>
+
+<script>
+  import "../../scripts/play-click";
+</script>
 
 <style>
   /* fit-content so a stretching flex parent never widens the link past the

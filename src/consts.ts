@@ -12,6 +12,17 @@ export const SITE_DESCRIPTION =
 export const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.pocketchomp.app";
 
 /**
+ * The Play link with an install referrer, so Play Console's acquisition report counts installs
+ * by where on the site the click came from: utm_campaign is the placement, utm_content the page
+ * (a restaurant chain, say).
+ */
+export function playStoreUrl(campaign: string, content?: string): string {
+  const utm = ["utm_source=pocketchomp.com", "utm_medium=website", `utm_campaign=${campaign}`];
+  if (content) utm.push(`utm_content=${content}`);
+  return `${PLAY_STORE_URL}&referrer=${encodeURIComponent(utm.join("&"))}`;
+}
+
+/**
  * Email list for news and the iOS launch. The form posts straight to Kit (ConvertKit) with no
  * JavaScript, so it works under the strict CSP. The form id is public (it is
  * in the page HTML either way); PUBLIC_KIT_FORM_ID overrides it if the form

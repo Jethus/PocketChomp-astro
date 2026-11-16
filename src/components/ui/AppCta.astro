@@ -9,11 +9,13 @@ import SignupForm from "./SignupForm.astro";
  * says the same thing. Sits inside each page's own .cta-panel.
  */
 interface Props {
-  /** Passed to SignupForm for the "Signup Form Viewed" Plausible event. */
+  /** Tags the Play link and the "Signup Form Viewed" Plausible event. */
   placement: string;
+  /** The page within the placement, e.g. a restaurant chain's slug. */
+  content?: string;
 }
 
-const { placement } = Astro.props;
+const { placement, content } = Astro.props;
 
 const ctaEntry = await getEntry("landingSignupCta", "signup-cta");
 
@@ -25,7 +27,7 @@ const { emailLead, inputPlaceholder, buttonText } = ctaEntry.data;
 ---
 
 <div class="app-cta">
-  <PlayBadge />
+  <PlayBadge placement={placement} content={content} />
   <p class="app-cta__lead">{emailLead}</p>
   <SignupForm placeholder={inputPlaceholder} buttonText={buttonText} placement={placement} />
 </div>
