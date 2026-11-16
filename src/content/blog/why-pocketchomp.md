@@ -5,10 +5,10 @@ metaTitle: "Why I built a privacy-first calorie tracker"
 metaDescription: "Why I built PocketChomp: a calorie tracker you can start without an account, with no ads, metric first and built around Canadian food."
 pubDate: "2026-04-16"
 tags: ["Philosophy", "Devlog"]
-updatedDate: "2026-10-25"
+updatedDate: "2026-11-16"
 ---
 
-> **Update, October 2026:** PocketChomp is launching on Android first. The iOS build is coming after, once the Android beta has settled. The post below is left as written in April, except the analytics line under the first pillar: the app now sends crash reports and, only if you opt in, usage analytics. The [privacy page](/privacy) has the detail.
+> **Update, November 2026:** PocketChomp is out on Android, and the iOS version is in progress. The post below is left as written in April, except the analytics line under the first pillar: the app now sends crash reports and, only if you opt in, usage analytics. The [privacy page](/privacy) has the detail.
 
 I had three apps installed. One wanted $79.99 a year to use its barcode scanner. One didn't exist on Android, so I couldn't actually recommend it to anyone I know. One showed me an ad for a protein powder I'd already rejected three times, in the middle of logging an apple.
 

@@ -1,16 +1,19 @@
 ---
 title: "PocketChomp is on Google Play"
-description: "The Android open beta is public. Anyone can install it from Google Play, with no invite and no waitlist. What's free, what's in PocketChomp+, and what I need from you."
+description: "The October 2026 open beta announcement. PocketChomp has since left beta and is a regular release on Google Play."
 pubDate: "2026-10-27"
+updatedDate: "2026-11-16"
 tags: ["Devlog"]
 faq:
-  - q: "Do I need an invite to try the PocketChomp beta?"
-    a: "No. It's an open beta, so anyone on Android can install it from the Google Play listing."
-  - q: "Will I lose my data when the beta ends?"
-    a: "No. It's the same app. When it leaves beta, Google Play sends it as a normal update and your diary stays where it is."
+  - q: "Is PocketChomp still in beta?"
+    a: "No. It left beta and is a regular release on Google Play. Anyone on Android in Canada can install it, with no invite."
+  - q: "Did anyone lose their data when the beta ended?"
+    a: "No. It's the same app. Leaving beta came as a normal Google Play update, and diaries stayed where they were."
   - q: "Is PocketChomp on iPhone?"
-    a: "Not yet. An iOS version is planned. Join the email list and you'll get one email when it's ready."
+    a: "Not yet. The iOS version is in progress. Join the email list and you'll get one email when it's ready."
 ---
+
+> **Update, November 2026:** PocketChomp is out of beta. It's a regular release on Google Play in Canada, and the iOS version is in progress. The post below is the October beta announcement, left as written.
 
 PocketChomp is on Google Play. It's an open beta, so anyone with an Android phone can install it straight from the listing. No invite, no waitlist, no form to fill out first.
 
@@ -52,4 +55,4 @@ If a barcode isn't found, the numbers look off, or something breaks, email me at
 
 ## iPhone
 
-Not yet. iOS is planned. Join the email list below and you'll get one email when it's ready.
+Not yet. iOS is in progress. Join the email list below and you'll get one email when it's ready.
