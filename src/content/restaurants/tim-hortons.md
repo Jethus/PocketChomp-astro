@@ -5,15 +5,19 @@ metaDescription: "Calories, protein, carbs, fat, sugar and sodium for {count} Ti
 h1: "Tim Hortons nutrition and calories"
 intro: "Calories, protein, carbs, fat, sugar and sodium for {count} items on the Canadian menu, per serving."
 sourceUrl: "https://www.timhortons.ca/nutrition-explorer"
-checked: 2026-11-10
+checked: 2026-11-16
 ctaHeadline: "Log your Tims order in PocketChomp."
 ctaNote: "Every item on this page is in the app's food database. Search the name to log it. Free, no ads, no account needed."
-sourceNote: "Where Tims' August 2025 printed guide and its current website disagree, the website's numbers are used. Three items whose listed weight looks wrong are left off."
+sourceNote: "Where Tims' August 2025 printed guide and its current website disagree, the website's numbers are used. Double Double and Regular coffee come from the printed guide alone, since the website treats cream and sugar as add-ons. Three items whose listed weight looks wrong are left off."
 faq:
+  - q: "How many calories are in a Tim Hortons Double Double?"
+    a: "A medium Double Double (two cream, two sugar) is {Medium Double Double Coffee|calories} calories, with {Medium Double Double Coffee|fat} g of fat and {Medium Double Double Coffee|sugar} g of sugar. A small is {Small Double Double Coffee|calories} calories and a large is {Large Double Double Coffee|calories}."
+  - q: "How many calories are in a Tim Hortons regular coffee?"
+    a: "A medium Regular (one cream, one sugar) is {Medium Regular Coffee|calories} calories. A small is {Small Regular Coffee|calories} and a large is {Large Regular Coffee|calories}."
   - q: "How many calories are in a medium Iced Capp?"
     a: "A medium Original Iced Capp is {Medium Original Iced Capp|calories} calories, with {Medium Original Iced Capp|sugar} g of sugar and {Medium Original Iced Capp|fat} g of fat."
-  - q: "How many calories are in a Tim Hortons coffee?"
-    a: "A medium Original Blend, black, is {Medium Coffee Original Blend|calories} calories. Cream, milk and sugar are what add up, so log them separately. A medium French Vanilla is {Medium French Vanilla|calories} calories."
+  - q: "How many calories are in a black Tim Hortons coffee?"
+    a: "A medium Original Blend, black, is {Medium Coffee Original Blend|calories} calories. Cream and sugar are what add up. A medium French Vanilla is {Medium French Vanilla|calories} calories."
   - q: "How many calories are in a Timbit?"
     a: "An Old Fashioned Glazed Timbit is {Old Fashioned Glazed Timbit|calories} calories and a Honey Dip Timbit is {Honey Dip Timbit|calories}. A Honey Dip Donut is {Honey Dip Donut|calories}."
   - q: "Where do these numbers come from?"

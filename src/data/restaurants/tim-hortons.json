@@ -1,9 +1,9 @@
 {
   "chain": "Tim Hortons",
   "slug": "tim-hortons",
-  "exportedAt": "2026-11-10",
-  "dataUpdatedAt": "2026-11-10",
-  "itemCount": 575,
+  "exportedAt": "2026-11-16",
+  "dataUpdatedAt": "2026-11-16",
+  "itemCount": 588,
   "sections": [
     {
       "name": "Iced Capps",
@@ -1361,6 +1361,42 @@
           "sugar": 97,
           "protein": 0,
           "sodium": 92
+        },
+        {
+          "name": "Small Maple Soda Swirl",
+          "serving": "296 mL",
+          "calories": 320,
+          "fat": 15,
+          "saturatedFat": 12,
+          "carbs": 47,
+          "fibre": 0,
+          "sugar": 45,
+          "protein": 2,
+          "sodium": 90
+        },
+        {
+          "name": "Medium Maple Soda Swirl",
+          "serving": "414 mL",
+          "calories": 390,
+          "fat": 16,
+          "saturatedFat": 12,
+          "carbs": 63,
+          "fibre": 0,
+          "sugar": 61,
+          "protein": 2,
+          "sodium": 105
+        },
+        {
+          "name": "Large Maple Soda Swirl",
+          "serving": "591 mL",
+          "calories": 500,
+          "fat": 21,
+          "saturatedFat": 15,
+          "carbs": 80,
+          "fibre": 0,
+          "sugar": 78,
+          "protein": 3,
+          "sodium": 140
         },
         {
           "name": "Small Matcha Creamy Chill",
@@ -3130,6 +3166,54 @@
           "sodium": 0
         },
         {
+          "name": "Small Double Double Coffee",
+          "serving": "296 mL",
+          "calories": 130,
+          "fat": 8,
+          "saturatedFat": 4.5,
+          "carbs": 16,
+          "fibre": 0,
+          "sugar": 16,
+          "protein": 1,
+          "sodium": 45
+        },
+        {
+          "name": "Medium Double Double Coffee",
+          "serving": "414 mL",
+          "calories": 200,
+          "fat": 13,
+          "saturatedFat": 8,
+          "carbs": 22,
+          "fibre": 0,
+          "sugar": 21,
+          "protein": 2,
+          "sodium": 80
+        },
+        {
+          "name": "Large Double Double Coffee",
+          "serving": "591 mL",
+          "calories": 250,
+          "fat": 15,
+          "saturatedFat": 10,
+          "carbs": 28,
+          "fibre": 0,
+          "sugar": 27,
+          "protein": 2,
+          "sodium": 95
+        },
+        {
+          "name": "Extra Large Double Double Coffee",
+          "serving": "710 mL",
+          "calories": 300,
+          "fat": 18,
+          "saturatedFat": 11,
+          "carbs": 35,
+          "fibre": 0,
+          "sugar": 34,
+          "protein": 3,
+          "sodium": 115
+        },
+        {
           "name": "Small Redeye Original Blend",
           "serving": "296 mL",
           "calories": 1,
@@ -3176,6 +3260,54 @@
           "sugar": 0,
           "protein": 0,
           "sodium": 2
+        },
+        {
+          "name": "Small Regular Coffee",
+          "serving": "296 mL",
+          "calories": 70,
+          "fat": 4,
+          "saturatedFat": 2.5,
+          "carbs": 8,
+          "fibre": 0,
+          "sugar": 8,
+          "protein": 1,
+          "sodium": 25
+        },
+        {
+          "name": "Medium Regular Coffee",
+          "serving": "414 mL",
+          "calories": 100,
+          "fat": 6,
+          "saturatedFat": 4,
+          "carbs": 11,
+          "fibre": 0,
+          "sugar": 11,
+          "protein": 1,
+          "sodium": 40
+        },
+        {
+          "name": "Large Regular Coffee",
+          "serving": "591 mL",
+          "calories": 120,
+          "fat": 8,
+          "saturatedFat": 5,
+          "carbs": 14,
+          "fibre": 0,
+          "sugar": 13,
+          "protein": 1,
+          "sodium": 50
+        },
+        {
+          "name": "Extra Large Regular Coffee",
+          "serving": "710 mL",
+          "calories": 150,
+          "fat": 9,
+          "saturatedFat": 6,
+          "carbs": 18,
+          "fibre": 0,
+          "sugar": 17,
+          "protein": 1,
+          "sodium": 55
         }
       ]
     },
@@ -3498,6 +3630,18 @@
           "sugar": 14,
           "protein": 3,
           "sodium": 210
+        },
+        {
+          "name": "ELF Snowball Timbit",
+          "serving": "16 g",
+          "calories": 70,
+          "fat": 3.5,
+          "saturatedFat": 1.5,
+          "carbs": 8,
+          "fibre": 0,
+          "sugar": 3,
+          "protein": 1,
+          "sodium": 70
         },
         {
           "name": "Golden Snitch Caramel Timbit",
@@ -5087,6 +5231,18 @@
           "sugar": 1,
           "protein": 1,
           "sodium": 220
+        },
+        {
+          "name": "Maple Bacon Farmer's Wrap",
+          "serving": "205 g",
+          "calories": 590,
+          "fat": 28,
+          "saturatedFat": 8,
+          "carbs": 63,
+          "fibre": 4,
+          "sugar": 9,
+          "protein": 21,
+          "sodium": 1060
         },
         {
           "name": "Regular Plain Oatmeal",
