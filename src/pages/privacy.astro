@@ -1,7 +1,7 @@
 ---
 import LegalLayout from "../layouts/LegalLayout.astro";
 
-const LAST_UPDATED = "November 5, 2026";
+const LAST_UPDATED = "November 16, 2026";
 ---
 
 <LegalLayout
@@ -130,6 +130,14 @@ const LAST_UPDATED = "November 5, 2026";
       person can't check the same food twice. Other people see the food and how many scans
       matched, never who scanned it. Deleting your account deletes these records; the shared
       food stays. In guest mode, scanned foods stay on your phone.
+    </p>
+    <p>
+      Once a month our server sends <a href="https://world.openfoodfacts.org" rel="noopener">Open Food Facts</a> the
+      nutrition of shared foods that two people scanned from the label and agreed on, when Open
+      Food Facts doesn't have the product or has different values. It sends the barcode and the
+      values per 100 g, plus the name and brand when the product is new to them. It never sends
+      who scanned the label. Open Food Facts publishes what it receives under the Open Database
+      License, so deleting your account does not remove it there.
     </p>
 
     <h3 class="fs-xs">Voice and typed logging</h3>
@@ -283,6 +291,7 @@ const LAST_UPDATED = "November 5, 2026";
     <ul>
       <li>Synced account data: until you delete your account, then removed immediately.</li>
       <li>Which account scanned a shared food's label: until you delete your account. The food itself stays in the shared database.</li>
+      <li>Nutrition values sent to Open Food Facts: published by them with no account attached. We keep a record of what was sent and when.</li>
       <li>Photos and recipe pages sent to Plus features: not stored.</li>
       <li>Voice and typed meal descriptions (analytics on only): kept with no account or device id, so they cannot be traced to you or singled out for deletion.</li>
       <li>Crash and analytics events: retained by PostHog under our account, tied to the device id only.</li>
