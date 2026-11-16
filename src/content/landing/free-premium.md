@@ -8,18 +8,18 @@ freeNote: No account required.
 premiumTitle: PocketChomp+
 premiumNote: $6.99 a month, or $39.99 a year with a 14-day free trial.
 comparison:
-  - feature: Barcode scanning
-    free: Unlimited
-    plus: Unlimited
+  - feature: Unlimited barcode scanning
+    free: true
+    plus: true
   - feature: Label scanning
     free: true
     plus: true
   - feature: Search and typed logging
     free: true
     plus: true
-  - feature: Micronutrient tracking
-    free: Every nutrient
-    plus: Every nutrient
+  - feature: Full micronutrient tracking
+    free: true
+    plus: true
   - feature: Custom foods and recipes
     free: true
     plus: true
@@ -29,15 +29,12 @@ comparison:
   - feature: Offline logging
     free: true
     plus: true
-  - feature: Insights range
-    free: Last 30 days
-    plus: Any date range
+  - feature: Insights history
+    free: 30 days
+    plus: Any range
   - feature: Active goals
-    free: Two at a time
+    free: "2"
     plus: Unlimited
-  - feature: Favourites
-    free: Default portion
-    plus: Your saved portion
   - feature: AI photo logging
     free: false
     plus: true
@@ -48,6 +45,9 @@ comparison:
     free: false
     plus: true
   - feature: Adaptive calorie targets
+    free: false
+    plus: true
+  - feature: Favourites that remember your portion
     free: false
     plus: true
   - feature: CSV export

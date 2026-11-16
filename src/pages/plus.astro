@@ -60,6 +60,7 @@ const {
   freeTitle,
   freeNote,
   premiumTitle,
+  premiumNote,
   comparison,
 } = entry.data;
 
@@ -92,37 +93,42 @@ const META =
           <h2 class="tier__name">{freeTitle}</h2>
           <p class="tier__note">{freeNote}</p>
           <ul class="tier__list" role="list">
-            {shared.map((row) => (
-              <li>
-                {row.feature}
-                {typeof row.free === "string" && <span class="tier__detail">{row.free}</span>}
-              </li>
-            ))}
+            {shared.map((row) => <li>{row.feature}</li>)}
           </ul>
         </section>
 
         <section class="tier tier--plus">
           <h2 class="tier__name">{premiumTitle}</h2>
+          <p class="tier__price">{premiumNote}</p>
           <p class="tier__note">Everything in {freeTitle}, plus:</p>
           <ul class="tier__list" role="list">
             {plusOnly.map((row) => <li>{row.feature}</li>)}
           </ul>
-          <h3 class="tier__sub">Higher limits</h3>
-          <ul class="tier__list" role="list">
-            {raised.map((row) => (
-              <li>
-                {row.feature}: {row.plus.toString().toLowerCase()}
-                <span class="tier__detail">{freeTitle}: {row.free.toString().toLowerCase()}</span>
-              </li>
-            ))}
-          </ul>
+          <table class="limits">
+            <thead>
+              <tr>
+                <th scope="col" class="limits__title">Higher limits</th>
+                <th scope="col">{freeTitle}</th>
+                <th scope="col">Plus</th>
+              </tr>
+            </thead>
+            <tbody>
+              {raised.map((row) => (
+                <tr>
+                  <th scope="row">{row.feature}</th>
+                  <td>{row.free}</td>
+                  <td class="limits__plus">{row.plus}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </section>
       </div>
     </SectionShell>
 
     <ScreenRail id="plus-screens" eyebrow="Inside PocketChomp+" screens={plusScreens} />
 
-    <SectionShell class="!pt-0">
+    <SectionShell>
       <p class="funding-note">{funding}</p>
 
       <div class="cta-panel mt-14">
@@ -174,6 +180,12 @@ const META =
     padding: 1.75rem;
   }
 
+  @media (min-width: 44rem) {
+    .tier {
+      padding: 2.25rem;
+    }
+  }
+
   .tier--plus {
     border-color: color-mix(in oklab, var(--accent) 45%, var(--border));
     background: color-mix(in oklab, var(--accent) 7%, var(--surface));
@@ -193,16 +205,64 @@ const META =
     color: var(--muted-foreground);
   }
 
-  .tier__sub {
-    margin-top: 1.5rem;
-    font-size: 1rem;
+  .tier__price {
+    margin-top: 0.25rem;
+    font-weight: 600;
     color: var(--foreground);
+  }
+
+  .limits {
+    width: 100%;
+    margin-top: 2rem;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+
+  .limits th,
+  .limits td {
+    padding: 0.7rem 0;
+    text-align: left;
+    border-top: 1px solid color-mix(in oklab, var(--foreground) 12%, transparent);
+  }
+
+  .limits thead th {
+    padding-top: 0;
+    border-top: 0;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+  }
+
+  .limits thead .limits__title {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--foreground);
+  }
+
+  .limits tbody th {
+    font-weight: 500;
+    color: var(--foreground);
+  }
+
+  .limits td {
+    width: 26%;
+    white-space: nowrap;
+    color: var(--muted-foreground);
+  }
+
+  .limits .limits__plus {
+    font-weight: 600;
+    color: var(--accent-text);
   }
 
   .tier__list {
     display: grid;
-    gap: 0.7rem;
-    margin-top: 1rem;
+    gap: 1.1rem;
+    margin-top: 1.5rem;
     padding: 0;
     list-style: none;
   }
@@ -210,8 +270,8 @@ const META =
   .tier__list li {
     position: relative;
     padding-left: 1.75rem;
-    line-height: 1.4;
-    font-weight: 600;
+    line-height: 1.5;
+    font-weight: 500;
     color: var(--foreground);
   }
 
@@ -226,13 +286,6 @@ const META =
 
   .tier--plus .tier__list li::before {
     color: var(--accent-text);
-  }
-
-  .tier__detail {
-    display: block;
-    font-size: 0.9rem;
-    font-weight: 400;
-    color: var(--muted-foreground);
   }
 
   /* Stated plainly rather than as a badge: the business model IS the proof. */
