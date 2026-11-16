@@ -179,6 +179,8 @@ const landingFreePremium = defineCollection({
     freeNote: z.string(),
     premiumTitle: z.string(),
     premiumNote: z.string(),
+    /** Short price for the comparison table's column head, e.g. "$39.99/yr". */
+    premiumPrice: z.string(),
     /**
      * Comparison matrix rows. Each cell is either a boolean (rendered as a
      * check or a dash) or a short string when the tiers differ by degree

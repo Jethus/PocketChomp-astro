@@ -7,6 +7,7 @@ freeTitle: Free
 freeNote: No account required.
 premiumTitle: PocketChomp+
 premiumNote: $6.99 a month, or $39.99 a year with a 14-day free trial.
+premiumPrice: $39.99/yr
 comparison:
   - feature: Unlimited barcode scanning
     free: true
@@ -35,10 +36,10 @@ comparison:
   - feature: Active goals
     free: "2"
     plus: Unlimited
-  - feature: AI photo logging
+  - feature: Photo logging
     free: false
     plus: true
-  - feature: AI voice logging
+  - feature: Voice logging
     free: false
     plus: true
   - feature: Recipe import from a URL

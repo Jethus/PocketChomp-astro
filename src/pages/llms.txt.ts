@@ -23,7 +23,7 @@ export const GET: APIRoute = async ({ site }) => {
 
   const text = `# PocketChomp
 
-> PocketChomp is a calorie counter and macro tracker for Canadians, built on products from the stores they actually shop at. Barcode scanning, label scanning and every micronutrient are free, no account is needed, and there are no ads. Your data stays yours: logs are stored on the phone by default, and the app keeps a receipt of everything it sends. A paid tier, PocketChomp+, adds AI photo and voice logging, recipe import and adaptive calorie targets; it never paywalls the basics. Android only for now.
+> PocketChomp is a calorie counter and macro tracker for Canadians, built on products from the stores they actually shop at. Barcode scanning, label scanning and every micronutrient are free, no account is needed, and there are no ads. Your data stays yours: logs are stored on the phone by default, and the app keeps a receipt of everything it sends. A paid tier, PocketChomp+, adds photo and voice logging, recipe import and adaptive calorie targets; it never paywalls the basics. Android only for now.
 
 Key facts:
 

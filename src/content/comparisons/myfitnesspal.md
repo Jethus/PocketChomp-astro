@@ -48,7 +48,7 @@ theyWin:
   - "Your years of history are already there"
 faq:
   - q: "Is PocketChomp actually free?"
-    a: "Barcode scanning, food search, logging, custom foods, recipes, micronutrients and your diary are free. PocketChomp+ is $39.99/year and adds AI photo and voice logging, adaptive TDEE, insights past 30 days and quick-log buttons on the home-screen widget."
+    a: "Barcode scanning, food search, logging, custom foods, recipes, micronutrients and your diary are free. PocketChomp+ is $39.99/year and adds photo and voice logging, adaptive TDEE, insights past 30 days and quick-log buttons on the home-screen widget."
   - q: "Can I import my MyFitnessPal data?"
     a: "Not yet. An importer is on the roadmap. Today you'd start a fresh log."
   - q: "Is the food database as good as MyFitnessPal's?"
