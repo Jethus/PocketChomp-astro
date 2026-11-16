@@ -13,7 +13,7 @@ accents:
   # Last word is the static H1 that crawlers and screen readers get.
   - text: Canadian.
     tint: protein
-description: Scan a barcode and it comes up, house brand and all. Count calories, track macros, or hide the numbers you'd rather not see. Your log stays on your phone.
+description: Scan a barcode and it comes up, house brand and all. Count calories, track macros, or hide the numbers you'd rather not see. Your data stays yours, with a receipt to prove it.
 secondaryCtaText: See how it works
 secondaryCtaLink: "#screens"
 ctaNote: Free · On Android · No account required

@@ -23,7 +23,7 @@ export const GET: APIRoute = async ({ site }) => {
 
   const text = `# PocketChomp
 
-> PocketChomp is a free calorie counter and macro tracker for Android, built in Canada for Canadian groceries. Unlimited barcode scanning, label scanning and every micronutrient are free. No ads. Logs are stored on the device by default, with no account required. A paid tier, PocketChomp+, adds planning and insight features; it never paywalls the basics.
+> PocketChomp is a calorie counter and macro tracker for Canadians, built on products from the stores they actually shop at. Barcode scanning, label scanning and every micronutrient are free, no account is needed, and there are no ads. Your data stays yours: logs are stored on the phone by default, and the app keeps a receipt of everything it sends. A paid tier, PocketChomp+, adds AI photo and voice logging, recipe import and adaptive calorie targets; it never paywalls the basics. Android only for now.
 
 Key facts:
 
@@ -31,14 +31,14 @@ Key facts:
 - Outside Canada: works in the US too. USDA foods ship in the app and barcode lookups fall back to Open Food Facts worldwide; US store-brand coverage is thinner than Canadian. It is not on Google Play in the US yet.
 - Food database: ${foodsFigure}+ foods, ${canadianFoodsFigure}+ of them Canadian (counted ${countedOn}), built on Health Canada's Canadian Nutrient File, USDA, Canadian store and house brands, Canadian restaurant menus, and Open Food Facts. Breakdown by source: ${base}/database
 - Free tier: barcode scanning, label scanning, all micronutrients, offline logging, custom goals. No ads on any tier.
-- Privacy: logs are written to the phone first. Sync is opt-in. No account is needed to use the app.
+- Privacy: logs are written to the phone first. Sync is opt-in. No account is needed to use the app. The data receipt (Settings › Privacy & Data) lists everything the app sends, and user data is never sold.
 - Made by a solo developer in Toronto, Canada.
 
 ## Pages
 
 ${line("/", "Home", "What PocketChomp is, the Google Play link, and the email list for news and iOS.")}
 ${line("/database", "What's in the food database", "Counts by source, how entries are checked, and what is not covered well yet.")}
-${line("/plus", "Free vs PocketChomp+", "Feature-by-feature comparison of the free tier and the paid tier. Pricing is answered in the FAQ.")}
+${line("/plus", "Free vs PocketChomp+", "Feature-by-feature comparison of the free tier and the paid tier, with pricing.")}
 ${line("/support", "Support", "Contact, subscription management, data export and deletion.")}
 ${line("/tools", "Calculators", "Free calorie, macro, TDEE and BMR calculators. No account, nothing stored.")}
 ${line("/blog", "Blog", "Field notes on building the app and reference posts on nutrition numbers.")}

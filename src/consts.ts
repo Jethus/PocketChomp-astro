@@ -3,7 +3,7 @@
 
 export const SITE_TITLE = "PocketChomp";
 export const SITE_DESCRIPTION =
-  "Free Android calorie counter and macro tracker, made in Canada for Canadians. Free barcode scanning, Canadian grocery brands, no ads, no account needed.";
+  "Calorie counter and macro tracker for Canadians, built on products from the stores you actually shop at. Free barcode scanning, no account, and your data stays yours.";
 
 /**
  * Google Play listing. The app is in open testing, so the listing installs it

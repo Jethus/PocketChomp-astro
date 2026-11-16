@@ -10,8 +10,8 @@ items:
     description: Barcode scanning, label scanning and every micronutrient are free. Plus adds shortcuts that make day-to-day logging faster.
     icon: tag
     tone: free
-  - headline: On your device by default.
-    description: Every log is written to your phone first. No account required, and syncing is always optional.
+  - headline: Your data stays yours.
+    description: Every log is written to your phone first, and syncing is optional. The app keeps a receipt of everything it sends.
     icon: shield
     tone: private
 ---
