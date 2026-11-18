@@ -89,20 +89,27 @@ async function searchConsole(keyJson, site) {
   });
   if (!token.ok) throw new Error(`Google refused the service account: HTTP ${token.status} ${await token.text()}`);
   const { access_token } = await token.json();
-  // Search Console data settles about three days behind.
-  const res = await fetch(`https://www.googleapis.com/webmasters/v3/sites/${encodeURIComponent(site)}/searchAnalytics/query`, {
-    method: "POST",
-    headers: { Authorization: `Bearer ${access_token}`, "Content-Type": "application/json" },
-    body: JSON.stringify({ startDate: day(31), endDate: day(3), dimensions: ["query", "page"], rowLimit: 5000 }),
-  });
-  if (!res.ok) throw new Error(`Search Console answered HTTP ${res.status}: ${await res.text()}`);
-  return ((await res.json()).rows ?? []).map((r) => ({
+  // The Search Console UI's "last 28 days": up to yesterday, fresh data included.
+  const ask = async (dimensions) => {
+    const res = await fetch(`https://www.googleapis.com/webmasters/v3/sites/${encodeURIComponent(site)}/searchAnalytics/query`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${access_token}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ startDate: day(28), endDate: day(1), dataState: "all", dimensions, rowLimit: 5000 }),
+    });
+    if (!res.ok) throw new Error(`Search Console answered HTTP ${res.status}: ${await res.text()}`);
+    return (await res.json()).rows ?? [];
+  };
+  // Rows by query leave out the rare queries Google anonymises, so totals come from a query with no dimensions.
+  const [total, byQuery] = await Promise.all([ask([]), ask(["query", "page"])]);
+  const totals = { clicks: total[0]?.clicks ?? 0, impressions: total[0]?.impressions ?? 0 };
+  const rows = byQuery.map((r) => ({
     query: r.keys[0],
     page: r.keys[1].replace(`https://${HOST}`, "") || "/",
     clicks: r.clicks,
     impressions: r.impressions,
     position: Math.round(r.position * 10) / 10,
   }));
+  return { totals, rows };
 }
 
 /** Searches where the site already shows on pages 1 to 3: the cheapest wins to chase. */
@@ -151,13 +158,9 @@ async function main() {
   if (!gscKey) {
     lines.push("Search Console: GSC_SERVICE_ACCOUNT is not set, so there is no search-query data (seo/README.md, Setup).", "");
   } else {
-    const rows = await searchConsole(gscKey, env("GSC_SITE") ?? `sc-domain:${HOST}`);
+    const { totals, rows } = await searchConsole(gscKey, env("GSC_SITE") ?? `sc-domain:${HOST}`);
     const misses = nearMisses(rows);
-    report.search = {
-      clicks: rows.reduce((n, r) => n + r.clicks, 0),
-      impressions: rows.reduce((n, r) => n + r.impressions, 0),
-      nearMisses: misses,
-    };
+    report.search = { ...totals, nearMisses: misses };
     lines.push("## Google Search, last 28 days", "", `${report.search.clicks} clicks, ${report.search.impressions} impressions.`, "");
     if (misses.length) {
       lines.push("Searches the site almost ranks for (position 4 to 30):", "", "| Search | Page | Position | Impressions | Clicks |", "|---|---|---:|---:|---:|");
