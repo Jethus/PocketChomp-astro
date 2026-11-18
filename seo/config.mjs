@@ -7,6 +7,9 @@ export const HOST = "pocketchomp.com";
 export const DIST = "dist";
 export const MANIFEST = "seo-manifest.json";
 
+/** Where the weekly SEO report is emailed (already public on the support page). */
+export const REPORT_TO = "josh@pocketchomp.com";
+
 /** Proves to IndexNow that we own the host; also served as public/<key>.txt. */
 export const INDEXNOW_KEY = "d3eb4243c2830a4142b1a775c348b8a4";
 export const INDEXNOW_ENDPOINT = "https://api.indexnow.org/indexnow";

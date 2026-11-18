@@ -1,8 +1,9 @@
 # The daily SEO job (seo/README.md). Every morning it builds the site, which
 # audits it and picks up any page dated for today; if that build differs from
 # the live site it pushes an empty commit so Cloudflare Workers Builds deploys
-# it; then it tells IndexNow what changed. It never edits content. The repo is
-# public, so traffic reports and the link check run locally, never here.
+# it; then it tells IndexNow what changed, and on Mondays emails the traffic
+# report. It never edits content. The repo is public, so the report is never
+# printed or saved here, and the link check runs locally.
 name: SEO daily
 
 on:
@@ -67,6 +68,25 @@ jobs:
           else
             node seo/indexnow.mjs
           fi
+
+      # Mondays, or a manual run. .seo-private is outside .seo-state, so the
+      # report never reaches the public seo-state branch.
+      - name: Email the weekly report
+        if: always()
+        env:
+          EVENT: ${{ github.event_name }}
+          PLAUSIBLE_CE: ${{ secrets.PLAUSIBLE_CE }}
+          GSC_SERVICE_ACCOUNT: ${{ secrets.GSC_SERVICE_ACCOUNT }}
+          GSC_SITE: ${{ vars.GSC_SITE }}
+          FASTMAIL_SMTP_USER: ${{ secrets.FASTMAIL_SMTP_USER }}
+          FASTMAIL_SMTP_PASSWORD: ${{ secrets.FASTMAIL_SMTP_PASSWORD }}
+        run: |
+          if [ "$EVENT" != workflow_dispatch ] && [ "$(TZ=America/Toronto date +%u)" != 1 ]; then
+            echo "Not Monday; no report today."
+            exit 0
+          fi
+          node seo/measure.mjs --state-dir .seo-private --quiet
+          node seo/email-report.mjs .seo-private/report.md
 
       - name: Save state
         if: always()

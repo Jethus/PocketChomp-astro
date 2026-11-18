@@ -7,9 +7,9 @@ Four loops. Each one is a script that reads public pages or our own numbers; non
 | Gate | `seo/audit.mjs` checks every built page against Google's published rules and fails the build on an error | every `npm run build`, so every deploy |
 | Release | A page dated ahead (`pubDate` on a post, `publishOn` on a restaurant page) is built on the first morning on or after that day | daily |
 | Notify | `seo/indexnow.mjs` tells IndexNow (Bing, and the answer engines that search through it) which URLs changed | daily |
-| Learn | `seo/measure.mjs` reports visitors from search and from AI assistants, new referring sites, and searches we almost rank for; `seo/links/check.mjs` reports who links to us | on your machine, when you run it |
+| Learn | `seo/measure.mjs` reports visitors from search and from AI assistants, new referring sites, and searches we almost rank for; `seo/links/check.mjs` reports who links to us | report emailed Mondays; link check on your machine |
 
-The daily run is `.github/workflows/seo-daily.yml`. When the morning's build differs from the live site it pushes an empty commit ("Daily release: /restaurants/x goes live") so Workers Builds deploys it. Its state (the IndexNow record, public URLs only) lives on the `seo-state` branch, which nothing deploys from. This repo is public and so is everything an Actions run writes, so the Learn loop never runs there: its report goes to `.seo-state/report.md` on your machine.
+The daily run is `.github/workflows/seo-daily.yml`. When the morning's build differs from the live site it pushes an empty commit ("Daily release: /restaurants/x goes live") so Workers Builds deploys it. Its state (the IndexNow record, public URLs only) lives on the `seo-state` branch, which nothing deploys from. This repo is public and so is everything an Actions run writes, so the traffic report is never printed or saved there: on Mondays the job emails it (`seo/email-report.mjs`, through Fastmail SMTP). Run `npm run seo:measure` for one any day.
 
 ## Queue a page
 
@@ -63,6 +63,7 @@ npm run build          build, then audit (fails on an error)
 npm run seo:audit      audit the last build, report only
 npm run seo:links      check the ledger
 npm run seo:measure    write the report (needs PLAUSIBLE_CE in .env)
+npm run seo:email      email the last report (needs the Fastmail SMTP pair in .env)
 npm run seo:indexnow -- --dry-run
 npm test
 ```
@@ -70,6 +71,6 @@ npm test
 ## Setup, once
 
 1. Merge to `main`. The audit and dated releases work from then on, and the IndexNow key file (`public/<key>.txt`) goes live.
-2. `.env`: `PLAUSIBLE_CE`, a Stats API key from the self-hosted Plausible. Never a repo secret: the report it feeds would be public.
-3. Search Console, optional but it is the main signal: create a Google Cloud service account, add its email as a user on the Search Console property, and put its JSON key on one line as `GSC_SERVICE_ACCOUNT` in `.env`. If the property is a URL prefix rather than a domain, also set `GSC_SITE=https://pocketchomp.com/`. This path has not been run yet; the first run is its test.
+2. `.env` and GitHub repo secrets: `PLAUSIBLE_CE` (a Stats API key from the self-hosted Plausible), and `FASTMAIL_SMTP_USER` / `FASTMAIL_SMTP_PASSWORD` (the Fastmail login and an app password limited to SMTP, so it can send but not read mail).
+3. Search Console, optional but it is the main signal: create a Google Cloud service account, add its email as a user on the Search Console property, and save its JSON key as the secret `GSC_SERVICE_ACCOUNT`. If the property is a URL prefix rather than a domain, set the repo variable `GSC_SITE` to `https://pocketchomp.com/`. This path has not been run yet; the first run is its test.
 4. Bing Webmaster Tools: the site is already verified (`BingSiteAuth.xml`). Its AI Performance report shows which pages Copilot cites; there is no API for it here, so read it by hand.

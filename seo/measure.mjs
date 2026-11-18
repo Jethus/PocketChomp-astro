@@ -9,8 +9,8 @@
  * Optional: GSC_SERVICE_ACCOUNT (a Google service-account JSON key, as one
  * string, added as a user on the Search Console property) and GSC_SITE
  * (default "sc-domain:pocketchomp.com").
- * Writes <state-dir>/report.md, <state-dir>/reports/<date>.json and
- * <state-dir>/referrers.json (every referrer seen so far).
+ * Writes <state-dir>/report.md and <state-dir>/reports/<date>.json; --quiet
+ * skips printing the report (the daily job emails it instead).
  */
 import { createSign } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -21,7 +21,7 @@ const PLAUSIBLE = "https://data.pixelboost.dev/api/v2/query";
 const i = process.argv.indexOf("--state-dir");
 const stateDir = i > 0 ? process.argv[i + 1] : ".seo-state";
 
-function env(name) {
+export function env(name) {
   if (process.env[name]) return process.env[name];
   if (!existsSync(".env")) return undefined;
   const line = readFileSync(".env", "utf8").split(/\r?\n/).find((l) => l.startsWith(`${name}=`));
@@ -30,20 +30,24 @@ function env(name) {
 
 const day = (offset) => new Date(Date.parse(torontoToday()) - offset * 86_400_000).toISOString().slice(0, 10);
 
-async function plausible(key, range) {
+async function query(key, range, dimensions) {
   const res = await fetch(PLAUSIBLE, {
     method: "POST",
     headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
-    body: JSON.stringify({
-      site_id: HOST,
-      metrics: ["visitors"],
-      date_range: range,
-      dimensions: ["visit:source", "visit:entry_page"],
-      pagination: { limit: 1000 },
-    }),
+    body: JSON.stringify({ site_id: HOST, metrics: ["visitors"], date_range: range, dimensions, pagination: { limit: 1000 } }),
   });
   if (!res.ok) throw new Error(`Plausible answered HTTP ${res.status}: ${await res.text()}`);
-  return (await res.json()).results.map((r) => ({ source: r.dimensions[0], page: r.dimensions[1], visitors: r.metrics[0] }));
+  return (await res.json()).results;
+}
+
+async function plausible(key, range) {
+  const rows = await query(key, range, ["visit:source", "visit:entry_page"]);
+  return rows.map((r) => ({ source: r.dimensions[0], page: r.dimensions[1], visitors: r.metrics[0] }));
+}
+
+/** Visitors per referring source in a date range. */
+async function sourcesIn(key, range) {
+  return new Map((await query(key, range, ["visit:source"])).map((r) => [r.dimensions[0], r.metrics[0]]));
 }
 
 export const channelOf = (source) =>
@@ -132,15 +136,13 @@ async function main() {
       for (const [page, n] of landing.slice(0, 15)) lines.push(`- ${page}: ${n.search} search, ${n.ai} AI`);
     }
 
-    const seenFile = join(stateDir, "referrers.json");
-    const firstRun = !existsSync(seenFile);
-    const seen = firstRun ? {} : JSON.parse(readFileSync(seenFile, "utf8"));
-    const fresh = Object.keys(current.sources).filter((s) => !(s in seen));
-    for (const source of fresh) seen[source] = today;
-    report.newReferrers = firstRun ? [] : fresh;
-    report.seenReferrers = seen;
-    if (!firstRun && fresh.length) {
-      lines.push("", "## Sites sending visitors for the first time", "", ...fresh.map((s) => `- ${s} (${current.sources[s]})`), "", "Each one is a new link or mention. Find the page and add it to seo/links/prospects.json as live.");
+    // New = sent visitors this week and none in the year before. Asking Plausible
+    // keeps no list of referrers anywhere, since the daily job runs on a public repo.
+    const [week, year] = await Promise.all([sourcesIn(key, [day(7), day(1)]), sourcesIn(key, [day(372), day(8)])]);
+    const fresh = [...week.keys()].filter((s) => channelOf(s) !== "direct" && !year.has(s));
+    report.newReferrers = fresh;
+    if (fresh.length) {
+      lines.push("", "## Sites sending visitors for the first time this week", "", ...fresh.map((s) => `- ${s} (${week.get(s)})`), "", "Each one is a new link or mention. Find the page and add it to seo/links/prospects.json as live.");
     }
     lines.push("");
   }
@@ -167,8 +169,7 @@ async function main() {
   mkdirSync(join(stateDir, "reports"), { recursive: true });
   writeFileSync(join(stateDir, "reports", `${today}.json`), JSON.stringify(report, null, 2) + "\n");
   writeFileSync(join(stateDir, "report.md"), lines.join("\n"));
-  if (report.seenReferrers) writeFileSync(join(stateDir, "referrers.json"), JSON.stringify(report.seenReferrers, null, 2) + "\n");
-  console.log(lines.join("\n"));
+  if (!process.argv.includes("--quiet")) console.log(lines.join("\n"));
 }
 
 if (process.argv[1]?.replace(/\\/g, "/").endsWith("seo/measure.mjs")) await main();
