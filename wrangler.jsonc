@@ -3,9 +3,10 @@
   "name": "pocketchomp",
   "compatibility_date": "2026-09-08",
   "main": "./worker/index.js",
-  // Workers Logs: the dashboard keeps a few days of requests, errors and
-  // console output, so a failing food request or redirect can be traced.
-  "observability": { "enabled": true },
+  // Workers Logs: errors and console output only, kept a few days. Per-request
+  // invocation logs stay off: they record headers, visitor IPs included, and
+  // /privacy promises the IP is read in passing and never saved.
+  "observability": { "enabled": true, "logs": { "invocation_logs": false } },
   "routes": [
     { "pattern": "pocketchomp.com", "custom_domain": true },
     { "pattern": "www.pocketchomp.com", "custom_domain": true }
