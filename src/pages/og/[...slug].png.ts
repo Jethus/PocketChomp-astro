@@ -8,14 +8,14 @@ import { getCollection } from "astro:content";
 import { getPublishedPosts } from "../../lib/blog";
 import { renderOgCard, type OgCard } from "../../lib/og";
 import { OG_CARDS } from "../../lib/og-cards";
-import { fillMenu, getMenu } from "../../lib/restaurants";
+import { fillMenu, getLiveRestaurants, getMenu } from "../../lib/restaurants";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const [posts, tools, comparisons, restaurants] = await Promise.all([
     getPublishedPosts(),
     getCollection("tools"),
     getCollection("comparisons"),
-    getCollection("restaurants"),
+    getLiveRestaurants(),
   ]);
 
   const cards: Array<{ slug: string; card: OgCard }> = [

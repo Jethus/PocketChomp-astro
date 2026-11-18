@@ -5,6 +5,12 @@ dist/
 # wrangler dev state (local D1, rate limiter) and bundles
 .wrangler/
 
+# SEO engine state (reports, IndexNow record); lives on the seo-state branch
+.seo-state/
+# Outreach research stays local: this repo is public
+seo/links/prospects.json
+seo/evidence/
+
 # dependencies
 node_modules/
 

@@ -5,6 +5,14 @@
  * page shows exactly what the app logs. Copy quotes items through
  * fillMenu("{Big Mac|calories}"), which fails the build if the item is gone.
  */
+import { getCollection } from "astro:content";
+import { isLive } from "./release";
+
+/** Restaurant pages that are live: no `publishOn`, or one that has arrived. */
+export function getLiveRestaurants() {
+  return getCollection("restaurants", ({ data }) => isLive(data.publishOn));
+}
+
 export interface MenuItem {
   name: string;
   serving: string;

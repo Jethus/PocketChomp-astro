@@ -5,6 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
 import { readdirSync, readFileSync } from "node:fs";
 
 const SITE = "https://pocketchomp.com";
+const TODAY = new Date().toLocaleDateString("en-CA", { timeZone: "America/Toronto" });
 
 // <lastmod> for the pages that carry a real date: blog posts (updatedDate,
 // else pubDate) and restaurant pages (checked), plus their hubs at the newest
@@ -16,6 +17,9 @@ function frontmatterDates(dir, fields) {
     if (file.startsWith("_") || !/\.mdx?$/.test(file)) continue;
     const text = readFileSync(`${dir}/${file}`, "utf8");
     if (/^draft:\s*true/m.test(text)) continue;
+    // Dated ahead (src/lib/release.ts): not built yet, so it must not move a hub's lastmod.
+    const release = text.match(/^(?:pubDate|publishOn):\s*"?(\d{4}-\d{2}-\d{2})/m);
+    if (release && release[1] > TODAY) continue;
     for (const field of fields) {
       const m = text.match(new RegExp(`^${field}:\\s*"?(\\d{4}-\\d{2}-\\d{2})`, "m"));
       if (m) {

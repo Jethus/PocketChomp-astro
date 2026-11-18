@@ -1,0 +1,93 @@
+# The daily SEO job (seo/README.md). Every morning it builds the site, which
+# audits it and picks up any page dated for today; if that build differs from
+# the live site it pushes an empty commit so Cloudflare Workers Builds deploys
+# it; then it tells IndexNow what changed, checks who links to us, and writes
+# the day's report to the seo-state branch. It never edits content.
+name: SEO daily
+
+on:
+  schedule:
+    # 10:20 UTC: 05:20 in Toronto in winter, 06:20 in summer.
+    - cron: "20 10 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: seo-daily
+  cancel-in-progress: false
+
+jobs:
+  daily:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - run: npm ci
+
+      - name: Open the state branch
+        run: |
+          git config user.name "seo-daily"
+          git config user.email "seo-daily@users.noreply.github.com"
+          if git fetch origin seo-state:seo-state 2>/dev/null; then
+            git worktree add .seo-state seo-state
+          else
+            git worktree add --orphan -b seo-state .seo-state
+          fi
+
+      # A failed audit stops here: nothing is released, and the run goes red.
+      - name: Build and audit
+        run: npm run build
+
+      - name: Is there anything to release?
+        id: release
+        run: node seo/release-check.mjs
+
+      - name: Release
+        if: steps.release.outputs.changed == 'true'
+        env:
+          SUMMARY: ${{ steps.release.outputs.summary }}
+        run: |
+          git commit --allow-empty -m "Daily release: $SUMMARY"
+          git push origin HEAD:main
+
+      - name: Tell IndexNow what changed
+        env:
+          CHANGED: ${{ steps.release.outputs.changed }}
+        run: |
+          if [ "$CHANGED" = "true" ]; then
+            node seo/indexnow.mjs --wait-for dist/seo-manifest.json
+          else
+            node seo/indexnow.mjs
+          fi
+
+      - name: Check who links to us
+        if: always()
+        run: node seo/links/check.mjs
+
+      - name: Measure
+        if: always()
+        env:
+          PLAUSIBLE_CE: ${{ secrets.PLAUSIBLE_CE }}
+          GSC_SERVICE_ACCOUNT: ${{ secrets.GSC_SERVICE_ACCOUNT }}
+          GSC_SITE: ${{ vars.GSC_SITE }}
+        run: node seo/measure.mjs
+
+      - name: Save state
+        if: always()
+        run: |
+          cd .seo-state
+          git add -A
+          git diff --cached --quiet || git commit -m "State for $(date -u +%F)"
+          git push origin seo-state
+
+      - name: Report
+        if: always()
+        run: cat .seo-state/report.md >> "$GITHUB_STEP_SUMMARY" || true

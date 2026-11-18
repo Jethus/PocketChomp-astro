@@ -8,7 +8,7 @@ import { getCollection } from "astro:content";
 import { getPublishedPosts } from "../lib/blog";
 import { canadianFoodsFigure, countedOn, foodsFigure } from "../lib/foodStats";
 import { PLAY_STORE_URL } from "../consts";
-import { fillMenu, getMenu } from "../lib/restaurants";
+import { fillMenu, getLiveRestaurants, getMenu } from "../lib/restaurants";
 
 export const GET: APIRoute = async ({ site }) => {
   const base = (site ?? new URL("https://pocketchomp.com")).href.replace(/\/$/, "");
@@ -16,7 +16,7 @@ export const GET: APIRoute = async ({ site }) => {
     getPublishedPosts(),
     getCollection("tools"),
     getCollection("comparisons"),
-    getCollection("restaurants"),
+    getLiveRestaurants(),
   ]);
 
   const line = (path: string, title: string, note: string) => `- [${title}](${base}${path}): ${note}`;

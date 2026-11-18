@@ -373,6 +373,8 @@ const restaurants = defineCollection({
     sourceUrl: z.string().url(),
     /** When the numbers were last compared against the chain's own site. */
     checked: z.coerce.date(),
+    /** Hold the page back until this day (src/lib/release.ts). Leave out to publish now. */
+    publishOn: z.coerce.date().optional(),
     /** Anything the check did not cover, said plainly under the tables. */
     sourceNote: z.string().optional(),
     faq: z.array(z.object({ q: z.string(), a: z.string() })).min(3),
