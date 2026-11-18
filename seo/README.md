@@ -7,9 +7,9 @@ Four loops. Each one is a script that reads public pages or our own numbers; non
 | Gate | `seo/audit.mjs` checks every built page against Google's published rules and fails the build on an error | every `npm run build`, so every deploy |
 | Release | A page dated ahead (`pubDate` on a post, `publishOn` on a restaurant page) is built on the first morning on or after that day | daily |
 | Notify | `seo/indexnow.mjs` tells IndexNow (Bing, and the answer engines that search through it) which URLs changed | daily |
-| Learn | `seo/measure.mjs` reports visitors from search and from AI assistants, new referring sites, and searches we almost rank for; `seo/links/check.mjs` reports who links to us | report emailed Mondays; link check on your machine |
+| Learn | `seo/measure.mjs` reports visitors from search and from AI assistants, new referring sites, and searches we almost rank for; `seo/links/check.mjs` reports who links to us | to-do emailed Mondays; link check on your machine |
 
-The daily run is `.github/workflows/seo-daily.yml`. When the morning's build differs from the live site it pushes an empty commit ("Daily release: /restaurants/x goes live") so Workers Builds deploys it. Its state (the IndexNow record, public URLs only) lives on the `seo-state` branch, which nothing deploys from. This repo is public and so is everything an Actions run writes, so the traffic report is never printed or saved there: on Mondays the job emails it (`seo/email-report.mjs`, through Fastmail SMTP). Run `npm run seo:measure` for one any day.
+The daily run is `.github/workflows/seo-daily.yml`. When the morning's build differs from the live site it pushes an empty commit ("Daily release: /restaurants/x goes live") so Workers Builds deploys it. Its state (the IndexNow record, public URLs only) lives on the `seo-state` branch, which nothing deploys from. This repo is public and so is everything an Actions run writes, so the traffic report is never printed or saved there. On Mondays the job emails only the to-do (`seo/email-report.mjs`, through Fastmail SMTP): searches the site almost ranks for, and sites that sent visitors for the first time. A week with neither sends nothing. Run `npm run seo:measure` for the full report any day.
 
 ## Queue a page
 
@@ -63,7 +63,7 @@ npm run build          build, then audit (fails on an error)
 npm run seo:audit      audit the last build, report only
 npm run seo:links      check the ledger
 npm run seo:measure    write the report (needs PLAUSIBLE_CE in .env)
-npm run seo:email      email the last report (needs the Fastmail SMTP pair in .env)
+npm run seo:email      email the last to-do (needs the Fastmail SMTP pair in .env)
 npm run seo:indexnow -- --dry-run
 npm test
 ```

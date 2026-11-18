@@ -9,8 +9,9 @@
  * Optional: GSC_SERVICE_ACCOUNT (a Google service-account JSON key, as one
  * string, added as a user on the Search Console property) and GSC_SITE
  * (default "sc-domain:pocketchomp.com").
- * Writes <state-dir>/report.md and <state-dir>/reports/<date>.json; --quiet
- * skips printing the report (the daily job emails it instead).
+ * Writes <state-dir>/report.md, <state-dir>/reports/<date>.json, and
+ * <state-dir>/actions.md (only what needs doing; empty when nothing does,
+ * and the only part the daily job emails). --quiet skips printing.
  */
 import { createSign } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -113,6 +114,22 @@ async function searchConsole(keyJson, site) {
 }
 
 /** Searches where the site already shows on pages 1 to 3: the cheapest wins to chase. */
+/** The email: only what needs doing. Empty when nothing does. */
+export function actionsEmail(date, newSites, misses) {
+  const out = [];
+  if (misses.length) {
+    out.push("## Searches to chase", "", "Google already shows these pages at positions 4 to 30. A better title, or the section the search asks for, can move them onto page one.", "");
+    for (const r of misses) out.push(`- "${r.query}" on ${r.page}: position ${r.position}, ${r.impressions} impressions, ${r.clicks} clicks`);
+    out.push("");
+  }
+  if (newSites.length) {
+    out.push("## New sites sending visitors", "", "Each one is a new link or mention. Find the page and add it to seo/links/prospects.json as live.", "");
+    for (const [site, visitors] of newSites) out.push(`- ${site} (${visitors} this week)`);
+    out.push("");
+  }
+  return out.length ? [`# SEO to-do, ${date}`, "", ...out].join("\n") : "";
+}
+
 export function nearMisses(rows) {
   return rows
     .filter((r) => r.position >= 4 && r.position <= 30 && r.impressions >= 5)
@@ -124,6 +141,8 @@ async function main() {
   const today = torontoToday();
   const lines = [`# SEO report, ${today}`, ""];
   const report = { date: today };
+  let newSites = [];
+  let misses = [];
 
   const key = env("PLAUSIBLE_CE");
   if (!key) {
@@ -148,6 +167,7 @@ async function main() {
     const [week, year] = await Promise.all([sourcesIn(key, [day(7), day(1)]), sourcesIn(key, [day(372), day(8)])]);
     const fresh = [...week.keys()].filter((s) => channelOf(s) !== "direct" && !year.has(s));
     report.newReferrers = fresh;
+    newSites = fresh.map((s) => [s, week.get(s)]);
     if (fresh.length) {
       lines.push("", "## Sites sending visitors for the first time this week", "", ...fresh.map((s) => `- ${s} (${week.get(s)})`), "", "Each one is a new link or mention. Find the page and add it to seo/links/prospects.json as live.");
     }
@@ -159,7 +179,7 @@ async function main() {
     lines.push("Search Console: GSC_SERVICE_ACCOUNT is not set, so there is no search-query data (seo/README.md, Setup).", "");
   } else {
     const { totals, rows } = await searchConsole(gscKey, env("GSC_SITE") ?? `sc-domain:${HOST}`);
-    const misses = nearMisses(rows);
+    misses = nearMisses(rows);
     report.search = { ...totals, nearMisses: misses };
     lines.push("## Google Search, last 28 days", "", `${report.search.clicks} clicks, ${report.search.impressions} impressions.`, "");
     if (misses.length) {
@@ -172,6 +192,7 @@ async function main() {
   mkdirSync(join(stateDir, "reports"), { recursive: true });
   writeFileSync(join(stateDir, "reports", `${today}.json`), JSON.stringify(report, null, 2) + "\n");
   writeFileSync(join(stateDir, "report.md"), lines.join("\n"));
+  writeFileSync(join(stateDir, "actions.md"), actionsEmail(today, newSites, misses));
   if (!process.argv.includes("--quiet")) console.log(lines.join("\n"));
 }
 

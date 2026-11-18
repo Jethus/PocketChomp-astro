@@ -3,7 +3,7 @@ import { contentHash, parsePage, pathFromFile } from "./lib/page.mjs";
 import { botAllowed, runRules, staleDates } from "./lib/rules.mjs";
 import { ledgerProblems, priceSigns } from "./links/policy.mjs";
 import { changedUrls } from "./indexnow.mjs";
-import { channelOf, nearMisses, summarise } from "./measure.mjs";
+import { actionsEmail, channelOf, nearMisses, summarise } from "./measure.mjs";
 
 const SITE = "https://pocketchomp.com";
 const config = { site: SITE, host: "pocketchomp.com", answerBots: ["Googlebot", "OAI-SearchBot"], trainingBots: ["GPTBot"], llmsExempt: [] };
@@ -158,5 +158,17 @@ describe("measure", () => {
       { query: "rare", position: 9, impressions: 2 },
     ];
     expect(nearMisses(rows).map((r) => r.query)).toEqual(["near"]);
+  });
+
+  it("emails nothing when there is nothing to do", () => {
+    expect(actionsEmail("2026-11-23", [], [])).toBe("");
+  });
+
+  it("emails only the to-do", () => {
+    const text = actionsEmail("2026-11-23", [["reddit.com", 3]], [{ query: "tims nutrition", page: "/restaurants/tim-hortons", position: 8.2, impressions: 40, clicks: 1 }]);
+    expect(text.split("\n")[0]).toBe("# SEO to-do, 2026-11-23");
+    expect(text).toContain('- "tims nutrition" on /restaurants/tim-hortons: position 8.2, 40 impressions, 1 clicks');
+    expect(text).toContain("- reddit.com (3 this week)");
+    expect(text).not.toContain("Visitors, last 28 days");
   });
 });
