@@ -40,16 +40,19 @@ const orgLd = {
   "@type": "Organization",
   "@id": `${homeURL}#organization`,
   name: "PocketChomp",
+  // Google corrects "pocketchomp" to "pocket champ"; name the two-word spelling too.
+  alternateName: "Pocket Chomp",
   url: homeURL,
   logo: logoURL,
   email: "josh@pocketchomp.com",
   founder: { "@type": "Person", name: "Josh Del Vecchio" },
   address: { "@type": "PostalAddress", addressRegion: "ON", addressCountry: "CA" },
-  sameAs: [PLAY_STORE_URL],
+  sameAs: [PLAY_STORE_URL, "https://www.tiktok.com/@pocketchomp"],
 };
 const appLd = {
   "@type": "SoftwareApplication",
   name: "PocketChomp",
+  alternateName: "Pocket Chomp",
   publisher: { "@id": orgLd["@id"] },
   applicationCategory: "HealthApplication",
   operatingSystem: "Android",

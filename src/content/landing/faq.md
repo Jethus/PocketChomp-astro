@@ -6,6 +6,8 @@ contactHref: /support
 items:
   - q: Is PocketChomp really free?
     a: Yes. Barcode scanning, label scanning, search, typed meal descriptions, every micronutrient, custom goals, custom foods and recipes, offline use and CSV export are all free, with no ads and no scan limit. PocketChomp+ is an optional subscription that adds photo and voice logging, adaptive targets and longer-range insights. It never takes the basics away.
+  - q: How is it different from MyFitnessPal?
+    a: Barcode scanning is free here, where MyFitnessPal keeps it for Premium. There are no ads, no account is required, it works offline, and every micronutrient is free. MyFitnessPal also runs on iPhone and the web; PocketChomp is Android only for now. The full side-by-side comparison is on this site under PocketChomp vs MyFitnessPal.
   - q: Do I need an account?
     a: No. You can use the entire app as a guest. Cloud sync is something you turn on, not a condition of using it, and your log is written to your phone first either way.
   - q: Does it work without a connection?
