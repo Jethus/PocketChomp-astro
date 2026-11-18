@@ -1,8 +1,8 @@
 # The daily SEO job (seo/README.md). Every morning it builds the site, which
 # audits it and picks up any page dated for today; if that build differs from
 # the live site it pushes an empty commit so Cloudflare Workers Builds deploys
-# it; then it tells IndexNow what changed, checks who links to us, and writes
-# the day's report to the seo-state branch. It never edits content.
+# it; then it tells IndexNow what changed. It never edits content. The repo is
+# public, so traffic reports and the link check run locally, never here.
 name: SEO daily
 
 on:
@@ -68,18 +68,6 @@ jobs:
             node seo/indexnow.mjs
           fi
 
-      - name: Check who links to us
-        if: always()
-        run: node seo/links/check.mjs
-
-      - name: Measure
-        if: always()
-        env:
-          PLAUSIBLE_CE: ${{ secrets.PLAUSIBLE_CE }}
-          GSC_SERVICE_ACCOUNT: ${{ secrets.GSC_SERVICE_ACCOUNT }}
-          GSC_SITE: ${{ vars.GSC_SITE }}
-        run: node seo/measure.mjs
-
       - name: Save state
         if: always()
         run: |
@@ -87,7 +75,3 @@ jobs:
           git add -A
           git diff --cached --quiet || git commit -m "State for $(date -u +%F)"
           git push origin seo-state
-
-      - name: Report
-        if: always()
-        run: cat .seo-state/report.md >> "$GITHUB_STEP_SUMMARY" || true
