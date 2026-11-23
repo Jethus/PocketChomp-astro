@@ -1,0 +1,1969 @@
+{
+  "chain": "Subway",
+  "slug": "subway",
+  "exportedAt": "2026-11-23",
+  "dataUpdatedAt": "2026-10-15",
+  "itemCount": 155,
+  "sections": [
+    {
+      "name": "6\" Steak Subs",
+      "items": [
+        {
+          "name": "Bourbon BBQ Steak & Cheddar (6\" Sub)",
+          "serving": "231 g",
+          "calories": 520,
+          "fat": 18,
+          "saturatedFat": 7,
+          "carbs": 55,
+          "fibre": 3,
+          "sugar": 10,
+          "protein": 31,
+          "sodium": 1250
+        },
+        {
+          "name": "Bourbon Brisket (6\" Sub)",
+          "serving": "248 g",
+          "calories": 690,
+          "fat": 34,
+          "saturatedFat": 10,
+          "carbs": 63,
+          "fibre": 3,
+          "sugar": 16,
+          "protein": 34,
+          "sodium": 1620
+        },
+        {
+          "name": "Steak'n Bacon (6\" Sub)",
+          "serving": "257 g",
+          "calories": 600,
+          "fat": 32,
+          "saturatedFat": 11,
+          "carbs": 46,
+          "fibre": 3,
+          "sugar": 7,
+          "protein": 31,
+          "sodium": 1490
+        }
+      ]
+    },
+    {
+      "name": "6\" Chicken Subs",
+      "items": [
+        {
+          "name": "Chicken Rancher (6\" Sub)",
+          "serving": "285 g",
+          "calories": 540,
+          "fat": 25,
+          "saturatedFat": 9,
+          "carbs": 45,
+          "fibre": 3,
+          "sugar": 6,
+          "protein": 36,
+          "sodium": 1150
+        },
+        {
+          "name": "Nashville-Style Hot Chicken (6\" Sub)",
+          "serving": "271 g",
+          "calories": 590,
+          "fat": 26,
+          "saturatedFat": 8,
+          "carbs": 52,
+          "fibre": 3,
+          "sugar": 7,
+          "protein": 32,
+          "sodium": 1280
+        },
+        {
+          "name": "Teriyaki Crunch (6\" Sub)",
+          "serving": "298 g",
+          "calories": 540,
+          "fat": 15,
+          "saturatedFat": 6,
+          "carbs": 68,
+          "fibre": 3,
+          "sugar": 20,
+          "protein": 29,
+          "sodium": 1320
+        }
+      ]
+    },
+    {
+      "name": "6\" Classics Subs",
+      "items": [
+        {
+          "name": "B.L.T. (6\" Sub)",
+          "serving": "202 g",
+          "calories": 510,
+          "fat": 27,
+          "saturatedFat": 10,
+          "carbs": 44,
+          "fibre": 3,
+          "sugar": 5,
+          "protein": 21,
+          "sodium": 1190
+        },
+        {
+          "name": "Black Forest Ham (6\" Sub)",
+          "serving": "227 g",
+          "calories": 430,
+          "fat": 19,
+          "saturatedFat": 5,
+          "carbs": 46,
+          "fibre": 3,
+          "sugar": 5,
+          "protein": 19,
+          "sodium": 1070
+        },
+        {
+          "name": "Cold Cut Combo (6\" Sub)",
+          "serving": "237 g",
+          "calories": 550,
+          "fat": 33,
+          "saturatedFat": 10,
+          "carbs": 45,
+          "fibre": 3,
+          "sugar": 5,
+          "protein": 19,
+          "sodium": 1200
+        },
+        {
+          "name": "Grilled Chicken (6\" Sub)",
+          "serving": "237 g",
+          "calories": 420,
+          "fat": 18,
+          "saturatedFat": 5,
+          "carbs": 43,
+          "fibre": 3,
+          "sugar": 5,
+          "protein": 22,
+          "sodium": 980
+        },
+        {
+          "name": "Italian B.M.T. (6\" Sub)",
+          "serving": "245 g",
+          "calories": 560,
+          "fat": 31,
+          "saturatedFat": 10,
+          "carbs": 46,
+          "fibre": 3,
+          "sugar": 6,
+          "protein": 23,
+          "sodium": 1650
+        },
+        {
+          "name": "Meatball Marinara (6\" Sub)",
+          "serving": "301 g",
+          "calories": 510,
+          "fat": 21,
+          "saturatedFat": 10,
+          "carbs": 55,
+          "fibre": 5,
+          "sugar": 9,
+          "protein": 27,
+          "sodium": 1360
+        },
+        {
+          "name": "Pizza Sub (6\" Sub)",
+          "serving": "223 g",
+          "calories": 440,
+          "fat": 20,
+          "saturatedFat": 8,
+          "carbs": 47,
+          "fibre": 3,
+          "sugar": 8,
+          "protein": 18,
+          "sodium": 1490
+        },
+        {
+          "name": "Rotisserie-Style Chicken (6\" Fresh Fit Sub)",
+          "serving": "258 g",
+          "calories": 450,
+          "fat": 20,
+          "saturatedFat": 5,
+          "carbs": 41,
+          "fibre": 4,
+          "sugar": 6,
+          "protein": 30,
+          "sodium": 780
+        },
+        {
+          "name": "Rotisserie-Style Chicken (6\" Sub)",
+          "serving": "244 g",
+          "calories": 460,
+          "fat": 19,
+          "saturatedFat": 5,
+          "carbs": 43,
+          "fibre": 3,
+          "sugar": 5,
+          "protein": 28,
+          "sodium": 920
+        },
+        {
+          "name": "Rotisserie-Style Chicken (Protein Only)",
+          "serving": "71 g",
+          "calories": 90,
+          "fat": 3,
+          "saturatedFat": 0,
+          "carbs": 0,
+          "fibre": 0,
+          "sugar": 0,
+          "protein": 17,
+          "sodium": 270
+        },
+        {
+          "name": "Steak & Cheese (6\" Fresh Fit Sub)",
+          "serving": "258 g",
+          "calories": 440,
+          "fat": 18,
+          "saturatedFat": 6,
+          "carbs": 44,
+          "fibre": 4,
+          "sugar": 8,
+          "protein": 26,
+          "sodium": 1090
+        },
+        {
+          "name": "Steak & Cheese (6\" Sub)",
+          "serving": "244 g",
+          "calories": 480,
+          "fat": 22,
+          "saturatedFat": 6,
+          "carbs": 46,
+          "fibre": 3,
+          "sugar": 6,
+          "protein": 25,
+          "sodium": 1190
+        },
+        {
+          "name": "Sweet Onion Chicken Teriyaki (6\" Fresh Fit Sub)",
+          "serving": "272 g",
+          "calories": 410,
+          "fat": 8,
+          "saturatedFat": 4,
+          "carbs": 57,
+          "fibre": 4,
+          "sugar": 20,
+          "protein": 28,
+          "sodium": 960
+        },
+        {
+          "name": "Sweet Onion Chicken Teriyaki (6\" Sub)",
+          "serving": "258 g",
+          "calories": 410,
+          "fat": 7,
+          "saturatedFat": 4,
+          "carbs": 59,
+          "fibre": 3,
+          "sugar": 19,
+          "protein": 26,
+          "sodium": 1090
+        },
+        {
+          "name": "Tuna (includes Mayonnaise, 6\" Fresh Fit Sub)",
+          "serving": "248 g",
+          "calories": 510,
+          "fat": 29,
+          "saturatedFat": 6,
+          "carbs": 41,
+          "fibre": 4,
+          "sugar": 6,
+          "protein": 24,
+          "sodium": 770
+        },
+        {
+          "name": "Tuna (includes Mayonnaise, 6\" Sub)",
+          "serving": "234 g",
+          "calories": 510,
+          "fat": 28,
+          "saturatedFat": 6,
+          "carbs": 43,
+          "fibre": 3,
+          "sugar": 5,
+          "protein": 23,
+          "sodium": 900
+        },
+        {
+          "name": "Tuna (includes Mayonnaise, Protein Only)",
+          "serving": "74 g",
+          "calories": 250,
+          "fat": 23,
+          "saturatedFat": 4,
+          "carbs": 0,
+          "fibre": 0,
+          "sugar": 0,
+          "protein": 12,
+          "sodium": 330
+        },
+        {
+          "name": "Tuna (includes Mayonnaise, Salad)",
+          "serving": "362 g",
+          "calories": 310,
+          "fat": 24,
+          "saturatedFat": 4,
+          "carbs": 10,
+          "fibre": 4,
+          "sugar": 5,
+          "protein": 15,
+          "sodium": 400
+        },
+        {
+          "name": "Tuna (includes Mayonnaise, Wrap)",
+          "serving": "265 g",
+          "calories": 600,
+          "fat": 33,
+          "saturatedFat": 7,
+          "carbs": 55,
+          "fibre": 3,
+          "sugar": 3,
+          "protein": 23,
+          "sodium": 1000
+        },
+        {
+          "name": "Turkey Breast (6\" Fresh Fit Sub)",
+          "serving": "240 g",
+          "calories": 430,
+          "fat": 19,
+          "saturatedFat": 5,
+          "carbs": 44,
+          "fibre": 4,
+          "sugar": 8,
+          "protein": 21,
+          "sodium": 1010
+        },
+        {
+          "name": "Turkey Breast (6\" Sub)",
+          "serving": "233 g",
+          "calories": 430,
+          "fat": 19,
+          "saturatedFat": 5,
+          "carbs": 46,
+          "fibre": 3,
+          "sugar": 6,
+          "protein": 20,
+          "sodium": 1150
+        },
+        {
+          "name": "Turkey Breast (Protein Only)",
+          "serving": "60 g",
+          "calories": 70,
+          "fat": 2,
+          "saturatedFat": 0,
+          "carbs": 4,
+          "fibre": 0,
+          "sugar": 2,
+          "protein": 9,
+          "sodium": 500
+        },
+        {
+          "name": "Veggie Delite (6\" Sub)",
+          "serving": "188 g",
+          "calories": 370,
+          "fat": 17,
+          "saturatedFat": 5,
+          "carbs": 43,
+          "fibre": 3,
+          "sugar": 5,
+          "protein": 11,
+          "sodium": 650
+        },
+        {
+          "name": "Veggie Patty (6\" Sub)",
+          "serving": "259 g",
+          "calories": 530,
+          "fat": 26,
+          "saturatedFat": 5,
+          "carbs": 57,
+          "fibre": 12,
+          "sugar": 8,
+          "protein": 18,
+          "sodium": 930
+        },
+        {
+          "name": "Veggie Patty (Protein Only)",
+          "serving": "85 g",
+          "calories": 170,
+          "fat": 9,
+          "saturatedFat": 1,
+          "carbs": 17,
+          "fibre": 8,
+          "sugar": 2,
+          "protein": 6,
+          "sodium": 320
+        }
+      ]
+    },
+    {
+      "name": "6\" Deli Subs",
+      "items": [
+        {
+          "name": "Great Canadian Club (6\" Sub)",
+          "serving": "235 g",
+          "calories": 470,
+          "fat": 20,
+          "saturatedFat": 8,
+          "carbs": 49,
+          "fibre": 2,
+          "sugar": 8,
+          "protein": 27,
+          "sodium": 1400
+        },
+        {
+          "name": "Smashed Avocado & Turkey (6\" Sub)",
+          "serving": "293 g",
+          "calories": 550,
+          "fat": 29,
+          "saturatedFat": 8,
+          "carbs": 50,
+          "fibre": 5,
+          "sugar": 7,
+          "protein": 23,
+          "sodium": 1260
+        }
+      ]
+    },
+    {
+      "name": "6\" Veggie Subs",
+      "items": [
+        {
+          "name": "Big Veggie (6\" Sub)",
+          "serving": "264 g",
+          "calories": 540,
+          "fat": 25,
+          "saturatedFat": 7,
+          "carbs": 60,
+          "fibre": 11,
+          "sugar": 7,
+          "protein": 19,
+          "sodium": 1100
+        }
+      ]
+    },
+    {
+      "name": "Snackwiches",
+      "items": [
+        {
+          "name": "BLT (Snackwich)",
+          "serving": "149 g",
+          "calories": 400,
+          "fat": 22,
+          "saturatedFat": 7,
+          "carbs": 38,
+          "fibre": 2,
+          "sugar": 2,
+          "protein": 14,
+          "sodium": 810
+        },
+        {
+          "name": "Honey Mustard Ham (Snackwich)",
+          "serving": "171 g",
+          "calories": 320,
+          "fat": 13,
+          "saturatedFat": 4,
+          "carbs": 42,
+          "fibre": 2,
+          "sugar": 4,
+          "protein": 13,
+          "sodium": 960
+        },
+        {
+          "name": "Three Cheese (Snackwich)",
+          "serving": "113 g",
+          "calories": 350,
+          "fat": 16,
+          "saturatedFat": 8,
+          "carbs": 38,
+          "fibre": 2,
+          "sugar": 1,
+          "protein": 14,
+          "sodium": 770
+        },
+        {
+          "name": "Turkey Ranch (Snackwich)",
+          "serving": "160 g",
+          "calories": 350,
+          "fat": 15,
+          "saturatedFat": 4,
+          "carbs": 40,
+          "fibre": 2,
+          "sugar": 2,
+          "protein": 14,
+          "sodium": 970
+        }
+      ]
+    },
+    {
+      "name": "Classics Wraps",
+      "items": [
+        {
+          "name": "B.L.T. (Wrap)",
+          "serving": "234 g",
+          "calories": 600,
+          "fat": 33,
+          "saturatedFat": 10,
+          "carbs": 56,
+          "fibre": 3,
+          "sugar": 4,
+          "protein": 22,
+          "sodium": 1290
+        },
+        {
+          "name": "Black Forest Ham (Wrap)",
+          "serving": "259 g",
+          "calories": 520,
+          "fat": 24,
+          "saturatedFat": 5,
+          "carbs": 58,
+          "fibre": 3,
+          "sugar": 4,
+          "protein": 19,
+          "sodium": 1170
+        },
+        {
+          "name": "Cold Cut Combo (Wrap)",
+          "serving": "269 g",
+          "calories": 640,
+          "fat": 38,
+          "saturatedFat": 10,
+          "carbs": 58,
+          "fibre": 4,
+          "sugar": 4,
+          "protein": 20,
+          "sodium": 1290
+        },
+        {
+          "name": "Grilled Chicken (Wrap)",
+          "serving": "269 g",
+          "calories": 510,
+          "fat": 23,
+          "saturatedFat": 5,
+          "carbs": 56,
+          "fibre": 4,
+          "sugar": 4,
+          "protein": 23,
+          "sodium": 1080
+        },
+        {
+          "name": "Italian B.M.T. (Wrap)",
+          "serving": "245 g",
+          "calories": 600,
+          "fat": 36,
+          "saturatedFat": 9,
+          "carbs": 57,
+          "fibre": 3,
+          "sugar": 4,
+          "protein": 14,
+          "sodium": 1010
+        },
+        {
+          "name": "Meatball Marinara (Wrap)",
+          "serving": "254 g",
+          "calories": 580,
+          "fat": 25,
+          "saturatedFat": 10,
+          "carbs": 64,
+          "fibre": 4,
+          "sugar": 6,
+          "protein": 26,
+          "sodium": 1420
+        },
+        {
+          "name": "Pizza Sub (Wrap)",
+          "serving": "254 g",
+          "calories": 530,
+          "fat": 25,
+          "saturatedFat": 9,
+          "carbs": 59,
+          "fibre": 4,
+          "sugar": 6,
+          "protein": 19,
+          "sodium": 1590
+        },
+        {
+          "name": "Rotisserie-Style Chicken (Wrap)",
+          "serving": "276 g",
+          "calories": 550,
+          "fat": 24,
+          "saturatedFat": 5,
+          "carbs": 55,
+          "fibre": 3,
+          "sugar": 3,
+          "protein": 28,
+          "sodium": 1010
+        },
+        {
+          "name": "Steak & Cheese (Wrap)",
+          "serving": "276 g",
+          "calories": 570,
+          "fat": 27,
+          "saturatedFat": 7,
+          "carbs": 58,
+          "fibre": 3,
+          "sugar": 5,
+          "protein": 25,
+          "sodium": 1280
+        },
+        {
+          "name": "Sweet Onion Teriyaki (Wrap)",
+          "serving": "290 g",
+          "calories": 500,
+          "fat": 12,
+          "saturatedFat": 4,
+          "carbs": 71,
+          "fibre": 3,
+          "sugar": 17,
+          "protein": 26,
+          "sodium": 1190
+        },
+        {
+          "name": "Turkey Breast (Wrap)",
+          "serving": "265 g",
+          "calories": 520,
+          "fat": 24,
+          "saturatedFat": 5,
+          "carbs": 59,
+          "fibre": 3,
+          "sugar": 5,
+          "protein": 20,
+          "sodium": 1240
+        },
+        {
+          "name": "Veggie Delite (Wrap)",
+          "serving": "219 g",
+          "calories": 460,
+          "fat": 22,
+          "saturatedFat": 5,
+          "carbs": 56,
+          "fibre": 3,
+          "sugar": 3,
+          "protein": 11,
+          "sodium": 750
+        },
+        {
+          "name": "Veggie Patty (Wrap)",
+          "serving": "304 g",
+          "calories": 630,
+          "fat": 31,
+          "saturatedFat": 6,
+          "carbs": 72,
+          "fibre": 11,
+          "sugar": 6,
+          "protein": 17,
+          "sodium": 1070
+        }
+      ]
+    },
+    {
+      "name": "Salads",
+      "items": [
+        {
+          "name": "Black Forest Ham (Salad)",
+          "serving": "341 g",
+          "calories": 110,
+          "fat": 3,
+          "saturatedFat": 1,
+          "carbs": 13,
+          "fibre": 4,
+          "sugar": 5,
+          "protein": 11,
+          "sodium": 490
+        },
+        {
+          "name": "Cold Cut Combo (Salad)",
+          "serving": "351 g",
+          "calories": 240,
+          "fat": 17,
+          "saturatedFat": 6,
+          "carbs": 12,
+          "fibre": 5,
+          "sugar": 5,
+          "protein": 12,
+          "sodium": 620
+        },
+        {
+          "name": "Grilled Chicken (Salad)",
+          "serving": "351 g",
+          "calories": 110,
+          "fat": 3,
+          "saturatedFat": 1,
+          "carbs": 10,
+          "fibre": 5,
+          "sugar": 5,
+          "protein": 14,
+          "sodium": 400
+        },
+        {
+          "name": "Italian B.M.T. (Salad)",
+          "serving": "359 g",
+          "calories": 240,
+          "fat": 16,
+          "saturatedFat": 6,
+          "carbs": 13,
+          "fibre": 4,
+          "sugar": 6,
+          "protein": 15,
+          "sodium": 1070
+        },
+        {
+          "name": "Meatball Marinara (Salad)",
+          "serving": "426 g",
+          "calories": 290,
+          "fat": 16,
+          "saturatedFat": 7,
+          "carbs": 22,
+          "fibre": 6,
+          "sugar": 9,
+          "protein": 18,
+          "sodium": 790
+        },
+        {
+          "name": "Pizza Sub Melt (Salad)",
+          "serving": "362 g",
+          "calories": 270,
+          "fat": 19,
+          "saturatedFat": 8,
+          "carbs": 15,
+          "fibre": 5,
+          "sugar": 8,
+          "protein": 13,
+          "sodium": 1170
+        },
+        {
+          "name": "Rotisserie-Style Chicken (Salad)",
+          "serving": "358 g",
+          "calories": 140,
+          "fat": 4,
+          "saturatedFat": 1,
+          "carbs": 9,
+          "fibre": 4,
+          "sugar": 5,
+          "protein": 20,
+          "sodium": 340
+        },
+        {
+          "name": "Steak & Cheese (Salad)",
+          "serving": "358 g",
+          "calories": 160,
+          "fat": 6,
+          "saturatedFat": 2,
+          "carbs": 13,
+          "fibre": 4,
+          "sugar": 6,
+          "protein": 17,
+          "sodium": 610
+        },
+        {
+          "name": "Sweet Onion Chicken Teriyaki (Salad)",
+          "serving": "400 g",
+          "calories": 240,
+          "fat": 4,
+          "saturatedFat": 1,
+          "carbs": 34,
+          "fibre": 4,
+          "sugar": 26,
+          "protein": 18,
+          "sodium": 750
+        },
+        {
+          "name": "Turkey Breast (Salad)",
+          "serving": "347 g",
+          "calories": 120,
+          "fat": 3,
+          "saturatedFat": 1,
+          "carbs": 13,
+          "fibre": 4,
+          "sugar": 6,
+          "protein": 12,
+          "sodium": 560
+        },
+        {
+          "name": "Veggie Delite (Salad)",
+          "serving": "287 g",
+          "calories": 50,
+          "fat": 1,
+          "saturatedFat": 0,
+          "carbs": 9,
+          "fibre": 4,
+          "sugar": 5,
+          "protein": 3,
+          "sodium": 65
+        },
+        {
+          "name": "Veggie Patty (Salad)",
+          "serving": "372 g",
+          "calories": 220,
+          "fat": 10,
+          "saturatedFat": 1,
+          "carbs": 26,
+          "fibre": 12,
+          "sugar": 7,
+          "protein": 9,
+          "sodium": 380
+        }
+      ]
+    },
+    {
+      "name": "Power Bowls",
+      "items": [
+        {
+          "name": "Bourbon BBQ Steak & Cheddar (Power Bowl)",
+          "serving": "393 g",
+          "calories": 600,
+          "fat": 18,
+          "saturatedFat": 6,
+          "carbs": 80,
+          "fibre": 7,
+          "sugar": 19,
+          "protein": 26,
+          "sodium": 1660
+        },
+        {
+          "name": "Classic Grilled Chicken (Power Bowl)",
+          "serving": "354 g",
+          "calories": 540,
+          "fat": 26,
+          "saturatedFat": 6,
+          "carbs": 56,
+          "fibre": 7,
+          "sugar": 4,
+          "protein": 23,
+          "sodium": 1130
+        },
+        {
+          "name": "Classic Rotisserie-Style Chicken (Power Bowl)",
+          "serving": "361 g",
+          "calories": 580,
+          "fat": 28,
+          "saturatedFat": 6,
+          "carbs": 56,
+          "fibre": 7,
+          "sugar": 4,
+          "protein": 29,
+          "sodium": 1070
+        },
+        {
+          "name": "Classic Steak (Power Bowl)",
+          "serving": "361 g",
+          "calories": 580,
+          "fat": 28,
+          "saturatedFat": 7,
+          "carbs": 59,
+          "fibre": 7,
+          "sugar": 5,
+          "protein": 26,
+          "sodium": 1350
+        },
+        {
+          "name": "Classic Sweet Onion chicken Teriyaki (Power Bowl)",
+          "serving": "374 g",
+          "calories": 520,
+          "fat": 12,
+          "saturatedFat": 4,
+          "carbs": 79,
+          "fibre": 7,
+          "sugar": 24,
+          "protein": 27,
+          "sodium": 1270
+        },
+        {
+          "name": "Classic Tuna (Power Bowl)",
+          "serving": "364 g",
+          "calories": 740,
+          "fat": 47,
+          "saturatedFat": 9,
+          "carbs": 56,
+          "fibre": 7,
+          "sugar": 4,
+          "protein": 23,
+          "sodium": 1170
+        },
+        {
+          "name": "Classic Veggie Delite (Power Bowl)",
+          "serving": "374 g",
+          "calories": 610,
+          "fat": 30,
+          "saturatedFat": 6,
+          "carbs": 73,
+          "fibre": 12,
+          "sugar": 5,
+          "protein": 16,
+          "sodium": 1200
+        },
+        {
+          "name": "Smashed Avocado & Turkey (Power Bowl)",
+          "serving": "328 g",
+          "calories": 510,
+          "fat": 26,
+          "saturatedFat": 6,
+          "carbs": 52,
+          "fibre": 6,
+          "sugar": 4,
+          "protein": 18,
+          "sodium": 1110
+        },
+        {
+          "name": "Southwest Steak & Avocado (Power Bowl)",
+          "serving": "399 g",
+          "calories": 650,
+          "fat": 34,
+          "saturatedFat": 8,
+          "carbs": 62,
+          "fibre": 9,
+          "sugar": 6,
+          "protein": 26,
+          "sodium": 1550
+        }
+      ]
+    },
+    {
+      "name": "6\" Breakfast Sandwiches",
+      "items": [
+        {
+          "name": "Bacon & Egg (6\" Breakfast Sub)",
+          "serving": "233 g",
+          "calories": 560,
+          "fat": 32,
+          "saturatedFat": 9,
+          "carbs": 45,
+          "fibre": 3,
+          "sugar": 5,
+          "protein": 16,
+          "sodium": 1120
+        },
+        {
+          "name": "Cheese & Egg (6\" Breakfast Sub)",
+          "serving": "223 g",
+          "calories": 510,
+          "fat": 29,
+          "saturatedFat": 7,
+          "carbs": 44,
+          "fibre": 3,
+          "sugar": 5,
+          "protein": 12,
+          "sodium": 940
+        },
+        {
+          "name": "Ham & Egg (6\" Breakfast Sub)",
+          "serving": "250 g",
+          "calories": 550,
+          "fat": 30,
+          "saturatedFat": 7,
+          "carbs": 46,
+          "fibre": 3,
+          "sugar": 6,
+          "protein": 16,
+          "sodium": 1200
+        },
+        {
+          "name": "Sausage & Cheese (6\" Breakfast Sub)",
+          "serving": "175 g",
+          "calories": 490,
+          "fat": 28,
+          "saturatedFat": 7,
+          "carbs": 42,
+          "fibre": 2,
+          "sugar": 4,
+          "protein": 16,
+          "sodium": 860
+        },
+        {
+          "name": "Sausage & Egg (6\" Breakfast Sub)",
+          "serving": "260 g",
+          "calories": 640,
+          "fat": 40,
+          "saturatedFat": 9,
+          "carbs": 45,
+          "fibre": 3,
+          "sugar": 5,
+          "protein": 18,
+          "sodium": 1150
+        }
+      ]
+    },
+    {
+      "name": "Breakfast Wraps",
+      "items": [
+        {
+          "name": "Bacon & Egg (Breakfast Wrap)",
+          "serving": "264 g",
+          "calories": 650,
+          "fat": 37,
+          "saturatedFat": 9,
+          "carbs": 57,
+          "fibre": 3,
+          "sugar": 4,
+          "protein": 16,
+          "sodium": 1220
+        },
+        {
+          "name": "Cheese & Egg (Breakfast Wrap)",
+          "serving": "254 g",
+          "calories": 600,
+          "fat": 34,
+          "saturatedFat": 7,
+          "carbs": 57,
+          "fibre": 3,
+          "sugar": 4,
+          "protein": 13,
+          "sodium": 1040
+        },
+        {
+          "name": "Ham & Egg (Breakfast Wrap)",
+          "serving": "281 g",
+          "calories": 640,
+          "fat": 35,
+          "saturatedFat": 7,
+          "carbs": 59,
+          "fibre": 3,
+          "sugar": 4,
+          "protein": 17,
+          "sodium": 1300
+        },
+        {
+          "name": "Sausage & Cheese (Breakfast Wrap)",
+          "serving": "206 g",
+          "calories": 580,
+          "fat": 33,
+          "saturatedFat": 7,
+          "carbs": 54,
+          "fibre": 3,
+          "sugar": 3,
+          "protein": 17,
+          "sodium": 950
+        },
+        {
+          "name": "Sausage & Egg (Breakfast Wrap)",
+          "serving": "291 g",
+          "calories": 730,
+          "fat": 45,
+          "saturatedFat": 10,
+          "carbs": 57,
+          "fibre": 3,
+          "sugar": 4,
+          "protein": 19,
+          "sodium": 1250
+        }
+      ]
+    },
+    {
+      "name": "Breakfast Ciabatta",
+      "items": [
+        {
+          "name": "Bacon & Egg (Breakfast Ciabatta)",
+          "serving": "177 g",
+          "calories": 450,
+          "fat": 26,
+          "saturatedFat": 7,
+          "carbs": 40,
+          "fibre": 2,
+          "sugar": 2,
+          "protein": 13,
+          "sodium": 980
+        },
+        {
+          "name": "Cheese & Egg (Breakfast Ciabatta)",
+          "serving": "168 g",
+          "calories": 400,
+          "fat": 22,
+          "saturatedFat": 5,
+          "carbs": 39,
+          "fibre": 2,
+          "sugar": 2,
+          "protein": 10,
+          "sodium": 790
+        },
+        {
+          "name": "Ham & Egg (Breakfast Ciabatta)",
+          "serving": "186 g",
+          "calories": 430,
+          "fat": 23,
+          "saturatedFat": 5,
+          "carbs": 41,
+          "fibre": 2,
+          "sugar": 2,
+          "protein": 12,
+          "sodium": 970
+        },
+        {
+          "name": "Sausage & Cheese (Breakfast Ciabatta)",
+          "serving": "162 g",
+          "calories": 460,
+          "fat": 27,
+          "saturatedFat": 7,
+          "carbs": 39,
+          "fibre": 2,
+          "sugar": 2,
+          "protein": 15,
+          "sodium": 850
+        },
+        {
+          "name": "Sausage & Egg (Breakfast Ciabatta)",
+          "serving": "204 g",
+          "calories": 530,
+          "fat": 33,
+          "saturatedFat": 8,
+          "carbs": 40,
+          "fibre": 2,
+          "sugar": 2,
+          "protein": 15,
+          "sodium": 1000
+        }
+      ]
+    },
+    {
+      "name": "Breads",
+      "items": [
+        {
+          "name": "6\" Artisan Flatbread",
+          "serving": "78 g",
+          "calories": 220,
+          "fat": 4,
+          "saturatedFat": 1,
+          "carbs": 39,
+          "fibre": 1,
+          "sugar": 2,
+          "protein": 6,
+          "sodium": 380
+        },
+        {
+          "name": "6\" Italian",
+          "serving": "71 g",
+          "calories": 210,
+          "fat": 2,
+          "saturatedFat": 1,
+          "carbs": 39,
+          "fibre": 1,
+          "sugar": 3,
+          "protein": 8,
+          "sodium": 380
+        },
+        {
+          "name": "6\" Italian Herbs & Cheese",
+          "serving": "82 g",
+          "calories": 250,
+          "fat": 5,
+          "saturatedFat": 3,
+          "carbs": 41,
+          "fibre": 2,
+          "sugar": 3,
+          "protein": 10,
+          "sodium": 580
+        },
+        {
+          "name": "6\" Multigrain",
+          "serving": "71 g",
+          "calories": 200,
+          "fat": 3,
+          "saturatedFat": 1,
+          "carbs": 36,
+          "fibre": 3,
+          "sugar": 4,
+          "protein": 9,
+          "sodium": 350
+        },
+        {
+          "name": "Ciabatta",
+          "serving": "76 g",
+          "calories": 210,
+          "fat": 5,
+          "saturatedFat": 1,
+          "carbs": 36,
+          "fibre": 2,
+          "sugar": 0,
+          "protein": 6,
+          "sodium": 410
+        },
+        {
+          "name": "Gluten Free Bread (as packaged)",
+          "serving": "120 g",
+          "calories": 330,
+          "fat": 12,
+          "saturatedFat": 1,
+          "carbs": 55,
+          "fibre": 7,
+          "sugar": 1,
+          "protein": 3,
+          "sodium": 890
+        },
+        {
+          "name": "Wrap",
+          "serving": "102 g",
+          "calories": 300,
+          "fat": 7,
+          "saturatedFat": 1,
+          "carbs": 51,
+          "fibre": 2,
+          "sugar": 1,
+          "protein": 8,
+          "sodium": 480
+        }
+      ]
+    },
+    {
+      "name": "Condiments and add-ons",
+      "items": [
+        {
+          "name": "Barrel Bourbon BBQ Sauce",
+          "serving": "14 g",
+          "calories": 20,
+          "fat": 0,
+          "saturatedFat": 0,
+          "carbs": 5,
+          "fibre": 0,
+          "sugar": 5,
+          "protein": 0,
+          "sodium": 150
+        },
+        {
+          "name": "Chipotle Southwest Sauce",
+          "serving": "14 g",
+          "calories": 60,
+          "fat": 7,
+          "saturatedFat": 1,
+          "carbs": 1,
+          "fibre": 0,
+          "sugar": 0,
+          "protein": 0,
+          "sodium": 115
+        },
+        {
+          "name": "Garlic Aioli Sauce",
+          "serving": "14 g",
+          "calories": 70,
+          "fat": 7,
+          "saturatedFat": 1,
+          "carbs": 1,
+          "fibre": 0,
+          "sugar": 1,
+          "protein": 0,
+          "sodium": 115
+        },
+        {
+          "name": "Hot Honey",
+          "serving": "14 g",
+          "calories": 30,
+          "fat": 0,
+          "saturatedFat": 0,
+          "carbs": 8,
+          "fibre": 0,
+          "sugar": 7,
+          "protein": 0,
+          "sodium": 115
+        },
+        {
+          "name": "House Sandwich Sauce",
+          "serving": "14 g",
+          "calories": 70,
+          "fat": 8,
+          "saturatedFat": 1,
+          "carbs": 1,
+          "fibre": 0,
+          "sugar": 1,
+          "protein": 0,
+          "sodium": 125
+        },
+        {
+          "name": "Ketchup",
+          "serving": "14 g",
+          "calories": 15,
+          "fat": 0,
+          "saturatedFat": 0,
+          "carbs": 4,
+          "fibre": 0,
+          "sugar": 3,
+          "protein": 0,
+          "sodium": 125
+        },
+        {
+          "name": "Mayonnaise",
+          "serving": "14 g",
+          "calories": 100,
+          "fat": 11,
+          "saturatedFat": 2,
+          "carbs": 0,
+          "fibre": 0,
+          "sugar": 0,
+          "protein": 0,
+          "sodium": 75
+        },
+        {
+          "name": "Mustard, Yellow",
+          "serving": "14 g",
+          "calories": 10,
+          "fat": 1,
+          "saturatedFat": 0,
+          "carbs": 1,
+          "fibre": 0,
+          "sugar": 0,
+          "protein": 1,
+          "sodium": 170
+        },
+        {
+          "name": "Nashville-Style Hot Sauce",
+          "serving": "14 g",
+          "calories": 35,
+          "fat": 3,
+          "saturatedFat": 0,
+          "carbs": 3,
+          "fibre": 0,
+          "sugar": 2,
+          "protein": 0,
+          "sodium": 210
+        },
+        {
+          "name": "Peppercorn Ranch Sauce",
+          "serving": "14 g",
+          "calories": 80,
+          "fat": 8,
+          "saturatedFat": 1,
+          "carbs": 1,
+          "fibre": 0,
+          "sugar": 1,
+          "protein": 0,
+          "sodium": 105
+        },
+        {
+          "name": "Smoky Honey Mustard Sauce",
+          "serving": "14 g",
+          "calories": 45,
+          "fat": 5,
+          "saturatedFat": 1,
+          "carbs": 3,
+          "fibre": 0,
+          "sugar": 3,
+          "protein": 0,
+          "sodium": 115
+        },
+        {
+          "name": "Sweet Onion Teriyaki Sauce",
+          "serving": "14 g",
+          "calories": 35,
+          "fat": 0,
+          "saturatedFat": 0,
+          "carbs": 8,
+          "fibre": 0,
+          "sugar": 7,
+          "protein": 0,
+          "sodium": 160
+        },
+        {
+          "name": "Wild Rice (4 oz)",
+          "serving": "113 g",
+          "calories": 200,
+          "fat": 3,
+          "saturatedFat": 1,
+          "carbs": 41,
+          "fibre": 2,
+          "sugar": 0,
+          "protein": 4,
+          "sodium": 290
+        }
+      ]
+    },
+    {
+      "name": "Vegetables",
+      "items": [
+        {
+          "name": "Avocado, Smashed",
+          "serving": "35 g",
+          "calories": 70,
+          "fat": 6,
+          "saturatedFat": 1,
+          "carbs": 3,
+          "fibre": 2,
+          "sugar": 0,
+          "protein": 1,
+          "sodium": 130
+        },
+        {
+          "name": "Banana Peppers",
+          "serving": "4 g",
+          "calories": 1,
+          "fat": 0,
+          "saturatedFat": 0,
+          "carbs": 0,
+          "fibre": 0,
+          "sugar": 0,
+          "protein": 0,
+          "sodium": 65
+        },
+        {
+          "name": "Crispy Onions (0.5 oz)",
+          "serving": "14 g",
+          "calories": 80,
+          "fat": 4,
+          "saturatedFat": 0,
+          "carbs": 7,
+          "fibre": 0,
+          "sugar": 1,
+          "protein": 1,
+          "sodium": 35
+        },
+        {
+          "name": "Cucumbers",
+          "serving": "14 g",
+          "calories": 2,
+          "fat": 0,
+          "saturatedFat": 0,
+          "carbs": 1,
+          "fibre": 0,
+          "sugar": 0,
+          "protein": 0,
+          "sodium": 0
+        },
+        {
+          "name": "Fresh Salsa (Tomatoes, Onions, Green Peppers)",
+          "serving": "49 g",
+          "calories": 10,
+          "fat": 0,
+          "saturatedFat": 0,
+          "carbs": 2,
+          "fibre": 1,
+          "sugar": 2,
+          "protein": 0,
+          "sodium": 0
+        },
+        {
+          "name": "Green Peppers",
+          "serving": "7 g",
+          "calories": 1,
+          "fat": 0,
+          "saturatedFat": 0,
+          "carbs": 0,
+          "fibre": 0,
+          "sugar": 0,
+          "protein": 0,
+          "sodium": 0
+        },
+        {
+          "name": "Jalapeno Peppers",
+          "serving": "4 g",
+          "calories": 1,
+          "fat": 0,
+          "saturatedFat": 0,
+          "carbs": 0,
+          "fibre": 0,
+          "sugar": 0,
+          "protein": 0,
+          "sodium": 70
+        },
+        {
+          "name": "Lettuce",
+          "serving": "21 g",
+          "calories": 3,
+          "fat": 0,
+          "saturatedFat": 0,
+          "carbs": 0,
+          "fibre": 0,
+          "sugar": 0,
+          "protein": 0,
+          "sodium": 0
+        },
+        {
+          "name": "Olives, Black",
+          "serving": "3 g",
+          "calories": 3,
+          "fat": 0,
+          "saturatedFat": 0,
+          "carbs": 0,
+          "fibre": 0,
+          "sugar": 0,
+          "protein": 0,
+          "sodium": 20
+        },
+        {
+          "name": "Onions, Red",
+          "serving": "7 g",
+          "calories": 3,
+          "fat": 0,
+          "saturatedFat": 0,
+          "carbs": 1,
+          "fibre": 0,
+          "sugar": 0,
+          "protein": 0,
+          "sodium": 0
+        },
+        {
+          "name": "Pickles",
+          "serving": "10 g",
+          "calories": 1,
+          "fat": 0,
+          "saturatedFat": 0,
+          "carbs": 0,
+          "fibre": 0,
+          "sugar": 0,
+          "protein": 0,
+          "sodium": 115
+        },
+        {
+          "name": "Spinach, Baby",
+          "serving": "7 g",
+          "calories": 2,
+          "fat": 0,
+          "saturatedFat": 0,
+          "carbs": 0,
+          "fibre": 0,
+          "sugar": 0,
+          "protein": 0,
+          "sodium": 5
+        },
+        {
+          "name": "Tomatoes",
+          "serving": "35 g",
+          "calories": 5,
+          "fat": 0,
+          "saturatedFat": 0,
+          "carbs": 1,
+          "fibre": 0,
+          "sugar": 1,
+          "protein": 0,
+          "sodium": 0
+        }
+      ]
+    },
+    {
+      "name": "Cheese",
+      "items": [
+        {
+          "name": "Canadian Cheddar",
+          "serving": "11 g",
+          "calories": 40,
+          "fat": 4,
+          "saturatedFat": 2,
+          "carbs": 0,
+          "fibre": 0,
+          "sugar": 0,
+          "protein": 3,
+          "sodium": 80
+        },
+        {
+          "name": "Cheddar, Processed",
+          "serving": "11 g",
+          "calories": 40,
+          "fat": 3,
+          "saturatedFat": 2,
+          "carbs": 1,
+          "fibre": 0,
+          "sugar": 0,
+          "protein": 2,
+          "sodium": 190
+        },
+        {
+          "name": "Habanero Jack",
+          "serving": "11 g",
+          "calories": 40,
+          "fat": 4,
+          "saturatedFat": 2,
+          "carbs": 0,
+          "fibre": 0,
+          "sugar": 0,
+          "protein": 3,
+          "sodium": 80
+        },
+        {
+          "name": "Monterey Jack & Cheddar Cheese Blend, Shredded",
+          "serving": "14 g",
+          "calories": 50,
+          "fat": 5,
+          "saturatedFat": 3,
+          "carbs": 1,
+          "fibre": 0,
+          "sugar": 0,
+          "protein": 3,
+          "sodium": 100
+        },
+        {
+          "name": "Parmesan, Grated",
+          "serving": "3 g",
+          "calories": 10,
+          "fat": 1,
+          "saturatedFat": 0,
+          "carbs": 0,
+          "fibre": 0,
+          "sugar": 0,
+          "protein": 1,
+          "sodium": 65
+        }
+      ]
+    },
+    {
+      "name": "Individual Proteins",
+      "items": [
+        {
+          "name": "Bacon Slices (2 strips)",
+          "serving": "10 g",
+          "calories": 50,
+          "fat": 4,
+          "saturatedFat": 2,
+          "carbs": 0,
+          "fibre": 0,
+          "sugar": 0,
+          "protein": 4,
+          "sodium": 180
+        },
+        {
+          "name": "Beans & Corn (1.5 oz)",
+          "serving": "43 g",
+          "calories": 60,
+          "fat": 3,
+          "saturatedFat": 0,
+          "carbs": 9,
+          "fibre": 3,
+          "sugar": 0,
+          "protein": 3,
+          "sodium": 180
+        },
+        {
+          "name": "Beef Brisket",
+          "serving": "85 g",
+          "calories": 220,
+          "fat": 15,
+          "saturatedFat": 4,
+          "carbs": 2,
+          "fibre": 0,
+          "sugar": 0,
+          "protein": 20,
+          "sodium": 630
+        },
+        {
+          "name": "Chicken Strips, Plain",
+          "serving": "71 g",
+          "calories": 80,
+          "fat": 2,
+          "saturatedFat": 1,
+          "carbs": 1,
+          "fibre": 0,
+          "sugar": 0,
+          "protein": 15,
+          "sodium": 210
+        },
+        {
+          "name": "Chicken Strips, Sweet Onion Teriyaki Glazed",
+          "serving": "85 g",
+          "calories": 110,
+          "fat": 2,
+          "saturatedFat": 1,
+          "carbs": 9,
+          "fibre": 0,
+          "sugar": 7,
+          "protein": 15,
+          "sodium": 370
+        },
+        {
+          "name": "Chicken, Grilled",
+          "serving": "64 g",
+          "calories": 60,
+          "fat": 1,
+          "saturatedFat": 0,
+          "carbs": 1,
+          "fibre": 1,
+          "sugar": 1,
+          "protein": 11,
+          "sodium": 340
+        },
+        {
+          "name": "Cold Cut Combo Meats",
+          "serving": "64 g",
+          "calories": 190,
+          "fat": 16,
+          "saturatedFat": 6,
+          "carbs": 3,
+          "fibre": 1,
+          "sugar": 1,
+          "protein": 9,
+          "sodium": 550
+        },
+        {
+          "name": "Egg Patty, Scrambled",
+          "serving": "85 g",
+          "calories": 150,
+          "fat": 12,
+          "saturatedFat": 3,
+          "carbs": 3,
+          "fibre": 1,
+          "sugar": 1,
+          "protein": 2,
+          "sodium": 290
+        },
+        {
+          "name": "Ham, Black Forest",
+          "serving": "54 g",
+          "calories": 60,
+          "fat": 2,
+          "saturatedFat": 1,
+          "carbs": 3,
+          "fibre": 0,
+          "sugar": 1,
+          "protein": 8,
+          "sodium": 420
+        },
+        {
+          "name": "Italian B.M.T. Meats",
+          "serving": "71 g",
+          "calories": 190,
+          "fat": 14,
+          "saturatedFat": 5,
+          "carbs": 3,
+          "fibre": 0,
+          "sugar": 1,
+          "protein": 12,
+          "sodium": 1000
+        },
+        {
+          "name": "Meatballs with Marinara",
+          "serving": "139 g",
+          "calories": 240,
+          "fat": 15,
+          "saturatedFat": 6,
+          "carbs": 12,
+          "fibre": 2,
+          "sugar": 5,
+          "protein": 15,
+          "sodium": 720
+        },
+        {
+          "name": "Pepperoni (3 slices)",
+          "serving": "18 g",
+          "calories": 80,
+          "fat": 7,
+          "saturatedFat": 3,
+          "carbs": 1,
+          "fibre": 0,
+          "sugar": 1,
+          "protein": 4,
+          "sodium": 400
+        },
+        {
+          "name": "Salami",
+          "serving": "59 g",
+          "calories": 230,
+          "fat": 20,
+          "saturatedFat": 7,
+          "carbs": 2,
+          "fibre": 0,
+          "sugar": 1,
+          "protein": 11,
+          "sodium": 1070
+        },
+        {
+          "name": "Sausage Patty, Breakfast (1 patty)",
+          "serving": "37 g",
+          "calories": 130,
+          "fat": 11,
+          "saturatedFat": 3,
+          "carbs": 1,
+          "fibre": 0,
+          "sugar": 0,
+          "protein": 6,
+          "sodium": 210
+        },
+        {
+          "name": "Steak (no cheese)",
+          "serving": "71 g",
+          "calories": 110,
+          "fat": 5,
+          "saturatedFat": 2,
+          "carbs": 3,
+          "fibre": 0,
+          "sugar": 2,
+          "protein": 14,
+          "sodium": 540
+        }
+      ]
+    },
+    {
+      "name": "Cookies & Desserts",
+      "items": [
+        {
+          "name": "Chocolate Chip with M&M Candies Cookie",
+          "serving": "45 g",
+          "calories": 210,
+          "fat": 9,
+          "saturatedFat": 5,
+          "carbs": 29,
+          "fibre": 1,
+          "sugar": 17,
+          "protein": 3,
+          "sodium": 110
+        },
+        {
+          "name": "Chocolate Chunk Cookie",
+          "serving": "45 g",
+          "calories": 210,
+          "fat": 10,
+          "saturatedFat": 5,
+          "carbs": 29,
+          "fibre": 1,
+          "sugar": 17,
+          "protein": 2,
+          "sodium": 100
+        },
+        {
+          "name": "Double Chocolate Cookie",
+          "serving": "45 g",
+          "calories": 210,
+          "fat": 9,
+          "saturatedFat": 5,
+          "carbs": 29,
+          "fibre": 1,
+          "sugar": 20,
+          "protein": 2,
+          "sodium": 125
+        },
+        {
+          "name": "Mini Cookie, Chocolate Chip with M&M Candies Cookie",
+          "serving": "11 g",
+          "calories": 50,
+          "fat": 3,
+          "saturatedFat": 1,
+          "carbs": 7,
+          "fibre": 0,
+          "sugar": 4,
+          "protein": 1,
+          "sodium": 25
+        },
+        {
+          "name": "Mini Cookie, Chocolate Chunk",
+          "serving": "11 g",
+          "calories": 50,
+          "fat": 3,
+          "saturatedFat": 1,
+          "carbs": 7,
+          "fibre": 0,
+          "sugar": 4,
+          "protein": 1,
+          "sodium": 25
+        },
+        {
+          "name": "Mini Cookie, White Chip Macadamia Nut Cookie",
+          "serving": "11 g",
+          "calories": 50,
+          "fat": 3,
+          "saturatedFat": 2,
+          "carbs": 7,
+          "fibre": 0,
+          "sugar": 4,
+          "protein": 1,
+          "sodium": 30
+        },
+        {
+          "name": "Oatmeal Raisin Cookie",
+          "serving": "45 g",
+          "calories": 200,
+          "fat": 8,
+          "saturatedFat": 4,
+          "carbs": 30,
+          "fibre": 1,
+          "sugar": 16,
+          "protein": 3,
+          "sodium": 110
+        },
+        {
+          "name": "White Chip Macadamia Nut Cookie",
+          "serving": "45 g",
+          "calories": 210,
+          "fat": 10,
+          "saturatedFat": 5,
+          "carbs": 28,
+          "fibre": 1,
+          "sugar": 17,
+          "protein": 2,
+          "sodium": 125
+        }
+      ]
+    },
+    {
+      "name": "Sides",
+      "items": [
+        {
+          "name": "Fiesta Beans & Corn Side Salad",
+          "serving": "134 g",
+          "calories": 140,
+          "fat": 5,
+          "saturatedFat": 0,
+          "carbs": 19,
+          "fibre": 6,
+          "sugar": 2,
+          "protein": 6,
+          "sodium": 370
+        },
+        {
+          "name": "Potato Rings (4)",
+          "serving": "92 g",
+          "calories": 150,
+          "fat": 8,
+          "saturatedFat": 1,
+          "carbs": 19,
+          "fibre": 2,
+          "sugar": 1,
+          "protein": 2,
+          "sodium": 390
+        }
+      ]
+    },
+    {
+      "name": "Soup",
+      "items": [
+        {
+          "name": "Beef & Barley",
+          "serving": "100 g",
+          "calories": 50,
+          "fat": 0,
+          "saturatedFat": 0,
+          "carbs": 9,
+          "fibre": 1,
+          "sugar": 1,
+          "protein": 2,
+          "sodium": 330
+        },
+        {
+          "name": "Chicken Noodle",
+          "serving": "227 g",
+          "calories": 80,
+          "fat": 2,
+          "saturatedFat": 0,
+          "carbs": 9,
+          "fibre": 0,
+          "sugar": 0,
+          "protein": 7,
+          "sodium": 1000
+        },
+        {
+          "name": "Cream of Broccoli",
+          "serving": "227 g",
+          "calories": 160,
+          "fat": 5,
+          "saturatedFat": 2,
+          "carbs": 23,
+          "fibre": 0,
+          "sugar": 9,
+          "protein": 5,
+          "sodium": 750
+        },
+        {
+          "name": "Cream of Mushroom",
+          "serving": "243 g",
+          "calories": 150,
+          "fat": 10,
+          "saturatedFat": 5,
+          "carbs": 10,
+          "fibre": 0,
+          "sugar": 5,
+          "protein": 2,
+          "sodium": 870
+        },
+        {
+          "name": "Loaded Baked Potato",
+          "serving": "227 g",
+          "calories": 180,
+          "fat": 6,
+          "saturatedFat": 3,
+          "carbs": 27,
+          "fibre": 2,
+          "sugar": 2,
+          "protein": 7,
+          "sodium": 790
+        }
+      ]
+    }
+  ]
+}
