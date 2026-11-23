@@ -11,11 +11,19 @@
 import { handleFoodRequest } from "./foodRequests.js";
 
 const CANONICAL_HOST = "pocketchomp.com";
+const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.pocketchomp.app";
 
 // Pages that were published and later removed. Keep old links working.
 const RETIRED_PATHS = new Map([
   ["/blog/what-is-free-and-what-is-paid", "/plus"],
 ]);
+
+/** Clean poster/QR campaign tags from /go/<tag> for Play Store install referrers. */
+function parseQrTag(pathname) {
+  const raw = pathname.replace(/^\/go\/?/, "").replace(/\/$/, "").toLowerCase();
+  const safe = raw.replace(/[^a-z0-9_-]/g, "").slice(0, 64);
+  return safe || "qr";
+}
 
 export default {
   async fetch(request, env) {
@@ -23,6 +31,22 @@ export default {
     if (url.hostname === `www.${CANONICAL_HOST}`) {
       url.hostname = CANONICAL_HOST;
       return Response.redirect(url.toString(), 301);
+    }
+    // Catch malformed markdown links like /](https:/pocketchomp.com/) seen in referrers.
+    if (url.pathname.startsWith("/](")) {
+      return Response.redirect(new URL("/", url).toString(), 301);
+    }
+    // Smart QR poster redirect: Android goes straight to Play Store with UTM
+    // install referrer; iPhone and desktop land on the /go waitlist page while
+    // keeping /go/<tag> in the URL so Plausible records which poster was scanned.
+    if (url.pathname === "/go" || url.pathname.startsWith("/go/")) {
+      const ua = request.headers.get("User-Agent") ?? "";
+      if (/android/i.test(ua)) {
+        const tag = parseQrTag(url.pathname);
+        const utm = `utm_source=poster&utm_medium=qr&utm_campaign=${tag}`;
+        return Response.redirect(`${PLAY_STORE_URL}&referrer=${encodeURIComponent(utm)}`, 302);
+      }
+      return env.ASSETS.fetch(new Request(new URL("/go", url), request));
     }
     if (url.pathname === "/api/food-request") {
       return handleFoodRequest(request, env, url);

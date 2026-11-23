@@ -61,13 +61,13 @@ Your data lives on your device. You decide if and when it syncs. You can export 
 
 ### 4. Proudly Canadian (and cross-platform)
 
-Built in Toronto. Priced in CAD. Metric first. Android and iOS from day one — because "iOS exclusive" in 2026 mostly means "we couldn't be bothered with half our potential users."
+Built in Toronto. Priced in CAD. Metric first. Android and iOS from day one — because "iOS exclusive" in 2026 mostly means "we couldn't be bothered with half our potential users." *(Nov 2026 update: eating a slice of humble pie here — as a solo dev, I shipped Android first so I could get it into people's hands sooner. iOS is next.)*
 
 ## Why now, and why me
 
 Two things changed in the last 18 months that made this feasible for a solo dev:
 
-1. **On-device inference got cheap enough** to portion food photos without a subscription-funded GPU farm. Gemini Flash + a well-scoped prompt does 95% of what I need at a cost I can absorb.
+1. **Cloud vision models got cheap enough** to portion food photos without a subscription-funded GPU farm. Gemini Flash + a well-scoped prompt does 95% of what I need at a cost I can absorb.
 2. **Expo + Supabase + SQLite** collapsed the iOS/Android/cloud triangle into something one person can actually maintain. I'm not writing two apps. I'm writing one.
 
 I'm the ideal first user: frustrated enough to build it, patient enough to use it daily while it's rough, opinionated enough to *not* add every feature every beta tester asks for. If you're the kind of person who reads software blogs and nods along, you're probably my second or third user.

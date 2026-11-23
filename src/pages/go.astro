@@ -1,0 +1,72 @@
+---
+import { getEntry } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import SectionShell from "../components/ui/SectionShell.astro";
+import PlayBadge from "../components/ui/PlayBadge.astro";
+import SignupForm from "../components/ui/SignupForm.astro";
+
+/**
+ * Landing page for QR poster scans from non-Android devices (iPhone / desktop).
+ * Android traffic hitting /go/<tag> is redirected straight to Google Play by
+ * worker/index.js with the poster tag attached as an install referrer.
+ */
+const ctaEntry = await getEntry("landingSignupCta", "signup-cta");
+
+if (!ctaEntry) {
+  throw new Error("Could not find PocketChomp signup CTA content");
+}
+
+const { inputPlaceholder, buttonText } = ctaEntry.data;
+---
+
+<BaseLayout
+  title="Get PocketChomp"
+  description="Free Canadian calorie and macro counter. Free barcode scanning, no ads, no account needed."
+>
+  <Fragment slot="head">
+    <meta name="robots" content="noindex" />
+  </Fragment>
+  <Header />
+  <main id="main">
+    <SectionShell innerClass="max-w-2xl space-y-8">
+      <div>
+        <p class="font-heading text-[0.7rem] font-black uppercase tracking-[0.16em] text-muted-foreground">
+          Canadian calorie &amp; macro counter
+        </p>
+        <h1 class="fs-xl mt-4 leading-[1.04] text-foreground">
+          On Android today. iPhone is next.
+        </h1>
+        <p class="mt-4 text-lg leading-relaxed text-foreground-soft">
+          Free barcode scanning, no ads, real Canadian groceries, and your food log stays on your phone.
+          Drop your email and I'll send one note the day the iPhone app ships.
+        </p>
+      </div>
+
+      <div class="go-card space-y-5">
+        <h2 class="fs-s text-foreground">On iPhone? Get one email when iOS drops.</h2>
+        <SignupForm placeholder={inputPlaceholder} buttonText={buttonText} placement="qr-go" />
+        <p class="text-sm text-muted-foreground">
+          Built by one developer in Toronto. Replies come straight to me, Josh. Unsubscribe in one tap.
+        </p>
+      </div>
+
+      <div class="space-y-3">
+        <p class="text-sm font-bold text-foreground-soft">On Android or browsing on desktop?</p>
+        <PlayBadge placement="qr-go" />
+      </div>
+    </SectionShell>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .go-card {
+    border-radius: 1.6rem;
+    border: 1px solid color-mix(in oklab, var(--primary) 30%, var(--border));
+    background: color-mix(in oklab, var(--primary) 9%, var(--surface));
+    box-shadow: var(--shadow-elevated);
+    padding: 2rem 1.75rem;
+  }
+</style>

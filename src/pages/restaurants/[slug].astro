@@ -1,11 +1,13 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { playStoreUrl } from "../../consts";
 import { ogPath } from "../../lib/og-cards";
 import { fillMenu, getLiveRestaurants, getMenu, sectionId, type MenuItem } from "../../lib/restaurants";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import SectionShell from "../../components/ui/SectionShell.astro";
 import AppCta from "../../components/ui/AppCta.astro";
+import Button from "../../components/ui/Button.astro";
 import FaqList from "../../components/ui/FaqList.astro";
 
 export async function getStaticPaths() {
@@ -24,6 +26,7 @@ const faq = entry.data.faq.map((item) => ({ q: fill(item.q), a: fill(item.a) }))
 
 // UTC: a bare 2026-11-10 parses as UTC midnight, which is the 9th in Toronto.
 const checkedLabel = checked.toLocaleDateString("en-CA", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
+const chainPossessive = chain.endsWith("s") ? `${chain}'` : `${chain}'s`;
 
 const num = (value: number | null) => (value === null ? "–" : value.toLocaleString("en-CA"));
 const columns: { key: keyof MenuItem; label: string; unit: string }[] = [
@@ -81,6 +84,22 @@ const schema = {
         </nav>
       </div>
 
+      <aside class="inline-cta" aria-label="Log in PocketChomp">
+        <p class="inline-cta__copy">
+          <strong>Eating at {chain}?</strong> Every item below is already in PocketChomp — free on Android, no ads, no account needed.
+        </p>
+        <Button
+          href={playStoreUrl("restaurant-top", entry.id)}
+          size="md"
+          variant="accent"
+          data-play-link
+          data-placement="restaurant-top"
+          data-content={entry.id}
+        >
+          Get it free →
+        </Button>
+      </aside>
+
       <div class="menu-sections">
         {menu.sections.map((section) => (
           <section class="menu-section" id={sectionId(section.name)} data-menu-section>
@@ -111,8 +130,7 @@ const schema = {
       </div>
 
       <p class="menu-source">
-        {chain} Canada's own numbers, per serving as served. Checked against <a href={sourceUrl} rel="nofollow noopener">{chain}'s site</a> on {checkedLabel}. Menus change, and seasonal items come and go.
-        {entry.data.sourceNote}
+        {chain} Canada's own numbers, per serving as served. Checked against <a href={sourceUrl} rel="nofollow noopener">{chainPossessive} site</a> on {checkedLabel}. Menus change, and seasonal items come and go.{entry.data.sourceNote && ` ${entry.data.sourceNote}`}
       </p>
 
       <div class="cta-panel">
@@ -211,6 +229,30 @@ const schema = {
 
   .menu-jump a:hover {
     border-color: var(--primary);
+    color: var(--foreground);
+  }
+
+  .inline-cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem 1.5rem;
+    padding: 1.1rem 1.35rem;
+    border-radius: var(--radius-card);
+    border: 1px solid color-mix(in oklab, var(--primary) 28%, var(--border));
+    background: color-mix(in oklab, var(--primary) 7%, var(--surface));
+  }
+
+  .inline-cta__copy {
+    margin: 0;
+    max-width: 38rem;
+    font-size: 0.95rem;
+    line-height: 1.45;
+    color: var(--foreground-soft);
+  }
+
+  .inline-cta__copy strong {
     color: var(--foreground);
   }
 

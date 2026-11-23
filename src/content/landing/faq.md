@@ -25,7 +25,7 @@ items:
   - q: Which phones does it run on?
     a: Android, on Google Play. An iOS version is planned. Join the email list and you'll hear when it's ready.
   - q: Does it work outside Canada?
-    a: Yes. USDA foods ship inside the app next to Health Canada's, and barcode lookups fall back to Open Food Facts' worldwide database. Canadian groceries have the deepest coverage; US store brands are thinner. It will be on Google Play in the US too, priced in your local currency.
+    a: Yes. USDA foods ship inside the app next to Health Canada's, and barcode lookups fall back to Open Food Facts' worldwide database. Canadian groceries have the deepest coverage; US store brands are thinner. It is on Google Play in the US too, priced in your local currency.
   - q: What does PocketChomp+ cost?
     a: $6.99 a month, or $39.99 a year with a 14-day free trial. It is optional, and the free tier is a complete logging app rather than a trial of a paid one.
 ---

@@ -82,9 +82,9 @@ export default defineConfig({
   ],
   integrations: [
     mdx(),
-    // /confirmation and /thanks are post-signup pages, disallowed in robots.txt; keep them out.
+    // /confirmation, /thanks, and /go are non-indexable utility pages; keep them out.
     sitemap({
-      filter: (page) => !page.includes("/thanks") && !page.includes("/confirmation"),
+      filter: (page) => !page.includes("/thanks") && !page.includes("/confirmation") && !page.endsWith("/go"),
       serialize(item) {
         const date = lastmod.get(item.url.replace(/\/$/, ""));
         if (date) item.lastmod = date;
