@@ -72,18 +72,6 @@ const schema = {
         <p class="mt-4 max-w-2xl text-lg leading-relaxed text-foreground-soft">{intro}</p>
       </div>
 
-      <div class="menu-tools">
-        <label class="menu-filter">
-          <span class="sr-only">Find an item</span>
-          <input type="search" placeholder="Find an item" autocomplete="off" data-menu-filter />
-        </label>
-        <nav aria-label="Menu sections">
-          <ul class="menu-jump" role="list">
-            {menu.sections.map((s) => <li><a href={`#${sectionId(s.name)}`}>{s.name}</a></li>)}
-          </ul>
-        </nav>
-      </div>
-
       <aside class="inline-cta" aria-label="Log in PocketChomp">
         <p class="inline-cta__copy">
           <strong>Eating at {chain}?</strong> Every item below is already in PocketChomp — free on Android, no ads, no account needed.
@@ -99,6 +87,27 @@ const schema = {
           Get it free →
         </Button>
       </aside>
+
+      <div class="menu-tools">
+        <label class="menu-filter">
+          <span class="sr-only">Find an item</span>
+          <input type="search" placeholder="Find an item" autocomplete="off" data-menu-filter />
+        </label>
+        <div role="group" aria-label="Filter by menu section">
+          <ul class="menu-jump" role="list">
+            <li>
+              <button type="button" class="menu-pill" aria-pressed="true" data-section-all>All</button>
+            </li>
+            {menu.sections.map((s) => (
+              <li>
+                <button type="button" class="menu-pill" aria-pressed="false" data-section-pill={sectionId(s.name)}>
+                  {s.name}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
 
       <div class="menu-sections">
         {menu.sections.map((section) => (
@@ -165,13 +174,28 @@ const schema = {
 
 <script>
   const input = document.querySelector<HTMLInputElement>("[data-menu-filter]");
+  const allBtn = document.querySelector<HTMLButtonElement>("[data-section-all]");
+  const pills = [...document.querySelectorAll<HTMLButtonElement>("[data-section-pill]")];
   const sections = [...document.querySelectorAll<HTMLElement>("[data-menu-section]")];
   const empty = document.querySelector<HTMLElement>("[data-menu-empty]");
+  const selected = new Set<string>();
 
-  input?.addEventListener("input", () => {
-    const words = input.value.toLowerCase().split(/\s+/).filter(Boolean);
+  function applyFilter() {
+    const words = (input?.value ?? "").toLowerCase().split(/\s+/).filter(Boolean);
+    const hasSections = selected.size > 0;
+    if (allBtn) allBtn.setAttribute("aria-pressed", String(!hasSections));
+    for (const pill of pills) {
+      const id = pill.dataset.sectionPill ?? "";
+      pill.setAttribute("aria-pressed", String(selected.has(id)));
+    }
+
     let shown = 0;
     for (const section of sections) {
+      const sectionActive = !hasSections || selected.has(section.id);
+      if (!sectionActive) {
+        section.hidden = true;
+        continue;
+      }
       let inSection = 0;
       for (const row of section.querySelectorAll<HTMLElement>("tbody tr")) {
         const name = row.dataset.name ?? "";
@@ -183,7 +207,24 @@ const schema = {
       shown += inSection;
     }
     if (empty) empty.hidden = shown > 0;
+  }
+
+  allBtn?.addEventListener("click", () => {
+    selected.clear();
+    applyFilter();
   });
+
+  for (const pill of pills) {
+    pill.addEventListener("click", () => {
+      const id = pill.dataset.sectionPill;
+      if (!id) return;
+      if (selected.has(id)) selected.delete(id);
+      else selected.add(id);
+      applyFilter();
+    });
+  }
+
+  input?.addEventListener("input", applyFilter);
 </script>
 
 <style>
@@ -217,19 +258,37 @@ const schema = {
     list-style: none;
   }
 
-  .menu-jump a {
+  .menu-pill {
     display: inline-block;
     padding: 0.35rem 0.85rem;
     border: 1px solid var(--border);
     border-radius: 999px;
     background: var(--surface);
+    font-family: inherit;
     font-size: 0.85rem;
+    font-weight: 600;
     color: var(--foreground-soft);
+    cursor: pointer;
+    transition:
+      background-color 150ms ease-out,
+      border-color 150ms ease-out,
+      color 150ms ease-out;
   }
 
-  .menu-jump a:hover {
+  .menu-pill:hover {
     border-color: var(--primary);
     color: var(--foreground);
+  }
+
+  .menu-pill:focus-visible {
+    outline: 2px solid color-mix(in oklab, var(--primary) 45%, transparent);
+    outline-offset: 2px;
+  }
+
+  .menu-pill[aria-pressed="true"] {
+    border-color: var(--primary);
+    background: var(--primary);
+    color: var(--primary-foreground, var(--background));
   }
 
   .inline-cta {
