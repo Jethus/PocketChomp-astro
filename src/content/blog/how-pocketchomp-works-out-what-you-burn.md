@@ -1,7 +1,7 @@
 ---
 title: "How PocketChomp works out what you actually burn"
-description: "The plain version of Dynamic TDEE: why the setup formula is only a guess, how the app learns from your food and weight, why it moves slowly on purpose, and how I check it against what the scale actually did."
-metaDescription: "How Dynamic TDEE works: why the setup formula is only a guess, how the app learns from your food and weight, and why it moves slowly on purpose."
+description: "The plain version of Adaptive targets: why the setup formula is only a guess, how the app learns from your food and weight, why it moves slowly on purpose, and how I check it against what the scale actually did."
+metaDescription: "How Adaptive targets work: why the setup formula is only a guess, how the app learns from your food and weight, and why it moves slowly on purpose."
 pubDate: "2026-10-19"
 tags: ["Guide", "Devlog"]
 faq:
@@ -15,7 +15,7 @@ faq:
 
 If I answer PocketChomp's setup questions honestly, the formula says I burn 3,210 kcal a day. Going by my actual food and weigh-ins, I burn about 2,197. That's over 1,000 a day of difference. If I'd trusted the formula and aimed for a 500 kcal deficit, I'd be eating about 500 over maintenance and wondering why the scale was going up.
 
-PocketChomp works out what you burn by comparing the food you log with what your weight does, once a week, and working backward. The formula you fill in at setup is only the first guess. After a few weeks your own numbers take over. The feature is called Dynamic TDEE, and this post is the plain version of how it works and how I check it.
+PocketChomp works out what you burn by comparing the food you log with what your weight does, once a week, and working backward. The formula you fill in at setup is only the first guess. After a few weeks your own numbers take over. The feature is called Adaptive targets, and this post is the plain version of how it works and how I check it.
 
 ## The starting guess
 
@@ -104,11 +104,11 @@ Between May and August this year, I averaged 2,298 kcal a day on the days I full
 | :--- | :--- | :--- | :--- |
 | Formula, sedentary | 1.5 kg | 2.33 kg | 0.8 kg |
 | Formula, my profile answers | 12.1 kg | 2.33 kg | 9.7 kg |
-| Dynamic TDEE | 2.1 kg | 2.33 kg | 0.2 kg |
+| Adaptive targets | 2.1 kg | 2.33 kg | 0.2 kg |
 
-In calories, that's about 60 a day off for the sedentary guess, about 765 a day for the one matching my profile, and about 15 a day for Dynamic TDEE.
+In calories, that's about 60 a day off for the sedentary guess, about 765 a day for the one matching my profile, and about 15 a day for Adaptive targets.
 
-Two honest caveats. This is one person, me. And it's not a fair fight, because Dynamic TDEE learned from some of those same weeks while the formula never gets to learn anything. That's sort of the point, but it means this is a sanity check, not proof. It also counts what I logged, not what I ate, so if I under-log a little the estimate quietly absorbs it. For hitting a goal that's what you want: the target that works with how you actually log.
+Two honest caveats. This is one person, me. And it's not a fair fight, because Adaptive targets learned from some of those same weeks while the formula never gets to learn anything. That's sort of the point, but it means this is a sanity check, not proof. It also counts what I logged, not what I ate, so if I under-log a little the estimate quietly absorbs it. For hitting a goal that's what you want: the target that works with how you actually log.
 
 The proper version of this check is the same math across lots of people, month by month. When there are enough people using PocketChomp to do that, I'll do it and post the results, including the parts that don't look good.
 
@@ -124,4 +124,4 @@ And it's an estimate. Bodies aren't calculators. The point isn't to be exact to 
 
 ## Where it lives
 
-Dynamic TDEE is part of PocketChomp+, and the annual plan has a 14-day trial, partly so you can see a couple of check-ins happen before deciding. Logging, scanning, your targets and the full nutrient breakdown are free and stay free. If that sounds useful, the app is [on Google Play](https://play.google.com/store/apps/details?id=com.pocketchomp.app).
+Adaptive targets are part of PocketChomp+, and the annual plan has a 14-day trial, partly so you can see a couple of check-ins happen before deciding. Logging, scanning, your targets and the full nutrient breakdown are free and stay free. If that sounds useful, the app is [on Google Play](https://play.google.com/store/apps/details?id=com.pocketchomp.app).

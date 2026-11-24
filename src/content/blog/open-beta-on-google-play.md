@@ -43,7 +43,7 @@ No ads, in the free tier or the paid one.
 
 ## What's in PocketChomp+
 
-[PocketChomp+](/plus) is the paid tier. It adds Dynamic TDEE, a calorie target that adjusts to your actual weight trend ([how it works](/blog/how-pocketchomp-works-out-what-you-burn)). It also adds photo and voice logging, recipe import from a link, Weekly budget, more than two goals, and favourites that remember your portion. Insights gets ranges past 30 days, any nutrient and where it comes from, the nutrients you're often under, and energy balance.
+[PocketChomp+](/plus) is the paid tier. It adds Adaptive targets, a calorie target that adjusts to your actual weight trend ([how it works](/blog/how-pocketchomp-works-out-what-you-burn)). It also adds photo and voice logging, recipe import from a link, Weekly budget, more than two goals, and favourites that remember your portion. Insights gets ranges past 30 days, any nutrient and where it comes from, the nutrients you're often under, and energy balance.
 
 It's $6.99 a month, or $39.99 a year with a 14-day free trial. You don't need it to track food.
 
