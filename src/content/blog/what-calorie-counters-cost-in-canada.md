@@ -47,7 +47,7 @@ The rest of the differences, feature by feature, are on the [PocketChomp vs MyFi
 
 Cronometer is the fair one in this group. The barcode scanner is free. Custom calorie and macro targets are free. All 84 nutrients it tracks are free. The catch is that the free version has ads and only shows reports for the last 7 days.
 
-Gold is $79.99 a year and removes the ads, unlocks the full history, and adds photo logging, voice logging, URL recipe import and a fasting timer. They're also a Canadian company, out of Revelstoke, BC, which I didn't know until I started this.
+Gold is $79.99 a year and removes the ads, unlocks the full history, and adds photo logging, voice logging, URL recipe import and a fasting timer. They're also a Canadian company, out of Revelstoke, BC, which I didn't know until I started this. For a closer side-by-side on ads, offline use and Canadian groceries, see [PocketChomp vs Cronometer](/vs/cronometer).
 
 ## Lose It
 
@@ -83,6 +83,6 @@ Two of the five charge you over a hundred dollars a year for a feature both of t
 
 Check the prices yourself before you decide anything. App Store, search the app, scroll to In-App Purchases. It takes 30 seconds and it's the only number that counts.
 
-Whichever one you pick, [how to count calories in Canada](/blog/how-to-count-calories-in-canada) is the process I'd follow, and [how to read a Canadian nutrition label](/blog/how-to-read-a-canadian-nutrition-label) covers the label itself.
+Whichever one you pick, [best free calorie counter apps in Canada](/blog/best-free-calorie-counter-canada) compares what each free tier actually includes, [how to count calories in Canada](/blog/how-to-count-calories-in-canada) is the process I'd follow, and [how to read a Canadian nutrition label](/blog/how-to-read-a-canadian-nutrition-label) covers the label itself.
 
 *Prices checked on the Canadian App Store on September 25, 2026 and again on October 28, 2026. Feature lists come from each company's own pricing page or support site on September 25. PocketChomp is not affiliated with any of the apps named here.*

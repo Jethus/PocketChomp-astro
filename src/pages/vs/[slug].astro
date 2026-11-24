@@ -14,11 +14,11 @@ export async function getStaticPaths() {
   const entries = await getCollection("comparisons");
   return entries.map((entry) => ({
     params: { slug: entry.id },
-    props: { entry },
+    props: { entry, others: entries.filter((e) => e.id !== entry.id) },
   }));
 }
 
-const { entry } = Astro.props;
+const { entry, others } = Astro.props;
 const {
   title,
   metaDescription,
@@ -34,6 +34,7 @@ const {
   ctaNote,
 } = entry.data;
 const faq = entry.data.faq.map((item) => ({ ...item, a: fillFoodStats(item.a) }));
+const filledFeatures = features.map((item) => ({ ...item, line: fillFoodStats(item.line) }));
 
 const { Content } = await render(entry);
 
@@ -133,7 +134,7 @@ const schema = {
       </div>
 
       <div class="vs-features">
-        {features.map((feature) => (
+        {filledFeatures.map((feature) => (
           <section class="vs-feature">
             <div>
               <h2 class="fs-l text-foreground">{feature.headline}</h2>
@@ -172,25 +173,39 @@ const schema = {
         <FaqList items={faq} class="mt-5" />
       </div>
 
-      <nav class="tool-links" aria-label="Calculators">
-        <h2 class="fs-s text-foreground">Work out your numbers first</h2>
+      <nav class="tool-links" aria-label="More comparisons and tools">
+        <h2 class="fs-s text-foreground">Compare further & work out your numbers</h2>
         <ul>
+          {others.map((other) => (
+            <li>
+              <a href={`/vs/${other.id}`}>
+                <span class="tool-links__name">{other.data.h1}</span>
+                <span class="tool-links__desc">Side-by-side in Canadian dollars</span>
+              </a>
+            </li>
+          ))}
+          <li>
+            <a href="/blog/what-calorie-counters-cost-in-canada">
+              <span class="tool-links__name">Canadian Calorie Counter Prices</span>
+              <span class="tool-links__desc">5 apps checked on the Canadian App Store</span>
+            </a>
+          </li>
           <li>
             <a href="/tools/tdee-calculator">
-              <span class="tool-links__name">TDEE Calculator</span>
+              <span class="tool-links__name">TDEE & Maintenance Calculator</span>
               <span class="tool-links__desc">How many calories you burn a day</span>
+            </a>
+          </li>
+          <li>
+            <a href="/tools/protein-calculator">
+              <span class="tool-links__name">Protein Calculator</span>
+              <span class="tool-links__desc">Daily protein target in grams</span>
             </a>
           </li>
           <li>
             <a href="/tools/calorie-deficit-calculator">
               <span class="tool-links__name">Calorie Deficit Calculator</span>
               <span class="tool-links__desc">A realistic weight-loss target</span>
-            </a>
-          </li>
-          <li>
-            <a href="/tools/macro-calculator">
-              <span class="tool-links__name">Macro Calculator</span>
-              <span class="tool-links__desc">Protein, carbs and fat targets</span>
             </a>
           </li>
         </ul>

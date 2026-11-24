@@ -4,6 +4,7 @@ import { botAllowed, runRules, staleDates } from "./lib/rules.mjs";
 import { ledgerProblems, priceSigns } from "./links/policy.mjs";
 import { changedUrls } from "./indexnow.mjs";
 import { actionsEmail, channelOf, nearMisses, summarise } from "./measure.mjs";
+import { formatDfsReport } from "./dfs-weekly.mjs";
 
 const SITE = "https://pocketchomp.com";
 const config = { site: SITE, host: "pocketchomp.com", answerBots: ["Googlebot", "OAI-SearchBot"], trainingBots: ["GPTBot"], llmsExempt: [] };
@@ -166,9 +167,37 @@ describe("measure", () => {
 
   it("emails only the to-do", () => {
     const text = actionsEmail("2026-11-23", [["reddit.com", 3]], [{ query: "tims nutrition", page: "/restaurants/tim-hortons", position: 8.2, impressions: 40, clicks: 1 }]);
-    expect(text.split("\n")[0]).toBe("# SEO to-do, 2026-11-23");
+    expect(text.split("\n")[0]).toBe("# PocketChomp Weekly SEO To-Do (2026-11-23)");
     expect(text).toContain('- "tims nutrition" on /restaurants/tim-hortons: position 8.2, 40 impressions, 1 clicks');
     expect(text).toContain("- reddit.com (3 this week)");
     expect(text).not.toContain("Visitors, last 28 days");
+  });
+});
+
+describe("dfs-weekly", () => {
+  it("formats week-over-week deltas and AI Overview status", () => {
+    const prev = {
+      date: "2026-11-17",
+      overview: { count: 51, top10: 0, pos_11_20: 1, pos_21_30: 1, etv: 23.8 },
+      backlinks: { rank: 72, referring_main_domains: 34, backlinks_spam_score: 52 },
+    };
+    const curr = {
+      date: "2026-11-24",
+      cost: 0.095,
+      overview: { count: 64, top10: 3, pos_11_20: 4, pos_21_30: 2, etv: 41.2 },
+      backlinks: { rank: 85, referring_main_domains: 38, backlinks_spam_score: 44 },
+      newReferringDomains: [{ domain: "madeinca.ca", rank: 210, spam: 0, first_seen: "2026-11-22 10:00:00" }],
+      serpChecks: [{ keyword: "myfitnesspal alternative canada", rank: 8, url: "/vs/myfitnesspal", hasAiOverview: true, inAiOverview: true }],
+      strikingDistance: [{ keyword: "canadian nutrient file", rank: 14, sv: 1300, kd: 6, url: "/database" }],
+      aiMentions: { total_count: 2 },
+    };
+    const md = formatDfsReport(curr, prev);
+    expect(md.split("\n")[0]).toBe("# PocketChomp Weekly SEO Report (2026-11-24)");
+    expect(md).toContain("Ranked keywords: **64** (+13)");
+    expect(md).toContain("Top 10: **3** (+3)");
+    expect(md).toContain("Backlinks spam score: **44%** (-8)");
+    expect(md).toContain("| myfitnesspal alternative canada | 8 | YES | /vs/myfitnesspal |");
+    expect(md).toContain("madeinca.ca");
+    expect(md).toContain("Mentions: **2**");
   });
 });

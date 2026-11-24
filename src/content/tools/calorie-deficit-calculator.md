@@ -1,5 +1,5 @@
 ---
-title: Calorie Deficit Calculator — Find a Realistic Target
+title: Calorie Deficit Calculator for Weight Loss
 metaDescription: Free calorie deficit calculator for weight loss or a cut. Get a realistic target range, and how to adjust it when the scale disagrees. No ads, no signup wall.
 eyebrow: How much should you eat to lose weight?
 h1: Calorie Deficit Calculator

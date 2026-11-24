@@ -11,6 +11,7 @@ import AppCta from "../../components/ui/AppCta.astro";
 const TOOL_ORDER = [
   "tdee-calculator",
   "calorie-deficit-calculator",
+  "protein-calculator",
   "macro-calculator",
   "bmr-calculator",
 ];
@@ -18,9 +19,9 @@ const tools = (await getCollection("tools")).sort(
   (a, b) => TOOL_ORDER.indexOf(a.id) - TOOL_ORDER.indexOf(b.id)
 );
 
-const TITLE = "Free calorie, macro and TDEE calculators";
+const TITLE = "Free Calorie, Protein, Macro & TDEE Calculators";
 const META =
-  "Free calculators for maintenance calories, a realistic deficit, macro splits and BMR. Honest ranges, no account, nothing stored.";
+  "Free calculators for maintenance calories (TDEE), calorie deficit, daily protein intake, macro splits and BMR. Honest ranges, no account, nothing stored.";
 
 const canonical = new URL("/tools", Astro.site ?? Astro.url).href;
 const listLd = {
@@ -48,7 +49,10 @@ const listLd = {
         <p class="font-heading text-[0.7rem] font-black uppercase tracking-[0.16em] text-muted-foreground">Free tools</p>
         <h1 class="fs-xl mt-4 leading-[1.02] text-foreground">Work out your numbers.</h1>
         <p class="mt-4 max-w-2xl text-lg leading-relaxed text-foreground-soft">
-          Four calculators, each one honest about how precise a formula can be. Nothing is stored or sent anywhere.
+          Five calculators, each one honest about how precise a formula can be. Every calculation runs in your browser — no account, no email gate, nothing stored.
+        </p>
+        <p class="mt-3 max-w-2xl text-base leading-relaxed text-muted-foreground">
+          Start with your maintenance calories (TDEE) if you aren't sure what you burn in a day, jump straight to a calorie deficit or daily protein target if you already have a goal, or compare five macro splits side by side.
         </p>
       </div>
 

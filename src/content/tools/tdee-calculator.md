@@ -1,9 +1,9 @@
 ---
-title: TDEE Calculator — Estimate Your Maintenance Calories
-metaDescription: Free TDEE calculator with honest ranges, not fake precision. Estimate your maintenance calories, then adjust after two weeks of real tracking.
+title: TDEE & Maintenance Calorie Calculator
+metaDescription: Free TDEE and maintenance calorie calculator with honest ranges, not fake precision. Estimate what you burn daily, then adjust after two weeks of tracking.
 eyebrow: How many calories do you burn a day?
-h1: TDEE Calculator
-intro: TDEE is your total daily energy expenditure — the calories you burn in a normal day. Estimate yours as an honest range, because that's what a formula can actually tell you.
+h1: TDEE & Maintenance Calorie Calculator
+intro: TDEE is your total daily energy expenditure — your maintenance calories in a normal day. Estimate yours as an honest range, because that's what a formula can actually tell you.
 mode: tdee
 faq:
   - q: What is TDEE?

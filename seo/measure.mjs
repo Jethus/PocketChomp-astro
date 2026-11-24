@@ -127,7 +127,7 @@ export function actionsEmail(date, newSites, misses) {
     for (const [site, visitors] of newSites) out.push(`- ${site} (${visitors} this week)`);
     out.push("");
   }
-  return out.length ? [`# SEO to-do, ${date}`, "", ...out].join("\n") : "";
+  return out.length ? [`# PocketChomp Weekly SEO To-Do (${date})`, "", ...out].join("\n") : "";
 }
 
 export function nearMisses(rows) {

@@ -1,5 +1,6 @@
 ---
 title: "What actually leaves your phone when you use PocketChomp"
+metaTitle: "What leaves your phone in PocketChomp"
 description: "I used to say your data never leaves your phone. It wasn't quite true. So the app now keeps a receipt of everything it sends, and you can read it."
 pubDate: "2026-11-11"
 tags: ["Devlog"]

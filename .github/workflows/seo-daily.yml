@@ -78,6 +78,8 @@ jobs:
           PLAUSIBLE_CE: ${{ secrets.PLAUSIBLE_CE }}
           GSC_SERVICE_ACCOUNT: ${{ secrets.GSC_SERVICE_ACCOUNT }}
           GSC_SITE: ${{ vars.GSC_SITE }}
+          DATAFORSEO_LOGIN: ${{ secrets.DATAFORSEO_LOGIN }}
+          DATAFORSEO_PASSWORD: ${{ secrets.DATAFORSEO_PASSWORD }}
           FASTMAIL_SMTP_USER: ${{ secrets.FASTMAIL_SMTP_USER }}
           FASTMAIL_SMTP_PASSWORD: ${{ secrets.FASTMAIL_SMTP_PASSWORD }}
         run: |
@@ -87,6 +89,10 @@ jobs:
           fi
           node seo/measure.mjs --state-dir .seo-private --quiet
           node seo/email-report.mjs .seo-private/actions.md
+          node seo/dfs-weekly.mjs --state-dir .seo-private --quiet
+          if [ -s .seo-private/dfs-report.md ]; then
+            node seo/email-report.mjs .seo-private/dfs-report.md
+          fi
 
       - name: Save state
         if: always()

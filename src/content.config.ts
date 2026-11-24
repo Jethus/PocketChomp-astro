@@ -301,7 +301,7 @@ const tools = defineCollection({
     eyebrow: z.string(),
     h1: z.string(),
     intro: z.string(),
-    mode: z.enum(["tdee", "deficit", "bmr", "macro"]),
+    mode: z.enum(["tdee", "deficit", "bmr", "macro", "protein"]),
     faq: z
       .array(z.object({ q: z.string(), a: z.string() }))
       .min(3),

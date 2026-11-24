@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import {
   calculateBMR,
   calculateTDEE,
+  calculateProteinTarget,
   calculate,
   feetInchesToCm,
   lbsToKg,
@@ -117,5 +118,29 @@ describe("unit conversions", () => {
   });
   it("176.37 lbs ≈ 80 kg", () => {
     expect(lbsToKg(176.37)).toBeCloseTo(80, 2);
+  });
+});
+
+describe("calculateProteinTarget", () => {
+  it("80 kg maintaining with 1-3 workouts = 1.2-1.6 g/kg (96-128 g)", () => {
+    const r = calculateProteinTarget(80, "maintain", 2);
+    expect(r.grams).toEqual({ low: 96, high: 128 });
+    expect(r.rdaFloorG).toBe(64);
+    expect(r.kcal).toEqual({ low: 384, high: 512 });
+    expect(r.perThreeMeals).toEqual({ low: 32, high: 43 });
+    expect(r.perFourMeals).toEqual({ low: 24, high: 32 });
+  });
+
+  it("80 kg cutting with 4-6 workouts = 1.6-2.2 g/kg (128-176 g)", () => {
+    const r = calculateProteinTarget(80, "lose", 5);
+    expect(r.grams).toEqual({ low: 128, high: 176 });
+    expect(r.gPerLb.low).toBeCloseTo(0.73, 2);
+    expect(r.gPerLb.high).toBeCloseTo(1.0, 2);
+  });
+
+  it("65 kg sedentary maintaining stays above Health Canada 0.8 g/kg floor", () => {
+    const r = calculateProteinTarget(65, "maintain", 0);
+    expect(r.rdaFloorG).toBe(52);
+    expect(r.grams.low).toBeGreaterThan(r.rdaFloorG);
   });
 });

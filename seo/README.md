@@ -63,6 +63,7 @@ npm run build          build, then audit (fails on an error)
 npm run seo:audit      audit the last build, report only
 npm run seo:links      check the ledger
 npm run seo:measure    write the report (needs PLAUSIBLE_CE in .env)
+npm run seo:dfs        weekly DataForSEO rank, backlink & AI Overview check (needs DATAFORSEO_LOGIN/PASSWORD; add -- --ai for LLM Mentions)
 npm run seo:email      email the last to-do (needs the Fastmail SMTP pair in .env)
 npm run seo:indexnow -- --dry-run
 npm test

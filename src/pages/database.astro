@@ -3,13 +3,55 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import SectionShell from "../components/ui/SectionShell.astro";
+import FaqList from "../components/ui/FaqList.astro";
 import { canadianFoodsFigure, countedOn, foodStats, foodsFigure, formatCount, type SourceCount } from "../lib/foodStats";
 
 // Every number here comes from src/data/food-database.json (see src/lib/foodStats.ts);
 // every claim about checks traces to the import gate, the one-food-per-barcode
 // trigger, the post-load sweep and the donor fill. Keep it that way.
-const TITLE = "What's in the food database";
-const META = `${foodsFigure}+ foods, ${canadianFoodsFigure}+ from Canadian sources: where PocketChomp's nutrition data comes from, how it is checked, and what is not covered well yet.`;
+const TITLE = "Canadian Food Database & Nutrient File";
+const META = `${foodsFigure}+ foods, ${canadianFoodsFigure}+ Canadian: Health Canada's Canadian Nutrient File, Canadian grocery brands, restaurant menus, and how entries are checked.`;
+
+const faq = [
+  {
+    q: "What is Health Canada's Canadian Nutrient File (CNF)?",
+    a: "The Canadian Nutrient File is Health Canada's official reference database of average nutrient values for foods sold in Canada, including Canadian fortification rules for milk, flour and cereals. PocketChomp ships a copy of the CNF inside the app so generic foods work offline.",
+  },
+  {
+    q: "How is the Canadian Nutrient File different from the USDA database?",
+    a: "Both cover generic whole foods, but the CNF reflects Canadian fortification, cuts of meat and retail staples, and uses Canadian spelling like fibre. PocketChomp includes both, prioritizing Health Canada CNF entries alongside Canadian grocery labels.",
+  },
+  {
+    q: "Are Canadian store brands like President's Choice and No Name included?",
+    a: "Yes. PocketChomp includes Canadian grocery products and house brands from major Canadian retailers, taken from each store's published Nutrition Facts table, with barcode lookups falling back to Open Food Facts when a product isn't listed yet.",
+  },
+];
+
+const canonical = new URL("/database", Astro.site ?? Astro.url).href;
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Dataset",
+      "@id": `${canonical}#dataset`,
+      name: "PocketChomp Canadian Food & Nutrition Database",
+      url: canonical,
+      description: META,
+      spatialCoverage: "Canada",
+      dateModified: foodStats.countedAt,
+      isAccessibleForFree: true,
+    },
+    {
+      "@type": "FAQPage",
+      "@id": `${canonical}#faq`,
+      mainEntity: faq.map((item) => ({
+        "@type": "Question",
+        name: item.q,
+        acceptedAnswer: { "@type": "Answer", text: item.a },
+      })),
+    },
+  ],
+};
 
 const { groups } = foodStats;
 const label = (name: string) =>
@@ -98,6 +140,11 @@ const countOf = (name: string) => groups.grocery.sources.find((s) => s.name === 
         ))
       }
 
+      <h2 class="fs-m mt-14 text-foreground">What is Health Canada's Canadian Nutrient File?</h2>
+      <p class="mt-4 leading-relaxed text-foreground-soft">
+        Health Canada's Canadian Nutrient File (CNF) is Canada's official food composition reference — the Canadian counterpart to the USDA's food tables. It reflects Canadian fortification rules (such as vitamin D in milk and folic acid in flour), local produce and meat cuts, and full micronutrient profiles beyond what appears on a packaged Nutrition Facts table. PocketChomp bundles the CNF and USDA reference tables right inside the app so generic food search works offline, then layers Canadian store-brand labels and <a class="underline text-primary font-semibold" href="/restaurants">Canadian restaurant menus</a> on top.
+      </p>
+
       <h2 class="fs-m mt-14 text-foreground">How entries are checked</h2>
       <ul class="db-list mt-5" role="list">
         <li>Nutrition is stored per 100 g, scaled from the source's own figures.</li>
@@ -157,9 +204,15 @@ const countOf = (name: string) => groups.grocery.sources.find((s) => s.name === 
         <p class="request-status mt-3" role="status" aria-live="polite" data-request-status></p>
         <p class="mt-3 text-sm text-muted-foreground">Only what you type is kept. No name, email or IP address.</p>
       </section>
+
+      <section class="mt-14">
+        <h2 class="fs-m text-foreground">Frequently asked questions</h2>
+        <FaqList items={faq} class="mt-5" />
+      </section>
     </SectionShell>
   </main>
   <Footer />
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
 </BaseLayout>
 
 <script>

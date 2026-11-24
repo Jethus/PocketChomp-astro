@@ -1,6 +1,6 @@
 ---
 interface Props {
-  mode: "tdee" | "deficit" | "bmr" | "macro";
+  mode: "tdee" | "deficit" | "bmr" | "macro" | "protein";
 }
 
 const { mode } = Astro.props;
@@ -11,6 +11,7 @@ const isBmr = mode === "bmr";
 const isMacro = mode === "macro";
 const isTdee = mode === "tdee";
 const isDeficit = mode === "deficit";
+const isProtein = mode === "protein";
 
 // Shared vocabulary with the app's DIET_STYLE_OPTIONS.
 const splitOptions = [
@@ -61,37 +62,45 @@ const defaultGoal = mode === "deficit" || mode === "macro" ? "lose" : "maintain"
     <fieldset class="calc__field">
       <legend class="calc__label">Units</legend>
       <div class="calc__segmented" role="group">
-        <label><input type="radio" name="units" value="imperial" checked /> lbs / ft</label>
-        <label><input type="radio" name="units" value="metric" /> kg / cm</label>
+        <label><input type="radio" name="units" value="imperial" checked /> {isProtein ? "lbs" : "lbs / ft"}</label>
+        <label><input type="radio" name="units" value="metric" /> {isProtein ? "kg" : "kg / cm"}</label>
       </div>
     </fieldset>
 
-    <fieldset class="calc__field">
-      <legend class="calc__label">Sex</legend>
-      <div class="calc__segmented" role="group">
-        <label><input type="radio" name="sex" value="female" checked /> Female</label>
-        <label><input type="radio" name="sex" value="male" /> Male</label>
-      </div>
-    </fieldset>
+    {!isProtein && (
+      <fieldset class="calc__field">
+        <legend class="calc__label">Sex</legend>
+        <div class="calc__segmented" role="group">
+          <label><input type="radio" name="sex" value="female" checked /> Female</label>
+          <label><input type="radio" name="sex" value="male" /> Male</label>
+        </div>
+      </fieldset>
+    )}
 
-    <div class="calc__field">
-      <label class="calc__label" for="calc-age">Age</label>
-      <input id="calc-age" name="age" type="number" inputmode="numeric" min="16" max="100" placeholder="30" />
-    </div>
-
-    <div class="calc__field" data-imperial>
-      <label class="calc__label" for="calc-ft">Height</label>
-      <div class="calc__pair">
-        <input id="calc-ft" name="heightFt" type="number" inputmode="numeric" min="3" max="7" placeholder="5" aria-label="feet" />
-        <span>ft</span>
-        <input name="heightIn" type="number" inputmode="numeric" min="0" max="11" placeholder="10" aria-label="inches" />
-        <span>in</span>
+    {!isProtein && (
+      <div class="calc__field">
+        <label class="calc__label" for="calc-age">Age</label>
+        <input id="calc-age" name="age" type="number" inputmode="numeric" min="16" max="100" placeholder="30" />
       </div>
-    </div>
-    <div class="calc__field" data-metric hidden>
-      <label class="calc__label" for="calc-cm">Height (cm)</label>
-      <input id="calc-cm" name="heightCm" type="number" inputmode="numeric" min="100" max="230" placeholder="178" />
-    </div>
+    )}
+
+    {!isProtein && (
+      <div class="calc__field" data-imperial>
+        <label class="calc__label" for="calc-ft">Height</label>
+        <div class="calc__pair">
+          <input id="calc-ft" name="heightFt" type="number" inputmode="numeric" min="3" max="7" placeholder="5" aria-label="feet" />
+          <span>ft</span>
+          <input name="heightIn" type="number" inputmode="numeric" min="0" max="11" placeholder="10" aria-label="inches" />
+          <span>in</span>
+        </div>
+      </div>
+    )}
+    {!isProtein && (
+      <div class="calc__field" data-metric hidden>
+        <label class="calc__label" for="calc-cm">Height (cm)</label>
+        <input id="calc-cm" name="heightCm" type="number" inputmode="numeric" min="100" max="230" placeholder="178" />
+      </div>
+    )}
 
     <div class="calc__field" data-imperial>
       <label class="calc__label" for="calc-lbs">Weight (lbs)</label>
@@ -102,14 +111,16 @@ const defaultGoal = mode === "deficit" || mode === "macro" ? "lose" : "maintain"
       <input id="calc-kg" name="weightKg" type="number" inputmode="decimal" min="35" max="320" placeholder="80" />
     </div>
 
-    <div class="calc__field" hidden={isBmr}>
-      <label class="calc__label" for="calc-activity">Activity</label>
-      <select id="calc-activity" name="activity">
-        {activityOptions.map((o) => (
-          <option value={o.value} selected={o.value === "moderate"}>{o.label}</option>
-        ))}
-      </select>
-    </div>
+    {!isProtein && (
+      <div class="calc__field" hidden={isBmr}>
+        <label class="calc__label" for="calc-activity">Activity</label>
+        <select id="calc-activity" name="activity">
+          {activityOptions.map((o) => (
+            <option value={o.value} selected={o.value === "moderate"}>{o.label}</option>
+          ))}
+        </select>
+      </div>
+    )}
 
     <div class="calc__field" hidden={isBmr}>
       <label class="calc__label" for="calc-exercise">Exercise</label>
@@ -129,7 +140,7 @@ const defaultGoal = mode === "deficit" || mode === "macro" ? "lose" : "maintain"
       </select>
     </div>
 
-    <div class="calc__field" data-pace-row hidden={isBmr || defaultGoal === "maintain"}>
+    <div class="calc__field" data-pace-row hidden={isBmr || isProtein || defaultGoal === "maintain"}>
       <label class="calc__label" for="calc-pace">Pace</label>
       <select id="calc-pace" name="pace">
         {paceOptions.map((o) => (
@@ -177,7 +188,7 @@ const defaultGoal = mode === "deficit" || mode === "macro" ? "lose" : "maintain"
       <p class="calc__example" data-example hidden>Example for the grey values. Enter yours to update.</p>
       <p class="calc__summary-label" data-out="target-label">Your daily target</p>
       <p class="calc__summary-value"><span data-out="target">—</span></p>
-      <p class="calc__summary-unit">kcal/day</p>
+      <p class="calc__summary-unit" data-out="unit">{isProtein ? "g/day" : "kcal/day"}</p>
       <p class="calc__delta" data-delta><span data-out="delta">—</span></p>
 
       {isTdee && (
@@ -236,24 +247,45 @@ const defaultGoal = mode === "deficit" || mode === "macro" ? "lose" : "maintain"
         </ul>
       )}
 
-      <dl class="calc__rows">
-        <div class="calc__row-line" data-row="maintenance">
-          <dt>Maintenance (TDEE)</dt>
-          <dd><span data-out="maintenance">—</span> kcal</dd>
-        </div>
-        <div class="calc__row-line" data-row="protein" hidden={isMacro}>
-          <dt>Protein</dt>
-          <dd><span data-out="protein">—</span> g</dd>
-        </div>
-        <div class="calc__row-line" data-row="macro-split" hidden={isMacro}>
-          <dt>Split P&hairsp;/&hairsp;C&hairsp;/&hairsp;F</dt>
-          <dd><span data-out="macro-split">—</span></dd>
-        </div>
-        <div class="calc__row-line" data-row="bmr">
-          <dt>BMR</dt>
-          <dd><span data-out="bmr">—</span> kcal</dd>
-        </div>
-      </dl>
+      {isProtein ? (
+        <dl class="calc__rows">
+          <div class="calc__row-line">
+            <dt>Per meal (3 meals)</dt>
+            <dd><span data-out="p-3meals">—</span> g</dd>
+          </div>
+          <div class="calc__row-line">
+            <dt>Per meal (4 meals)</dt>
+            <dd><span data-out="p-4meals">—</span> g</dd>
+          </div>
+          <div class="calc__row-line">
+            <dt>Health Canada RDA floor</dt>
+            <dd><span data-out="p-rda">—</span> g</dd>
+          </div>
+          <div class="calc__row-line">
+            <dt>Calories from protein</dt>
+            <dd><span data-out="p-kcal">—</span> kcal</dd>
+          </div>
+        </dl>
+      ) : (
+        <dl class="calc__rows">
+          <div class="calc__row-line" data-row="maintenance">
+            <dt>Maintenance (TDEE)</dt>
+            <dd><span data-out="maintenance">—</span> kcal</dd>
+          </div>
+          <div class="calc__row-line" data-row="protein" hidden={isMacro}>
+            <dt>Protein</dt>
+            <dd><span data-out="protein">—</span> g</dd>
+          </div>
+          <div class="calc__row-line" data-row="macro-split" hidden={isMacro}>
+            <dt>Split P&hairsp;/&hairsp;C&hairsp;/&hairsp;F</dt>
+            <dd><span data-out="macro-split">—</span></dd>
+          </div>
+          <div class="calc__row-line" data-row="bmr">
+            <dt>BMR</dt>
+            <dd><span data-out="bmr">—</span> kcal</dd>
+          </div>
+        </dl>
+      )}
 
       <p class="calc__warning" data-warning hidden>
         That pace puts your target below a safe floor for your stats. Pick a
@@ -268,6 +300,7 @@ const defaultGoal = mode === "deficit" || mode === "macro" ? "lose" : "maintain"
 <script>
   import {
     calculate,
+    calculateProteinTarget,
     feetInchesToCm,
     lbsToKg,
     projectGoalDate,
@@ -284,6 +317,7 @@ const defaultGoal = mode === "deficit" || mode === "macro" ? "lose" : "maintain"
     const isMacro = mode === "macro";
     const isTdee = mode === "tdee";
     const isDeficit = mode === "deficit";
+    const isProtein = mode === "protein";
     const form = root.querySelector<HTMLFormElement>("[data-calc-form]")!;
     const out = (name: string) =>
       root.querySelector<HTMLElement>(`[data-out="${name}"]`)!;
@@ -292,7 +326,7 @@ const defaultGoal = mode === "deficit" || mode === "macro" ? "lose" : "maintain"
     const warningEl = root.querySelector<HTMLElement>("[data-warning]")!;
     const deltaEl = root.querySelector<HTMLElement>("[data-delta]")!;
     const summaryEl = root.querySelector<HTMLElement>("[data-results]")!;
-    const maintenanceRow = root.querySelector<HTMLElement>('[data-row="maintenance"]')!;
+    const maintenanceRow = root.querySelector<HTMLElement>('[data-row="maintenance"]');
     const paceRow = root.querySelector<HTMLElement>("[data-pace-row]")!;
     const timelineEl = root.querySelector<HTMLElement>("[data-timeline]");
     const exampleEl = root.querySelector<HTMLElement>("[data-example]")!;
@@ -323,17 +357,47 @@ const defaultGoal = mode === "deficit" || mode === "macro" ? "lose" : "maintain"
       // BMR ignores goal entirely; treat it as maintenance so the shared engine
       // call stays on one path and no deficit is ever applied to a resting figure.
       const goal = (isBmr ? "maintain" : val("goal")) as Goal;
-      paceRow.hidden = isBmr || goal === "maintain";
+      paceRow.hidden = isBmr || isProtein || goal === "maintain";
 
-      const personal = metric ? ["age", "heightCm", "weightKg"] : ["age", "heightFt", "heightIn", "weightLbs"];
-      example = personal.every((n) => !(form.elements.namedItem(n) as HTMLInputElement).value);
+      const personal = isProtein
+        ? [metric ? "weightKg" : "weightLbs"]
+        : metric
+          ? ["age", "heightCm", "weightKg"]
+          : ["age", "heightFt", "heightIn", "weightLbs"];
+      example = personal.every((n) => !(form.elements.namedItem(n) as HTMLInputElement)?.value);
       exampleEl.hidden = !example;
+
+      const weightKg = metric ? num("weightKg") : lbsToKg(num("weightLbs"));
+
+      if (isProtein) {
+        const valid = weightKg >= 35 && weightKg <= 320;
+        placeholderEl.hidden = valid;
+        summaryEl.classList.toggle("calc__summary--live", valid);
+        if (!valid) {
+          numbersEl.hidden = true;
+          return;
+        }
+        const exerciseEl = form.elements.namedItem("exercise") as HTMLSelectElement | null;
+        const activeDaysPerWeek = exerciseEl ? parseFloat(exerciseEl.value) : 0;
+        const p = calculateProteinTarget(weightKg, goal, activeDaysPerWeek);
+        out("target-label").textContent = "Daily protein target";
+        out("target").textContent = fmt(p.grams);
+        out("delta").textContent = `${p.gPerKg.low}–${p.gPerKg.high} g/kg (${p.gPerLb.low}–${p.gPerLb.high} g/lb)`;
+        deltaEl.classList.remove("calc__delta--neutral");
+        deltaEl.hidden = false;
+        out("p-3meals").textContent = fmt(p.perThreeMeals);
+        out("p-4meals").textContent = fmt(p.perFourMeals);
+        out("p-rda").textContent = `${p.rdaFloorG.toLocaleString()} (0.8 g/kg)`;
+        out("p-kcal").textContent = fmt(p.kcal);
+        warningEl.hidden = true;
+        numbersEl.hidden = false;
+        return;
+      }
 
       const age = num("age");
       const heightCm = metric
         ? num("heightCm")
         : feetInchesToCm(num("heightFt"), num("heightIn") || 0);
-      const weightKg = metric ? num("weightKg") : lbsToKg(num("weightLbs"));
 
       const valid =
         age >= 16 && age <= 100 && heightCm >= 100 && heightCm <= 230 &&
@@ -370,7 +434,7 @@ const defaultGoal = mode === "deficit" || mode === "macro" ? "lose" : "maintain"
         out("target-label").textContent = "Your BMR";
         out("target").textContent = result.bmr.toLocaleString();
         deltaEl.hidden = true;
-        maintenanceRow.hidden = true;
+        if (maintenanceRow) maintenanceRow.hidden = true;
         root.querySelector<HTMLElement>('[data-row="protein"]')!.hidden = true;
         root.querySelector<HTMLElement>('[data-row="macro-split"]')!.hidden = true;
         root.querySelector<HTMLElement>('[data-row="bmr"]')!.hidden = true;
@@ -400,7 +464,7 @@ const defaultGoal = mode === "deficit" || mode === "macro" ? "lose" : "maintain"
           : `+${adj.toLocaleString()} kcal/day surplus`;
       deltaEl.hidden = aggressive;
 
-      maintenanceRow.hidden = !showTarget;
+      if (maintenanceRow) maintenanceRow.hidden = !showTarget;
       out("maintenance").textContent = fmt(result.maintenance);
       out("bmr").textContent = result.bmr.toLocaleString();
 

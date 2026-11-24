@@ -15,6 +15,16 @@ groups:
         href: /blog
       - label: Support
         href: /support
+  - heading: Compare
+    links:
+      - label: vs MyFitnessPal
+        href: /vs/myfitnesspal
+      - label: vs Cronometer
+        href: /vs/cronometer
+      - label: Best free apps in Canada
+        href: /blog/best-free-calorie-counter-canada
+      - label: Canadian app prices
+        href: /blog/what-calorie-counters-cost-in-canada
   - heading: Legal
     links:
       - label: Privacy Policy

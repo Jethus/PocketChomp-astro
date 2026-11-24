@@ -8,6 +8,7 @@
     "seo:audit": "node seo/audit.mjs --no-fail",
     "seo:links": "node seo/links/check.mjs",
     "seo:measure": "node seo/measure.mjs",
+    "seo:dfs": "node seo/dfs-weekly.mjs",
     "seo:indexnow": "node seo/indexnow.mjs",
     "preview": "astro preview",
     "astro": "astro",

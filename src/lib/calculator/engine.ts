@@ -268,6 +268,71 @@ export function calculateTDEE(
   return Math.round(bmr * calculateActivityMultiplier(activity, activeDaysPerWeek));
 }
 
+export interface ProteinTargetResult {
+  grams: Range;
+  gPerKg: Range;
+  gPerLb: Range;
+  rdaFloorG: number;
+  kcal: Range;
+  perThreeMeals: Range;
+  perFourMeals: Range;
+}
+
+/**
+ * Evidence-based daily protein intake range by body weight, goal, and training
+ * frequency. Anchored to Health Canada DRI (0.80 g/kg RDA floor), Dietitians of
+ * Canada / AND / ACSM (1.2-2.0 g/kg for active adults), and ISSN (1.4-2.0 g/kg,
+ * up to 2.2 g/kg during short-term fat loss in resistance-trained adults).
+ */
+export function calculateProteinTarget(
+  weightKg: number,
+  goal: Goal,
+  activeDaysPerWeek: number | null | undefined,
+): ProteinTargetResult {
+  const band = sessionsToExerciseBand(activeDaysPerWeek);
+  const factors: Record<ExerciseFrequencyBand, Record<Goal, Range>> = {
+    none: {
+      maintain: { low: 1.0, high: 1.2 },
+      lose: { low: 1.2, high: 1.6 },
+      gain: { low: 1.2, high: 1.6 },
+    },
+    low: {
+      maintain: { low: 1.2, high: 1.6 },
+      lose: { low: 1.6, high: 2.0 },
+      gain: { low: 1.4, high: 1.8 },
+    },
+    moderate: {
+      maintain: { low: 1.4, high: 1.8 },
+      lose: { low: 1.6, high: 2.2 },
+      gain: { low: 1.6, high: 2.0 },
+    },
+    high: {
+      maintain: { low: 1.6, high: 2.0 },
+      lose: { low: 1.8, high: 2.2 },
+      gain: { low: 1.6, high: 2.2 },
+    },
+  };
+
+  const gPerKg = factors[band][goal];
+  const grams: Range = {
+    low: Math.round(weightKg * gPerKg.low),
+    high: Math.round(weightKg * gPerKg.high),
+  };
+  const round2 = (n: number) => Math.round(n * 100) / 100;
+  return {
+    grams,
+    gPerKg,
+    gPerLb: {
+      low: round2(gPerKg.low / LBS_PER_KG),
+      high: round2(gPerKg.high / LBS_PER_KG),
+    },
+    rdaFloorG: Math.round(weightKg * 0.8),
+    kcal: { low: grams.low * 4, high: grams.high * 4 },
+    perThreeMeals: { low: Math.round(grams.low / 3), high: Math.round(grams.high / 3) },
+    perFourMeals: { low: Math.round(grams.low / 4), high: Math.round(grams.high / 4) },
+  };
+}
+
 export function calculate(input: CalculatorInput): CalculatorResult {
   const bmr = calculateBMR(
     input.weightKg,
