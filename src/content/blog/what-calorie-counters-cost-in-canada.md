@@ -1,9 +1,9 @@
 ---
 title: "What the calorie counters cost in Canada"
 description: "Every pricing article I could find was in US dollars and half of them were out of date. So I checked the Canadian prices for MyFitnessPal, Cronometer, Lose It, MacroFactor and PocketChomp myself, and wrote down what the free version of each one actually lets you do."
-metaDescription: "MyFitnessPal, Cronometer, Lose It and MacroFactor prices in Canadian dollars, checked on the Canadian App Store, and what each free version lets you do."
+metaDescription: "MyFitnessPal, Cronometer, Lose It, MacroFactor and BitePal prices in Canadian dollars, checked on the Canadian App Store, and what each free version does."
 pubDate: "2026-09-25"
-updatedDate: "2026-10-28"
+updatedDate: "2026-11-27"
 tags: ["Guide"]
 faq:
   - q: "How much is MyFitnessPal Premium in Canada?"
@@ -16,6 +16,8 @@ faq:
     a: "There is a free version with ads. It covers a calorie budget, manual food search, basic macros and weight logging. Premium is CA$109.99 a year, billed annually only, and that is where the barcode scanner, photo logging, macros in grams and the ad-free diary live for most new accounts."
   - q: "Does MacroFactor have a free version?"
     a: "No, and the developers say it never will. You get a 7-day trial, then it is CA$15.49 a month, CA$59.99 for six months or CA$90.99 a year on the Canadian App Store."
+  - q: "How much does BitePal cost in Canada?"
+    a: "It depends where you look. On 27 November 2026 the Canadian App Store listed a CA$4.99 weekly plan and annual plans from CA$24.99 to CA$79.99. On Android on 16 November 2026 the paywall offered CA$48.99 for the first year or CA$7.99 a week, then a countdown offer of CA$33.99 for the first year and CA$80.99 a year after. The app is free to download and the paywall can be skipped."
 ---
 
 I went looking for a plain list of what the calorie counting apps cost in Canadian dollars and couldn't find one. Every article was in USD. Half of them quoted prices from two years ago. None of them said which features you lose on the free tier, which is the part that actually matters when you're deciding whether to pay.
@@ -61,6 +63,12 @@ MacroFactor doesn't pretend. There's no free version, the developers have said t
 
 I respect that more than a free tier that's really a demo. If you're going to pay for a tracker and you want the adaptive coaching it's known for, the price is at least the whole price. It's the most expensive annual plan on the list that isn't MyFitnessPal.
 
+## BitePal
+
+BitePal is the photo-first one with the raccoon. It's free to download, and what it charges depends on which screen you're looking at. The Canadian App Store lists a $4.99 weekly plan and annual plans anywhere from $24.99 to $79.99. When I opened the Android app on November 16, the paywall offered $48.99 for the first year, marked down from $97.99, or $7.99 a week. Closing it brought up a countdown offer: $33.99 for the first year, then $80.99 a year after that.
+
+You can skip the paywall, but then you have to sign in with Google to go any further. I couldn't find anywhere BitePal says which features are free and which are paid, so it isn't in the tables.
+
 ## PocketChomp
 
 Free gets you unlimited barcode scanning, nutrition label scanning, the Canadian food database, custom foods and recipes, every nutrient, your own targets, sync, no ads and no account. The full free and paid split is on the [Plus page](/plus).
@@ -85,4 +93,4 @@ Check the prices yourself before you decide anything. App Store, search the app,
 
 Whichever one you pick, [best free calorie counter apps in Canada](/blog/best-free-calorie-counter-canada) compares what each free tier actually includes, [how to count calories in Canada](/blog/how-to-count-calories-in-canada) is the process I'd follow, and [how to read a Canadian nutrition label](/blog/how-to-read-a-canadian-nutrition-label) covers the label itself.
 
-*Prices checked on the Canadian App Store on September 25, 2026 and again on October 28, 2026. Feature lists come from each company's own pricing page or support site on September 25. PocketChomp is not affiliated with any of the apps named here.*
+*Prices checked on the Canadian App Store on September 25, 2026 and again on October 28, 2026. BitePal was added on November 27, 2026, from the Canadian App Store that day and its Android app on November 16. Feature lists come from each company's own pricing page or support site on September 25. PocketChomp is not affiliated with any of the apps named here.*
