@@ -232,7 +232,9 @@ const LAST_UPDATED = "November 27, 2026";
     <p>
       While usage analytics are on, the same anonymous per-install id is also shared with our
       billing provider, RevenueCat, so a purchase can be matched to its analytics record.
-      Turning analytics off removes it from RevenueCat.
+      Turning analytics off removes that match. If you use the app as a guest, this random id is
+      also how RevenueCat knows your phone, so it stays there; with analytics off, there is no
+      analytics record for it to be matched to.
     </p>
     <p>
       The website sets no cookies. It counts visits with two cookieless tools: <a href="https://plausible.io/data-policy" rel="noopener">Plausible Analytics</a>,
@@ -260,7 +262,8 @@ const LAST_UPDATED = "November 27, 2026";
     </p>
     <p>
       Each time the app opens, it asks RevenueCat whether this phone has PocketChomp+. If you
-      have never signed in, RevenueCat knows the phone only by a random id it creates itself.
+      have never signed in, RevenueCat knows the phone only by the random per-install id the app
+      creates, described under Analytics above.
     </p>
   </section>
 
