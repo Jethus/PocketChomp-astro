@@ -1,11 +1,15 @@
 ---
-title: "Macro Calculator — Protein, Carb and Fat Targets"
-metaDescription: "Free macro calculator with five splits: balanced, high protein, lower carb, low fat and keto. Protein, carb and fat targets in grams for your goal. No signup."
+title: "Macro Calculator for Weight Loss and Cutting"
+metaDescription: "Free macro calculator for weight loss, maintenance or gaining. Protein, carb and fat targets in grams, with five splits from balanced to keto. No signup."
 eyebrow: "How should your calories be divided?"
-h1: "Macro Calculator"
+h1: "Macro Calculator for Weight Loss"
 intro: "Calories decide whether your weight moves. Macros decide how you feel, train and hold on to muscle while it happens. Set your targets in grams, with the reasoning shown."
 mode: macro
 faq:
+  - q: "What should my macros be to lose weight?"
+    a: "Start from a calorie deficit, then set protein at 1.2–1.6 g per kg of bodyweight (1.6–2.0 if you lift), fat at roughly a quarter to a third of calories, and let carbs take the rest. That is what this calculator does on its default Lose weight goal, at 0.5 kg a week. In a deficit, hitting protein matters far more than the carb-to-fat ratio."
+  - q: "Can I use this as a recomp calculator?"
+    a: "Yes. Set the goal to Maintain and pick the High protein split. Body recomposition means losing fat and gaining muscle at roughly the same weight, which comes from eating around maintenance, keeping protein high and training with weights. It is slower than a cut or a bulk, and works best if you are new to lifting."
   - q: "What are macros?"
     a: "Macronutrients — protein, carbohydrate and fat, the three things in food that carry energy. Protein and carbs supply 4 kcal per gram, fat 9. Your calorie total is just the sum of the three, which is why the split is a division of a fixed budget rather than an independent set of goals."
   - q: "What's the best macro split?"
@@ -33,6 +37,17 @@ related:
   label: "Not sure of your calorie total yet? Start with the TDEE calculator"
   href: "/tools/tdee-calculator"
 ---
+
+## Macros for weight loss or a cut
+
+The calculator starts on **Lose weight** at 0.5 kg (about 1 lb) a week, since that is what most
+people opening a macro calculator want. Three things change in a deficit:
+
+- **Protein stays the same in grams** while calories drop, so it becomes a bigger share of the
+  day. That is what holds on to muscle while you lose fat.
+- **Carbs and fat shrink** with the budget. The split you pick decides which shrinks more.
+- **If you lift, pick High protein.** It has the strongest evidence of the five for keeping lean
+  mass in a deficit.
 
 ## How this calculator works
 
